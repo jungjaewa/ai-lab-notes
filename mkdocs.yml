@@ -59,4 +59,9 @@ nav:
     - eye-pipeline/index.md
     - 아바타 애니메이션 리서치: eye-pipeline/research.md
     - R&D 과정 로그: eye-pipeline/rnd-log.md
+  - Teamplay_Gantt:
+    - teamplay_gantt/index.md
+    - Skills Guide: teamplay_gantt/SKILLS_GUIDE.md
+    - Claude: teamplay_gantt/CLAUDE.md
+    - Plan: teamplay_gantt/PLAN.md
   - 태그: tags.md
