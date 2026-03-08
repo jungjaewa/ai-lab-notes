@@ -660,18 +660,32 @@ class UploadPanel(QWidget):
         layout.addWidget(card, 1)
         layout.addSpacing(12)
 
-        # Upload button
+        # Button row
+        btn_row = QHBoxLayout()
+        btn_row.setSpacing(8)
+
         self.upload_btn = QPushButton("Upload")
         self.upload_btn.setObjectName("upload")
         self.upload_btn.setEnabled(False)
         self.upload_btn.clicked.connect(self._upload)
-        layout.addWidget(self.upload_btn)
+        btn_row.addWidget(self.upload_btn, 1)
+
+        reset_btn = QPushButton("Reset")
+        reset_btn.setObjectName("browse")
+        reset_btn.clicked.connect(self._reset)
+        btn_row.addWidget(reset_btn)
+
+        layout.addLayout(btn_row)
         layout.addSpacing(8)
 
         # Status
         self.status_label = QLabel("Ready")
         self.status_label.setObjectName("status")
         layout.addWidget(self.status_label)
+
+    def set_project_name(self, name):
+        self.name_edit.setText(name)
+        self.name_edit.setFocus()
 
     @staticmethod
     def _paste_on_double_click(line_edit, event):
@@ -698,6 +712,24 @@ class UploadPanel(QWidget):
 
     def _on_name_double_click(self, event):
         self._paste_on_double_click(self.name_edit, event)
+
+    def _reset(self):
+        self.path_edit.clear()
+        self.name_edit.clear()
+        self.md_files.clear()
+        self.checkboxes.clear()
+        while self.file_list_layout.count():
+            item = self.file_list_layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+        placeholder = QLabel("Select a path to scan for .md files")
+        placeholder.setObjectName("placeholder")
+        placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.file_list_layout.addWidget(placeholder)
+        self.upload_btn.setEnabled(False)
+        self.upload_btn.setText("Upload")
+        self.dup_label.setVisible(False)
+        self.status_label.setText("Ready")
 
     def _on_path_entered(self):
         raw = self.path_edit.text()
@@ -823,6 +855,7 @@ class UploadPanel(QWidget):
 
 class ProjectCard(QFrame):
     delete_requested = pyqtSignal(str, str)  # name, slug
+    select_requested = pyqtSignal(str)  # name
 
     def __init__(self, name, slug, doc_count, last_updated):
         super().__init__()
@@ -843,7 +876,7 @@ class ProjectCard(QFrame):
         # Meta row
         meta_parts = [f"{doc_count} docs"]
         if last_updated:
-            meta_parts.append(f"Updated {last_updated.strftime('%Y-%m-%d')}")
+            meta_parts.append(f"Updated {last_updated.strftime('%Y-%m-%d %H:%M')}")
         meta_label = QLabel("  |  ".join(meta_parts))
         meta_label.setObjectName("project_meta")
         main_layout.addWidget(meta_label)
@@ -851,6 +884,13 @@ class ProjectCard(QFrame):
         # Buttons row
         btn_row = QHBoxLayout()
         btn_row.setSpacing(6)
+
+        select_btn = QPushButton("◀")
+        select_btn.setObjectName("action_btn")
+        select_btn.setToolTip("Use this name for upload")
+        select_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        select_btn.clicked.connect(lambda: self.select_requested.emit(self.project_name))
+        btn_row.addWidget(select_btn)
 
         copy_btn = QPushButton("Copy")
         copy_btn.setObjectName("action_btn")
@@ -902,6 +942,8 @@ class ProjectCard(QFrame):
 # ---------------------------------------------------------------------------
 
 class ProjectsPanel(QWidget):
+    project_selected = pyqtSignal(str)  # name
+
     def __init__(self):
         super().__init__()
         self.worker = None
@@ -920,6 +962,12 @@ class ProjectsPanel(QWidget):
         header_row.addWidget(title)
 
         header_row.addStretch()
+
+        refresh_btn = QPushButton("Refresh")
+        refresh_btn.setObjectName("browse")
+        refresh_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        refresh_btn.clicked.connect(self.refresh)
+        header_row.addWidget(refresh_btn)
 
         open_site_btn = QPushButton("Open Site")
         open_site_btn.setObjectName("open_site")
@@ -974,6 +1022,7 @@ class ProjectsPanel(QWidget):
                 info["last_updated"],
             )
             card.delete_requested.connect(self._on_delete_requested)
+            card.select_requested.connect(self.project_selected)
             self.list_layout.addWidget(card)
 
         self.status_label.setText(f"{len(projects)} projects")
@@ -1097,8 +1146,9 @@ class ManagerApp(QMainWindow):
 
         layout.addLayout(panels, 1)
 
-        # Refresh projects on startup and after upload
+        # Connect signals
         self.upload_panel.upload_finished.connect(self.projects_panel.refresh)
+        self.projects_panel.project_selected.connect(self.upload_panel.set_project_name)
         self.projects_panel.refresh()
 
 
