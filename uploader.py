@@ -37,18 +37,22 @@ REPO_URL = "https://github.com/jungjaewa/ai-lab-notes/tree/main/docs/"
 # Utility functions
 # ---------------------------------------------------------------------------
 
-def find_md_files(folder):
-    md_files = []
+UPLOAD_EXTENSIONS = {".md", ".zip", ".7z"}
+
+
+def find_project_files(folder):
+    found = []
     for root, dirs, files in os.walk(folder):
         depth = root.replace(folder, "").count(os.sep)
         if depth > 1:
             continue
         for f in files:
-            if f.lower().endswith(".md"):
+            ext = os.path.splitext(f)[1].lower()
+            if ext in UPLOAD_EXTENSIONS:
                 full_path = os.path.join(root, f)
                 rel_path = os.path.relpath(full_path, folder)
-                md_files.append((rel_path, full_path))
-    return sorted(md_files)
+                found.append((rel_path, full_path))
+    return sorted(found)
 
 
 def slugify(text):
@@ -159,10 +163,14 @@ def remove_project_from_nav(project_name):
             f.write("\n".join(lines))
 
 
-def create_project_index(project_slug, project_name, md_files_rel):
+def create_project_index(project_slug, project_name, all_files_rel):
     index_path = os.path.join(DOCS_DIR, project_slug, "index.md")
     if os.path.exists(index_path):
         return
+
+    md_files = [f for f in all_files_rel if f.lower().endswith(".md")]
+    attach_files = [f for f in all_files_rel if not f.lower().endswith(".md")]
+
     lines = [
         f"# {project_name}",
         "",
@@ -171,9 +179,28 @@ def create_project_index(project_slug, project_name, md_files_rel):
         "| Document | File |",
         "|---|---|",
     ]
-    for rel_name in md_files_rel:
+    for rel_name in md_files:
         display = os.path.splitext(rel_name)[0].replace("-", " ").replace("_", " ")
         lines.append(f"| [{display}]({rel_name}) | `{rel_name}` |")
+
+    if attach_files:
+        lines.append("")
+        lines.append("## Attachments")
+        lines.append("")
+        lines.append("| File | Size |")
+        lines.append("|---|---|")
+        for rel_name in attach_files:
+            fpath = os.path.join(DOCS_DIR, project_slug, rel_name)
+            size = ""
+            if os.path.exists(fpath):
+                sz = os.path.getsize(fpath)
+                if sz < 1024:
+                    size = f"{sz} B"
+                elif sz < 1024 * 1024:
+                    size = f"{sz / 1024:.1f} KB"
+                else:
+                    size = f"{sz / (1024 * 1024):.1f} MB"
+            lines.append(f"| [{rel_name}]({rel_name}) | {size} |")
 
     with open(index_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
@@ -237,11 +264,13 @@ def get_project_info(slug):
     if not os.path.isdir(folder):
         return {"doc_count": 0, "last_updated": None, "total_size": 0}
 
-    md_files = [f for f in os.listdir(folder) if f.lower().endswith(".md")]
+    all_files = [f for f in os.listdir(folder)
+                  if os.path.isfile(os.path.join(folder, f)) and f != "index.md"]
+    attach_count = sum(1 for f in all_files if not f.lower().endswith(".md"))
     total_size = 0
     latest_mtime = 0
 
-    for f in md_files:
+    for f in all_files:
         fpath = os.path.join(folder, f)
         stat = os.stat(fpath)
         total_size += stat.st_size
@@ -253,7 +282,8 @@ def get_project_info(slug):
         last_updated = datetime.fromtimestamp(latest_mtime)
 
     return {
-        "doc_count": len(md_files),
+        "doc_count": len(all_files),
+        "attach_count": attach_count,
         "last_updated": last_updated,
         "total_size": total_size,
     }
@@ -297,12 +327,15 @@ class UploadWorker(QThread):
             self.progress_update.emit(40, "Uploading 40%")
             self.status_update.emit("Generating index page...")
             create_project_index(project_slug, self.project_name, copied_rel)
-            if "index.md" not in copied_rel:
-                copied_rel.insert(0, "index.md")
+
+            # Only .md files go into nav
+            md_rel = [f for f in copied_rel if f.lower().endswith(".md")]
+            if "index.md" not in md_rel:
+                md_rel.insert(0, "index.md")
 
             self.progress_update.emit(50, "Uploading 50%")
             self.status_update.emit("Updating navigation...")
-            update_mkdocs_nav(project_slug, self.project_name, copied_rel)
+            update_mkdocs_nav(project_slug, self.project_name, md_rel)
 
             self.progress_update.emit(60, "Uploading 60%")
             self.status_update.emit("git add .")
@@ -715,10 +748,21 @@ class UploadPanel(QWidget):
         layout.addWidget(self.dup_label)
         layout.addSpacing(10)
 
-        # Documents Found card
+        # Documents Found header + Attach button
+        doc_header_row = QHBoxLayout()
         card_label = QLabel("Documents Found")
         card_label.setObjectName("subtitle")
-        layout.addWidget(card_label)
+        doc_header_row.addWidget(card_label)
+        doc_header_row.addStretch()
+
+        attach_btn = QPushButton("Attach")
+        attach_btn.setObjectName("browse")
+        attach_btn.setToolTip("Attach files from any location")
+        attach_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        attach_btn.clicked.connect(self._attach_files)
+        doc_header_row.addWidget(attach_btn)
+
+        layout.addLayout(doc_header_row)
         layout.addSpacing(6)
 
         card = QFrame()
@@ -735,7 +779,7 @@ class UploadPanel(QWidget):
         self.file_list_layout.setContentsMargins(4, 4, 4, 4)
         self.file_list_layout.setSpacing(4)
 
-        placeholder = QLabel("Select a path to scan for .md files")
+        placeholder = QLabel("Scan a folder or use Attach to add files")
         placeholder.setObjectName("placeholder")
         placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.file_list_layout.addWidget(placeholder)
@@ -807,7 +851,7 @@ class UploadPanel(QWidget):
             item = self.file_list_layout.takeAt(0)
             if item.widget():
                 item.widget().deleteLater()
-        placeholder = QLabel("Select a path to scan for .md files")
+        placeholder = QLabel("Scan a folder or use Attach to add files")
         placeholder.setObjectName("placeholder")
         placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.file_list_layout.addWidget(placeholder)
@@ -858,24 +902,24 @@ class UploadPanel(QWidget):
         # Show scanning state
         self.upload_btn.setEnabled(False)
         self.status_label.setText("Scanning...")
-        scanning_label = QLabel("Scanning for .md files...")
+        scanning_label = QLabel("Scanning for files...")
         scanning_label.setObjectName("placeholder")
         scanning_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.file_list_layout.addWidget(scanning_label)
         QApplication.processEvents()
 
-        self.md_files = find_md_files(folder)
+        self.md_files = find_project_files(folder)
 
         # Clear scanning label
         scanning_label.deleteLater()
 
         if not self.md_files:
-            err = QLabel("No .md files found")
+            err = QLabel("No .md or .zip files found")
             err.setObjectName("error")
             err.setAlignment(Qt.AlignmentFlag.AlignCenter)
             self.file_list_layout.addWidget(err)
             self.upload_btn.setEnabled(False)
-            self.status_label.setText("No documents found")
+            self.status_label.setText("No files found")
             return
 
         for rel_path, full_path in self.md_files:
@@ -884,8 +928,67 @@ class UploadPanel(QWidget):
             self.checkboxes.append(cb)
             self.file_list_layout.addWidget(cb)
 
+        md_count = sum(1 for r, _ in self.md_files if r.lower().endswith(".md"))
+        attach_count = len(self.md_files) - md_count
+        parts = []
+        if md_count:
+            parts.append(f"{md_count} docs")
+        if attach_count:
+            parts.append(f"{attach_count} attachments")
         self.upload_btn.setEnabled(True)
-        self.status_label.setText(f"{len(self.md_files)} documents found")
+        self.status_label.setText(f"{' + '.join(parts)} found")
+        self._check_duplicate()
+
+    def _attach_files(self):
+        """Open file dialog to attach files from any location."""
+        files, _ = QFileDialog.getOpenFileNames(
+            self,
+            "Select Files to Attach",
+            "",
+            "Attachments (*.zip *.7z *.pdf *.pptx *.xlsx *.docx);;All Files (*)",
+        )
+        if not files:
+            return
+
+        # Track existing filenames to avoid duplicates
+        existing = {os.path.basename(rel) for rel, _ in self.md_files}
+
+        added = 0
+        for full_path in files:
+            basename = os.path.basename(full_path)
+            if basename in existing:
+                continue
+            existing.add(basename)
+            self.md_files.append((basename, full_path))
+
+            cb = QCheckBox(f"{basename}  (attached)")
+            cb.setChecked(True)
+            self.checkboxes.append(cb)
+            self.file_list_layout.addWidget(cb)
+            added += 1
+
+        if added == 0:
+            return
+
+        # Remove placeholder if present
+        for i in range(self.file_list_layout.count()):
+            item = self.file_list_layout.itemAt(i)
+            if item and item.widget():
+                w = item.widget()
+                if isinstance(w, QLabel) and w.objectName() in ("placeholder", "error"):
+                    w.deleteLater()
+                    break
+
+        # Update status and enable upload
+        md_count = sum(1 for r, _ in self.md_files if r.lower().endswith(".md"))
+        other_count = len(self.md_files) - md_count
+        parts = []
+        if md_count:
+            parts.append(f"{md_count} docs")
+        if other_count:
+            parts.append(f"{other_count} attachments")
+        self.status_label.setText(f"{' + '.join(parts)} ready")
+        self.upload_btn.setEnabled(True)
         self._check_duplicate()
 
     def _upload(self):
@@ -942,7 +1045,7 @@ class ProjectCard(QFrame):
     delete_requested = pyqtSignal(str, str)  # name, slug
     select_requested = pyqtSignal(str)  # name
 
-    def __init__(self, name, slug, doc_count, last_updated):
+    def __init__(self, name, slug, doc_count, attach_count, last_updated):
         super().__init__()
         self.setObjectName("project_card")
         self.project_name = name
@@ -963,7 +1066,10 @@ class ProjectCard(QFrame):
 
         top_row.addStretch()
 
-        meta_parts = [f"{doc_count} docs"]
+        count_parts = [f"{doc_count} files"]
+        if attach_count:
+            count_parts.append(f"{attach_count} attached")
+        meta_parts = [" · ".join(count_parts)]
         if last_updated:
             meta_parts.append(last_updated.strftime('%Y-%m-%d %H:%M'))
         meta_label = QLabel("  |  ".join(meta_parts))
@@ -1122,6 +1228,7 @@ class ProjectsPanel(QWidget):
                 proj["name"],
                 proj["slug"],
                 info["doc_count"],
+                info["attach_count"],
                 info["last_updated"],
             )
             card.delete_requested.connect(self._on_delete_requested)
