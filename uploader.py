@@ -30,7 +30,9 @@ REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 DOCS_DIR = os.path.join(REPO_DIR, "docs")
 MKDOCS_YML = os.path.join(REPO_DIR, "mkdocs.yml")
 SITE_URL = "https://jungjaewa.github.io/ai-lab-notes/"
+GITLAB_SITE_URL = "https://jungjaehwa.gitlab.io/ai-lab-notes/"
 REPO_URL = "https://github.com/jungjaewa/ai-lab-notes/tree/main/docs/"
+GIT_REMOTES = ["origin", "gitlab"]  # push to both GitHub and GitLab
 
 
 # ---------------------------------------------------------------------------
@@ -319,10 +321,11 @@ class UploadWorker(QThread):
     status_update = pyqtSignal(str)
     progress_update = pyqtSignal(int, str)
 
-    def __init__(self, project_name, selected_files):
+    def __init__(self, project_name, selected_files, remotes=None):
         super().__init__()
         self.project_name = project_name
         self.selected_files = selected_files
+        self.remotes = remotes or GIT_REMOTES
 
     def run(self):
         try:
@@ -371,19 +374,23 @@ class UploadWorker(QThread):
                            cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
 
             self.progress_update.emit(80, "Uploading 80%")
-            self.status_update.emit("git push origin main...")
-            result = subprocess.run(["git", "push", "origin", "main"],
-                                    cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
-
-            if result.returncode == 0:
-                ok, err = True, ""
-            else:
-                ok, err = False, result.stderr or result.stdout
+            ok, err = True, ""
+            for remote in self.remotes:
+                self.status_update.emit(f"git push {remote} main...")
+                result = subprocess.run(["git", "push", remote, "main"],
+                                        cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+                if result.returncode != 0:
+                    ok, err = False, f"[{remote}] {result.stderr or result.stdout}"
 
             self.progress_update.emit(100, "Uploading 100%")
 
             if ok:
-                url = f"{SITE_URL}{project_slug}/"
+                if self.remotes == ["gitlab"]:
+                    url = f"{GITLAB_SITE_URL}{project_slug}/"
+                elif self.remotes == ["origin"]:
+                    url = f"{SITE_URL}{project_slug}/"
+                else:
+                    url = f"{SITE_URL}{project_slug}/\n{GITLAB_SITE_URL}{project_slug}/"
                 self.finished.emit(True, url)
             else:
                 self.finished.emit(False, err[:300])
@@ -396,10 +403,11 @@ class DeleteWorker(QThread):
     finished = pyqtSignal(bool, str)
     status_update = pyqtSignal(str)
 
-    def __init__(self, project_name, project_slug):
+    def __init__(self, project_name, project_slug, remotes=None):
         super().__init__()
         self.project_name = project_name
         self.project_slug = project_slug
+        self.remotes = remotes or GIT_REMOTES
 
     def run(self):
         try:
@@ -419,14 +427,18 @@ class DeleteWorker(QThread):
             subprocess.run(["git", "commit", "-m", f"Remove {self.project_name} docs"],
                            cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
 
-            self.status_update.emit("git push origin main...")
-            result = subprocess.run(["git", "push", "origin", "main"],
-                                    cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+            ok, err = True, ""
+            for remote in self.remotes:
+                self.status_update.emit(f"git push {remote} main...")
+                result = subprocess.run(["git", "push", remote, "main"],
+                                        cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+                if result.returncode != 0:
+                    ok, err = False, f"[{remote}] {(result.stderr or result.stdout)[:300]}"
 
-            if result.returncode == 0:
+            if ok:
                 self.finished.emit(True, "")
             else:
-                self.finished.emit(False, (result.stderr or result.stdout)[:300])
+                self.finished.emit(False, err)
 
         except Exception as e:
             self.finished.emit(False, str(e))
@@ -816,11 +828,17 @@ class UploadPanel(QWidget):
         btn_row = QHBoxLayout()
         btn_row.setSpacing(8)
 
-        self.upload_btn = QPushButton("Upload")
-        self.upload_btn.setObjectName("upload")
-        self.upload_btn.setEnabled(False)
-        self.upload_btn.clicked.connect(self._upload)
-        btn_row.addWidget(self.upload_btn, 1)
+        self.gh_upload_btn = QPushButton("GitHub")
+        self.gh_upload_btn.setObjectName("upload")
+        self.gh_upload_btn.setEnabled(False)
+        self.gh_upload_btn.clicked.connect(lambda: self._upload(["origin"]))
+        btn_row.addWidget(self.gh_upload_btn, 1)
+
+        self.gl_upload_btn = QPushButton("GitLab")
+        self.gl_upload_btn.setObjectName("upload")
+        self.gl_upload_btn.setEnabled(False)
+        self.gl_upload_btn.clicked.connect(lambda: self._upload(["gitlab"]))
+        btn_row.addWidget(self.gl_upload_btn, 1)
 
         reset_btn = QPushButton("Reset")
         reset_btn.setObjectName("browse")
@@ -878,8 +896,10 @@ class UploadPanel(QWidget):
         placeholder.setObjectName("placeholder")
         placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.file_list_layout.addWidget(placeholder)
-        self.upload_btn.setEnabled(False)
-        self.upload_btn.setText("Upload")
+        self.gh_upload_btn.setEnabled(False)
+        self.gl_upload_btn.setEnabled(False)
+        self.gh_upload_btn.setText("GitHub")
+        self.gl_upload_btn.setText("GitLab")
         self.dup_label.setVisible(False)
         self.status_label.setText("Ready")
 
@@ -910,10 +930,8 @@ class UploadPanel(QWidget):
                 f'"{name}" already exists ({info["doc_count"]} docs). Files will be updated.'
             )
             self.dup_label.setVisible(True)
-            self.upload_btn.setText("Update")
         else:
             self.dup_label.setVisible(False)
-            self.upload_btn.setText("Upload")
 
     def _scan_files(self, folder):
         self.checkboxes.clear()
@@ -923,7 +941,8 @@ class UploadPanel(QWidget):
                 item.widget().deleteLater()
 
         # Show scanning state
-        self.upload_btn.setEnabled(False)
+        self.gh_upload_btn.setEnabled(False)
+        self.gl_upload_btn.setEnabled(False)
         self.status_label.setText("Scanning...")
         scanning_label = QLabel("Scanning for files...")
         scanning_label.setObjectName("placeholder")
@@ -941,7 +960,8 @@ class UploadPanel(QWidget):
             err.setObjectName("error")
             err.setAlignment(Qt.AlignmentFlag.AlignCenter)
             self.file_list_layout.addWidget(err)
-            self.upload_btn.setEnabled(False)
+            self.gh_upload_btn.setEnabled(False)
+            self.gl_upload_btn.setEnabled(False)
             self.status_label.setText("No files found")
             return
 
@@ -958,7 +978,8 @@ class UploadPanel(QWidget):
             parts.append(f"{md_count} docs")
         if attach_count:
             parts.append(f"{attach_count} attachments")
-        self.upload_btn.setEnabled(True)
+        self.gh_upload_btn.setEnabled(True)
+        self.gl_upload_btn.setEnabled(True)
         self.status_label.setText(f"{' + '.join(parts)} found")
         self._check_duplicate()
 
@@ -1011,10 +1032,11 @@ class UploadPanel(QWidget):
         if other_count:
             parts.append(f"{other_count} attachments")
         self.status_label.setText(f"{' + '.join(parts)} ready")
-        self.upload_btn.setEnabled(True)
+        self.gh_upload_btn.setEnabled(True)
+        self.gl_upload_btn.setEnabled(True)
         self._check_duplicate()
 
-    def _upload(self):
+    def _upload(self, remotes):
         project_name = self.name_edit.text().strip()
         if not project_name:
             QMessageBox.warning(self, "Warning", "Please enter a project name")
@@ -1029,10 +1051,11 @@ class UploadPanel(QWidget):
             QMessageBox.warning(self, "Warning", "Please select documents to upload")
             return
 
-        self.upload_btn.setEnabled(False)
+        self.gh_upload_btn.setEnabled(False)
+        self.gl_upload_btn.setEnabled(False)
         self.status_label.setText("Uploading...")
 
-        self.worker = UploadWorker(project_name, selected)
+        self.worker = UploadWorker(project_name, selected, remotes)
         self.worker.status_update.connect(self._on_status)
         self.worker.progress_update.connect(self._on_progress)
         self.worker.finished.connect(self._on_finished)
@@ -1042,11 +1065,14 @@ class UploadPanel(QWidget):
         self.status_label.setText(text)
 
     def _on_progress(self, pct, text):
-        self.upload_btn.setText(text)
+        self.gh_upload_btn.setText(text)
+        self.gl_upload_btn.setText(text)
 
     def _on_finished(self, success, msg):
-        self.upload_btn.setText("Upload")
-        self.upload_btn.setEnabled(True)
+        self.gh_upload_btn.setText("GitHub")
+        self.gl_upload_btn.setText("GitLab")
+        self.gh_upload_btn.setEnabled(True)
+        self.gl_upload_btn.setEnabled(True)
         self._check_duplicate()
         if success:
             self.status_label.setText(f"Done! {msg}")
@@ -1073,7 +1099,8 @@ class ProjectCard(QFrame):
         self.setObjectName("project_card")
         self.project_name = name
         self.project_slug = slug
-        self.project_url = f"{SITE_URL}{slug}/"
+        self.gh_url = f"{SITE_URL}{slug}/"
+        self.gl_url = f"{GITLAB_SITE_URL}{slug}/"
         self.repo_url = f"{REPO_URL}{slug}/"
 
         main_layout = QVBoxLayout(self)
@@ -1122,26 +1149,24 @@ class ProjectCard(QFrame):
 
         copy_url_btn = QPushButton("Copy URL")
         copy_url_btn.setObjectName("action_btn")
-        copy_url_btn.setToolTip("Copy project URL")
+        copy_url_btn.setToolTip("Copy GitLab URL (private)")
         copy_url_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        copy_url_btn.clicked.connect(lambda: self._copy_to_clipboard(self.project_url, copy_url_btn))
+        copy_url_btn.clicked.connect(lambda: self._copy_to_clipboard(self.gl_url, copy_url_btn))
         btn_row.addWidget(copy_url_btn)
 
-        open_btn = QPushButton()
-        open_btn.setIcon(create_open_icon())
-        open_btn.setObjectName("action_btn")
-        open_btn.setToolTip("Open site page")
-        open_btn.setFixedWidth(30)
-        open_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        open_btn.clicked.connect(self._open_in_browser)
-        btn_row.addWidget(open_btn)
+        gh_open_btn = QPushButton("GitHub")
+        gh_open_btn.setObjectName("action_btn")
+        gh_open_btn.setToolTip("Open GitHub Pages (public)")
+        gh_open_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        gh_open_btn.clicked.connect(lambda: webbrowser.open(self.gh_url))
+        btn_row.addWidget(gh_open_btn)
 
-        repo_btn = QPushButton("Git")
-        repo_btn.setObjectName("action_btn")
-        repo_btn.setToolTip("Open GitHub repo")
-        repo_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        repo_btn.clicked.connect(lambda: webbrowser.open(self.repo_url))
-        btn_row.addWidget(repo_btn)
+        gl_open_btn = QPushButton("GitLab")
+        gl_open_btn.setObjectName("action_btn")
+        gl_open_btn.setToolTip("Open GitLab Pages (private)")
+        gl_open_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        gl_open_btn.clicked.connect(lambda: webbrowser.open(self.gl_url))
+        btn_row.addWidget(gl_open_btn)
 
         btn_row.addStretch()
 
@@ -1159,9 +1184,6 @@ class ProjectCard(QFrame):
         btn.setText("Copied!")
         from PyQt6.QtCore import QTimer
         QTimer.singleShot(1500, lambda: btn.setText(original))
-
-    def _open_in_browser(self):
-        webbrowser.open(self.project_url)
 
     def _request_delete(self):
         self.delete_requested.emit(self.project_name, self.project_slug)
@@ -1201,11 +1223,20 @@ class ProjectsPanel(QWidget):
         header_row.addWidget(refresh_btn)
         header_row.addSpacing(6)
 
-        open_site_btn = QPushButton("Open Site")
-        open_site_btn.setObjectName("open_site")
-        open_site_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        open_site_btn.clicked.connect(lambda: webbrowser.open(SITE_URL))
-        header_row.addWidget(open_site_btn)
+        gh_btn = QPushButton("GitHub")
+        gh_btn.setObjectName("open_site")
+        gh_btn.setToolTip("Open GitHub Pages (public)")
+        gh_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        gh_btn.clicked.connect(lambda: webbrowser.open(SITE_URL))
+        header_row.addWidget(gh_btn)
+        header_row.addSpacing(6)
+
+        gl_btn = QPushButton("GitLab")
+        gl_btn.setObjectName("open_site")
+        gl_btn.setToolTip("Open GitLab Pages (private)")
+        gl_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        gl_btn.clicked.connect(lambda: webbrowser.open(GITLAB_SITE_URL))
+        header_row.addWidget(gl_btn)
 
         layout.addLayout(header_row)
         layout.addSpacing(12)
