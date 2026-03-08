@@ -4,6 +4,7 @@ AI Lab Notes Manager (PyQt6)
 - Right panel: Projects - View/manage uploaded projects
 """
 
+import ctypes
 import os
 import re
 import shutil
@@ -13,8 +14,11 @@ import tempfile
 import webbrowser
 from datetime import datetime
 
-from PyQt6.QtCore import Qt, QThread, pyqtSignal
-from PyQt6.QtGui import QColor, QClipboard, QCursor, QFont, QPainter, QPen, QPixmap
+# Windows taskbar: show app icon instead of python.exe icon
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ai-lab-notes-manager")
+
+from PyQt6.QtCore import QRectF, Qt, QThread, pyqtSignal
+from PyQt6.QtGui import QBrush, QColor, QClipboard, QCursor, QFont, QIcon, QPainter, QPen, QPixmap
 from PyQt6.QtWidgets import (
     QApplication, QCheckBox, QFileDialog, QFrame, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QMessageBox, QPushButton, QScrollArea,
@@ -26,6 +30,7 @@ REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 DOCS_DIR = os.path.join(REPO_DIR, "docs")
 MKDOCS_YML = os.path.join(REPO_DIR, "mkdocs.yml")
 SITE_URL = "https://jungjaewa.github.io/ai-lab-notes/"
+REPO_URL = "https://github.com/jungjaewa/ai-lab-notes/tree/main/docs/"
 
 
 # ---------------------------------------------------------------------------
@@ -550,6 +555,26 @@ QCheckBox::indicator:checked {
 """
 
 
+def create_app_icon():
+    """Create app icon: purple rounded square with white 'MD' text."""
+    size = 64
+    pixmap = QPixmap(size, size)
+    pixmap.fill(QColor(0, 0, 0, 0))
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    # Purple rounded background
+    painter.setBrush(QBrush(QColor("#7B2FBE")))
+    painter.setPen(Qt.PenStyle.NoPen)
+    painter.drawRoundedRect(QRectF(0, 0, size, size), 14, 14)
+    # White "MD" text
+    font = QFont("Segoe UI", 22, QFont.Weight.Bold)
+    painter.setFont(font)
+    painter.setPen(QColor("#FFFFFF"))
+    painter.drawText(QRectF(0, 0, size, size), Qt.AlignmentFlag.AlignCenter, "MD")
+    painter.end()
+    return QIcon(pixmap)
+
+
 def create_checkmark_icon():
     pixmap = QPixmap(18, 18)
     pixmap.fill(QColor("#0078D4"))
@@ -566,6 +591,66 @@ def create_checkmark_icon():
     path = os.path.join(tempfile.gettempdir(), "aln_check.png")
     pixmap.save(path)
     return path.replace("\\", "/")
+
+
+def _icon_pen():
+    """Shared pen for icon drawing — matches action_btn text color #848484, thin line."""
+    pen = QPen(QColor("#848484"))
+    pen.setWidthF(1.2)
+    pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+    pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
+    return pen
+
+
+def create_select_icon():
+    """Create a left-arrow icon for the select button (16x16)."""
+    pixmap = QPixmap(16, 16)
+    pixmap.fill(QColor(0, 0, 0, 0))
+    painter = QPainter(pixmap)
+    painter.setPen(_icon_pen())
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    painter.drawLine(10, 3, 4, 8)
+    painter.drawLine(4, 8, 10, 13)
+    painter.end()
+    return QIcon(pixmap)
+
+
+def create_repo_icon():
+    """Create a code-bracket icon </> for the repo button (16x16)."""
+    pixmap = QPixmap(16, 16)
+    pixmap.fill(QColor(0, 0, 0, 0))
+    painter = QPainter(pixmap)
+    painter.setPen(_icon_pen())
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    # < bracket
+    painter.drawLine(5, 3, 1, 8)
+    painter.drawLine(1, 8, 5, 13)
+    # > bracket
+    painter.drawLine(11, 3, 15, 8)
+    painter.drawLine(15, 8, 11, 13)
+    # / slash
+    painter.drawLine(10, 2, 6, 14)
+    painter.end()
+    return QIcon(pixmap)
+
+
+def create_open_icon():
+    """Create an external-link icon for the open button (16x16)."""
+    pixmap = QPixmap(16, 16)
+    pixmap.fill(QColor(0, 0, 0, 0))
+    painter = QPainter(pixmap)
+    painter.setPen(_icon_pen())
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    # Box (bottom-left open rectangle)
+    painter.drawLine(3, 6, 3, 13)
+    painter.drawLine(3, 13, 10, 13)
+    painter.drawLine(10, 13, 10, 9)
+    # Arrow (top-right diagonal)
+    painter.drawLine(7, 3, 13, 3)
+    painter.drawLine(13, 3, 13, 9)
+    painter.drawLine(7, 9, 13, 3)
+    painter.end()
+    return QIcon(pixmap)
 
 
 # ---------------------------------------------------------------------------
@@ -863,31 +948,38 @@ class ProjectCard(QFrame):
         self.project_name = name
         self.project_slug = slug
         self.project_url = f"{SITE_URL}{slug}/"
+        self.repo_url = f"{REPO_URL}{slug}/"
 
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(14, 10, 14, 10)
-        main_layout.setSpacing(6)
+        main_layout.setContentsMargins(14, 8, 14, 8)
+        main_layout.setSpacing(4)
 
-        # Top row: name
+        # Top row: name + meta on same line
+        top_row = QHBoxLayout()
+        top_row.setSpacing(0)
         name_label = QLabel(name)
         name_label.setObjectName("project_name")
-        main_layout.addWidget(name_label)
+        top_row.addWidget(name_label)
 
-        # Meta row
+        top_row.addStretch()
+
         meta_parts = [f"{doc_count} docs"]
         if last_updated:
-            meta_parts.append(f"Updated {last_updated.strftime('%Y-%m-%d %H:%M')}")
+            meta_parts.append(last_updated.strftime('%Y-%m-%d %H:%M'))
         meta_label = QLabel("  |  ".join(meta_parts))
         meta_label.setObjectName("project_meta")
-        main_layout.addWidget(meta_label)
+        top_row.addWidget(meta_label)
+        main_layout.addLayout(top_row)
 
         # Buttons row
         btn_row = QHBoxLayout()
         btn_row.setSpacing(6)
 
-        select_btn = QPushButton("◀")
+        select_btn = QPushButton()
+        select_btn.setIcon(create_select_icon())
         select_btn.setObjectName("action_btn")
         select_btn.setToolTip("Use this name for upload")
+        select_btn.setFixedWidth(30)
         select_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         select_btn.clicked.connect(lambda: self.select_requested.emit(self.project_name))
         btn_row.addWidget(select_btn)
@@ -906,12 +998,21 @@ class ProjectCard(QFrame):
         copy_url_btn.clicked.connect(lambda: self._copy_to_clipboard(self.project_url, copy_url_btn))
         btn_row.addWidget(copy_url_btn)
 
-        open_btn = QPushButton("Open")
+        open_btn = QPushButton()
+        open_btn.setIcon(create_open_icon())
         open_btn.setObjectName("action_btn")
-        open_btn.setToolTip("Open in browser")
+        open_btn.setToolTip("Open site page")
+        open_btn.setFixedWidth(30)
         open_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         open_btn.clicked.connect(self._open_in_browser)
         btn_row.addWidget(open_btn)
+
+        repo_btn = QPushButton("Git")
+        repo_btn.setObjectName("action_btn")
+        repo_btn.setToolTip("Open GitHub repo")
+        repo_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        repo_btn.clicked.connect(lambda: webbrowser.open(self.repo_url))
+        btn_row.addWidget(repo_btn)
 
         btn_row.addStretch()
 
@@ -965,9 +1066,11 @@ class ProjectsPanel(QWidget):
 
         refresh_btn = QPushButton("Refresh")
         refresh_btn.setObjectName("browse")
+        refresh_btn.setToolTip("Refresh project list")
         refresh_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         refresh_btn.clicked.connect(self.refresh)
         header_row.addWidget(refresh_btn)
+        header_row.addSpacing(6)
 
         open_site_btn = QPushButton("Open Site")
         open_site_btn.setObjectName("open_site")
@@ -1085,6 +1188,7 @@ class ManagerApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("AI Lab Notes Manager")
+        self.setWindowIcon(create_app_icon())
         self.setFixedSize(920, 580)
 
         check_icon_path = create_checkmark_icon()

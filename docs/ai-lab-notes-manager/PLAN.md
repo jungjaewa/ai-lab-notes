@@ -71,6 +71,37 @@ App name change: `AI Lab Notes Uploader` → `AI Lab Notes Manager`
 
 ---
 
+## Phase 1.5: UX Enhancements + Polish (DONE)
+
+### 1.5-1. Upload Panel Additions
+- [x] Reset button (clears path, name, file list)
+- [x] Upload + Reset button row layout
+
+### 1.5-2. Projects Panel Additions
+- [x] Refresh button (re-parse mkdocs.yml + rescan docs/)
+- [x] Last updated time display (YYYY-MM-DD HH:MM)
+- [x] Select button (◀ icon) → fills Upload panel Project Name field
+- [x] Git button → opens GitHub repo page for project
+- [x] Open button → external-link icon (QPainter)
+- [x] Compact card layout: name + meta on same row (2-line cards)
+
+### 1.5-3. Signal Architecture
+- [x] `ProjectCard.select_requested` → `ProjectsPanel.project_selected` → `UploadPanel.set_project_name`
+
+### 1.5-4. App Icon & Desktop Shortcut
+- [x] App icon: purple (#7B2FBE) rounded rect + white "MD" (QPainter, 64x64)
+- [x] `SetCurrentProcessExplicitAppUserModelID()` for Windows taskbar icon
+- [x] `.ico` file with multiple sizes (16~256px, via Pillow)
+- [x] Desktop shortcut: `pythonw.exe` (no console window)
+
+### 1.5-5. Icon System
+- [x] `_icon_pen()` shared pen (#848484, 1.2px) for consistent button icons
+- [x] `create_select_icon()` — left arrow ◀
+- [x] `create_open_icon()` — external link ↗
+- [x] `create_repo_icon()` — code brackets </>
+
+---
+
 ## Phase 2: Document-Level Management
 
 ### 2-1. Accordion Document View
@@ -148,18 +179,24 @@ Drag to reorder projects in nav:
 
 ```
 uploader.py
-├── Constants: REPO_DIR, DOCS_DIR, MKDOCS_YML, SITE_URL, STYLE
+├── Constants: REPO_DIR, DOCS_DIR, MKDOCS_YML, SITE_URL, REPO_URL, STYLE
 ├── Utilities: find_md_files, slugify, update_mkdocs_nav, remove_project_from_nav,
 │              create_project_index, parse_projects_from_nav, get_project_info,
 │              project_exists_in_nav
+├── Icons: create_app_icon, create_checkmark_icon, create_select_icon,
+│          create_open_icon, create_repo_icon, _icon_pen
 │
 ├── UploadWorker(QThread)       - Upload with progress signals
 ├── DeleteWorker(QThread)       - Delete project with git push
 │
-├── UploadPanel(QWidget)        - Left: browse, scan, upload
-│   └── _paste_on_double_click  - Reusable double-click paste for QLineEdit
-├── ProjectCard(QFrame)         - Project card with Copy/CopyURL/Open/Delete
-├── ProjectsPanel(QWidget)      - Right: project list + management
+├── UploadPanel(QWidget)        - Left: browse, scan, upload, reset
+│   ├── _paste_on_double_click  - Reusable double-click paste for QLineEdit
+│   └── set_project_name        - Called when project selected from right panel
+├── ProjectCard(QFrame)         - Project card with ◀/Copy/CopyURL/↗/Git/Delete
+│   ├── delete_requested        - Signal: name, slug
+│   └── select_requested        - Signal: name → fills Upload panel
+├── ProjectsPanel(QWidget)      - Right: project list + refresh + management
+│   └── project_selected        - Signal: name (relays from ProjectCard)
 │
 └── ManagerApp(QMainWindow)     - Side-by-side layout container
 ```

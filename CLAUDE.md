@@ -28,6 +28,7 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub → MkDocs P
 - `DOCS_DIR` = `REPO_DIR/docs/`
 - `MKDOCS_YML` = `REPO_DIR/mkdocs.yml`
 - `SITE_URL` = `https://jungjaewa.github.io/ai-lab-notes/`
+- `REPO_URL` = `https://github.com/jungjaewa/ai-lab-notes/tree/main/docs/`
 
 ## Core Functions
 | Function | Purpose |
@@ -40,6 +41,11 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub → MkDocs P
 | `parse_projects_from_nav()` | Parse nav → list of {name, slug, nav_doc_count} |
 | `get_project_info(slug)` | Scan docs folder → {doc_count, last_updated, total_size} |
 | `project_exists_in_nav()` | Check if project name already in nav |
+| `create_app_icon()` | QPainter app icon: purple rounded rect + white "MD" |
+| `create_select_icon()` | QPainter left-arrow icon for select button |
+| `create_open_icon()` | QPainter external-link icon for open button |
+| `create_repo_icon()` | QPainter code-bracket icon for repo button |
+| `_icon_pen()` | Shared pen (#848484, 1.2px) for all button icons |
 
 ## Classes
 | Class | Purpose |
@@ -47,33 +53,34 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub → MkDocs P
 | `UploadWorker(QThread)` | Background upload with progress signals |
 | `DeleteWorker(QThread)` | Background project deletion with git push |
 | `UploadPanel(QWidget)` | Left panel: browse, scan, upload |
-| `ProjectCard(QFrame)` | Single project card with Copy/Copy URL/Open/Delete |
+| `ProjectCard(QFrame)` | Project card with Select/Copy/Copy URL/Open/Git/Delete |
 | `ProjectsPanel(QWidget)` | Right panel: project list + management |
 | `ManagerApp(QMainWindow)` | Main window with side-by-side layout |
 
 ## Layout
 ```
-┌─────────────────────────────────────────────────┐
-│ AI Lab Notes                                     │
-│ Manage your project documentation                │
-│─────────────────────────────────────────────────│
-│ Upload              │ Projects        Open Site  │
-│                     │                            │
-│ Project Path        │ ┌──────────────────────┐  │
-│ [__________] Browse │ │ Eye Pipeline         │  │
-│                     │ │ 3 docs | 2026-03-08  │  │
-│ Project Name        │ │ Copy CopyURL Open Del│  │
-│ [__________]        │ └──────────────────────┘  │
-│                     │                            │
-│ Documents Found     │ ┌──────────────────────┐  │
-│ ┌─────────────────┐ │ │ Teamplay_Gantt       │  │
-│ │ ☑ file1.md      │ │ │ ...                  │  │
-│ │ ☑ file2.md      │ │ └──────────────────────┘  │
-│ └─────────────────┘ │                            │
-│                     │                            │
-│ [    Upload    ]    │                            │
-│ Ready               │ 3 projects                 │
-└─────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────┐
+│ [MD] AI Lab Notes Manager                            │
+│ AI Lab Notes                                         │
+│ Manage your project documentation                    │
+│─────────────────────────────────────────────────────│
+│ Upload              │ Projects    Refresh  Open Site  │
+│                     │                                │
+│ Project Path        │ ┌────────────────────────────┐│
+│ [__________] Browse │ │ Eye Pipeline  3d|03-08 14:50││
+│                     │ │ ◀ Copy CopyURL ↗ Git    Del││
+│ Project Name        │ └────────────────────────────┘│
+│ [__________]        │ ┌────────────────────────────┐│
+│                     │ │ Teamplay_Gantt  ...        ││
+│ Documents Found     │ │ ...                        ││
+│ ┌─────────────────┐ │ └────────────────────────────┘│
+│ │ ☑ file1.md      │ │                                │
+│ │ ☑ file2.md      │ │                                │
+│ └─────────────────┘ │                                │
+│                     │                                │
+│ [ Upload ] [Reset]  │                                │
+│ Ready               │ 3 projects                     │
+└─────────────────────────────────────────────────────┘
 ```
 
 ## Style
@@ -82,6 +89,9 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub → MkDocs P
 - UI text: English only
 - Custom checkmark icon via QPainter → temp PNG → QSS `image: url()`
 - Separators: 1px solid #C5C5C5 (matches QLineEdit border)
+- App icon: purple (#7B2FBE) rounded rect + white "MD" text (QPainter, 64x64)
+- Button icons: QPainter-drawn, #848484 color, 1.2px line width
+- Desktop shortcut: `pythonw.exe` (no console window)
 
 ## Conventions
 - Path normalization: always convert `\` → `/` for display
@@ -90,9 +100,12 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub → MkDocs P
 - All git operations run with `encoding="utf-8"`
 - **Double-click paste**: All QLineEdit fields support double-click to paste clipboard content. Use `_paste_on_double_click()` static method for new fields.
 - Scanning feedback: show "Scanning..." with `processEvents()` before blocking scan
+- **Windows taskbar icon**: `SetCurrentProcessExplicitAppUserModelID()` before QApplication
+- **Icon pattern**: QPainter icons use `_icon_pen()` for consistent color/weight
 
 ## Current State
 - Phase 0 complete: uploader with progress
 - Phase 1 complete: side-by-side layout, project management, delete, copy/copy URL
+- Phase 1.5 complete: select button, Git button, icons, reset, refresh, compact cards, app icon, desktop shortcut
 - Phase 2 planned: document-level management, drag & drop, change detection
 - See PLAN.md for full roadmap
