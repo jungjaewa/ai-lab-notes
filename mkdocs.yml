@@ -84,4 +84,18 @@ nav:
     - Psd Extractor Gui Qt: psd_layerextractor/psd_extractor_gui_qt.md
     - Unity Dev History: psd_layerextractor/unity_dev_history.md
     - Unity Technical Notes: psd_layerextractor/unity_technical_notes.md
+  - PSD:
+    - psd/index.md
+    - Claude: psd/CLAUDE.md
+    - Readme: psd/README.md
+    - Automation Plan: psd/automation_plan.md
+    - Dev Journal: psd/dev_journal.md
+    - Human Vs Ai Workflow: psd/human_vs_ai_workflow.md
+    - Layer Exporter: psd/layer_exporter.md
+    - Naming Convention: psd/naming_convention.md
+    - Psd Extractor: psd/psd_extractor.md
+    - Psd Extractor Gui Ctk: psd/psd_extractor_gui_ctk.md
+    - Psd Extractor Gui Qt: psd/psd_extractor_gui_qt.md
+    - Unity Dev History: psd/unity_dev_history.md
+    - Unity Technical Notes: psd/unity_technical_notes.md
   - 태그: tags.md

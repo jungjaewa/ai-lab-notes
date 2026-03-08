@@ -190,7 +190,7 @@ def create_project_index(project_slug, project_name, all_files_rel):
         lines.append("| File | Size |")
         lines.append("|---|---|")
         for rel_name in attach_files:
-            fpath = os.path.join(DOCS_DIR, project_slug, rel_name)
+            fpath = os.path.join(DOCS_DIR, project_slug, "attach", rel_name)
             size = ""
             if os.path.exists(fpath):
                 sz = os.path.getsize(fpath)
@@ -200,7 +200,7 @@ def create_project_index(project_slug, project_name, all_files_rel):
                     size = f"{sz / 1024:.1f} KB"
                 else:
                     size = f"{sz / (1024 * 1024):.1f} MB"
-            lines.append(f"| [{rel_name}]({rel_name}) | {size} |")
+            lines.append(f"| [{rel_name}](attach/{rel_name}) | {size} |")
 
     with open(index_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
@@ -262,16 +262,32 @@ def parse_projects_from_nav():
 def get_project_info(slug):
     folder = os.path.join(DOCS_DIR, slug)
     if not os.path.isdir(folder):
-        return {"doc_count": 0, "last_updated": None, "total_size": 0}
+        return {"doc_count": 0, "attach_count": 0, "last_updated": None, "total_size": 0}
 
-    all_files = [f for f in os.listdir(folder)
-                  if os.path.isfile(os.path.join(folder, f)) and f != "index.md"]
-    attach_count = sum(1 for f in all_files if not f.lower().endswith(".md"))
+    # Count .md files (excluding index.md)
+    md_files = [f for f in os.listdir(folder)
+                if os.path.isfile(os.path.join(folder, f))
+                and f.lower().endswith(".md") and f != "index.md"]
+
+    # Count attachments in attach/ subfolder
+    attach_dir = os.path.join(folder, "attach")
+    attach_files = []
+    if os.path.isdir(attach_dir):
+        attach_files = [f for f in os.listdir(attach_dir)
+                        if os.path.isfile(os.path.join(attach_dir, f))]
+
     total_size = 0
     latest_mtime = 0
 
-    for f in all_files:
+    for f in md_files:
         fpath = os.path.join(folder, f)
+        stat = os.stat(fpath)
+        total_size += stat.st_size
+        if stat.st_mtime > latest_mtime:
+            latest_mtime = stat.st_mtime
+
+    for f in attach_files:
+        fpath = os.path.join(attach_dir, f)
         stat = os.stat(fpath)
         total_size += stat.st_size
         if stat.st_mtime > latest_mtime:
@@ -282,8 +298,8 @@ def get_project_info(slug):
         last_updated = datetime.fromtimestamp(latest_mtime)
 
     return {
-        "doc_count": len(all_files),
-        "attach_count": attach_count,
+        "doc_count": len(md_files) + len(attach_files),
+        "attach_count": len(attach_files),
         "last_updated": last_updated,
         "total_size": total_size,
     }
@@ -314,12 +330,19 @@ class UploadWorker(QThread):
             dest_dir = os.path.join(DOCS_DIR, project_slug)
             os.makedirs(dest_dir, exist_ok=True)
 
+            attach_dir = os.path.join(dest_dir, "attach")
+
             total = len(self.selected_files)
             copied_rel = []
             for i, (rel_path, full_path) in enumerate(self.selected_files):
-                dest_path = os.path.join(dest_dir, os.path.basename(rel_path))
+                basename = os.path.basename(rel_path)
+                if basename.lower().endswith(".md"):
+                    dest_path = os.path.join(dest_dir, basename)
+                else:
+                    os.makedirs(attach_dir, exist_ok=True)
+                    dest_path = os.path.join(attach_dir, basename)
                 shutil.copy2(full_path, dest_path)
-                copied_rel.append(os.path.basename(rel_path))
+                copied_rel.append(basename)
                 pct = int((i + 1) / total * 30)
                 self.progress_update.emit(pct, f"Uploading {pct}%")
                 self.status_update.emit(f"Copying {rel_path}")
