@@ -26,6 +26,7 @@ The app has two panels side by side:
 
 ### 1. Set Project Path
 - **Browse**: Click "Browse" button → select project folder
+- **Drag & Drop**: Drag a folder onto the Upload panel
 - **Paste + Enter**: Paste path directly (e.g., `D:\_Teamplay`) → press Enter
 - **Double-click**: Double-click the path field to paste from clipboard and auto-scan
 - Backslashes are auto-converted to forward slashes
@@ -44,7 +45,7 @@ The app has two panels side by side:
 - "Scanning..." indicator shows while searching for files
 
 ### 4. Upload
-- Click "Upload" (or "Update" for existing projects)
+- Click **GitHub** to upload to GitHub only, or **GitLab** for GitLab only
 - Button shows progress percentage (0% → 100%)
 - Status line below shows current step:
   - Copying files
@@ -53,25 +54,47 @@ The app has two panels side by side:
   - git add / commit / push
 - On success: shows published URL
 - Projects panel auto-refreshes after upload
+- Source folder path is automatically saved for change detection
 
 ## Project Management
 
 ### Project Cards
 Each uploaded project shows a compact card with:
-- Project name (left) + doc count + last updated time (right) — on the same line
-- Action buttons below
+- **Row 1**: Project name + change badge (if any) + doc count + last updated time
+- **Row 2**: Source path (clickable to change) + start date (clickable to change)
+- **Row 3**: Action buttons
 
 ### Actions
 | Button | Action |
 |---|---|
 | **◀** (icon) | Fill Upload panel's Project Name with this project name |
 | **Copy** | Copy project name to clipboard |
-| **Copy URL** | Copy project URL to clipboard |
-| **↗** (icon) | Open project page in browser |
-| **Git** | Open project's GitHub repo page |
+| **Copy URL** | Copy GitLab URL to clipboard (private site) |
+| **GitHub** | Open GitHub repo tree page |
+| **GitLab** | Open GitLab repo tree page |
 | **Delete** | Delete project (2-step confirmation) |
-| **Refresh** | Re-scan projects from mkdocs.yml |
-| **Open Site** | Open the main documentation site |
+| **N changed** (orange badge) | Click to auto-update changed files from source |
+
+### Header Actions
+| Button | Action |
+|---|---|
+| **Refresh** | Re-scan projects, detect changes, update sync status |
+| **GitHub ●** | Open GitHub Pages site (green=synced, orange=behind) |
+| **GitLab ●** | Open GitLab Pages site (green=synced, orange=behind) |
+| **Update All** | Batch update all changed projects in one commit (appears only when changes exist) |
+
+### Change Detection
+- Source folder path is saved when you upload a project
+- On Refresh: app compares source .md files vs docs/ files by content hash
+- Changed projects show orange "N changed" badge
+- Click badge → auto-copies changed files + pushes to both GitHub & GitLab
+- "Update All" → updates all changed projects in a single commit
+
+### Source Path & Start Date
+- **Source path**: click the gray path text to change via folder dialog
+- **Start date**: click "Started: YYYY-MM-DD" to open calendar and change
+- Calendar: click a date to select, "Today" button, month navigation (< >)
+- Start date is auto-set on first upload
 
 ### Reset
 Click "Reset" button on the Upload panel to clear all fields (path, name, file list).
@@ -83,17 +106,22 @@ Deleting a project requires two confirmations:
 
 ## What Happens During Upload
 
-1. **File Copy**: Selected .md files → `docs/{project-slug}/`
-2. **Index Page**: Auto-generated `index.md` with document table (created once, not overwritten)
-3. **Navigation**: `mkdocs.yml` nav section updated with project + documents
-4. **Git Push**: `git add .` → `git commit` → `git push origin main`
-5. **Deploy**: GitHub Actions builds MkDocs → publishes to GitHub Pages
-6. Site available in 1-2 minutes (GitHub Actions build time)
+1. **Source Path Saved**: Project folder path recorded in `.project_sources.json`
+2. **File Copy**: Selected .md files → `docs/{project-slug}/`
+3. **Index Page**: Auto-generated `index.md` with document table (created once, not overwritten)
+4. **Navigation**: `mkdocs.yml` nav section updated with project + documents
+5. **Git Push**: `git add .` → `git commit` → `git push` to selected remote(s)
+6. **Deploy**: GitHub Actions / GitLab CI builds MkDocs → publishes to Pages
+7. Site available in 1-2 minutes (CI build time)
 
-## Published Site
+## Published Sites
 
-- URL: https://jungjaewa.github.io/ai-lab-notes/
-- Each project: `https://jungjaewa.github.io/ai-lab-notes/{project-slug}/`
+| Site | URL | Access |
+|---|---|---|
+| GitHub Pages | https://jungjaewa.github.io/ai-lab-notes/ | Public |
+| GitLab Pages | https://jungjaehwa1.gitlab.io/ai-lab-notes/ | Private |
+
+- Each project: `{site-url}/{project-slug}/`
 - Supports: full-text search (Korean + English), dark mode, mobile view
 
 ## Re-uploading
@@ -118,7 +146,10 @@ All text input fields support double-click to paste:
 | Path paste doesn't work | Press Enter after pasting, or double-click to auto-paste. |
 | Upload fails with auth error | Run `git config credential.helper manager` in terminal. |
 | Upload fails with network error | Check internet connection. |
-| Site not updating | Wait 1-2 minutes. Check GitHub Actions tab for build status. |
+| GitHub site not updating | Wait 1-2 minutes. Check GitHub Actions tab for build status. |
+| GitLab site not updating | Wait 1-2 minutes. Check GitLab Build > Pipelines for status. |
+| Sync status shows ⚠ | Push to the behind remote (click the respective upload button). |
+| "N changed" badge wrong | Click source path to verify it points to the correct folder. |
 | Korean text looks wrong | Ensure Malgun Gothic font is installed (default on Windows 11). |
 | Projects not showing | Projects panel refreshes on startup and after upload. Click Refresh to re-scan. |
 | App icon not showing | Taskbar icon requires `SetCurrentProcessExplicitAppUserModelID`. Already set in code. |

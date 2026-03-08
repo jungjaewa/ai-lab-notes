@@ -102,36 +102,71 @@ App name change: `AI Lab Notes Uploader` → `AI Lab Notes Manager`
 
 ---
 
-## Phase 2: Document-Level Management
+## Phase 2: Dual Deploy + Change Detection + UX (DONE)
 
-### 2-1. Accordion Document View
+### 2-1. GitLab Dual Deploy
+- [x] Added GitLab as second remote (`gitlab` → `gitlab.com/jungjaehwa1/ai-lab-notes`)
+- [x] `.gitlab-ci.yml` for GitLab Pages deployment
+- [x] Separate upload buttons: GitHub / GitLab (push to selected remote only)
+- [x] Project card: GitHub / GitLab buttons open respective repo tree pages
+- [x] Header: GitHub / GitLab buttons open respective Pages sites
+
+### 2-2. Sync Status
+- [x] Compare `origin/main` vs `gitlab/main` commit hashes (local refs, no network)
+- [x] Green circle+checkmark icon = synced, orange circle+exclamation = behind
+- [x] Status updates on Refresh and after upload/delete
+- [x] All subprocess calls use `CREATE_NO_WINDOW` (no console flash)
+
+### 2-3. Change Detection
+- [x] `.project_sources.json` stores project → source folder mapping + created_at date
+- [x] On Refresh: compare source .md files vs docs/ files by MD5 hash
+- [x] Orange "N changed" badge on project card when files differ
+- [x] Badge is clickable → auto-copies changed files + git push (single project)
+- [x] "Update All" button in header → batch update all changed projects in one commit
+
+### 2-4. Drag & Drop Upload
+- [x] Accept folder drop on Upload panel → auto-fill path + name + scan files
+- [x] `dragEnterEvent` + `dropEvent` on UploadPanel
+
+### 2-5. Source Path Management
+- [x] Source path shown on project card (gray text, clickable to change)
+- [x] "Set source path..." link for projects without source path
+- [x] Folder selection dialog to set/change path
+
+### 2-6. Project Start Date
+- [x] `created_at` field in project config (auto-set on first upload)
+- [x] "Started: YYYY-MM-DD" shown on project card (clickable to change)
+- [x] Custom calendar dialog (QPainter, not QCalendarWidget)
+  - Single-click date selection (no OK button needed)
+  - Month navigation (< >)
+  - "Today" button to jump to current month
+  - Current selection highlighted in blue, today in bold blue
+
+### 2-7. Resizable Window
+- [x] Changed from fixed 920x580 to resizable with minimum 920x580
+- [x] Default size 920x700 for more vertical space
+
+---
+
+## Phase 3: Document-Level Management
+
+### 3-1. Accordion Document View
 Click project card → expand to show individual documents:
 - Filename + file size
 - Preview button (read-only markdown view)
 - Delete individual document
 - Open specific document URL in browser
 
-### 2-2. Markdown Preview Dialog
+### 3-2. Markdown Preview Dialog
 `MarkdownPreviewDialog(QDialog)`:
 - Read .md file content
 - Display in `QTextEdit` (read-only, monospace)
 - Window size: 600×500
 - Basic rendering (headers, bold, code blocks) optional — plain text is acceptable
 
-### 2-3. Drag & Drop Upload
-- Accept folder drop on Upload panel → auto-fill path
-- `dragEnterEvent` + `dropEvent` on the main widget
-
-### 2-4. Change Detection on Upload
-Compare source files with existing `docs/{slug}/` files:
-- NEW: file doesn't exist in destination
-- MODIFIED: file exists but content differs
-- UNCHANGED: identical content (skip copy)
-- Display status icon next to each checkbox
-
 ---
 
-## Phase 3: Advanced Features
+## Phase 4: Advanced Features
 
 ### 3-1. Unpublished Changes Indicator
 Run `git status --porcelain` on REPO_DIR:
@@ -179,26 +214,37 @@ Drag to reorder projects in nav:
 
 ```
 uploader.py
-├── Constants: REPO_DIR, DOCS_DIR, MKDOCS_YML, SITE_URL, REPO_URL, STYLE
+├── Constants: REPO_DIR, DOCS_DIR, MKDOCS_YML, SITE_URL, GITLAB_SITE_URL,
+│              REPO_URL, GITLAB_REPO_URL, GIT_REMOTES, PROJECT_CONFIG, STYLE
+├── Config: load_project_sources, save_project_source, save_project_created_at,
+│           remove_project_source, _load_raw_config, _save_raw_config
 ├── Utilities: find_md_files, slugify, update_mkdocs_nav, remove_project_from_nav,
 │              create_project_index, parse_projects_from_nav, get_project_info,
-│              project_exists_in_nav
+│              project_exists_in_nav, check_project_changes, get_sync_status
 ├── Icons: create_app_icon, create_checkmark_icon, create_select_icon,
-│          create_open_icon, create_repo_icon, _icon_pen
+│          create_open_icon, create_repo_icon, create_sync_icon,
+│          create_unsync_icon, _icon_pen
 │
-├── UploadWorker(QThread)       - Upload with progress signals
+├── UploadWorker(QThread)       - Upload with progress (supports remote selection + source_path)
 ├── DeleteWorker(QThread)       - Delete project with git push
+├── _BatchPushWorker(QThread)   - Git push only for Update All (files pre-copied)
 │
-├── UploadPanel(QWidget)        - Left: browse, scan, upload, reset
-│   ├── _paste_on_double_click  - Reusable double-click paste for QLineEdit
-│   └── set_project_name        - Called when project selected from right panel
-├── ProjectCard(QFrame)         - Project card with ◀/Copy/CopyURL/↗/Git/Delete
-│   ├── delete_requested        - Signal: name, slug
-│   └── select_requested        - Signal: name → fills Upload panel
-├── ProjectsPanel(QWidget)      - Right: project list + refresh + management
-│   └── project_selected        - Signal: name (relays from ProjectCard)
+├── UploadPanel(QWidget)        - Left: browse, scan, upload, drag & drop
+│   ├── dragEnterEvent/dropEvent - Folder drag & drop support
+│   ├── _paste_on_double_click   - Reusable double-click paste for QLineEdit
+│   └── set_project_name         - Called when project selected from right panel
+├── ProjectCard(QFrame)          - Project card with source path, date, change badge
+│   ├── delete_requested         - Signal: name, slug
+│   ├── select_requested         - Signal: name → fills Upload panel
+│   ├── update_requested         - Signal: name, slug → auto-update changed files
+│   ├── _change_source_path      - Folder dialog to set/change source path
+│   └── _change_created_date     - Custom calendar dialog for start date
+├── ProjectsPanel(QWidget)       - Right: project list + sync status + Update All
+│   ├── _update_sync_status      - Check origin/gitlab commit refs + update icons
+│   ├── _on_update_requested     - Single project auto-update from source
+│   └── _on_update_all           - Batch update all changed projects
 │
-└── ManagerApp(QMainWindow)     - Side-by-side layout container
+└── ManagerApp(QMainWindow)      - Resizable side-by-side layout container
 ```
 
 ---

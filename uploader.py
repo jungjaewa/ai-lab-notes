@@ -47,29 +47,57 @@ _NO_WINDOW = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
 PROJECT_CONFIG = os.path.join(REPO_DIR, ".project_sources.json")
 
 
-def load_project_sources():
-    """Load project → source folder mapping from JSON config."""
+def _load_raw_config():
     if os.path.isfile(PROJECT_CONFIG):
         with open(PROJECT_CONFIG, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
 
-def save_project_source(slug, source_path):
-    """Save source folder path for a project."""
-    data = load_project_sources()
-    data[slug] = source_path
+def _save_raw_config(data):
     with open(PROJECT_CONFIG, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+def _normalize_entry(entry):
+    """Convert old string format to new dict format."""
+    if isinstance(entry, str):
+        return {"path": entry, "created_at": None}
+    return entry
+
+
+def load_project_sources():
+    """Load project config. Returns {slug: {path, created_at}}."""
+    raw = _load_raw_config()
+    return {k: _normalize_entry(v) for k, v in raw.items()}
+
+
+def save_project_source(slug, source_path):
+    """Save source folder path for a project (preserves created_at)."""
+    data = _load_raw_config()
+    existing = _normalize_entry(data.get(slug, {}))
+    data[slug] = {
+        "path": source_path,
+        "created_at": existing.get("created_at") or datetime.now().strftime("%Y-%m-%d"),
+    }
+    _save_raw_config(data)
+
+
+def save_project_created_at(slug, date_str):
+    """Save or update created_at date for a project."""
+    data = _load_raw_config()
+    existing = _normalize_entry(data.get(slug, {}))
+    existing["created_at"] = date_str
+    data[slug] = existing
+    _save_raw_config(data)
+
+
 def remove_project_source(slug):
     """Remove source folder mapping for a project."""
-    data = load_project_sources()
+    data = _load_raw_config()
     if slug in data:
         del data[slug]
-        with open(PROJECT_CONFIG, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        _save_raw_config(data)
 
 
 def _file_hash(path):
@@ -84,7 +112,8 @@ def _file_hash(path):
 def check_project_changes(slug):
     """Compare source files vs docs/ files. Returns list of changed/new/deleted filenames."""
     sources = load_project_sources()
-    source_path = sources.get(slug)
+    entry = sources.get(slug)
+    source_path = entry.get("path") if entry else None
     if not source_path or not os.path.isdir(source_path):
         return None  # source path unknown or missing
 
@@ -880,10 +909,26 @@ class UploadPanel(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.setAcceptDrops(True)
         self.md_files = []
         self.checkboxes = []
         self.worker = None
         self._build_ui()
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            urls = event.mimeData().urls()
+            if urls and os.path.isdir(urls[0].toLocalFile()):
+                event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        urls = event.mimeData().urls()
+        if urls:
+            folder = urls[0].toLocalFile()
+            if os.path.isdir(folder):
+                self.path_edit.setText(folder)
+                self.name_edit.setText(os.path.basename(folder))
+                self._scan_files(folder)
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
@@ -1246,7 +1291,7 @@ class ProjectCard(QFrame):
     select_requested = pyqtSignal(str)  # name
     update_requested = pyqtSignal(str, str)  # name, slug
 
-    def __init__(self, name, slug, doc_count, attach_count, last_updated, changes=None, source_path=None):
+    def __init__(self, name, slug, doc_count, attach_count, last_updated, changes=None, source_path=None, created_at=None):
         super().__init__()
         self.setObjectName("project_card")
         self.project_name = name
@@ -1293,12 +1338,35 @@ class ProjectCard(QFrame):
         top_row.addWidget(meta_label)
         main_layout.addLayout(top_row)
 
-        # Source path row
-        if source_path:
-            path_label = QLabel(source_path.replace("\\", "/"))
-            path_label.setObjectName("project_meta")
-            path_label.setStyleSheet("color: #999999; font-size: 8pt;")
-            main_layout.addWidget(path_label)
+        # Source path + created date row
+        info_row = QHBoxLayout()
+        info_row.setSpacing(0)
+
+        path_text = source_path.replace("\\", "/") if source_path else "Set source path..."
+        path_style = "color: #999999; font-size: 8pt;" if source_path else "color: #0078D4; font-size: 8pt;"
+        self._path_btn = QPushButton(path_text)
+        self._path_btn.setStyleSheet(
+            f"QPushButton {{ {path_style} border: none; text-align: left; padding: 0; }}"
+            f"QPushButton:hover {{ color: #0078D4; }}"
+        )
+        self._path_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self._path_btn.clicked.connect(self._change_source_path)
+        info_row.addWidget(self._path_btn)
+
+        info_row.addStretch()
+
+        date_text = f"Started: {created_at}" if created_at else "Set start date..."
+        date_style = "color: #999999; font-size: 8pt;" if created_at else "color: #0078D4; font-size: 8pt;"
+        self._date_btn = QPushButton(date_text)
+        self._date_btn.setStyleSheet(
+            f"QPushButton {{ {date_style} border: none; padding: 0; }}"
+            f"QPushButton:hover {{ color: #0078D4; }}"
+        )
+        self._date_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self._date_btn.clicked.connect(self._change_created_date)
+        info_row.addWidget(self._date_btn)
+
+        main_layout.addLayout(info_row)
 
         # Buttons row
         btn_row = QHBoxLayout()
@@ -1358,6 +1426,159 @@ class ProjectCard(QFrame):
         from PyQt6.QtCore import QTimer
         QTimer.singleShot(1500, lambda: btn.setText(original))
 
+    def _change_source_path(self):
+        folder = QFileDialog.getExistingDirectory(self, "Select Source Folder")
+        if folder:
+            save_project_source(self.project_slug, folder)
+            self._path_btn.setText(folder.replace("\\", "/"))
+            self._path_btn.setStyleSheet(
+                "QPushButton { color: #999999; font-size: 8pt; border: none; text-align: left; padding: 0; }"
+                "QPushButton:hover { color: #0078D4; }"
+            )
+
+    def _change_created_date(self):
+        from PyQt6.QtWidgets import QDialog, QGridLayout
+        from PyQt6.QtCore import QDate
+
+        sources = load_project_sources()
+        entry = sources.get(self.project_slug, {})
+        if entry.get("created_at"):
+            parts = entry["created_at"].split("-")
+            cur = QDate(int(parts[0]), int(parts[1]), int(parts[2]))
+        else:
+            cur = QDate.currentDate()
+
+        dlg = QDialog(self)
+        dlg.setWindowTitle("Start Date")
+        dlg.setFixedSize(280, 320)
+        dlg.setStyleSheet("""
+            QDialog { background: #FFFFFF; }
+            QPushButton { border: none; font-size: 10pt; padding: 4px; }
+            QPushButton:hover { background: #E8E8E8; border-radius: 4px; }
+        """)
+        dlg_layout = QVBoxLayout(dlg)
+        dlg_layout.setContentsMargins(12, 12, 12, 12)
+        dlg_layout.setSpacing(8)
+
+        view_date = [cur]  # mutable reference for month navigation
+        selected_result = [None]
+
+        # Header: < Month Year >
+        nav_row = QHBoxLayout()
+        prev_btn = QPushButton("<")
+        prev_btn.setFixedWidth(30)
+        prev_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        month_label = QLabel()
+        month_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        month_label.setStyleSheet("font-size: 11pt; font-weight: bold;")
+        next_btn = QPushButton(">")
+        next_btn.setFixedWidth(30)
+        next_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        nav_row.addWidget(prev_btn)
+        nav_row.addWidget(month_label, 1)
+        nav_row.addWidget(next_btn)
+        dlg_layout.addLayout(nav_row)
+
+        # Day-of-week headers
+        dow_row = QHBoxLayout()
+        dow_row.setSpacing(0)
+        for d in ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]:
+            lbl = QLabel(d)
+            lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            lbl.setStyleSheet("color: #888888; font-size: 8pt;")
+            lbl.setFixedSize(36, 20)
+            dow_row.addWidget(lbl)
+        dlg_layout.addLayout(dow_row)
+
+        # Day grid
+        grid = QGridLayout()
+        grid.setSpacing(0)
+        day_buttons = []
+        for r in range(6):
+            for c in range(7):
+                btn = QPushButton("")
+                btn.setFixedSize(36, 32)
+                btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+                grid.addWidget(btn, r, c)
+                day_buttons.append(btn)
+        dlg_layout.addLayout(grid)
+
+        def fill_grid():
+            d = view_date[0]
+            month_label.setText(f"{d.year()}.{d.month():02d}")
+            first = QDate(d.year(), d.month(), 1)
+            start_dow = first.dayOfWeek()  # 1=Mon
+            days_in_month = first.daysInMonth()
+            today = QDate.currentDate()
+
+            for i, btn in enumerate(day_buttons):
+                day_num = i - (start_dow - 1) + 1
+                if 1 <= day_num <= days_in_month:
+                    btn.setText(str(day_num))
+                    btn.setEnabled(True)
+                    this_date = QDate(d.year(), d.month(), day_num)
+                    # Style
+                    if this_date == cur:
+                        btn.setStyleSheet("background: #0078D4; color: white; border-radius: 4px; font-size: 10pt;")
+                    elif this_date == today:
+                        btn.setStyleSheet("color: #0078D4; font-weight: bold; font-size: 10pt;")
+                    else:
+                        btn.setStyleSheet("font-size: 10pt;")
+                    # Click = select, double-click = select & close
+                    btn.clicked.disconnect() if btn.receivers(btn.clicked) else None
+                    date_str = this_date.toString("yyyy-MM-dd")
+                    btn.clicked.connect(lambda checked, ds=date_str: _on_select(ds))
+                else:
+                    btn.setText("")
+                    btn.setEnabled(False)
+                    btn.setStyleSheet("font-size: 10pt;")
+
+        def _on_select(date_str):
+            selected_result[0] = date_str
+            dlg.accept()
+
+        def go_prev():
+            d = view_date[0]
+            view_date[0] = d.addMonths(-1)
+            fill_grid()
+
+        def go_next():
+            d = view_date[0]
+            view_date[0] = d.addMonths(1)
+            fill_grid()
+
+        def go_today():
+            view_date[0] = QDate.currentDate()
+            fill_grid()
+
+        prev_btn.clicked.connect(go_prev)
+        next_btn.clicked.connect(go_next)
+
+        # Bottom: Today + Cancel
+        bottom_row = QHBoxLayout()
+        today_btn = QPushButton("Today")
+        today_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        today_btn.setStyleSheet("color: #0078D4; font-size: 9pt;")
+        today_btn.clicked.connect(go_today)
+        bottom_row.addWidget(today_btn)
+        bottom_row.addStretch()
+        cancel_btn = QPushButton("Cancel")
+        cancel_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        cancel_btn.setStyleSheet("color: #888888; font-size: 9pt;")
+        cancel_btn.clicked.connect(dlg.reject)
+        bottom_row.addWidget(cancel_btn)
+        dlg_layout.addLayout(bottom_row)
+
+        fill_grid()
+
+        if dlg.exec() == QDialog.DialogCode.Accepted and selected_result[0]:
+            save_project_created_at(self.project_slug, selected_result[0])
+            self._date_btn.setText(f"Started: {selected_result[0]}")
+            self._date_btn.setStyleSheet(
+                "QPushButton { color: #999999; font-size: 8pt; border: none; padding: 0; }"
+                "QPushButton:hover { color: #0078D4; }"
+            )
+
     def _request_delete(self):
         self.delete_requested.emit(self.project_name, self.project_slug)
 
@@ -1410,6 +1631,15 @@ class ProjectsPanel(QWidget):
         self.gl_site_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.gl_site_btn.clicked.connect(lambda: webbrowser.open(GITLAB_SITE_URL))
         header_row.addWidget(self.gl_site_btn)
+        header_row.addSpacing(6)
+
+        self.update_all_btn = QPushButton("Update All")
+        self.update_all_btn.setObjectName("upload")
+        self.update_all_btn.setToolTip("Update all changed projects")
+        self.update_all_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.update_all_btn.clicked.connect(self._on_update_all)
+        self.update_all_btn.setVisible(False)
+        header_row.addWidget(self.update_all_btn)
 
         layout.addLayout(header_row)
         layout.addSpacing(12)
@@ -1450,10 +1680,15 @@ class ProjectsPanel(QWidget):
             return
 
         sources = load_project_sources()
+        self._changed_projects = []
         for proj in projects:
             info = get_project_info(proj["slug"])
             changes = check_project_changes(proj["slug"])
-            source_path = sources.get(proj["slug"])
+            entry = sources.get(proj["slug"], {})
+            source_path = entry.get("path")
+            created_at = entry.get("created_at")
+            if changes:
+                self._changed_projects.append((proj["name"], proj["slug"]))
             card = ProjectCard(
                 proj["name"],
                 proj["slug"],
@@ -1462,12 +1697,14 @@ class ProjectsPanel(QWidget):
                 info["last_updated"],
                 changes=changes,
                 source_path=source_path,
+                created_at=created_at,
             )
             card.delete_requested.connect(self._on_delete_requested)
             card.select_requested.connect(self.project_selected)
             card.update_requested.connect(self._on_update_requested)
             self.list_layout.addWidget(card)
 
+        self.update_all_btn.setVisible(len(self._changed_projects) > 0)
         self.status_label.setText(f"{len(projects)} projects")
         self._update_sync_status()
 
@@ -1546,7 +1783,8 @@ class ProjectsPanel(QWidget):
 
     def _on_update_requested(self, name, slug):
         sources = load_project_sources()
-        source_path = sources.get(slug)
+        entry = sources.get(slug, {})
+        source_path = entry.get("path")
         if not source_path or not os.path.isdir(source_path):
             QMessageBox.warning(self, "Error", "Source folder not found")
             return
@@ -1587,6 +1825,88 @@ class ProjectsPanel(QWidget):
             self.status_label.setText(f"Error: {msg[:80]}")
             QMessageBox.critical(self, "Error", msg)
 
+    def _on_update_all(self):
+        if not self._changed_projects:
+            return
+
+        sources = load_project_sources()
+        all_selected = []
+        names = []
+        for name, slug in self._changed_projects:
+            entry = sources.get(slug, {})
+            source_path = entry.get("path")
+            if not source_path or not os.path.isdir(source_path):
+                continue
+            changes = check_project_changes(slug)
+            if not changes:
+                continue
+            # Copy changed files to docs
+            dest_dir = os.path.join(DOCS_DIR, slug)
+            os.makedirs(dest_dir, exist_ok=True)
+            for change in changes:
+                fname = change[2:]
+                full = os.path.join(source_path, fname)
+                if os.path.isfile(full):
+                    shutil.copy2(full, os.path.join(dest_dir, fname))
+            # Regenerate index and nav
+            md_files = [f for f in os.listdir(dest_dir) if f.lower().endswith(".md") and f != "index.md"]
+            create_project_index(slug, name, md_files)
+            md_files.insert(0, "index.md")
+            update_mkdocs_nav(slug, name, md_files)
+            names.append(name)
+
+        if not names:
+            self.status_label.setText("No changes to update")
+            return
+
+        self._set_buttons_enabled(False)
+        self.update_all_btn.setEnabled(False)
+        self.status_label.setText(f"Updating {len(names)} projects...")
+
+        commit_msg = f"Update {', '.join(names)} docs"
+        self._batch_worker = _BatchPushWorker(commit_msg)
+        self._batch_worker.status_update.connect(self._on_status)
+        self._batch_worker.finished.connect(self._on_update_finished)
+        self._batch_worker.start()
+
+
+class _BatchPushWorker(QThread):
+    """Git add + commit + push only (files already copied)."""
+    finished = pyqtSignal(bool, str)
+    status_update = pyqtSignal(str)
+
+    def __init__(self, commit_msg):
+        super().__init__()
+        self.commit_msg = commit_msg
+
+    def run(self):
+        try:
+            self.status_update.emit("git add .")
+            subprocess.run(["git", "add", "."], cwd=REPO_DIR,
+                           capture_output=True, text=True, encoding="utf-8",
+                           creationflags=_NO_WINDOW)
+
+            self.status_update.emit("git commit")
+            subprocess.run(["git", "commit", "-m", self.commit_msg],
+                           cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                           creationflags=_NO_WINDOW)
+
+            ok, err = True, ""
+            for remote in GIT_REMOTES:
+                self.status_update.emit(f"git push {remote} main...")
+                result = subprocess.run(["git", "push", remote, "main"],
+                                        cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                                        creationflags=_NO_WINDOW)
+                if result.returncode != 0:
+                    ok, err = False, f"[{remote}] {result.stderr or result.stdout}"
+
+            if ok:
+                self.finished.emit(True, "All projects updated")
+            else:
+                self.finished.emit(False, err)
+        except Exception as e:
+            self.finished.emit(False, str(e))
+
 
 # ---------------------------------------------------------------------------
 # Main Window
@@ -1597,7 +1917,8 @@ class ManagerApp(QMainWindow):
         super().__init__()
         self.setWindowTitle("AI Lab Notes Manager")
         self.setWindowIcon(create_app_icon())
-        self.setFixedSize(920, 580)
+        self.setMinimumSize(920, 580)
+        self.resize(920, 700)
 
         check_icon_path = create_checkmark_icon()
         self.setStyleSheet(STYLE.replace("CHECKMARK_PATH", check_icon_path))

@@ -1,5 +1,66 @@
 # AI Lab Notes Manager - R&D Log
 
+## 2026-03-09: Custom Calendar Dialog
+- Replaced QCalendarWidget with custom QPainter-based calendar
+- Single-click date selection (no OK button needed)
+- Month navigation (< >) + "Today" button
+- Current selection: blue background + white text
+- Today: blue bold text
+- Used for project start date (`created_at` in config)
+
+## 2026-03-09: Project Start Date Tracking
+- Added `created_at` field to `.project_sources.json` config
+- Auto-set to today on first upload, preserved on re-uploads
+- Displayed on project card as "Started: YYYY-MM-DD" (clickable to edit)
+- JSON structure changed from `{slug: path}` to `{slug: {path, created_at}}`
+- Backward-compatible: auto-migrates old string format to new dict format
+
+## 2026-03-09: Drag & Drop Upload
+- UploadPanel accepts folder drops (`dragEnterEvent` + `dropEvent`)
+- Drop auto-fills path + name + scans files
+- Only accepts directories (rejects file drops)
+
+## 2026-03-09: Update All Button
+- "Update All" button appears in header when any project has changes
+- Copies all changed files from all projects → single git commit + push
+- `_BatchPushWorker(QThread)` handles git operations (files pre-copied in main thread)
+
+## 2026-03-09: Source Path Management UI
+- Each project card shows source path (gray text) or "Set source path..." (blue link)
+- Click to change via folder selection dialog
+- Path stored in `.project_sources.json`
+
+## 2026-03-09: Change Detection
+- `check_project_changes()` compares source .md vs docs/ .md by MD5 hash
+- Detects new files (`+`) and modified files (`~`), ignores docs-only files
+- Orange "N changed" badge on project card (clickable → auto-update)
+- `.project_sources.json` maps project slug → source folder path
+
+## 2026-03-09: Resizable Window
+- Changed `setFixedSize(920, 580)` → `setMinimumSize(920, 580)` + `resize(920, 700)`
+- Window now freely resizable, more vertical space by default
+
+## 2026-03-09: GitHub/GitLab Sync Status
+- `get_sync_status()` compares `origin/main` vs `gitlab/main` commit hashes
+- Green circle+checkmark icon = synced with HEAD
+- Orange circle+exclamation = behind HEAD
+- Icons created via QPainter (16x16): filled circle + white symbol
+- Updates on Refresh and after upload/delete
+
+## 2026-03-09: Console Window Fix
+- All `subprocess.run` calls now use `creationflags=CREATE_NO_WINDOW`
+- `_NO_WINDOW` constant: `subprocess.CREATE_NO_WINDOW` on Windows, `0` otherwise
+- Previously: 2 console windows flashed on app start (from `get_sync_status`)
+
+## 2026-03-09: GitLab Dual Deploy
+- Added GitLab as second remote alongside GitHub
+- `.gitlab-ci.yml` for MkDocs Pages deployment via GitLab CI/CD
+- Separate upload buttons: GitHub (origin) / GitLab (gitlab)
+- Project card: GitHub / GitLab buttons open respective repo tree URLs
+- Header: GitHub / GitLab buttons open respective Pages sites
+- GitLab username: `jungjaehwa1`, Pages URL: `jungjaehwa1.gitlab.io`
+- Copy URL copies GitLab URL (private site)
+
 ## 2026-03-08: Desktop Shortcut
 - Created `.ico` file with multiple sizes (16~256px) via Pillow
 - Desktop shortcut using `pythonw.exe` (no console window on launch)
