@@ -831,13 +831,13 @@ class UploadPanel(QWidget):
         self.gh_upload_btn = QPushButton("GitHub")
         self.gh_upload_btn.setObjectName("upload")
         self.gh_upload_btn.setEnabled(False)
-        self.gh_upload_btn.clicked.connect(lambda: self._upload(["origin"]))
+        self.gh_upload_btn.clicked.connect(lambda: self._upload(["origin"], self.gh_upload_btn))
         btn_row.addWidget(self.gh_upload_btn, 1)
 
         self.gl_upload_btn = QPushButton("GitLab")
         self.gl_upload_btn.setObjectName("upload")
         self.gl_upload_btn.setEnabled(False)
-        self.gl_upload_btn.clicked.connect(lambda: self._upload(["gitlab"]))
+        self.gl_upload_btn.clicked.connect(lambda: self._upload(["gitlab"], self.gl_upload_btn))
         btn_row.addWidget(self.gl_upload_btn, 1)
 
         reset_btn = QPushButton("Reset")
@@ -1036,7 +1036,7 @@ class UploadPanel(QWidget):
         self.gl_upload_btn.setEnabled(True)
         self._check_duplicate()
 
-    def _upload(self, remotes):
+    def _upload(self, remotes, active_btn):
         project_name = self.name_edit.text().strip()
         if not project_name:
             QMessageBox.warning(self, "Warning", "Please enter a project name")
@@ -1051,6 +1051,7 @@ class UploadPanel(QWidget):
             QMessageBox.warning(self, "Warning", "Please select documents to upload")
             return
 
+        self._active_btn = active_btn
         self.gh_upload_btn.setEnabled(False)
         self.gl_upload_btn.setEnabled(False)
         self.status_label.setText("Uploading...")
@@ -1065,8 +1066,7 @@ class UploadPanel(QWidget):
         self.status_label.setText(text)
 
     def _on_progress(self, pct, text):
-        self.gh_upload_btn.setText(text)
-        self.gl_upload_btn.setText(text)
+        self._active_btn.setText(text)
 
     def _on_finished(self, success, msg):
         self.gh_upload_btn.setText("GitHub")
