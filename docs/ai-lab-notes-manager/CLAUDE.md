@@ -17,7 +17,7 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub → MkDocs P
 ## Key Files
 | File | Purpose |
 |---|---|
-| `uploader.py` | Main app (PyQt6 GUI + upload logic) |
+| `uploader.py` | Main app (PyQt6 GUI + all logic) |
 | `mkdocs.yml` | MkDocs config + navigation structure |
 | `docs/` | All published markdown documents |
 | `docs/{project_slug}/` | Per-project document folders |
@@ -35,28 +35,64 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub → MkDocs P
 | `find_md_files(folder)` | Walk folder (depth ≤ 1), return .md files |
 | `slugify(text)` | Project name → URL-safe slug |
 | `update_mkdocs_nav()` | Parse mkdocs.yml, insert/update project nav entries |
+| `remove_project_from_nav()` | Remove project section from mkdocs.yml nav |
 | `create_project_index()` | Generate index.md with document table |
-| `git_push(message)` | Sequential git add → commit → push |
+| `parse_projects_from_nav()` | Parse nav → list of {name, slug, nav_doc_count} |
+| `get_project_info(slug)` | Scan docs folder → {doc_count, last_updated, total_size} |
+| `project_exists_in_nav()` | Check if project name already in nav |
 
 ## Classes
 | Class | Purpose |
 |---|---|
 | `UploadWorker(QThread)` | Background upload with progress signals |
-| `UploaderApp(QMainWindow)` | Main window (will become `ManagerApp` with tabs) |
+| `DeleteWorker(QThread)` | Background project deletion with git push |
+| `UploadPanel(QWidget)` | Left panel: browse, scan, upload |
+| `ProjectCard(QFrame)` | Single project card with Copy/Copy URL/Open/Delete |
+| `ProjectsPanel(QWidget)` | Right panel: project list + management |
+| `ManagerApp(QMainWindow)` | Main window with side-by-side layout |
+
+## Layout
+```
+┌─────────────────────────────────────────────────┐
+│ AI Lab Notes                                     │
+│ Manage your project documentation                │
+│─────────────────────────────────────────────────│
+│ Upload              │ Projects        Open Site  │
+│                     │                            │
+│ Project Path        │ ┌──────────────────────┐  │
+│ [__________] Browse │ │ Eye Pipeline         │  │
+│                     │ │ 3 docs | 2026-03-08  │  │
+│ Project Name        │ │ Copy CopyURL Open Del│  │
+│ [__________]        │ └──────────────────────┘  │
+│                     │                            │
+│ Documents Found     │ ┌──────────────────────┐  │
+│ ┌─────────────────┐ │ │ Teamplay_Gantt       │  │
+│ │ ☑ file1.md      │ │ │ ...                  │  │
+│ │ ☑ file2.md      │ │ └──────────────────────┘  │
+│ └─────────────────┘ │                            │
+│                     │                            │
+│ [    Upload    ]    │                            │
+│ Ready               │ 3 projects                 │
+└─────────────────────────────────────────────────┘
+```
 
 ## Style
-- Windows 11 Explorer aesthetic (accent #0078D4, bg #FFFFFF, borders #E5E5E5)
+- Windows 11 Explorer aesthetic (accent #0078D4, bg #FFFFFF, borders #C5C5C5)
 - Font: Malgun Gothic 10pt (Korean system font)
 - UI text: English only
 - Custom checkmark icon via QPainter → temp PNG → QSS `image: url()`
+- Separators: 1px solid #C5C5C5 (matches QLineEdit border)
 
 ## Conventions
 - Path normalization: always convert `\` → `/` for display
 - Project slug: lowercase, hyphens, preserves Korean characters
 - Nav structure: projects inserted before `tags.md` line in mkdocs.yml
 - All git operations run with `encoding="utf-8"`
+- **Double-click paste**: All QLineEdit fields support double-click to paste clipboard content. Use `_paste_on_double_click()` static method for new fields.
+- Scanning feedback: show "Scanning..." with `processEvents()` before blocking scan
 
 ## Current State
-- Phase 0 complete: single-tab uploader with progress
-- Phase 1 planned: tab structure (Upload | Projects), project management
+- Phase 0 complete: uploader with progress
+- Phase 1 complete: side-by-side layout, project management, delete, copy/copy URL
+- Phase 2 planned: document-level management, drag & drop, change detection
 - See PLAN.md for full roadmap

@@ -5,11 +5,13 @@ Transform the simple uploader into a full **Git-backed CMS GUI** that lets non-G
 
 App name change: `AI Lab Notes Uploader` → `AI Lab Notes Manager`
 
-## Tab Structure
+## Layout
 ```
-┌──────────┬──────────┐
-│  Upload  │ Projects │
-└──────────┴──────────┘
+┌──────────────────────────────────────┐
+│  Upload (left)  │  Projects (right)  │
+│                 │                    │
+│  Side-by-side, single page           │
+└──────────────────────────────────────┘
 ```
 
 ---
@@ -30,43 +32,42 @@ App name change: `AI Lab Notes Uploader` → `AI Lab Notes Manager`
 
 ---
 
-## Phase 1: Tab Structure + Projects List
+## Phase 1: Side-by-Side Layout + Project Management (DONE)
 
-### 1-1. Refactor to Tab Layout
-- Rename `UploaderApp` → `ManagerApp`
-- Add `QTabWidget` with "Upload" and "Projects" tabs
-- Extract upload UI into `UploadTab(QWidget)`
-- Create `ProjectsTab(QWidget)`
-- Window title: "AI Lab Notes Manager"
-- Window size: 540×620
+### 1-1. Two-Panel Layout
+- [x] Rename `UploaderApp` → `ManagerApp`
+- [x] Side-by-side: `UploadPanel` (left) + `ProjectsPanel` (right)
+- [x] Vertical 1px separator with bottom spacing
+- [x] Window title: "AI Lab Notes Manager"
+- [x] Window size: 920×580
 
-### 1-2. Projects Tab - Project List
-Data source: parse `mkdocs.yml` nav + scan `docs/` folders
-
-Each project card shows:
-| Field | Source |
-|---|---|
-| Project name | mkdocs.yml nav section header |
-| Document count | Count .md files in `docs/{slug}/` |
-| Last updated | Most recent mtime in `docs/{slug}/` |
-| Open in browser | `SITE_URL + slug` → `webbrowser.open()` |
-| Delete project | Remove folder + nav entry + git push |
+### 1-2. Projects Panel - Project List
+- [x] Parse `mkdocs.yml` nav + scan `docs/` folders
+- [x] ProjectCard: name, doc count, last updated date
+- [x] Copy button (project name → clipboard)
+- [x] Copy URL button (project URL → clipboard)
+- [x] Open button (browser)
+- [x] Open Site button (main site URL)
+- [x] "Copied!" feedback with 1.5s auto-reset
 
 ### 1-3. Project Delete
-Safety: 2-step confirmation dialog
-1. "Delete {name} and all {n} documents?"
-2. Type project name to confirm
+- [x] 2-step confirmation (Yes/No → type project name)
+- [x] `DeleteWorker(QThread)` background deletion
+- [x] Remove folder + nav entry + git push
 
-Delete flow:
-1. `shutil.rmtree(docs/{slug}/)`
-2. Remove project section from mkdocs.yml nav
-3. git add → commit → push (via `DeleteWorker(QThread)`)
+### 1-4. Upload Panel - Improvements
+- [x] Duplicate detection (warning when project exists)
+- [x] Button text: "Upload" → "Update" when duplicate
+- [x] Scanning feedback ("Scanning..." with processEvents)
+- [x] Double-click paste on Project Path field
+- [x] Double-click paste on Project Name field
+- [x] Auto-refresh Projects panel after upload
 
-### 1-4. Upload Tab - Duplicate Detection
-When user enters a project name that already exists in nav:
-- Show warning: "{name} already exists. {n} files will be updated."
-- Button text changes: "Upload" → "Update"
-- Existing files that match names are overwritten; new files are added
+### 1-5. UI Polish
+- [x] Separator colors: #C5C5C5 (matches QLineEdit border)
+- [x] Transparent scroll area backgrounds
+- [x] Horizontal separator under title
+- [x] Vertical separator with bottom margin
 
 ---
 
@@ -87,7 +88,7 @@ Click project card → expand to show individual documents:
 - Basic rendering (headers, bold, code blocks) optional — plain text is acceptable
 
 ### 2-3. Drag & Drop Upload
-- Accept folder drop on Upload tab → auto-fill path
+- Accept folder drop on Upload panel → auto-fill path
 - `dragEnterEvent` + `dropEvent` on the main widget
 
 ### 2-4. Change Detection on Upload
@@ -103,12 +104,12 @@ Compare source files with existing `docs/{slug}/` files:
 
 ### 3-1. Unpublished Changes Indicator
 Run `git status --porcelain` on REPO_DIR:
-- If uncommitted changes exist → show badge on Projects tab
+- If uncommitted changes exist → show badge on Projects panel
 - Per-project: check if any files in `docs/{slug}/` are modified
 
 ### 3-2. Recent Upload History
 Parse `git log --oneline -10` for recent commits:
-- Show in Upload tab or as a dropdown
+- Show in Upload panel or as a dropdown
 - Format: "2026-03-08 Add/update Eye Pipeline docs"
 
 ### 3-3. Deploy Status
@@ -143,25 +144,24 @@ Drag to reorder projects in nav:
 
 ---
 
-## Class Structure (Target)
+## Class Structure (Current)
 
 ```
-manager.py
+uploader.py
 ├── Constants: REPO_DIR, DOCS_DIR, MKDOCS_YML, SITE_URL, STYLE
-├── Utilities: find_md_files, slugify, update_mkdocs_nav, create_project_index, git_push
-├── parse_projects_from_nav() → list of project info dicts
+├── Utilities: find_md_files, slugify, update_mkdocs_nav, remove_project_from_nav,
+│              create_project_index, parse_projects_from_nav, get_project_info,
+│              project_exists_in_nav
 │
-├── UploadWorker(QThread)       - Upload with progress
+├── UploadWorker(QThread)       - Upload with progress signals
 ├── DeleteWorker(QThread)       - Delete project with git push
 │
-├── UploadTab(QWidget)          - Browse, scan, upload
-├── ProjectsTab(QWidget)        - List, manage, delete projects
-│   ├── ProjectCard(QFrame)     - Single project accordion item
-│   └── DocRow(QWidget)         - Individual document row
+├── UploadPanel(QWidget)        - Left: browse, scan, upload
+│   └── _paste_on_double_click  - Reusable double-click paste for QLineEdit
+├── ProjectCard(QFrame)         - Project card with Copy/CopyURL/Open/Delete
+├── ProjectsPanel(QWidget)      - Right: project list + management
 │
-├── MarkdownPreviewDialog(QDialog)  - Read-only .md viewer
-│
-└── ManagerApp(QMainWindow)     - Tab container + shared state
+└── ManagerApp(QMainWindow)     - Side-by-side layout container
 ```
 
 ---
