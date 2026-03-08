@@ -1,0 +1,62 @@
+site_name: AI Lab Notes
+site_description: AI R&D 실험 노트
+site_author: jungjaewa
+site_url: https://jungjaewa.github.io/ai-lab-notes/
+
+repo_name: jungjaewa/ai-lab-notes
+repo_url: https://github.com/jungjaewa/ai-lab-notes
+
+theme:
+  name: material
+  language: ko
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 다크 모드
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 라이트 모드
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search:
+      lang:
+        - ko
+        - en
+  - tags:
+      tags_file: tags.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Eye Pipeline:
+    - eye-pipeline/index.md
+    - 아바타 애니메이션 리서치: eye-pipeline/research.md
+    - R&D 과정 로그: eye-pipeline/rnd-log.md
+  - 태그: tags.md
