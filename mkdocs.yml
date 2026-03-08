@@ -66,10 +66,9 @@ nav:
     - Plan: teamplay_gantt/PLAN.md
   - AI Lab Notes Manager:
     - ai-lab-notes-manager/index.md
+    - Readme: ai-lab-notes-manager/README.md
+    - Rnd Log: ai-lab-notes-manager/RND_LOG.md
     - Skills Guide: ai-lab-notes-manager/SKILLS_GUIDE.md
-    - Claude: ai-lab-notes-manager/CLAUDE.md
-    - Plan: ai-lab-notes-manager/PLAN.md
-    - R&D Log: ai-lab-notes-manager/RND_LOG.md
   - PSD:
     - psd/index.md
     - Claude: psd/CLAUDE.md

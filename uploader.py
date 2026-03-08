@@ -105,16 +105,12 @@ def check_project_changes(slug):
             docs_files[f] = _file_hash(os.path.join(docs_dir, f))
 
     changes = []
-    # Check modified or new files
+    # Only compare files that exist in source
     for f, h in source_files.items():
         if f not in docs_files:
             changes.append(f"+ {f}")
         elif docs_files[f] != h:
             changes.append(f"~ {f}")
-    # Check deleted files
-    for f in docs_files:
-        if f not in source_files:
-            changes.append(f"- {f}")
 
     return changes if changes else []
 
@@ -1248,6 +1244,7 @@ class UploadPanel(QWidget):
 class ProjectCard(QFrame):
     delete_requested = pyqtSignal(str, str)  # name, slug
     select_requested = pyqtSignal(str)  # name
+    update_requested = pyqtSignal(str, str)  # name, slug
 
     def __init__(self, name, slug, doc_count, attach_count, last_updated, changes=None, source_path=None):
         super().__init__()
@@ -1270,14 +1267,16 @@ class ProjectCard(QFrame):
         name_label.setObjectName("project_name")
         top_row.addWidget(name_label)
 
-        # Updated badge
+        # Updated badge (clickable)
         if changes:
-            badge = QLabel(f"  {len(changes)} changed")
+            badge = QPushButton(f"  {len(changes)} changed")
             badge.setStyleSheet(
                 "color: #FFFFFF; background: #D83B01; border-radius: 3px;"
-                "padding: 1px 6px; font-size: 9pt;"
+                "padding: 1px 6px; font-size: 9pt; border: none;"
             )
-            badge.setToolTip("\n".join(changes))
+            badge.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+            badge.setToolTip("Click to update\n" + "\n".join(changes))
+            badge.clicked.connect(lambda: self.update_requested.emit(self.project_name, self.project_slug))
             top_row.addSpacing(8)
             top_row.addWidget(badge)
 
@@ -1466,6 +1465,7 @@ class ProjectsPanel(QWidget):
             )
             card.delete_requested.connect(self._on_delete_requested)
             card.select_requested.connect(self.project_selected)
+            card.update_requested.connect(self._on_update_requested)
             self.list_layout.addWidget(card)
 
         self.status_label.setText(f"{len(projects)} projects")
@@ -1539,6 +1539,49 @@ class ProjectsPanel(QWidget):
         self._set_buttons_enabled(True)
         if success:
             self.status_label.setText("Project deleted. Site updates in 1-2 min.")
+            self.refresh()
+        else:
+            self.status_label.setText(f"Error: {msg[:80]}")
+            QMessageBox.critical(self, "Error", msg)
+
+    def _on_update_requested(self, name, slug):
+        sources = load_project_sources()
+        source_path = sources.get(slug)
+        if not source_path or not os.path.isdir(source_path):
+            QMessageBox.warning(self, "Error", "Source folder not found")
+            return
+
+        # Collect changed .md files from source
+        changes = check_project_changes(slug)
+        if not changes:
+            self.status_label.setText("No changes detected")
+            return
+
+        # Build file list from source folder (only changed/new files)
+        selected = []
+        for change in changes:
+            fname = change[2:]  # remove "+ " or "~ " prefix
+            full = os.path.join(source_path, fname)
+            if os.path.isfile(full):
+                selected.append((fname, full))
+
+        if not selected:
+            self.status_label.setText("No files to update")
+            return
+
+        self._set_buttons_enabled(False)
+        self.status_label.setText("Updating...")
+
+        self.worker = UploadWorker(name, selected, GIT_REMOTES, source_path=source_path)
+        self.worker.status_update.connect(self._on_status)
+        self.worker.progress_update.connect(lambda pct, text: self.status_label.setText(text))
+        self.worker.finished.connect(self._on_update_finished)
+        self.worker.start()
+
+    def _on_update_finished(self, success, msg):
+        self._set_buttons_enabled(True)
+        if success:
+            self.status_label.setText("Updated. Site updates in 1-2 min.")
             self.refresh()
         else:
             self.status_label.setText(f"Error: {msg[:80]}")

@@ -1,5 +1,38 @@
 # AI Lab Notes Manager - R&D Log
 
+## 2026-03-08: Desktop Shortcut
+- Created `.ico` file with multiple sizes (16~256px) via Pillow
+- Desktop shortcut using `pythonw.exe` (no console window on launch)
+- VBScript COM automation to create `.lnk` file with custom icon
+
+## 2026-03-08: App Icon
+- Purple (#7B2FBE) rounded rect + white "MD" text via QPainter (64x64)
+- `SetCurrentProcessExplicitAppUserModelID("ai-lab-notes-manager")` for Windows taskbar
+- Without this, Windows shows python.exe icon instead of app icon
+
+## 2026-03-08: Compact Project Cards
+- Moved meta info (doc count, date) to same line as project name (right-aligned)
+- Reduced card padding: 10px → 8px vertical, spacing 6px → 4px
+- Cards now 2 rows (name+meta / buttons) instead of 3 rows
+
+## 2026-03-08: Git Button & Open Icon
+- Added "Git" text button → opens GitHub repo page (`REPO_URL + slug`)
+- Added `REPO_URL` constant for GitHub tree URL
+- Changed Open button from text to QPainter external-link icon (↗)
+- Created `create_open_icon()` with box + arrow design
+
+## 2026-03-08: Select Button (◀) & Icon System
+- Added select button (◀ left-arrow icon) on each project card
+- Click fills Upload panel's Project Name field
+- Signal chain: `ProjectCard.select_requested` → `ProjectsPanel.project_selected` → `UploadPanel.set_project_name`
+- Created shared `_icon_pen()` (#848484, 1.2px) for consistent icon styling
+- All QPainter icons use same pen for uniform color/weight
+
+## 2026-03-08: Reset & Refresh Buttons
+- Reset button on Upload panel: clears path, name, file list, status
+- Refresh button on Projects panel: re-parses mkdocs.yml + rescans docs/
+- Upload time displayed as `YYYY-MM-DD HH:MM` format on each card
+
 ## 2026-03-08: Double-Click Paste & Docs Update
 - Added double-click paste for all QLineEdit fields (Project Path, Project Name)
 - Reusable `_paste_on_double_click()` static method for future fields

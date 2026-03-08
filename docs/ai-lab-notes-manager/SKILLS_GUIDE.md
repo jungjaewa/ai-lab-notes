@@ -8,6 +8,9 @@ pip install PyQt6
 
 ## Launch
 
+**Desktop shortcut**: Double-click "AI Lab Notes Manager" on desktop (no console window).
+
+**Terminal**:
 ```bash
 cd D:\_AI_BMAD\ai-lab-notes
 python uploader.py
@@ -54,18 +57,24 @@ The app has two panels side by side:
 ## Project Management
 
 ### Project Cards
-Each uploaded project shows a card with:
-- Project name and document count
-- Last updated date
+Each uploaded project shows a compact card with:
+- Project name (left) + doc count + last updated time (right) — on the same line
+- Action buttons below
 
 ### Actions
 | Button | Action |
 |---|---|
+| **◀** (icon) | Fill Upload panel's Project Name with this project name |
 | **Copy** | Copy project name to clipboard |
 | **Copy URL** | Copy project URL to clipboard |
-| **Open** | Open project page in browser |
+| **↗** (icon) | Open project page in browser |
+| **Git** | Open project's GitHub repo page |
 | **Delete** | Delete project (2-step confirmation) |
+| **Refresh** | Re-scan projects from mkdocs.yml |
 | **Open Site** | Open the main documentation site |
+
+### Reset
+Click "Reset" button on the Upload panel to clear all fields (path, name, file list).
 
 ### Delete Safety
 Deleting a project requires two confirmations:
@@ -111,4 +120,6 @@ All text input fields support double-click to paste:
 | Upload fails with network error | Check internet connection. |
 | Site not updating | Wait 1-2 minutes. Check GitHub Actions tab for build status. |
 | Korean text looks wrong | Ensure Malgun Gothic font is installed (default on Windows 11). |
-| Projects not showing | Projects panel refreshes on startup and after upload. |
+| Projects not showing | Projects panel refreshes on startup and after upload. Click Refresh to re-scan. |
+| App icon not showing | Taskbar icon requires `SetCurrentProcessExplicitAppUserModelID`. Already set in code. |
+| Desktop shortcut shows console | Shortcut should use `pythonw.exe`, not `python.exe`. |
