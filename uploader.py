@@ -5,6 +5,8 @@ AI Lab Notes Manager (PyQt6)
 """
 
 import ctypes
+import hashlib
+import json
 import os
 import re
 import shutil
@@ -30,8 +32,9 @@ REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 DOCS_DIR = os.path.join(REPO_DIR, "docs")
 MKDOCS_YML = os.path.join(REPO_DIR, "mkdocs.yml")
 SITE_URL = "https://jungjaewa.github.io/ai-lab-notes/"
-GITLAB_SITE_URL = "https://jungjaehwa.gitlab.io/ai-lab-notes/"
+GITLAB_SITE_URL = "https://jungjaehwa1.gitlab.io/ai-lab-notes/"
 REPO_URL = "https://github.com/jungjaewa/ai-lab-notes/tree/main/docs/"
+GITLAB_REPO_URL = "https://gitlab.com/jungjaehwa1/ai-lab-notes/-/tree/main/docs/"
 GIT_REMOTES = ["origin", "gitlab"]  # push to both GitHub and GitLab
 
 
@@ -40,6 +43,103 @@ GIT_REMOTES = ["origin", "gitlab"]  # push to both GitHub and GitLab
 # ---------------------------------------------------------------------------
 
 UPLOAD_EXTENSIONS = {".md", ".zip", ".7z"}
+_NO_WINDOW = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+PROJECT_CONFIG = os.path.join(REPO_DIR, ".project_sources.json")
+
+
+def load_project_sources():
+    """Load project → source folder mapping from JSON config."""
+    if os.path.isfile(PROJECT_CONFIG):
+        with open(PROJECT_CONFIG, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def save_project_source(slug, source_path):
+    """Save source folder path for a project."""
+    data = load_project_sources()
+    data[slug] = source_path
+    with open(PROJECT_CONFIG, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def remove_project_source(slug):
+    """Remove source folder mapping for a project."""
+    data = load_project_sources()
+    if slug in data:
+        del data[slug]
+        with open(PROJECT_CONFIG, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def _file_hash(path):
+    """Return MD5 hash of a file for comparison."""
+    h = hashlib.md5()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def check_project_changes(slug):
+    """Compare source files vs docs/ files. Returns list of changed/new/deleted filenames."""
+    sources = load_project_sources()
+    source_path = sources.get(slug)
+    if not source_path or not os.path.isdir(source_path):
+        return None  # source path unknown or missing
+
+    docs_dir = os.path.join(DOCS_DIR, slug)
+    if not os.path.isdir(docs_dir):
+        return None
+
+    # Build hash maps for source .md files
+    source_files = {}
+    for f in os.listdir(source_path):
+        if f.lower().endswith(".md"):
+            source_files[f] = _file_hash(os.path.join(source_path, f))
+
+    # Build hash maps for docs .md files (exclude index.md which is auto-generated)
+    docs_files = {}
+    for f in os.listdir(docs_dir):
+        if f.lower().endswith(".md") and f != "index.md":
+            docs_files[f] = _file_hash(os.path.join(docs_dir, f))
+
+    changes = []
+    # Check modified or new files
+    for f, h in source_files.items():
+        if f not in docs_files:
+            changes.append(f"+ {f}")
+        elif docs_files[f] != h:
+            changes.append(f"~ {f}")
+    # Check deleted files
+    for f in docs_files:
+        if f not in source_files:
+            changes.append(f"- {f}")
+
+    return changes if changes else []
+
+
+def get_sync_status():
+    """Compare origin/main and gitlab/main commit hashes. Returns dict with sync info."""
+    result = {"origin": None, "gitlab": None, "synced": False}
+    for remote in ("origin", "gitlab"):
+        try:
+            r = subprocess.run(
+                ["git", "rev-parse", f"{remote}/main"],
+                cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                creationflags=_NO_WINDOW,
+            )
+            if r.returncode == 0:
+                result[remote] = r.stdout.strip()
+        except Exception:
+            pass
+    result["synced"] = (
+        result["origin"] is not None
+        and result["gitlab"] is not None
+        and result["origin"] == result["gitlab"]
+    )
+    return result
+
 
 
 def find_project_files(folder):
@@ -321,16 +421,20 @@ class UploadWorker(QThread):
     status_update = pyqtSignal(str)
     progress_update = pyqtSignal(int, str)
 
-    def __init__(self, project_name, selected_files, remotes=None):
+    def __init__(self, project_name, selected_files, remotes=None, source_path=None):
         super().__init__()
         self.project_name = project_name
         self.selected_files = selected_files
         self.remotes = remotes or GIT_REMOTES
+        self.source_path = source_path
 
     def run(self):
         try:
             project_slug = slugify(self.project_name)
             dest_dir = os.path.join(DOCS_DIR, project_slug)
+
+            if self.source_path:
+                save_project_source(project_slug, self.source_path)
             os.makedirs(dest_dir, exist_ok=True)
 
             attach_dir = os.path.join(dest_dir, "attach")
@@ -366,19 +470,22 @@ class UploadWorker(QThread):
             self.progress_update.emit(60, "Uploading 60%")
             self.status_update.emit("git add .")
             subprocess.run(["git", "add", "."], cwd=REPO_DIR,
-                           capture_output=True, text=True, encoding="utf-8")
+                           capture_output=True, text=True, encoding="utf-8",
+                           creationflags=_NO_WINDOW)
 
             self.progress_update.emit(70, "Uploading 70%")
             self.status_update.emit("git commit")
             subprocess.run(["git", "commit", "-m", f"Add/update {self.project_name} docs"],
-                           cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+                           cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                           creationflags=_NO_WINDOW)
 
             self.progress_update.emit(80, "Uploading 80%")
             ok, err = True, ""
             for remote in self.remotes:
                 self.status_update.emit(f"git push {remote} main...")
                 result = subprocess.run(["git", "push", remote, "main"],
-                                        cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+                                        cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                                        creationflags=_NO_WINDOW)
                 if result.returncode != 0:
                     ok, err = False, f"[{remote}] {result.stderr or result.stdout}"
 
@@ -418,20 +525,24 @@ class DeleteWorker(QThread):
 
             self.status_update.emit("Updating navigation...")
             remove_project_from_nav(self.project_name)
+            remove_project_source(self.project_slug)
 
             self.status_update.emit("git add .")
             subprocess.run(["git", "add", "."], cwd=REPO_DIR,
-                           capture_output=True, text=True, encoding="utf-8")
+                           capture_output=True, text=True, encoding="utf-8",
+                           creationflags=_NO_WINDOW)
 
             self.status_update.emit("git commit")
             subprocess.run(["git", "commit", "-m", f"Remove {self.project_name} docs"],
-                           cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+                           cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                           creationflags=_NO_WINDOW)
 
             ok, err = True, ""
             for remote in self.remotes:
                 self.status_update.emit(f"git push {remote} main...")
                 result = subprocess.run(["git", "push", remote, "main"],
-                                        cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+                                        cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                                        creationflags=_NO_WINDOW)
                 if result.returncode != 0:
                     ok, err = False, f"[{remote}] {(result.stderr or result.stdout)[:300]}"
 
@@ -717,6 +828,49 @@ def create_open_icon():
     painter.drawLine(7, 3, 13, 3)
     painter.drawLine(13, 3, 13, 9)
     painter.drawLine(7, 9, 13, 3)
+    painter.end()
+    return QIcon(pixmap)
+
+
+def create_sync_icon():
+    """Create a green checkmark circle icon for synced state (16x16)."""
+    pixmap = QPixmap(16, 16)
+    pixmap.fill(QColor(0, 0, 0, 0))
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    # Green filled circle
+    painter.setBrush(QBrush(QColor("#2EA043")))
+    painter.setPen(Qt.PenStyle.NoPen)
+    painter.drawEllipse(1, 1, 14, 14)
+    # White checkmark
+    pen = QPen(QColor("#FFFFFF"))
+    pen.setWidthF(1.8)
+    pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+    pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
+    painter.setPen(pen)
+    painter.drawLine(4, 8, 7, 11)
+    painter.drawLine(7, 11, 12, 5)
+    painter.end()
+    return QIcon(pixmap)
+
+
+def create_unsync_icon():
+    """Create an orange exclamation circle icon for unsynced state (16x16)."""
+    pixmap = QPixmap(16, 16)
+    pixmap.fill(QColor(0, 0, 0, 0))
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    # Orange filled circle
+    painter.setBrush(QBrush(QColor("#D83B01")))
+    painter.setPen(Qt.PenStyle.NoPen)
+    painter.drawEllipse(1, 1, 14, 14)
+    # White exclamation mark
+    pen = QPen(QColor("#FFFFFF"))
+    pen.setWidthF(1.8)
+    pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+    painter.setPen(pen)
+    painter.drawLine(8, 4, 8, 9)
+    painter.drawPoint(8, 12)
     painter.end()
     return QIcon(pixmap)
 
@@ -1056,7 +1210,8 @@ class UploadPanel(QWidget):
         self.gl_upload_btn.setEnabled(False)
         self.status_label.setText("Uploading...")
 
-        self.worker = UploadWorker(project_name, selected, remotes)
+        source_path = self.path_edit.text().strip()
+        self.worker = UploadWorker(project_name, selected, remotes, source_path=source_path)
         self.worker.status_update.connect(self._on_status)
         self.worker.progress_update.connect(self._on_progress)
         self.worker.finished.connect(self._on_finished)
@@ -1094,14 +1249,15 @@ class ProjectCard(QFrame):
     delete_requested = pyqtSignal(str, str)  # name, slug
     select_requested = pyqtSignal(str)  # name
 
-    def __init__(self, name, slug, doc_count, attach_count, last_updated):
+    def __init__(self, name, slug, doc_count, attach_count, last_updated, changes=None, source_path=None):
         super().__init__()
         self.setObjectName("project_card")
         self.project_name = name
         self.project_slug = slug
         self.gh_url = f"{SITE_URL}{slug}/"
         self.gl_url = f"{GITLAB_SITE_URL}{slug}/"
-        self.repo_url = f"{REPO_URL}{slug}/"
+        self.gh_repo_url = f"{REPO_URL}{slug}/"
+        self.gl_repo_url = f"{GITLAB_REPO_URL}{slug}/"
 
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(14, 8, 14, 8)
@@ -1113,6 +1269,17 @@ class ProjectCard(QFrame):
         name_label = QLabel(name)
         name_label.setObjectName("project_name")
         top_row.addWidget(name_label)
+
+        # Updated badge
+        if changes:
+            badge = QLabel(f"  {len(changes)} changed")
+            badge.setStyleSheet(
+                "color: #FFFFFF; background: #D83B01; border-radius: 3px;"
+                "padding: 1px 6px; font-size: 9pt;"
+            )
+            badge.setToolTip("\n".join(changes))
+            top_row.addSpacing(8)
+            top_row.addWidget(badge)
 
         top_row.addStretch()
 
@@ -1126,6 +1293,13 @@ class ProjectCard(QFrame):
         meta_label.setObjectName("project_meta")
         top_row.addWidget(meta_label)
         main_layout.addLayout(top_row)
+
+        # Source path row
+        if source_path:
+            path_label = QLabel(source_path.replace("\\", "/"))
+            path_label.setObjectName("project_meta")
+            path_label.setStyleSheet("color: #999999; font-size: 8pt;")
+            main_layout.addWidget(path_label)
 
         # Buttons row
         btn_row = QHBoxLayout()
@@ -1156,16 +1330,16 @@ class ProjectCard(QFrame):
 
         gh_open_btn = QPushButton("GitHub")
         gh_open_btn.setObjectName("action_btn")
-        gh_open_btn.setToolTip("Open GitHub Pages (public)")
+        gh_open_btn.setToolTip("Open GitHub repo tree")
         gh_open_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        gh_open_btn.clicked.connect(lambda: webbrowser.open(self.gh_url))
+        gh_open_btn.clicked.connect(lambda: webbrowser.open(self.gh_repo_url))
         btn_row.addWidget(gh_open_btn)
 
         gl_open_btn = QPushButton("GitLab")
         gl_open_btn.setObjectName("action_btn")
-        gl_open_btn.setToolTip("Open GitLab Pages (private)")
+        gl_open_btn.setToolTip("Open GitLab repo tree")
         gl_open_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        gl_open_btn.clicked.connect(lambda: webbrowser.open(self.gl_url))
+        gl_open_btn.clicked.connect(lambda: webbrowser.open(self.gl_repo_url))
         btn_row.addWidget(gl_open_btn)
 
         btn_row.addStretch()
@@ -1223,20 +1397,20 @@ class ProjectsPanel(QWidget):
         header_row.addWidget(refresh_btn)
         header_row.addSpacing(6)
 
-        gh_btn = QPushButton("GitHub")
-        gh_btn.setObjectName("open_site")
-        gh_btn.setToolTip("Open GitHub Pages (public)")
-        gh_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        gh_btn.clicked.connect(lambda: webbrowser.open(SITE_URL))
-        header_row.addWidget(gh_btn)
+        self.gh_site_btn = QPushButton("GitHub")
+        self.gh_site_btn.setObjectName("open_site")
+        self.gh_site_btn.setToolTip("Open GitHub Pages (public)")
+        self.gh_site_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.gh_site_btn.clicked.connect(lambda: webbrowser.open(SITE_URL))
+        header_row.addWidget(self.gh_site_btn)
         header_row.addSpacing(6)
 
-        gl_btn = QPushButton("GitLab")
-        gl_btn.setObjectName("open_site")
-        gl_btn.setToolTip("Open GitLab Pages (private)")
-        gl_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        gl_btn.clicked.connect(lambda: webbrowser.open(GITLAB_SITE_URL))
-        header_row.addWidget(gl_btn)
+        self.gl_site_btn = QPushButton("GitLab")
+        self.gl_site_btn.setObjectName("open_site")
+        self.gl_site_btn.setToolTip("Open GitLab Pages (private)")
+        self.gl_site_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.gl_site_btn.clicked.connect(lambda: webbrowser.open(GITLAB_SITE_URL))
+        header_row.addWidget(self.gl_site_btn)
 
         layout.addLayout(header_row)
         layout.addSpacing(12)
@@ -1276,20 +1450,50 @@ class ProjectsPanel(QWidget):
             self.status_label.setText("")
             return
 
+        sources = load_project_sources()
         for proj in projects:
             info = get_project_info(proj["slug"])
+            changes = check_project_changes(proj["slug"])
+            source_path = sources.get(proj["slug"])
             card = ProjectCard(
                 proj["name"],
                 proj["slug"],
                 info["doc_count"],
                 info["attach_count"],
                 info["last_updated"],
+                changes=changes,
+                source_path=source_path,
             )
             card.delete_requested.connect(self._on_delete_requested)
             card.select_requested.connect(self.project_selected)
             self.list_layout.addWidget(card)
 
         self.status_label.setText(f"{len(projects)} projects")
+        self._update_sync_status()
+
+    def _update_sync_status(self):
+        sync = get_sync_status()
+        sync_icon = create_sync_icon()
+        unsync_icon = create_unsync_icon()
+        if sync["synced"]:
+            self.gh_site_btn.setText("GitHub")
+            self.gh_site_btn.setIcon(sync_icon)
+            self.gl_site_btn.setText("GitLab")
+            self.gl_site_btn.setIcon(sync_icon)
+        else:
+            try:
+                r = subprocess.run(
+                    ["git", "rev-parse", "HEAD"],
+                    cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                    creationflags=_NO_WINDOW,
+                )
+                head = r.stdout.strip() if r.returncode == 0 else None
+            except Exception:
+                head = None
+            self.gh_site_btn.setText("GitHub")
+            self.gh_site_btn.setIcon(sync_icon if sync["origin"] == head else unsync_icon)
+            self.gl_site_btn.setText("GitLab")
+            self.gl_site_btn.setIcon(sync_icon if sync["gitlab"] == head else unsync_icon)
 
     def _on_delete_requested(self, name, slug):
         info = get_project_info(slug)
