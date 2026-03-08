@@ -149,6 +149,7 @@ def git_push(message):
 class UploadWorker(QThread):
     finished = pyqtSignal(bool, str)
     status_update = pyqtSignal(str)
+    progress_update = pyqtSignal(int, str)  # percent, button text
 
     def __init__(self, project_name, selected_files):
         super().__init__()
@@ -161,20 +162,49 @@ class UploadWorker(QThread):
             dest_dir = os.path.join(DOCS_DIR, project_slug)
             os.makedirs(dest_dir, exist_ok=True)
 
+            total = len(self.selected_files)
             copied_rel = []
-            for rel_path, full_path in self.selected_files:
+            for i, (rel_path, full_path) in enumerate(self.selected_files):
                 dest_path = os.path.join(dest_dir, os.path.basename(rel_path))
                 shutil.copy2(full_path, dest_path)
                 copied_rel.append(os.path.basename(rel_path))
+                pct = int((i + 1) / total * 30)  # 0~30%
+                self.progress_update.emit(pct, f"Uploading {pct}%")
+                self.status_update.emit(f"Copying {rel_path}")
 
+            self.progress_update.emit(40, "Uploading 40%")
+            self.status_update.emit("Generating index page...")
             create_project_index(project_slug, self.project_name, copied_rel)
             if "index.md" not in copied_rel:
                 copied_rel.insert(0, "index.md")
 
+            self.progress_update.emit(50, "Uploading 50%")
+            self.status_update.emit("Updating navigation...")
             update_mkdocs_nav(project_slug, self.project_name, copied_rel)
 
-            self.status_update.emit("Pushing to Git...")
-            ok, err = git_push(f"Add/update {self.project_name} docs")
+            self.progress_update.emit(60, "Uploading 60%")
+            self.status_update.emit("git add .")
+            subprocess.run(["git", "add", "."], cwd=REPO_DIR,
+                           capture_output=True, text=True, encoding="utf-8")
+
+            self.progress_update.emit(70, "Uploading 70%")
+            self.status_update.emit("git commit")
+            subprocess.run(["git", "commit", "-m", f"Add/update {self.project_name} docs"],
+                           cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+
+            self.progress_update.emit(80, "Uploading 80%")
+            self.status_update.emit("git push origin main...")
+            result = subprocess.run(["git", "push", "origin", "main"],
+                                    cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8")
+
+            if result.returncode == 0:
+                ok = True
+                err = ""
+            else:
+                ok = False
+                err = result.stderr or result.stdout
+
+            self.progress_update.emit(100, "Uploading 100%")
 
             if ok:
                 url = f"{SITE_URL}{project_slug}/"
@@ -488,13 +518,18 @@ class UploaderApp(QMainWindow):
 
         self.worker = UploadWorker(project_name, selected)
         self.worker.status_update.connect(self._on_status)
+        self.worker.progress_update.connect(self._on_progress)
         self.worker.finished.connect(self._on_finished)
         self.worker.start()
 
     def _on_status(self, text):
         self.status_label.setText(text)
 
+    def _on_progress(self, pct, text):
+        self.upload_btn.setText(text)
+
     def _on_finished(self, success, msg):
+        self.upload_btn.setText("Upload")
         self.upload_btn.setEnabled(True)
         if success:
             self.status_label.setText(f"Done! {msg}")
