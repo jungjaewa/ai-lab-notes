@@ -61,6 +61,11 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub/GitLab → M
 | `create_sync_icon()` | Green circle + white checkmark (synced) |
 | `create_unsync_icon()` | Orange circle + white exclamation (unsynced) |
 | `_icon_pen()` | Shared pen (#848484, 1.2px) for all button icons |
+| `_friendly_error(msg)` | Translate raw git errors → user-friendly messages |
+| `_is_git_busy()` | Check global git operation lock |
+| `_set_git_busy(busy)` | Set/release global git operation lock |
+| `_save_raw_config(data)` | Atomic JSON write (`.tmp` → `os.replace()`) |
+| `_find_referenced_images(md_path, source_folder)` | Parse `![](path)` and `<img src="">` in .md, return referenced image paths |
 
 ## Classes
 | Class | Purpose |
@@ -68,6 +73,7 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub/GitLab → M
 | `UploadWorker(QThread)` | Background upload with progress signals (supports remote selection) |
 | `DeleteWorker(QThread)` | Background project deletion with git push |
 | `_BatchPushWorker(QThread)` | Git add/commit/push for Update All (files already copied) |
+| `_SyncStatusWorker(QThread)` | Background thread for sync status check (prevents UI freeze) |
 | `UploadPanel(QWidget)` | Left panel: browse, scan, upload, drag & drop |
 | `ProjectCard(QFrame)` | Project card with source path, start date, change badge, actions |
 | `ProjectsPanel(QWidget)` | Right panel: project list + sync status + Update All |
@@ -121,10 +127,17 @@ Local project folder → [App] → ai-lab-notes git repo → GitHub/GitLab → M
 - **Icon pattern**: QPainter icons use `_icon_pen()` for consistent color/weight
 - **Sync icons**: green circle+checkmark (synced), orange circle+exclamation (unsynced)
 - **Project config**: `.project_sources.json` stores `{slug: {path, created_at}}`, gitignored
+- **Atomic JSON write**: `_save_raw_config()` writes to `.tmp` then `os.replace()` to prevent corruption
+- **Git operation lock**: `_is_git_busy()` / `_set_git_busy()` prevents concurrent git operations
+- **Friendly errors**: `_friendly_error()` translates git errors to user-friendly messages
+- **Image auto-copy**: `_find_referenced_images()` parses .md for image refs, auto-copies during upload
+- **Empty state UI**: Guided placeholder messages shown when panels have no content
+- **Async sync status**: `_SyncStatusWorker(QThread)` checks sync status without blocking UI
 
 ## Current State
 - Phase 0 complete: uploader with progress
 - Phase 1 complete: side-by-side layout, project management, delete, copy/copy URL
 - Phase 1.5 complete: select button, Git button, icons, reset, refresh, compact cards, app icon, desktop shortcut
 - Phase 2 complete: GitLab dual deploy, sync status, change detection, Update All, drag & drop, source path management, project start date with calendar
+- Phase 2.5 complete: Robustness & polish (friendly errors, atomic write, git lock, async sync, image auto-copy, empty state UI)
 - See PLAN.md for full roadmap

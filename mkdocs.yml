@@ -67,7 +67,10 @@ nav:
     - ai-lab-notes-manager/index.md
     - Claude: ai-lab-notes-manager/CLAUDE.md
     - Plan: ai-lab-notes-manager/PLAN.md
+    - Readme: ai-lab-notes-manager/README.md
+    - Rnd Log: ai-lab-notes-manager/rnd-log.md
     - Rnd Log: ai-lab-notes-manager/RND_LOG.md
+    - Skills Guide: ai-lab-notes-manager/skills-guide.md
     - Skills Guide: ai-lab-notes-manager/SKILLS_GUIDE.md
   - PSD:
     - psd/index.md

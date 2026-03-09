@@ -1,5 +1,42 @@
 # AI Lab Notes Manager - R&D Log
 
+## 2026-03-09: Phase 2.5 - Empty State UI
+- Added guided placeholder messages for first-time users
+- UploadPanel: shows instructions when no project folder is selected
+- ProjectsPanel: shows onboarding message when no projects exist
+- Helps users understand the app flow without external documentation
+
+## 2026-03-09: Phase 2.5 - Image Auto-Copy
+- `_find_referenced_images(md_path, source_folder)` parses .md for image references
+- Regex patterns: `![alt](path)` and `<img src="path">`
+- Resolves relative paths against md file directory or source folder
+- UploadWorker automatically copies referenced images during file copy phase
+- Moved from Phase 4 roadmap to Phase 2.5 (implemented early)
+
+## 2026-03-09: Phase 2.5 - Async Sync Status
+- Created `_SyncStatusWorker(QThread)` for background sync status checking
+- `_update_sync_status()` now creates worker thread instead of blocking subprocess
+- `_apply_sync_status(sync)` slot receives async results and updates UI icons
+- Eliminates UI freeze on app start and Refresh (git ref lookup was blocking)
+
+## 2026-03-09: Phase 2.5 - Git Operation Lock
+- Global `_git_busy` flag prevents concurrent git operations
+- `_is_git_busy()` / `_set_git_busy(busy)` helper functions
+- All git-triggering actions check lock before starting (upload, delete, update, update all)
+- Lock acquired on worker start, released on worker finish
+- Prevents repo corruption from simultaneous git commands
+
+## 2026-03-09: Phase 2.5 - Atomic JSON Write
+- `_save_raw_config(data)` writes to `.tmp` file first, then `os.replace()` to final path
+- `os.replace()` is atomic on most filesystems (NTFS included)
+- Prevents `.project_sources.json` corruption on crash during write
+
+## 2026-03-09: Phase 2.5 - Friendly Error Messages
+- `_friendly_error(msg)` translates raw git errors to user-readable messages
+- Covers 7 common scenarios: not a git repo, auth failed, no internet, push rejected, lock exists, timeout, permission denied
+- Fallback: first line of raw error, truncated to 120 chars
+- Applied to all worker error outputs (UploadWorker, DeleteWorker, _BatchPushWorker)
+
 ## 2026-03-09: Custom Calendar Dialog
 - Replaced QCalendarWidget with custom QPainter-based calendar
 - Single-click date selection (no OK button needed)

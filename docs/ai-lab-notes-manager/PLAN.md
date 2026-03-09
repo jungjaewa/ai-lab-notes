@@ -148,6 +148,43 @@ App name change: `AI Lab Notes Uploader` → `AI Lab Notes Manager`
 
 ---
 
+## Phase 2.5: Robustness & Polish (DONE)
+
+### 2.5-1. Friendly Error Messages
+- [x] `_friendly_error(msg)` translates raw git errors to user-friendly messages
+- [x] Covers: not a git repo, auth failed, no internet, push rejected, lock exists, timeout, permission denied
+- [x] Fallback: first line of error, truncated to 120 chars
+- [x] Applied to all worker error outputs (UploadWorker, DeleteWorker, _BatchPushWorker)
+
+### 2.5-2. Atomic JSON Write
+- [x] `_save_raw_config(data)` writes to `.tmp` file first, then `os.replace()` to final path
+- [x] Prevents config corruption on crash or power loss during write
+
+### 2.5-3. Git Operation Lock
+- [x] Global `_git_busy` flag with `_is_git_busy()` / `_set_git_busy()` helpers
+- [x] All git-triggering actions (upload, delete, update, update all) check lock before starting
+- [x] Lock set on worker start, released on worker finish
+- [x] Prevents concurrent git operations that could corrupt the repo
+
+### 2.5-4. Async Sync Status
+- [x] `_SyncStatusWorker(QThread)` runs sync status check in background thread
+- [x] `_update_sync_status()` creates worker instead of blocking subprocess calls
+- [x] `_apply_sync_status(sync)` slot receives results and updates UI
+- [x] Prevents UI freeze during git ref lookups on app start and refresh
+
+### 2.5-5. Image Auto-Copy
+- [x] `_find_referenced_images(md_path, source_folder)` parses .md files for image references
+- [x] Detects `![alt](path)` and `<img src="path">` patterns
+- [x] Resolves paths relative to .md file directory or source folder
+- [x] Auto-copies referenced images during file copy phase in UploadWorker
+
+### 2.5-6. Empty State UI
+- [x] UploadPanel shows guided placeholder message when no project is loaded
+- [x] ProjectsPanel shows guided placeholder message when no projects exist
+- [x] Helps first-time users understand what to do
+
+---
+
 ## Phase 3: Document-Level Management
 
 ### 3-1. Accordion Document View
@@ -191,11 +228,7 @@ In-app markdown editing for small fixes:
 - Separate "Publish" button to git push changes
 - Not a full editor — for typo fixes only
 
-### 3-5. Image Auto-Copy
-When uploading .md files that reference local images:
-- Parse `![alt](path)` and `<img src="path">` patterns
-- Auto-copy referenced images to `docs/{slug}/`
-- Update image paths in copied .md files
+### 3-5. Image Auto-Copy (DONE — moved to Phase 2.5)
 
 ### 3-6. Tags Management
 Visual interface for MkDocs tags:
@@ -217,10 +250,12 @@ uploader.py
 ├── Constants: REPO_DIR, DOCS_DIR, MKDOCS_YML, SITE_URL, GITLAB_SITE_URL,
 │              REPO_URL, GITLAB_REPO_URL, GIT_REMOTES, PROJECT_CONFIG, STYLE
 ├── Config: load_project_sources, save_project_source, save_project_created_at,
-│           remove_project_source, _load_raw_config, _save_raw_config
+│           remove_project_source, _load_raw_config, _save_raw_config (atomic write)
 ├── Utilities: find_md_files, slugify, update_mkdocs_nav, remove_project_from_nav,
 │              create_project_index, parse_projects_from_nav, get_project_info,
-│              project_exists_in_nav, check_project_changes, get_sync_status
+│              project_exists_in_nav, check_project_changes, get_sync_status,
+│              _friendly_error, _find_referenced_images
+├── Git Lock: _git_busy, _is_git_busy, _set_git_busy
 ├── Icons: create_app_icon, create_checkmark_icon, create_select_icon,
 │          create_open_icon, create_repo_icon, create_sync_icon,
 │          create_unsync_icon, _icon_pen
@@ -228,6 +263,7 @@ uploader.py
 ├── UploadWorker(QThread)       - Upload with progress (supports remote selection + source_path)
 ├── DeleteWorker(QThread)       - Delete project with git push
 ├── _BatchPushWorker(QThread)   - Git push only for Update All (files pre-copied)
+├── _SyncStatusWorker(QThread)  - Background sync status check (async UI)
 │
 ├── UploadPanel(QWidget)        - Left: browse, scan, upload, drag & drop
 │   ├── dragEnterEvent/dropEvent - Folder drag & drop support

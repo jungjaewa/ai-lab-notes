@@ -46,6 +46,18 @@ UPLOAD_EXTENSIONS = {".md", ".zip", ".7z"}
 _NO_WINDOW = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
 PROJECT_CONFIG = os.path.join(REPO_DIR, ".project_sources.json")
 
+# Global git operation lock — prevents concurrent git operations
+_git_busy = False
+
+
+def _is_git_busy():
+    return _git_busy
+
+
+def _set_git_busy(busy):
+    global _git_busy
+    _git_busy = busy
+
 
 def _load_raw_config():
     if os.path.isfile(PROJECT_CONFIG):
@@ -55,8 +67,11 @@ def _load_raw_config():
 
 
 def _save_raw_config(data):
-    with open(PROJECT_CONFIG, "w", encoding="utf-8") as f:
+    # Atomic write: write to temp file first, then rename
+    tmp_path = PROJECT_CONFIG + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp_path, PROJECT_CONFIG)
 
 
 def _normalize_entry(entry):
@@ -165,6 +180,65 @@ def get_sync_status():
     )
     return result
 
+
+
+def _friendly_error(msg):
+    """Translate git/network errors to user-friendly messages."""
+    if not msg:
+        return "Unknown error occurred."
+    m = msg.lower()
+    if "not a git repository" in m:
+        return "This folder is not set up correctly. Re-clone the repository."
+    if "authentication failed" in m or "could not read username" in m:
+        return "GitHub/GitLab login required. Check your credentials."
+    if "could not resolve host" in m or "unable to access" in m:
+        return "No internet connection. Check your network and try again."
+    if "rejected" in m and "push" in m:
+        return "Remote has newer changes. Click Refresh first, then try again."
+    if "lock" in m and "exists" in m:
+        return "Git is busy (lock file exists). Wait a moment and try again."
+    if "timed out" in m or "timeout" in m:
+        return "Connection timed out. Check your network and try again."
+    if "permission denied" in m:
+        return "Permission denied. Check file/folder access rights."
+    # Fallback: show first meaningful line
+    first_line = msg.strip().split("\n")[0]
+    if len(first_line) > 120:
+        first_line = first_line[:120] + "..."
+    return first_line
+
+
+def _find_referenced_images(md_path, source_folder):
+    """Parse a .md file and find locally referenced image files."""
+    images = []
+    try:
+        with open(md_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    except Exception:
+        return images
+
+    # Match ![alt](path) and <img src="path"> patterns
+    patterns = [
+        r'!\[.*?\]\(([^)]+)\)',           # ![alt](path)
+        r'<img[^>]+src=["\']([^"\']+)',    # <img src="path">
+    ]
+    for pat in patterns:
+        for match in re.finditer(pat, content):
+            ref = match.group(1).strip()
+            # Skip URLs and absolute paths
+            if ref.startswith(("http://", "https://", "data:", "/")):
+                continue
+            # Resolve relative to md file's directory or source folder
+            md_dir = os.path.dirname(md_path)
+            candidates = [
+                os.path.join(md_dir, ref),
+                os.path.join(source_folder, ref),
+            ]
+            for candidate in candidates:
+                if os.path.isfile(candidate):
+                    images.append((ref, os.path.abspath(candidate)))
+                    break
+    return images
 
 
 def find_project_files(folder):
@@ -466,10 +540,20 @@ class UploadWorker(QThread):
 
             total = len(self.selected_files)
             copied_rel = []
+            img_count = 0
             for i, (rel_path, full_path) in enumerate(self.selected_files):
                 basename = os.path.basename(rel_path)
                 if basename.lower().endswith(".md"):
                     dest_path = os.path.join(dest_dir, basename)
+                    # Auto-copy referenced images
+                    source_dir = os.path.dirname(full_path) or self.source_path or ""
+                    for img_ref, img_full in _find_referenced_images(full_path, source_dir):
+                        img_dest_dir = os.path.join(dest_dir, os.path.dirname(img_ref))
+                        os.makedirs(img_dest_dir, exist_ok=True)
+                        img_dest = os.path.join(dest_dir, img_ref)
+                        if not os.path.exists(img_dest) or _file_hash(img_full) != _file_hash(img_dest):
+                            shutil.copy2(img_full, img_dest)
+                            img_count += 1
                 else:
                     os.makedirs(attach_dir, exist_ok=True)
                     dest_path = os.path.join(attach_dir, basename)
@@ -478,6 +562,8 @@ class UploadWorker(QThread):
                 pct = int((i + 1) / total * 30)
                 self.progress_update.emit(pct, f"Uploading {pct}%")
                 self.status_update.emit(f"Copying {rel_path}")
+            if img_count:
+                self.status_update.emit(f"Auto-copied {img_count} referenced images")
 
             self.progress_update.emit(40, "Uploading 40%")
             self.status_update.emit("Generating index page...")
@@ -512,7 +598,7 @@ class UploadWorker(QThread):
                                         cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
                                         creationflags=_NO_WINDOW)
                 if result.returncode != 0:
-                    ok, err = False, f"[{remote}] {result.stderr or result.stdout}"
+                    ok, err = False, _friendly_error(result.stderr or result.stdout)
 
             self.progress_update.emit(100, "Uploading 100%")
 
@@ -525,10 +611,10 @@ class UploadWorker(QThread):
                     url = f"{SITE_URL}{project_slug}/\n{GITLAB_SITE_URL}{project_slug}/"
                 self.finished.emit(True, url)
             else:
-                self.finished.emit(False, err[:300])
+                self.finished.emit(False, err)
 
         except Exception as e:
-            self.finished.emit(False, str(e))
+            self.finished.emit(False, _friendly_error(str(e)))
 
 
 class DeleteWorker(QThread):
@@ -569,7 +655,7 @@ class DeleteWorker(QThread):
                                         cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
                                         creationflags=_NO_WINDOW)
                 if result.returncode != 0:
-                    ok, err = False, f"[{remote}] {(result.stderr or result.stdout)[:300]}"
+                    ok, err = False, _friendly_error(result.stderr or result.stdout)
 
             if ok:
                 self.finished.emit(True, "")
@@ -577,7 +663,7 @@ class DeleteWorker(QThread):
                 self.finished.emit(False, err)
 
         except Exception as e:
-            self.finished.emit(False, str(e))
+            self.finished.emit(False, _friendly_error(str(e)))
 
 
 # ---------------------------------------------------------------------------
@@ -1009,9 +1095,10 @@ class UploadPanel(QWidget):
         self.file_list_layout.setContentsMargins(4, 4, 4, 4)
         self.file_list_layout.setSpacing(4)
 
-        placeholder = QLabel("Scan a folder or use Attach to add files")
+        placeholder = QLabel("Drop a folder here, paste a path,\nor click Browse to get started")
         placeholder.setObjectName("placeholder")
         placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        placeholder.setStyleSheet("color: #999999; font-size: 9pt; padding: 20px;")
         self.file_list_layout.addWidget(placeholder)
 
         self.scroll.setWidget(self.file_list_widget)
@@ -1087,9 +1174,10 @@ class UploadPanel(QWidget):
             item = self.file_list_layout.takeAt(0)
             if item.widget():
                 item.widget().deleteLater()
-        placeholder = QLabel("Scan a folder or use Attach to add files")
+        placeholder = QLabel("Drop a folder here, paste a path,\nor click Browse to get started")
         placeholder.setObjectName("placeholder")
         placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        placeholder.setStyleSheet("color: #999999; font-size: 9pt; padding: 20px;")
         self.file_list_layout.addWidget(placeholder)
         self.gh_upload_btn.setEnabled(False)
         self.gl_upload_btn.setEnabled(False)
@@ -1232,6 +1320,10 @@ class UploadPanel(QWidget):
         self._check_duplicate()
 
     def _upload(self, remotes, active_btn):
+        if _is_git_busy():
+            QMessageBox.warning(self, "Busy", "Another operation is in progress. Please wait.")
+            return
+
         project_name = self.name_edit.text().strip()
         if not project_name:
             QMessageBox.warning(self, "Warning", "Please enter a project name")
@@ -1252,6 +1344,7 @@ class UploadPanel(QWidget):
         self.status_label.setText("Uploading...")
 
         source_path = self.path_edit.text().strip()
+        _set_git_busy(True)
         self.worker = UploadWorker(project_name, selected, remotes, source_path=source_path)
         self.worker.status_update.connect(self._on_status)
         self.worker.progress_update.connect(self._on_progress)
@@ -1265,6 +1358,7 @@ class UploadPanel(QWidget):
         self._active_btn.setText(text)
 
     def _on_finished(self, success, msg):
+        _set_git_busy(False)
         self.gh_upload_btn.setText("GitHub")
         self.gl_upload_btn.setText("GitLab")
         self.gh_upload_btn.setEnabled(True)
@@ -1672,10 +1766,32 @@ class ProjectsPanel(QWidget):
         projects = parse_projects_from_nav()
 
         if not projects:
-            placeholder = QLabel("No projects uploaded yet")
-            placeholder.setObjectName("placeholder")
-            placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            self.list_layout.addWidget(placeholder)
+            empty_widget = QWidget()
+            empty_layout = QVBoxLayout(empty_widget)
+            empty_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            empty_layout.setSpacing(8)
+
+            icon_label = QLabel("📂")
+            icon_label.setStyleSheet("font-size: 32pt;")
+            icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            empty_layout.addWidget(icon_label)
+
+            title_label = QLabel("No projects yet")
+            title_label.setStyleSheet("font-size: 12pt; font-weight: bold; color: #616161;")
+            title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            empty_layout.addWidget(title_label)
+
+            guide_label = QLabel(
+                "Upload your first project:\n"
+                "1. Set a project folder path on the left\n"
+                "2. Select documents to upload\n"
+                "3. Click GitHub or GitLab"
+            )
+            guide_label.setStyleSheet("color: #999999; font-size: 9pt;")
+            guide_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            empty_layout.addWidget(guide_label)
+
+            self.list_layout.addWidget(empty_widget)
             self.status_label.setText("")
             return
 
@@ -1709,27 +1825,19 @@ class ProjectsPanel(QWidget):
         self._update_sync_status()
 
     def _update_sync_status(self):
-        sync = get_sync_status()
+        self._sync_worker = _SyncStatusWorker()
+        self._sync_worker.result_ready.connect(self._apply_sync_status)
+        self._sync_worker.start()
+
+    def _apply_sync_status(self, sync):
         sync_icon = create_sync_icon()
         unsync_icon = create_unsync_icon()
+        head = sync.get("head")
         if sync["synced"]:
-            self.gh_site_btn.setText("GitHub")
             self.gh_site_btn.setIcon(sync_icon)
-            self.gl_site_btn.setText("GitLab")
             self.gl_site_btn.setIcon(sync_icon)
         else:
-            try:
-                r = subprocess.run(
-                    ["git", "rev-parse", "HEAD"],
-                    cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
-                    creationflags=_NO_WINDOW,
-                )
-                head = r.stdout.strip() if r.returncode == 0 else None
-            except Exception:
-                head = None
-            self.gh_site_btn.setText("GitHub")
             self.gh_site_btn.setIcon(sync_icon if sync["origin"] == head else unsync_icon)
-            self.gl_site_btn.setText("GitLab")
             self.gl_site_btn.setIcon(sync_icon if sync["gitlab"] == head else unsync_icon)
 
     def _on_delete_requested(self, name, slug):
@@ -1755,6 +1863,11 @@ class ProjectsPanel(QWidget):
             self.status_label.setText("Delete cancelled")
             return
 
+        if _is_git_busy():
+            QMessageBox.warning(self, "Busy", "Another operation is in progress. Please wait.")
+            return
+
+        _set_git_busy(True)
         self._set_buttons_enabled(False)
         self.status_label.setText("Deleting...")
 
@@ -1773,6 +1886,7 @@ class ProjectsPanel(QWidget):
         self.status_label.setText(text)
 
     def _on_delete_finished(self, success, msg):
+        _set_git_busy(False)
         self._set_buttons_enabled(True)
         if success:
             self.status_label.setText("Project deleted. Site updates in 1-2 min.")
@@ -1782,6 +1896,10 @@ class ProjectsPanel(QWidget):
             QMessageBox.critical(self, "Error", msg)
 
     def _on_update_requested(self, name, slug):
+        if _is_git_busy():
+            QMessageBox.warning(self, "Busy", "Another operation is in progress. Please wait.")
+            return
+
         sources = load_project_sources()
         entry = sources.get(slug, {})
         source_path = entry.get("path")
@@ -1807,6 +1925,7 @@ class ProjectsPanel(QWidget):
             self.status_label.setText("No files to update")
             return
 
+        _set_git_busy(True)
         self._set_buttons_enabled(False)
         self.status_label.setText("Updating...")
 
@@ -1817,6 +1936,7 @@ class ProjectsPanel(QWidget):
         self.worker.start()
 
     def _on_update_finished(self, success, msg):
+        _set_git_busy(False)
         self._set_buttons_enabled(True)
         if success:
             self.status_label.setText("Updated. Site updates in 1-2 min.")
@@ -1827,6 +1947,9 @@ class ProjectsPanel(QWidget):
 
     def _on_update_all(self):
         if not self._changed_projects:
+            return
+        if _is_git_busy():
+            QMessageBox.warning(self, "Busy", "Another operation is in progress. Please wait.")
             return
 
         sources = load_project_sources()
@@ -1859,6 +1982,7 @@ class ProjectsPanel(QWidget):
             self.status_label.setText("No changes to update")
             return
 
+        _set_git_busy(True)
         self._set_buttons_enabled(False)
         self.update_all_btn.setEnabled(False)
         self.status_label.setText(f"Updating {len(names)} projects...")
@@ -1868,6 +1992,25 @@ class ProjectsPanel(QWidget):
         self._batch_worker.status_update.connect(self._on_status)
         self._batch_worker.finished.connect(self._on_update_finished)
         self._batch_worker.start()
+
+
+class _SyncStatusWorker(QThread):
+    """Check git sync status in background thread."""
+    result_ready = pyqtSignal(dict)
+
+    def run(self):
+        sync = get_sync_status()
+        # Also get HEAD
+        try:
+            r = subprocess.run(
+                ["git", "rev-parse", "HEAD"],
+                cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
+                creationflags=_NO_WINDOW,
+            )
+            sync["head"] = r.stdout.strip() if r.returncode == 0 else None
+        except Exception:
+            sync["head"] = None
+        self.result_ready.emit(sync)
 
 
 class _BatchPushWorker(QThread):
@@ -1898,14 +2041,14 @@ class _BatchPushWorker(QThread):
                                         cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
                                         creationflags=_NO_WINDOW)
                 if result.returncode != 0:
-                    ok, err = False, f"[{remote}] {result.stderr or result.stdout}"
+                    ok, err = False, _friendly_error(result.stderr or result.stdout)
 
             if ok:
                 self.finished.emit(True, "All projects updated")
             else:
                 self.finished.emit(False, err)
         except Exception as e:
-            self.finished.emit(False, str(e))
+            self.finished.emit(False, _friendly_error(str(e)))
 
 
 # ---------------------------------------------------------------------------

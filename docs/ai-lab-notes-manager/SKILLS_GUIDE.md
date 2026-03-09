@@ -108,11 +108,12 @@ Deleting a project requires two confirmations:
 
 1. **Source Path Saved**: Project folder path recorded in `.project_sources.json`
 2. **File Copy**: Selected .md files → `docs/{project-slug}/`
-3. **Index Page**: Auto-generated `index.md` with document table (created once, not overwritten)
-4. **Navigation**: `mkdocs.yml` nav section updated with project + documents
-5. **Git Push**: `git add .` → `git commit` → `git push` to selected remote(s)
-6. **Deploy**: GitHub Actions / GitLab CI builds MkDocs → publishes to Pages
-7. Site available in 1-2 minutes (CI build time)
+3. **Image Auto-Copy**: Referenced images in .md files (`![](path)`, `<img src="">`) are automatically copied alongside the documents
+4. **Index Page**: Auto-generated `index.md` with document table (created once, not overwritten)
+5. **Navigation**: `mkdocs.yml` nav section updated with project + documents
+6. **Git Push**: `git add .` → `git commit` → `git push` to selected remote(s)
+7. **Deploy**: GitHub Actions / GitLab CI builds MkDocs → publishes to Pages
+8. Site available in 1-2 minutes (CI build time)
 
 ## Published Sites
 
@@ -138,6 +139,26 @@ All text input fields support double-click to paste:
 - **Project Path**: pastes + normalizes path + auto-scans if valid folder
 - **Project Name**: pastes clipboard text
 
+## Error Messages
+
+The app translates raw git errors into user-friendly messages:
+
+| Error | Message |
+|---|---|
+| Not a git repository | "This folder is not set up correctly. Re-clone the repository." |
+| Authentication failed | "GitHub/GitLab login required. Check your credentials." |
+| Could not resolve host | "No internet connection." |
+| Push rejected | "Remote has newer changes. Pull first." |
+| Lock file exists | "Git is busy (lock file exists). Wait or delete `.git/index.lock`." |
+| Connection timed out | "Connection timed out. Check your network." |
+| Permission denied | "Permission denied. Check file/folder permissions." |
+
+## Safety Features
+
+- **Git operation lock**: Only one git operation can run at a time. Prevents repo corruption from concurrent commands.
+- **Atomic config save**: Project config is written to a temp file first, then atomically replaced. Prevents data loss on crash.
+- **Async sync status**: Sync status check runs in a background thread, keeping the UI responsive.
+
 ## Troubleshooting
 
 | Issue | Solution |
@@ -154,3 +175,5 @@ All text input fields support double-click to paste:
 | Projects not showing | Projects panel refreshes on startup and after upload. Click Refresh to re-scan. |
 | App icon not showing | Taskbar icon requires `SetCurrentProcessExplicitAppUserModelID`. Already set in code. |
 | Desktop shortcut shows console | Shortcut should use `pythonw.exe`, not `python.exe`. |
+| Images not showing on site | Ensure images are in the same folder or subfolder as the .md file. App auto-copies referenced images. |
+| Button not responding | A git operation may be in progress. Wait for it to finish (lock auto-releases). |
