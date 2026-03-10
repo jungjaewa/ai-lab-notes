@@ -1935,9 +1935,14 @@ class ProjectsPanel(QWidget):
         self.worker.finished.connect(self._on_update_finished)
         self.worker.start()
 
+    def _on_batch_progress(self, pct, desc):
+        self.update_all_btn.setText(f"Pushing... {pct}%")
+        self.status_label.setText(desc)
+
     def _on_update_finished(self, success, msg):
         _set_git_busy(False)
         self._set_buttons_enabled(True)
+        self.update_all_btn.setText("Update All")
         if success:
             self.status_label.setText("Updated. Site updates in 1-2 min.")
             self.refresh()
@@ -1955,7 +1960,12 @@ class ProjectsPanel(QWidget):
         sources = load_project_sources()
         all_selected = []
         names = []
-        for name, slug in self._changed_projects:
+        total = len(self._changed_projects)
+        for idx, (name, slug) in enumerate(self._changed_projects):
+            pct = int(100 * idx / total) if total else 0
+            self.update_all_btn.setText(f"Copying... {pct}%")
+            QApplication.processEvents()
+
             entry = sources.get(slug, {})
             source_path = entry.get("path")
             if not source_path or not os.path.isdir(source_path):
@@ -1979,17 +1989,19 @@ class ProjectsPanel(QWidget):
             names.append(name)
 
         if not names:
+            self.update_all_btn.setText("Update All")
             self.status_label.setText("No changes to update")
             return
 
         _set_git_busy(True)
         self._set_buttons_enabled(False)
-        self.update_all_btn.setEnabled(False)
-        self.status_label.setText(f"Updating {len(names)} projects...")
+        self.update_all_btn.setEnabled(True)  # keep visible for progress
+        self.update_all_btn.setText("Pushing... 0%")
 
         commit_msg = f"Update {', '.join(names)} docs"
         self._batch_worker = _BatchPushWorker(commit_msg)
         self._batch_worker.status_update.connect(self._on_status)
+        self._batch_worker.progress_update.connect(self._on_batch_progress)
         self._batch_worker.finished.connect(self._on_update_finished)
         self._batch_worker.start()
 
@@ -2017,6 +2029,7 @@ class _BatchPushWorker(QThread):
     """Git add + commit + push only (files already copied)."""
     finished = pyqtSignal(bool, str)
     status_update = pyqtSignal(str)
+    progress_update = pyqtSignal(int, str)  # percent, description
 
     def __init__(self, commit_msg):
         super().__init__()
@@ -2024,19 +2037,21 @@ class _BatchPushWorker(QThread):
 
     def run(self):
         try:
-            self.status_update.emit("git add .")
+            total_remotes = len(GIT_REMOTES)
+            self.progress_update.emit(10, "git add ...")
             subprocess.run(["git", "add", "."], cwd=REPO_DIR,
                            capture_output=True, text=True, encoding="utf-8",
                            creationflags=_NO_WINDOW)
 
-            self.status_update.emit("git commit")
+            self.progress_update.emit(25, "git commit ...")
             subprocess.run(["git", "commit", "-m", self.commit_msg],
                            cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
                            creationflags=_NO_WINDOW)
 
             ok, err = True, ""
-            for remote in GIT_REMOTES:
-                self.status_update.emit(f"git push {remote} main...")
+            for i, remote in enumerate(GIT_REMOTES):
+                pct = 40 + int(55 * i / total_remotes)
+                self.progress_update.emit(pct, f"git push {remote} ...")
                 result = subprocess.run(["git", "push", remote, "main"],
                                         cwd=REPO_DIR, capture_output=True, text=True, encoding="utf-8",
                                         creationflags=_NO_WINDOW)
@@ -2044,6 +2059,7 @@ class _BatchPushWorker(QThread):
                     ok, err = False, _friendly_error(result.stderr or result.stdout)
 
             if ok:
+                self.progress_update.emit(100, "Done")
                 self.finished.emit(True, "All projects updated")
             else:
                 self.finished.emit(False, err)

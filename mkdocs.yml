@@ -60,9 +60,9 @@ nav:
     - Readme: eye-pipeline/README.md
   - Teamplay_Gantt:
     - teamplay_gantt/index.md
-    - Skills Guide: teamplay_gantt/SKILLS_GUIDE.md
     - Claude: teamplay_gantt/CLAUDE.md
     - Plan: teamplay_gantt/PLAN.md
+    - Skills Guide: teamplay_gantt/SKILLS_GUIDE.md
   - AI Lab Notes Manager:
     - ai-lab-notes-manager/index.md
     - Claude: ai-lab-notes-manager/CLAUDE.md
