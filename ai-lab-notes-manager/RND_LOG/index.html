@@ -1,0 +1,2772 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI R&D 실험 노트">
+      
+      
+        <meta name="author" content="jungjaewa">
+      
+      
+        <link rel="canonical" href="https://jungjaewa.github.io/ai-lab-notes/ai-lab-notes-manager/RND_LOG/">
+      
+      
+        <link rel="prev" href="../rnd-log/">
+      
+      
+        <link rel="next" href="../skills-guide/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Rnd Log - AI Lab Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai-lab-notes-manager-rd-log" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AI Lab Notes" class="md-header__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Lab Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rnd Log
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="다크 모드"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="라이트 모드"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../eye-pipeline/" class="md-tabs__link">
+          
+  
+  
+  Eye Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../teamplay_gantt/" class="md-tabs__link">
+          
+  
+  
+  Teamplay_Gantt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  AI Lab Notes Manager
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../psd/" class="md-tabs__link">
+          
+  
+  
+  PSD
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  태그
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Lab Notes" class="md-nav__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Lab Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Eye Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Animation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teamplay_Gantt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab Notes Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rnd-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-empty-state-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Empty State UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-image-auto-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Image Auto-Copy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-async-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Async Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-git-operation-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Git Operation Lock
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-atomic-json-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Atomic JSON Write
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-friendly-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Friendly Error Messages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-custom-calendar-dialog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Custom Calendar Dialog
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-project-start-date-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Project Start Date Tracking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-drag-drop-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Drag &amp; Drop Upload
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-update-all-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Update All Button
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-source-path-management-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Source Path Management UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-change-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Change Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-resizable-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Resizable Window
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-githubgitlab-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: GitHub/GitLab Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-console-window-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Console Window Fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-gitlab-dual-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: GitLab Dual Deploy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-desktop-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Desktop Shortcut
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-app-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: App Icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-compact-project-cards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Compact Project Cards
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-git-button-open-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Git Button &amp; Open Icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-select-button-icon-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Select Button (◀) &amp; Icon System
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-reset-refresh-buttons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Reset &amp; Refresh Buttons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-double-click-paste-docs-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Double-Click Paste &amp; Docs Update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-side-by-side-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Side-by-Side Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-project-management-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Project Management Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-upload-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Upload Improvements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-ui-separator-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: UI Separator Fixes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-phase-1-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Phase 1 Implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-project-docs-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Project Docs Created
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-upload-progress-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Upload Progress Feature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-pyqt6-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: PyQt6 Migration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-windows-11-styling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Windows 11 Styling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-path-normalization-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Path Normalization Fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-07-initial-uploader-tkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-07: Initial Uploader (tkinter)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-07-mkdocs-site-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-07: MkDocs Site Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-mkdocs-github-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why MkDocs + GitHub Pages?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-pyqt6-over-tkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why PyQt6 over tkinter?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-git-backed-cms-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Git-backed CMS approach?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-side-by-side-instead-of-tabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why side-by-side instead of tabs?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PSD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/automation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/dev_journal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Journal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/human_vs_ai_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vs Ai Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/layer_exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer Exporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/naming_convention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor_gui_ctk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Ctk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor_gui_qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/unity_dev_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/unity_technical_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Technical Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    태그
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-empty-state-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Empty State UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-image-auto-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Image Auto-Copy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-async-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Async Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-git-operation-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Git Operation Lock
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-atomic-json-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Atomic JSON Write
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-phase-25-friendly-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Phase 2.5 - Friendly Error Messages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-custom-calendar-dialog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Custom Calendar Dialog
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-project-start-date-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Project Start Date Tracking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-drag-drop-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Drag &amp; Drop Upload
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-update-all-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Update All Button
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-source-path-management-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Source Path Management UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-change-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Change Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-resizable-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Resizable Window
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-githubgitlab-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: GitHub/GitLab Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-console-window-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: Console Window Fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-09-gitlab-dual-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-09: GitLab Dual Deploy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-desktop-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Desktop Shortcut
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-app-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: App Icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-compact-project-cards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Compact Project Cards
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-git-button-open-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Git Button &amp; Open Icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-select-button-icon-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Select Button (◀) &amp; Icon System
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-reset-refresh-buttons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Reset &amp; Refresh Buttons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-double-click-paste-docs-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Double-Click Paste &amp; Docs Update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-side-by-side-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Side-by-Side Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-project-management-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Project Management Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-upload-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Upload Improvements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-ui-separator-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: UI Separator Fixes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-phase-1-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Phase 1 Implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-project-docs-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Project Docs Created
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-upload-progress-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Upload Progress Feature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-pyqt6-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: PyQt6 Migration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-windows-11-styling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Windows 11 Styling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-08-path-normalization-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-08: Path Normalization Fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-07-initial-uploader-tkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-07: Initial Uploader (tkinter)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-03-07-mkdocs-site-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-03-07: MkDocs Site Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-mkdocs-github-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why MkDocs + GitHub Pages?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-pyqt6-over-tkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why PyQt6 over tkinter?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-git-backed-cms-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Git-backed CMS approach?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-side-by-side-instead-of-tabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why side-by-side instead of tabs?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ai-lab-notes-manager-rd-log">AI Lab Notes Manager - R&amp;D Log<a class="headerlink" href="#ai-lab-notes-manager-rd-log" title="Permanent link">&para;</a></h1>
+<h2 id="2026-03-09-phase-25-empty-state-ui">2026-03-09: Phase 2.5 - Empty State UI<a class="headerlink" href="#2026-03-09-phase-25-empty-state-ui" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added guided placeholder messages for first-time users</li>
+<li>UploadPanel: shows instructions when no project folder is selected</li>
+<li>ProjectsPanel: shows onboarding message when no projects exist</li>
+<li>Helps users understand the app flow without external documentation</li>
+</ul>
+<h2 id="2026-03-09-phase-25-image-auto-copy">2026-03-09: Phase 2.5 - Image Auto-Copy<a class="headerlink" href="#2026-03-09-phase-25-image-auto-copy" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>_find_referenced_images(md_path, source_folder)</code> parses .md for image references</li>
+<li>Regex patterns: <code>![alt](path)</code> and <code>&lt;img src="path"&gt;</code></li>
+<li>Resolves relative paths against md file directory or source folder</li>
+<li>UploadWorker automatically copies referenced images during file copy phase</li>
+<li>Moved from Phase 4 roadmap to Phase 2.5 (implemented early)</li>
+</ul>
+<h2 id="2026-03-09-phase-25-async-sync-status">2026-03-09: Phase 2.5 - Async Sync Status<a class="headerlink" href="#2026-03-09-phase-25-async-sync-status" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Created <code>_SyncStatusWorker(QThread)</code> for background sync status checking</li>
+<li><code>_update_sync_status()</code> now creates worker thread instead of blocking subprocess</li>
+<li><code>_apply_sync_status(sync)</code> slot receives async results and updates UI icons</li>
+<li>Eliminates UI freeze on app start and Refresh (git ref lookup was blocking)</li>
+</ul>
+<h2 id="2026-03-09-phase-25-git-operation-lock">2026-03-09: Phase 2.5 - Git Operation Lock<a class="headerlink" href="#2026-03-09-phase-25-git-operation-lock" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Global <code>_git_busy</code> flag prevents concurrent git operations</li>
+<li><code>_is_git_busy()</code> / <code>_set_git_busy(busy)</code> helper functions</li>
+<li>All git-triggering actions check lock before starting (upload, delete, update, update all)</li>
+<li>Lock acquired on worker start, released on worker finish</li>
+<li>Prevents repo corruption from simultaneous git commands</li>
+</ul>
+<h2 id="2026-03-09-phase-25-atomic-json-write">2026-03-09: Phase 2.5 - Atomic JSON Write<a class="headerlink" href="#2026-03-09-phase-25-atomic-json-write" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>_save_raw_config(data)</code> writes to <code>.tmp</code> file first, then <code>os.replace()</code> to final path</li>
+<li><code>os.replace()</code> is atomic on most filesystems (NTFS included)</li>
+<li>Prevents <code>.project_sources.json</code> corruption on crash during write</li>
+</ul>
+<h2 id="2026-03-09-phase-25-friendly-error-messages">2026-03-09: Phase 2.5 - Friendly Error Messages<a class="headerlink" href="#2026-03-09-phase-25-friendly-error-messages" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>_friendly_error(msg)</code> translates raw git errors to user-readable messages</li>
+<li>Covers 7 common scenarios: not a git repo, auth failed, no internet, push rejected, lock exists, timeout, permission denied</li>
+<li>Fallback: first line of raw error, truncated to 120 chars</li>
+<li>Applied to all worker error outputs (UploadWorker, DeleteWorker, _BatchPushWorker)</li>
+</ul>
+<h2 id="2026-03-09-custom-calendar-dialog">2026-03-09: Custom Calendar Dialog<a class="headerlink" href="#2026-03-09-custom-calendar-dialog" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Replaced QCalendarWidget with custom QPainter-based calendar</li>
+<li>Single-click date selection (no OK button needed)</li>
+<li>Month navigation (&lt; &gt;) + "Today" button</li>
+<li>Current selection: blue background + white text</li>
+<li>Today: blue bold text</li>
+<li>Used for project start date (<code>created_at</code> in config)</li>
+</ul>
+<h2 id="2026-03-09-project-start-date-tracking">2026-03-09: Project Start Date Tracking<a class="headerlink" href="#2026-03-09-project-start-date-tracking" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added <code>created_at</code> field to <code>.project_sources.json</code> config</li>
+<li>Auto-set to today on first upload, preserved on re-uploads</li>
+<li>Displayed on project card as "Started: YYYY-MM-DD" (clickable to edit)</li>
+<li>JSON structure changed from <code>{slug: path}</code> to <code>{slug: {path, created_at}}</code></li>
+<li>Backward-compatible: auto-migrates old string format to new dict format</li>
+</ul>
+<h2 id="2026-03-09-drag-drop-upload">2026-03-09: Drag &amp; Drop Upload<a class="headerlink" href="#2026-03-09-drag-drop-upload" title="Permanent link">&para;</a></h2>
+<ul>
+<li>UploadPanel accepts folder drops (<code>dragEnterEvent</code> + <code>dropEvent</code>)</li>
+<li>Drop auto-fills path + name + scans files</li>
+<li>Only accepts directories (rejects file drops)</li>
+</ul>
+<h2 id="2026-03-09-update-all-button">2026-03-09: Update All Button<a class="headerlink" href="#2026-03-09-update-all-button" title="Permanent link">&para;</a></h2>
+<ul>
+<li>"Update All" button appears in header when any project has changes</li>
+<li>Copies all changed files from all projects → single git commit + push</li>
+<li><code>_BatchPushWorker(QThread)</code> handles git operations (files pre-copied in main thread)</li>
+</ul>
+<h2 id="2026-03-09-source-path-management-ui">2026-03-09: Source Path Management UI<a class="headerlink" href="#2026-03-09-source-path-management-ui" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Each project card shows source path (gray text) or "Set source path..." (blue link)</li>
+<li>Click to change via folder selection dialog</li>
+<li>Path stored in <code>.project_sources.json</code></li>
+</ul>
+<h2 id="2026-03-09-change-detection">2026-03-09: Change Detection<a class="headerlink" href="#2026-03-09-change-detection" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>check_project_changes()</code> compares source .md vs docs/ .md by MD5 hash</li>
+<li>Detects new files (<code>+</code>) and modified files (<code>~</code>), ignores docs-only files</li>
+<li>Orange "N changed" badge on project card (clickable → auto-update)</li>
+<li><code>.project_sources.json</code> maps project slug → source folder path</li>
+</ul>
+<h2 id="2026-03-09-resizable-window">2026-03-09: Resizable Window<a class="headerlink" href="#2026-03-09-resizable-window" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Changed <code>setFixedSize(920, 580)</code> → <code>setMinimumSize(920, 580)</code> + <code>resize(920, 700)</code></li>
+<li>Window now freely resizable, more vertical space by default</li>
+</ul>
+<h2 id="2026-03-09-githubgitlab-sync-status">2026-03-09: GitHub/GitLab Sync Status<a class="headerlink" href="#2026-03-09-githubgitlab-sync-status" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>get_sync_status()</code> compares <code>origin/main</code> vs <code>gitlab/main</code> commit hashes</li>
+<li>Green circle+checkmark icon = synced with HEAD</li>
+<li>Orange circle+exclamation = behind HEAD</li>
+<li>Icons created via QPainter (16x16): filled circle + white symbol</li>
+<li>Updates on Refresh and after upload/delete</li>
+</ul>
+<h2 id="2026-03-09-console-window-fix">2026-03-09: Console Window Fix<a class="headerlink" href="#2026-03-09-console-window-fix" title="Permanent link">&para;</a></h2>
+<ul>
+<li>All <code>subprocess.run</code> calls now use <code>creationflags=CREATE_NO_WINDOW</code></li>
+<li><code>_NO_WINDOW</code> constant: <code>subprocess.CREATE_NO_WINDOW</code> on Windows, <code>0</code> otherwise</li>
+<li>Previously: 2 console windows flashed on app start (from <code>get_sync_status</code>)</li>
+</ul>
+<h2 id="2026-03-09-gitlab-dual-deploy">2026-03-09: GitLab Dual Deploy<a class="headerlink" href="#2026-03-09-gitlab-dual-deploy" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added GitLab as second remote alongside GitHub</li>
+<li><code>.gitlab-ci.yml</code> for MkDocs Pages deployment via GitLab CI/CD</li>
+<li>Separate upload buttons: GitHub (origin) / GitLab (gitlab)</li>
+<li>Project card: GitHub / GitLab buttons open respective repo tree URLs</li>
+<li>Header: GitHub / GitLab buttons open respective Pages sites</li>
+<li>GitLab username: <code>jungjaehwa1</code>, Pages URL: <code>jungjaehwa1.gitlab.io</code></li>
+<li>Copy URL copies GitLab URL (private site)</li>
+</ul>
+<h2 id="2026-03-08-desktop-shortcut">2026-03-08: Desktop Shortcut<a class="headerlink" href="#2026-03-08-desktop-shortcut" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Created <code>.ico</code> file with multiple sizes (16~256px) via Pillow</li>
+<li>Desktop shortcut using <code>pythonw.exe</code> (no console window on launch)</li>
+<li>VBScript COM automation to create <code>.lnk</code> file with custom icon</li>
+</ul>
+<h2 id="2026-03-08-app-icon">2026-03-08: App Icon<a class="headerlink" href="#2026-03-08-app-icon" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Purple (#7B2FBE) rounded rect + white "MD" text via QPainter (64x64)</li>
+<li><code>SetCurrentProcessExplicitAppUserModelID("ai-lab-notes-manager")</code> for Windows taskbar</li>
+<li>Without this, Windows shows python.exe icon instead of app icon</li>
+</ul>
+<h2 id="2026-03-08-compact-project-cards">2026-03-08: Compact Project Cards<a class="headerlink" href="#2026-03-08-compact-project-cards" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Moved meta info (doc count, date) to same line as project name (right-aligned)</li>
+<li>Reduced card padding: 10px → 8px vertical, spacing 6px → 4px</li>
+<li>Cards now 2 rows (name+meta / buttons) instead of 3 rows</li>
+</ul>
+<h2 id="2026-03-08-git-button-open-icon">2026-03-08: Git Button &amp; Open Icon<a class="headerlink" href="#2026-03-08-git-button-open-icon" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added "Git" text button → opens GitHub repo page (<code>REPO_URL + slug</code>)</li>
+<li>Added <code>REPO_URL</code> constant for GitHub tree URL</li>
+<li>Changed Open button from text to QPainter external-link icon (↗)</li>
+<li>Created <code>create_open_icon()</code> with box + arrow design</li>
+</ul>
+<h2 id="2026-03-08-select-button-icon-system">2026-03-08: Select Button (◀) &amp; Icon System<a class="headerlink" href="#2026-03-08-select-button-icon-system" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added select button (◀ left-arrow icon) on each project card</li>
+<li>Click fills Upload panel's Project Name field</li>
+<li>Signal chain: <code>ProjectCard.select_requested</code> → <code>ProjectsPanel.project_selected</code> → <code>UploadPanel.set_project_name</code></li>
+<li>Created shared <code>_icon_pen()</code> (#848484, 1.2px) for consistent icon styling</li>
+<li>All QPainter icons use same pen for uniform color/weight</li>
+</ul>
+<h2 id="2026-03-08-reset-refresh-buttons">2026-03-08: Reset &amp; Refresh Buttons<a class="headerlink" href="#2026-03-08-reset-refresh-buttons" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Reset button on Upload panel: clears path, name, file list, status</li>
+<li>Refresh button on Projects panel: re-parses mkdocs.yml + rescans docs/</li>
+<li>Upload time displayed as <code>YYYY-MM-DD HH:MM</code> format on each card</li>
+</ul>
+<h2 id="2026-03-08-double-click-paste-docs-update">2026-03-08: Double-Click Paste &amp; Docs Update<a class="headerlink" href="#2026-03-08-double-click-paste-docs-update" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added double-click paste for all QLineEdit fields (Project Path, Project Name)</li>
+<li>Reusable <code>_paste_on_double_click()</code> static method for future fields</li>
+<li>Path field: double-click pastes clipboard, normalizes path, auto-scans if valid folder</li>
+<li>Name field: double-click pastes clipboard text</li>
+<li>Updated all project docs (CLAUDE.md, PLAN.md, RND_LOG.md, SKILLS_GUIDE.md)</li>
+</ul>
+<h2 id="2026-03-08-side-by-side-layout">2026-03-08: Side-by-Side Layout<a class="headerlink" href="#2026-03-08-side-by-side-layout" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Changed from tab structure to side-by-side two-panel layout (920x580)</li>
+<li>Left panel: Upload (UploadPanel)</li>
+<li>Right panel: Projects (ProjectsPanel)</li>
+<li>Vertical 1px separator with bottom margin</li>
+<li>Removed QTabWidget, UploadTab, ProjectsTab classes</li>
+<li>Added UploadPanel, ProjectsPanel classes</li>
+</ul>
+<h2 id="2026-03-08-project-management-features">2026-03-08: Project Management Features<a class="headerlink" href="#2026-03-08-project-management-features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added ProjectCard with Copy, Copy URL, Open, Delete buttons</li>
+<li>Copy: project name → clipboard with "Copied!" feedback (1.5s)</li>
+<li>Copy URL: project URL → clipboard with "Copied!" feedback (1.5s)</li>
+<li>Open: opens project page in browser</li>
+<li>Delete: 2-step confirmation (Yes/No → type name) + DeleteWorker background thread</li>
+<li>Open Site button on Projects panel header</li>
+<li>Auto-refresh Projects panel after upload completes</li>
+</ul>
+<h2 id="2026-03-08-upload-improvements">2026-03-08: Upload Improvements<a class="headerlink" href="#2026-03-08-upload-improvements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Duplicate detection: warns when project name exists, button changes to "Update"</li>
+<li>Scanning feedback: "Scanning..." label + processEvents() before blocking scan</li>
+<li>Transparent scroll area backgrounds (removed gray bg on project list)</li>
+</ul>
+<h2 id="2026-03-08-ui-separator-fixes">2026-03-08: UI Separator Fixes<a class="headerlink" href="#2026-03-08-ui-separator-fixes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Changed separator colors from #E5E5E5 to #C5C5C5 (matches QLineEdit border)</li>
+<li>Replaced QFrame.Shape.HLine/VLine (thick 2px sunken) with setFixedHeight(1)/setFixedWidth(1) + inline style</li>
+<li>Added horizontal separator under title area</li>
+<li>Vertical separator has 24px bottom spacing</li>
+</ul>
+<h2 id="2026-03-08-phase-1-implementation">2026-03-08: Phase 1 Implementation<a class="headerlink" href="#2026-03-08-phase-1-implementation" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Refactored UploaderApp → ManagerApp</li>
+<li>Initially built with QTabWidget (Upload/Projects tabs)</li>
+<li>User feedback: changed to side-by-side layout for simultaneous view</li>
+<li>Added parse_projects_from_nav(), get_project_info(), remove_project_from_nav()</li>
+<li>Added DeleteWorker(QThread) for background project deletion</li>
+</ul>
+<h2 id="2026-03-08-project-docs-created">2026-03-08: Project Docs Created<a class="headerlink" href="#2026-03-08-project-docs-created" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Created CLAUDE.md, PLAN.md, RND_LOG.md, SKILLS_GUIDE.md</li>
+<li>Designed Phase 1~3 roadmap for Manager app</li>
+<li>Registered docs in MkDocs site under "AI Lab Notes Manager" section</li>
+</ul>
+<h2 id="2026-03-08-upload-progress-feature">2026-03-08: Upload Progress Feature<a class="headerlink" href="#2026-03-08-upload-progress-feature" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added <code>progress_update</code> signal to <code>UploadWorker</code></li>
+<li>Upload button shows percentage (0% → 30% file copy → 40% index → 50% nav → 60~80% git → 100%)</li>
+<li>Status label shows step-by-step log (e.g., "Copying research.md", "git push origin main...")</li>
+</ul>
+<h2 id="2026-03-08-pyqt6-migration">2026-03-08: PyQt6 Migration<a class="headerlink" href="#2026-03-08-pyqt6-migration" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: tkinter Korean IME composition font cannot be controlled (OS-level limitation).
+During Korean typing, composition characters appeared in a different/larger font than the final text.</p>
+<p><strong>Attempted fixes</strong> (all failed):
+- <code>option_add("*Font", ...)</code>
+- <code>tkfont.nametofont("TkDefaultFont").configure()</code>
+- Various tkinter font configuration methods</p>
+<p><strong>Root cause</strong>: Windows OS controls IME composition rendering in tkinter. The font used during character composition is determined by the system, not the application.</p>
+<p><strong>Solution</strong>: Migrated entire app from tkinter to PyQt6. PyQt6 handles Korean IME natively — composition font matches the widget font.</p>
+<p><strong>Side effect</strong>: Needed to recreate checkbox styling. Native Qt checkboxes lost their checkmarks when custom QSS was applied. Fixed by generating a white checkmark PNG via QPainter at runtime and referencing it in QSS.</p>
+<h2 id="2026-03-08-windows-11-styling">2026-03-08: Windows 11 Styling<a class="headerlink" href="#2026-03-08-windows-11-styling" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Applied Windows 11 Explorer-like design via QSS</li>
+<li>Colors: accent #0078D4, background #FFFFFF, borders #C5C5C5, text #1A1A1A</li>
+<li>Custom checkmark: blue background + white checkmark on checked state</li>
+<li>Font: Malgun Gothic 10pt (Windows Korean system font)</li>
+<li>All UI text in English</li>
+</ul>
+<h2 id="2026-03-08-path-normalization-fix">2026-03-08: Path Normalization Fix<a class="headerlink" href="#2026-03-08-path-normalization-fix" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: Pasting paths like <code>D:\_Teamplay</code> (backslashes) didn't trigger file scanning.
+Browse dialog returned forward slashes, but clipboard paste used backslashes.</p>
+<p><strong>Fix</strong>: Added <code>_normalize_path()</code> method that strips quotes and converts <code>\</code> → <code>/</code>.
+Connected to <code>returnPressed</code> signal on the path input field.</p>
+<h2 id="2026-03-07-initial-uploader-tkinter">2026-03-07: Initial Uploader (tkinter)<a class="headerlink" href="#2026-03-07-initial-uploader-tkinter" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Built first version with tkinter</li>
+<li>Features: browse folder, scan .md files, checkbox selection, git push</li>
+<li>UI: basic tkinter widgets, Korean labels</li>
+<li>Issues discovered: Korean IME font problem, path normalization needed</li>
+</ul>
+<h2 id="2026-03-07-mkdocs-site-setup">2026-03-07: MkDocs Site Setup<a class="headerlink" href="#2026-03-07-mkdocs-site-setup" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Created GitHub repo: <code>jungjaewa/ai-lab-notes</code></li>
+<li>Set up MkDocs Material theme with Korean/English search</li>
+<li>GitHub Actions auto-deploy on push to main</li>
+<li>First content: Eye Pipeline project docs (research.md, rnd-log.md)</li>
+<li>Tags plugin enabled for cross-project search</li>
+</ul>
+<h2 id="design-decisions">Design Decisions<a class="headerlink" href="#design-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="why-mkdocs-github-pages">Why MkDocs + GitHub Pages?<a class="headerlink" href="#why-mkdocs-github-pages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Notion: blocked at work network</li>
+<li>Obsidian Publish: paid service</li>
+<li>MkDocs + GitHub Pages: free, supports PWA for mobile, full control</li>
+</ul>
+<h3 id="why-pyqt6-over-tkinter">Why PyQt6 over tkinter?<a class="headerlink" href="#why-pyqt6-over-tkinter" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Korean IME font control (primary reason)</li>
+<li>Better styling via QSS (Windows 11 look)</li>
+<li>Qt Designer available for visual UI design</li>
+<li>Native widget rendering on Windows</li>
+</ul>
+<h3 id="why-git-backed-cms-approach">Why Git-backed CMS approach?<a class="headerlink" href="#why-git-backed-cms-approach" title="Permanent link">&para;</a></h3>
+<ul>
+<li>User is not familiar with Git commands</li>
+<li>App abstracts git add/commit/push behind a simple Upload button</li>
+<li>Automatic deployment via GitHub Actions</li>
+<li>Version history comes free with Git</li>
+</ul>
+<h3 id="why-side-by-side-instead-of-tabs">Why side-by-side instead of tabs?<a class="headerlink" href="#why-side-by-side-instead-of-tabs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>User requested simultaneous view of Upload and Projects</li>
+<li>No need to switch tabs to see uploaded projects</li>
+<li>Natural workflow: upload on left, verify on right</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

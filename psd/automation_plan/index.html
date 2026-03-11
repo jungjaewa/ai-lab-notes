@@ -1,0 +1,3016 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI R&D 실험 노트">
+      
+      
+        <meta name="author" content="jungjaewa">
+      
+      
+        <link rel="canonical" href="https://jungjaewa.github.io/ai-lab-notes/psd/automation_plan/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../CLAUDE/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Automation Plan - AI Lab Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#psd-layer-exporter" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AI Lab Notes" class="md-header__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Lab Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Automation Plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="다크 모드"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="라이트 모드"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../eye-pipeline/" class="md-tabs__link">
+          
+  
+  
+  Eye Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../teamplay_gantt/" class="md-tabs__link">
+          
+  
+  
+  Teamplay_Gantt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai-lab-notes-manager/" class="md-tabs__link">
+          
+  
+  
+  AI Lab Notes Manager
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  PSD
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  태그
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Lab Notes" class="md-nav__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Lab Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Eye Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Animation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teamplay_Gantt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab Notes Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/rnd-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/RND_LOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/skills-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PSD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 현재 워크플로우 (수동)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 현재 워크플로우 (수동)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        각 단계별 상세
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 자동화 목표
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 자동화 목표">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        자동화 범위 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 자동화 기능 상세 설계
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 자동화 기능 상세 설계">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-auto-export-psd-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Auto Export (PSD 변경 → 자동 Export)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 프로젝트 프리셋 시스템
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-unity-import-all-1-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Unity Import All (1클릭 Import)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-unity-assetpostprocessor-sprite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Unity AssetPostprocessor (자동 Sprite 설정)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-cli-watch-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 CLI Watch 모드 (헤드리스 자동 Export)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 자동화 적용 후 워크플로우
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 자동화 적용 후 워크플로우">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 기존 PSD (세션 있음) — 완전 자동
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 새 PSD (세션 없음) — 초기 설정 필요
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 구현 우선순위 및 로드맵
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 구현 우선순위 및 로드맵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-24-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 24 (자동화 1차) — 완료 ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-25-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 25 (자동화 2차) — 예정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 기술 검토 노트
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 기술 검토 노트">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-qfilesystemwatcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 QFileSystemWatcher 동작
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 프로젝트 프리셋 저장 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-ngui-atlas-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 NGUI Atlas API 호환성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 세션 없는 PSD의 자동화 한계
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 개발 히스토리
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 개발 히스토리">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 23 (완료) — 세션 자동화 기반
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-24-1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 24 (완료) — 자동화 1차
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-25-2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 25 (예정) — 자동화 2차
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 참고: 검토했으나 채택하지 않은 방안
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 참고: 검토했으나 채택하지 않은 방안">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#photoshop-uxp-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Photoshop UXP 플러그인으로 직접 Export
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-psd-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity에서 PSD 직접 Import
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        전체 무인 자동화 (새 PSD 포함)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev_journal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Journal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../human_vs_ai_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vs Ai Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer_exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer Exporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming_convention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_ctk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Ctk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_dev_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_technical_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Technical Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    태그
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 현재 워크플로우 (수동)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 현재 워크플로우 (수동)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        각 단계별 상세
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 자동화 목표
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 자동화 목표">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        자동화 범위 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 자동화 기능 상세 설계
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 자동화 기능 상세 설계">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-auto-export-psd-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Auto Export (PSD 변경 → 자동 Export)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 프로젝트 프리셋 시스템
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-unity-import-all-1-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Unity Import All (1클릭 Import)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-unity-assetpostprocessor-sprite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Unity AssetPostprocessor (자동 Sprite 설정)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-cli-watch-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 CLI Watch 모드 (헤드리스 자동 Export)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 자동화 적용 후 워크플로우
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 자동화 적용 후 워크플로우">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 기존 PSD (세션 있음) — 완전 자동
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 새 PSD (세션 없음) — 초기 설정 필요
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 구현 우선순위 및 로드맵
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 구현 우선순위 및 로드맵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-24-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 24 (자동화 1차) — 완료 ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-25-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 25 (자동화 2차) — 예정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 기술 검토 노트
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 기술 검토 노트">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-qfilesystemwatcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 QFileSystemWatcher 동작
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 프로젝트 프리셋 저장 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-ngui-atlas-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 NGUI Atlas API 호환성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 세션 없는 PSD의 자동화 한계
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 개발 히스토리
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 개발 히스토리">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 23 (완료) — 세션 자동화 기반
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-24-1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 24 (완료) — 자동화 1차
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-25-2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 25 (예정) — 자동화 2차
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 참고: 검토했으나 채택하지 않은 방안
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 참고: 검토했으나 채택하지 않은 방안">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#photoshop-uxp-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Photoshop UXP 플러그인으로 직접 Export
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-psd-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity에서 PSD 직접 Import
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        전체 무인 자동화 (새 PSD 포함)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="psd-layer-exporter">PSD Layer Exporter — 자동화 기획서<a class="headerlink" href="#psd-layer-exporter" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>작성: 2026-02-28 (Phase 23 기준)
+상태: 기획 단계 (구현 전)</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 현재 워크플로우 (수동)<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────┐     ┌──────────────────┐     ┌─────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  Photoshop   │────▶│  PSD Extractor   │────▶│     Unity       │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│              │     │  (Qt GUI)        │     │                 │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│ 1. 레이어 정리│     │ 2. PSD 로드      │     │ 5. Sprite 설정  │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│    그룹 구성  │     │ 3. Rename/설정   │     │ 6. Atlas 생성   │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│    파일 저장  │     │ 4. Export 클릭   │     │ 7. Import Scene │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>└─────────────┘     └──────────────────┘     └─────────────────┘
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>     수동               수동 (5~10분)              수동 (3단계)
+</code></pre></div>
+<h3 id="_1">각 단계별 상세<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>작업</th>
+<th>소요 시간</th>
+<th>반복 빈도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PS → PSD 저장</td>
+<td>레이어 정리, 그룹 구성, 파일 저장</td>
+<td>10~30분</td>
+<td>초기 1회 + 수정마다</td>
+</tr>
+<tr>
+<td>PSD 로드</td>
+<td>앱 실행 → Browse → PSD 선택</td>
+<td>10초</td>
+<td>PSD 변경마다</td>
+</tr>
+<tr>
+<td>Rename 설정</td>
+<td>Mode 선택, Auto/Manual rename</td>
+<td>1~5분</td>
+<td>초기 1회</td>
+</tr>
+<tr>
+<td>Export 설정</td>
+<td>Format, Padding, POT, Unity, Pivot 등</td>
+<td>1~2분</td>
+<td>초기 1회</td>
+</tr>
+<tr>
+<td>Export 실행</td>
+<td>EXPORT 버튼 클릭</td>
+<td>자동 (수초)</td>
+<td>변경마다</td>
+</tr>
+<tr>
+<td>Unity Sprite 설정</td>
+<td>Setup Textures 클릭</td>
+<td>수초</td>
+<td>Export마다</td>
+</tr>
+<tr>
+<td>Unity Atlas 생성</td>
+<td>NGUI Atlas Maker에서 생성</td>
+<td>수동</td>
+<td>Export마다</td>
+</tr>
+<tr>
+<td>Unity Import Scene</td>
+<td>Import to Scene 클릭</td>
+<td>수초</td>
+<td>Export마다</td>
+</tr>
+</tbody>
+</table>
+<p><strong>문제점:</strong>
+- PSD 수정 → 저장 → 앱 전환 → Export 클릭 → Unity 전환 → 3단계 클릭 반복
+- 동일 PSD의 반복 Export에서 매번 동일한 수동 작업
+- 4개 프로젝트(포커 PC/모바일, 바둑 PC/모바일) × 다수 PSD 파일 관리</p>
+<hr />
+<h2 id="2">2. 자동화 목표<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────┐     ┌──────────────────┐     ┌─────────────────┐
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│  Photoshop   │────▶│  PSD Extractor   │────▶│     Unity       │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│              │     │  (Qt GUI)        │     │                 │
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│ 1. 레이어 정리│     │ ✅ 자동 감지      │     │ ✅ 자동 Sprite  │
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│    파일 저장  │     │ ✅ 세션 복원      │     │ ✅ Import All   │
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   (Ctrl+S)   │     │ ✅ 자동 Export   │     │    1클릭 완료   │
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>└─────────────┘     └──────────────────┘     └─────────────────┘
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>     수동               자동화                    반자동 (1클릭)
+</code></pre></div>
+<h3 id="_2">자동화 범위 정의<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th style="text-align: center;">자동화 가능 여부</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PSD 레이어 정리</td>
+<td style="text-align: center;">❌</td>
+<td>창작 작업, 자동화 불가</td>
+</tr>
+<tr>
+<td>PSD 변경 감지</td>
+<td style="text-align: center;">✅</td>
+<td>QFileSystemWatcher 이미 구현</td>
+</tr>
+<tr>
+<td>세션 설정 복원</td>
+<td style="text-align: center;">✅</td>
+<td>Phase 23에서 자동 로드 구현 완료</td>
+</tr>
+<tr>
+<td>Rename (기존 세션)</td>
+<td style="text-align: center;">✅</td>
+<td>세션 복원으로 자동 적용</td>
+</tr>
+<tr>
+<td>Rename (새 PSD)</td>
+<td style="text-align: center;">❌</td>
+<td>사용자 초기 설정 필수</td>
+</tr>
+<tr>
+<td>Export 자동 실행</td>
+<td style="text-align: center;">🔧</td>
+<td>PSD 변경 감지 → 자동 Export (계획)</td>
+</tr>
+<tr>
+<td>프로젝트별 경로</td>
+<td style="text-align: center;">🔧</td>
+<td>프로젝트 프리셋 시스템 (계획)</td>
+</tr>
+<tr>
+<td>Unity Sprite 설정</td>
+<td style="text-align: center;">🔧</td>
+<td>AssetPostprocessor (계획)</td>
+</tr>
+<tr>
+<td>Unity Atlas 생성</td>
+<td style="text-align: center;">🔧</td>
+<td>NGUI API 호출 (계획)</td>
+</tr>
+<tr>
+<td>Unity Import Scene</td>
+<td style="text-align: center;">🔧</td>
+<td>Import All 버튼 (계획)</td>
+</tr>
+</tbody>
+</table>
+<p>✅ = 구현 완료, 🔧 = 계획 중, ❌ = 자동화 불가</p>
+<hr />
+<h2 id="3">3. 자동화 기능 상세 설계<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31-auto-export-psd-export">3.1 Auto Export (PSD 변경 → 자동 Export)<a class="headerlink" href="#31-auto-export-psd-export" title="Permanent link">&para;</a></h3>
+<p><strong>개요:</strong> Photoshop에서 PSD를 저장하면 PSD Extractor가 자동으로 감지하여 Export까지 진행</p>
+<p><strong>전제 조건:</strong>
+- PSD Extractor 앱이 실행 중이어야 함
+- 해당 PSD의 세션 파일(.session.json)이 존재해야 함 (최소 1회 수동 설정 필요)</p>
+<p><strong>동작 흐름:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>PS에서 Ctrl+S
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    ↓
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>QFileSystemWatcher 감지 (이미 구현, 300ms 딜레이)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    ↓
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>PSD 자동 Reload (이미 구현)
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    ↓
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>세션 자동 복원 (Phase 23 구현 완료)
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    ↓
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>[NEW] 자동 Export 실행
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    ↓
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>Export 완료 → 로그 표시
+</code></pre></div></p>
+<p><strong>구현 계획:</strong>
+- <code>_on_file_changed()</code> 핸들러에 Auto Export 옵션 추가
+- Settings 또는 Export 패널에 "Auto Export on Change" 체크박스
+- 세션 파일 없는 경우 → 로그 경고 + Export 건너뜀
+- Export 진행 중 재변경 → 큐잉 또는 무시 (디바운스)
+- 세션에 Auto Export 설정 저장</p>
+<p><strong>예상 UI:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[☐ Auto Export] ← Export 패널 또는 Settings에 배치
+</code></pre></div></p>
+<p><strong>우선순위:</strong> ⭐⭐⭐ 높음 (가장 적은 노력으로 가장 큰 효과)</p>
+<hr />
+<h3 id="32">3.2 프로젝트 프리셋 시스템<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p><strong>개요:</strong> 여러 프로젝트의 Export 경로와 설정을 미리 저장해두고 콤보박스로 전환</p>
+<p><strong>사용자 프로젝트 예시:</strong>
+| 프로젝트 | 타입 | Unity 경로 (예시) |
+|----------|------|-------------------|
+| 포커 PC | NGUI | <code>D:\Projects\Poker\PC\Assets\Resources\UI\</code> |
+| 포커 모바일 | UGUI | <code>D:\Projects\Poker\Mobile\Assets\Resources\UI\</code> |
+| 바둑 PC | NGUI | <code>D:\Projects\Baduk\PC\Assets\Resources\UI\</code> |
+| 바둑 모바일 | UGUI | <code>D:\Projects\Baduk\Mobile\Assets\Resources\UI\</code> |</p>
+<p><strong>프로젝트별 저장 설정:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;포커 PC&quot;</span><span class="p">,</span>           <span class="c1"># 사용자 편집 가능</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="s2">&quot;output_path&quot;</span><span class="p">:</span> <span class="s2">&quot;D:</span><span class="se">\\</span><span class="s2">...&quot;</span><span class="p">,</span>    <span class="c1"># Browse로 지정, 직접 편집 가능</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="s2">&quot;unity_type&quot;</span><span class="p">:</span> <span class="s2">&quot;NGUI&quot;</span><span class="p">,</span>       <span class="c1"># UGUI / NGUI</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="s2">&quot;pivot&quot;</span><span class="p">:</span> <span class="s2">&quot;Bottom-Center&quot;</span><span class="p">,</span>   <span class="c1"># 9방향</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="s2">&quot;scales&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span>            <span class="c1"># 배율 목록</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="c1"># 필요 시 추가: format, padding, pot 등</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UI 설계:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>┌─ Output ──────────────────────────────────────────────────┐
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│ Project [포커 PC    ▼] [+] [-] [✎]                       │
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>│ Path    [D:\Projects\Poker\PC\Assets\...] [Browse] [Open] │
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│ [☐ Unity] [UGUI|NGUI] │ Pivot [Bottom-Center▼]  [EXPORT] │
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>└───────────────────────────────────────────────────────────┘
+</code></pre></div></p>
+<p><strong>위젯 설명:</strong>
+- <code>Project</code> 콤보: 저장된 프로젝트 목록 (편집 불가 콤보)
+- <code>[+]</code> 버튼: 새 프로젝트 추가 (이름 입력 다이얼로그)
+- <code>[-]</code> 버튼: 현재 프로젝트 삭제 (확인 다이얼로그)
+- <code>[✎]</code> 버튼: 프로젝트 이름 변경 (인라인 편집 또는 다이얼로그)
+- Project 전환 시 → 경로 + Unity 타입 + Pivot 자동 전환</p>
+<p><strong>저장 위치:</strong> QSettings("PSDExtractor", "Qt") → projects 키
+- 세션(per-PSD)이 아닌 앱 전역 설정으로 저장
+- PSD마다 마지막 사용한 프로젝트 기억 (세션에 project_name 저장)</p>
+<p><strong>동작 흐름:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>프로젝트 콤보 전환
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    ↓
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>output_path 업데이트 → 경로 표시 갱신
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Unity 타입 전환 (UGUI/NGUI)
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>Pivot 전환
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    ↓
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>Export 시 해당 프로젝트 경로로 파일 생성
+</code></pre></div></p>
+<p><strong>우선순위:</strong> ⭐⭐⭐ 높음 (다중 프로젝트 운영 시 필수)</p>
+<hr />
+<h3 id="33-unity-import-all-1-import">3.3 Unity Import All (1클릭 Import)<a class="headerlink" href="#33-unity-import-all-1-import" title="Permanent link">&para;</a></h3>
+<p><strong>개요:</strong> NGUI의 3단계 수동 작업을 "Import All" 버튼 1클릭으로 자동 실행</p>
+<p><strong>현재 NGUI 워크플로우 (3단계):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>1. Setup Textures  → Sprite 설정 (TextureType, MeshType 등)
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>2. Make Atlas      → NGUI Atlas Maker로 Atlas 생성
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>3. Import to Scene → 하이어라키에 UISprite + 위치 배치
+</code></pre></div></p>
+<p><strong>현재 UGUI 워크플로우 (2단계):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>1. Setup Sprites   → Sprite 설정
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>2. Import to Scene → Canvas + Image + RectTransform 배치
+</code></pre></div></p>
+<p><strong>자동화 설계:</strong></p>
+<p>Unity C# EditorWindow에 "Import All" 버튼 추가:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// NGUI Import All 흐름</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="s">&quot;Import All&quot;</span><span class="p">))</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">{</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="c1">// Step 1: Setup Textures</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="n">SetupTextures</span><span class="p">();</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="n">AssetDatabase</span><span class="p">.</span><span class="n">Refresh</span><span class="p">();</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="c1">// Step 2: Make Atlas (NGUI API 호출)</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="c1">// NGUIEditorTools.MakeAtlas() 또는 커스텀 래핑</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="n">MakeAtlas</span><span class="p">();</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="n">AssetDatabase</span><span class="p">.</span><span class="n">Refresh</span><span class="p">();</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="c1">// Step 3: Import to Scene</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="n">ImportToScene</span><span class="p">();</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>고려사항:</strong>
+- 각 단계 완료 후 <code>AssetDatabase.Refresh()</code> 필요
+- Atlas 생성은 NGUI의 내부 API 의존 → 버전별 호환성 확인 필요
+- UGUI는 2단계이므로 "Import All" = Setup + Import
+- 기존 개별 버튼은 유지 (디버깅/부분 실행용)</p>
+<p><strong>UI 변경:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>기존:  [Setup Textures] [Make Atlas] [Import to Scene]
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>추가:  [Setup Textures] [Make Atlas] [Import to Scene] [Import All]
+</code></pre></div></p>
+<p><strong>우선순위:</strong> ⭐⭐ 중간 (편의성 개선, 핵심 기능은 아님)</p>
+<hr />
+<h3 id="34-unity-assetpostprocessor-sprite">3.4 Unity AssetPostprocessor (자동 Sprite 설정)<a class="headerlink" href="#34-unity-assetpostprocessor-sprite" title="Permanent link">&para;</a></h3>
+<p><strong>개요:</strong> PSD Extractor에서 Export된 PNG가 Unity 프로젝트에 생성되면 자동으로 Sprite 설정 적용</p>
+<p><strong>현재 수동 작업:</strong>
+- Setup Textures/Sprites 클릭 → TextureImporter 설정:
+  - TextureType = Sprite
+  - MeshType = FullRect
+  - GeneratePhysicsShape = false
+  - mipmapEnabled = false
+  - Compression = Uncompressed</p>
+<p><strong>AssetPostprocessor 구현:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">FXC_PSDSpritePostprocessor</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AssetPostprocessor</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p">{</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">OnPreprocessTexture</span><span class="p">()</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="c1">// Export 폴더 내 파일인지 경로로 판별</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">assetPath</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;Resources/UI/&quot;</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">        </span><span class="n">TextureImporter</span><span class="w"> </span><span class="n">importer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">TextureImporter</span><span class="p">)</span><span class="n">assetImporter</span><span class="p">;</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">        </span><span class="n">importer</span><span class="p">.</span><span class="n">textureType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TextureImporterType</span><span class="p">.</span><span class="n">Sprite</span><span class="p">;</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">        </span><span class="n">importer</span><span class="p">.</span><span class="n">spriteImportMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpriteImportMode</span><span class="p">.</span><span class="n">Single</span><span class="p">;</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">        </span><span class="n">importer</span><span class="p">.</span><span class="n">mipmapEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="c1">// ...</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>장점:</strong>
+- Export → Unity 폴더에 파일 생성 → 자동 Sprite 설정 (Setup Textures 단계 제거)
+- Import All에서 1단계 생략 가능</p>
+<p><strong>단점:</strong>
+- Unity 프로젝트에 스크립트 배치 필요 (Editor 폴더)
+- 경로 기반 판별 → 잘못된 폴더의 이미지도 영향받을 수 있음
+- 프로젝트별 설정이 다를 수 있음</p>
+<p><strong>우선순위:</strong> ⭐ 낮음 (Import All로 충분히 커버됨)</p>
+<hr />
+<h3 id="35-cli-watch-export">3.5 CLI Watch 모드 (헤드리스 자동 Export)<a class="headerlink" href="#35-cli-watch-export" title="Permanent link">&para;</a></h3>
+<p><strong>개요:</strong> GUI 없이 CLI에서 PSD 파일 감시 + 자동 Export</p>
+<p><strong>사용 시나리오:</strong>
+- GUI 앱을 실행하지 않고도 PSD 저장 시 자동 Export
+- 서버/CI 환경에서 배치 처리
+- 여러 PSD를 동시에 감시</p>
+<p><strong>구현 개념:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>psd_extractor.py<span class="w"> </span>--watch<span class="w"> </span><span class="s2">&quot;D:\Art\*.psd&quot;</span><span class="w"> </span>--session<span class="w"> </span>auto
+</code></pre></div></p>
+<p><strong>동작:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>watchdog 라이브러리로 파일 감시
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    ↓
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>PSD 변경 감지
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    ↓
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>.session.json 로드 (설정 복원)
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    ↓
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>Export 실행 (CLI 모드)
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    ↓
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>계속 감시...
+</code></pre></div></p>
+<p><strong>필요 라이브러리:</strong> <code>watchdog</code> (pip install watchdog)</p>
+<p><strong>우선순위:</strong> ⭐ 낮음 (GUI 기반 Auto Export로 대부분 커버)</p>
+<hr />
+<h2 id="4">4. 자동화 적용 후 워크플로우<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41-psd">4.1 기존 PSD (세션 있음) — 완전 자동<a class="headerlink" href="#41-psd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Photoshop에서 Ctrl+S
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    ↓ (QFileSystemWatcher 자동 감지)
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>PSD Extractor 자동 Reload
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    ↓ (세션 자동 복원)
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>설정 자동 적용 (Rename, POT, Format 등)
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    ↓ (Auto Export ON)
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>프로젝트 경로로 자동 Export
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    ↓ (AssetPostprocessor 또는 Import All)
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>Unity에서 Import All 1클릭
+</code></pre></div>
+<p><strong>사용자 개입:</strong> PS에서 Ctrl+S + Unity에서 Import All 클릭 (2 액션)</p>
+<h3 id="42-psd">4.2 새 PSD (세션 없음) — 초기 설정 필요<a class="headerlink" href="#42-psd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>PSD Extractor에서 Browse → PSD 선택
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    ↓
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Rename 모드 선택 + 이름 설정 (수동)
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    ↓
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>Export 설정 (Format, Padding, POT 등) (수동)
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    ↓
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>프로젝트 선택 (콤보) → 경로 자동 설정
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    ↓
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>EXPORT 클릭 (수동)
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    ↓
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>세션 자동 저장 (.session.json)
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    ↓
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>이후부터는 4.1 자동 흐름 적용
+</code></pre></div>
+<p><strong>핵심:</strong> 새 PSD는 1회 수동 설정이 필수. 이후 동일 PSD의 반복 Export는 완전 자동.</p>
+<hr />
+<h2 id="5">5. 구현 우선순위 및 로드맵<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">순서</th>
+<th>기능</th>
+<th style="text-align: center;">난이도</th>
+<th style="text-align: center;">효과</th>
+<th>의존성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td>Auto Export on PSD Change</td>
+<td style="text-align: center;">낮음</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+<td>세션 자동 로드 (완료)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td>프로젝트 프리셋 시스템</td>
+<td style="text-align: center;">중간</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+<td>없음</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td>Unity Import All 버튼</td>
+<td style="text-align: center;">낮음</td>
+<td style="text-align: center;">⭐⭐</td>
+<td>C# 템플릿 수정</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td>AssetPostprocessor</td>
+<td style="text-align: center;">낮음</td>
+<td style="text-align: center;">⭐</td>
+<td>프로젝트 프리셋</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td>CLI Watch 모드</td>
+<td style="text-align: center;">중간</td>
+<td style="text-align: center;">⭐</td>
+<td>psd_extractor.py 확장</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-24-1">Phase 24 (자동화 1차) — 완료 ✅<a class="headerlink" href="#phase-24-1" title="Permanent link">&para;</a></h3>
+<p><strong>목표:</strong> Auto Export + 프로젝트 프리셋 + NGUI Import All</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>작업</th>
+<th>설명</th>
+<th style="text-align: center;">상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Auto Export 체크박스</td>
+<td>Export 패널에 배치, 세션 저장</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Auto Export 로직</td>
+<td><code>_do_refresh()</code> → 세션 복원 후 자동 Export</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>3</td>
+<td>프로젝트 프리셋 UI</td>
+<td>콤보(150px) + ✎ 매니저 다이얼로그</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>4</td>
+<td>프로젝트 프리셋 저장</td>
+<td>QSettings 영속화 (name + path)</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>5</td>
+<td>프로젝트 전환 로직</td>
+<td>경로 자동 전환 (프로젝트경로/PSD명)</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>6</td>
+<td>세션에 프로젝트 연결</td>
+<td>PSD별 project_name + auto_export 저장</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>7</td>
+<td>NGUI Import All</td>
+<td>Setup + Atlas + Import 3단계 1클릭</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>8</td>
+<td>다크 테마 다이얼로그</td>
+<td>_DARK_DIALOG_SS 재사용 스타일시트</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C# 클래스명 충돌 수정</td>
+<td>output dir 기반 _cls_suffix</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Auto Export 경로 버그</td>
+<td>_apply_project_path() 항상 호출</td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-25-2">Phase 25 (자동화 2차) — 예정<a class="headerlink" href="#phase-25-2" title="Permanent link">&para;</a></h3>
+<p><strong>목표:</strong> UGUI Import All + AssetPostprocessor</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>작업</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>UGUI Import All</td>
+<td>Setup Sprites + Import to Scene 통합</td>
+</tr>
+<tr>
+<td>2</td>
+<td>AssetPostprocessor 템플릿</td>
+<td>Export 시 함께 생성 (선택)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6">6. 기술 검토 노트<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61-qfilesystemwatcher">6.1 QFileSystemWatcher 동작<a class="headerlink" href="#61-qfilesystemwatcher" title="Permanent link">&para;</a></h3>
+<p>현재 구현 (<code>psd_extractor_gui_qt.py</code>):
+- <code>QFileSystemWatcher.fileChanged</code> 시그널로 PSD 변경 감지
+- 300ms <code>QTimer.singleShot</code> 딜레이 (Photoshop의 원자적 쓰기 대응)
+- 자동 reload: <code>_reload_psd()</code> → <code>set_layers()</code> → 세션 자동 복원</p>
+<p>Auto Export 추가 시:
+- <code>_on_file_changed()</code> 끝에 Auto Export 조건부 실행
+- <code>_load_psd()</code> 완료 후 Export 트리거 (세션 복원 후)
+- Export 진행 중 재변경 방지: <code>_exporting</code> 플래그 체크</p>
+<h3 id="62">6.2 프로젝트 프리셋 저장 구조<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># QSettings 저장 형태</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="p">{</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="s2">&quot;projects&quot;</span><span class="p">:</span> <span class="p">[</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        <span class="p">{</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;포커 PC&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;D:</span><span class="se">\\</span><span class="s2">Projects</span><span class="se">\\</span><span class="s2">Poker</span><span class="se">\\</span><span class="s2">PC</span><span class="se">\\</span><span class="s2">Assets</span><span class="se">\\</span><span class="s2">Resources</span><span class="se">\\</span><span class="s2">UI&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>            <span class="s2">&quot;unity_type&quot;</span><span class="p">:</span> <span class="s2">&quot;NGUI&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>            <span class="s2">&quot;pivot&quot;</span><span class="p">:</span> <span class="s2">&quot;Bottom-Center&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>            <span class="s2">&quot;scales&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>        <span class="p">},</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>        <span class="p">{</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;포커 모바일&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;D:</span><span class="se">\\</span><span class="s2">Projects</span><span class="se">\\</span><span class="s2">Poker</span><span class="se">\\</span><span class="s2">Mobile</span><span class="se">\\</span><span class="s2">Assets</span><span class="se">\\</span><span class="s2">Resources</span><span class="se">\\</span><span class="s2">UI&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>            <span class="s2">&quot;unity_type&quot;</span><span class="p">:</span> <span class="s2">&quot;UGUI&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>            <span class="s2">&quot;pivot&quot;</span><span class="p">:</span> <span class="s2">&quot;Bottom-Center&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>            <span class="s2">&quot;scales&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>        <span class="p">}</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>    <span class="p">],</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>    <span class="s2">&quot;last_project&quot;</span><span class="p">:</span> <span class="s2">&quot;포커 PC&quot;</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="63-ngui-atlas-api">6.3 NGUI Atlas API 호환성<a class="headerlink" href="#63-ngui-atlas-api" title="Permanent link">&para;</a></h3>
+<p>NGUI의 Atlas Maker API는 버전별로 다를 수 있음:
+- <code>NGUIEditorTools</code> 클래스 존재 여부 확인 필요
+- Atlas Maker 윈도우를 프로그래밍적으로 호출하는 방법 조사 필요
+- 대안: <code>UIAtlasMaker.UpdateAtlas()</code> 직접 호출</p>
+<h3 id="64-psd">6.4 세션 없는 PSD의 자동화 한계<a class="headerlink" href="#64-psd" title="Permanent link">&para;</a></h3>
+<p>세션 파일 없이 자동 Export가 불가능한 이유:
+- Rename 규칙을 AI가 자동으로 결정할 수 없음 (프로젝트별 네이밍 컨벤션)
+- POT 크기, Padding, Format 등은 용도에 따라 다름
+- Export 경로 (프로젝트)를 모름</p>
+<p>→ <strong>결론:</strong> 새 PSD는 반드시 1회 수동 설정이 필요. 프리셋 시스템으로 설정 시간을 최소화할 수 있음.</p>
+<hr />
+<h2 id="7">7. 개발 히스토리<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<h3 id="phase-23">Phase 23 (완료) — 세션 자동화 기반<a class="headerlink" href="#phase-23" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>날짜</th>
+<th>작업</th>
+<th style="text-align: center;">상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-02-28</td>
+<td>세션 자동 저장/로드 (16개 설정 추가)</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>2026-02-28</td>
+<td>Save/Load 버튼 제거, Restore 유지</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>2026-02-28</td>
+<td>PSD 로드 시 자동 세션 복원</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>2026-02-28</td>
+<td>Layer 토글 버튼 (그룹만 표시)</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>2026-02-28</td>
+<td>Auto Ver 버전 없는 PSD 경로 처리</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>2026-02-28</td>
+<td>선택 슬롯 단축키 간소화</td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-24-1_1">Phase 24 (완료) — 자동화 1차<a class="headerlink" href="#phase-24-1_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>작업</th>
+<th style="text-align: center;">상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auto Export on PSD Change</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>프로젝트 프리셋 시스템 (UI + 저장)</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>프로젝트별 경로 Export</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>세션-프로젝트 연결</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>NGUI Import All 버튼</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>다크 테마 프로젝트 매니저 다이얼로그</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Auto Export 경로 버그 수정</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>C# 클래스명 충돌 수정 (output dir 기반)</td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-25-2_1">Phase 25 (예정) — 자동화 2차<a class="headerlink" href="#phase-25-2_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>작업</th>
+<th style="text-align: center;">상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UGUI Import All 버튼</td>
+<td style="text-align: center;">📋</td>
+</tr>
+<tr>
+<td>AssetPostprocessor 자동 생성</td>
+<td style="text-align: center;">📋</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8">8. 참고: 검토했으나 채택하지 않은 방안<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<h3 id="photoshop-uxp-export">Photoshop UXP 플러그인으로 직접 Export<a class="headerlink" href="#photoshop-uxp-export" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Photoshop 안에서 레이어를 직접 내보내는 UXP 플러그인</li>
+<li><strong>미채택 사유:</strong></li>
+<li>PSD Extractor의 기존 기능(Rename, POT, 세션 등)을 모두 재구현해야 함</li>
+<li>UXP API 제약 (QGraphicsView 수준의 프리뷰 불가)</li>
+<li>이미 psd-tools 기반으로 충분히 빠름 (PS COM 대비 41배)</li>
+</ul>
+<h3 id="unity-psd-import">Unity에서 PSD 직접 Import<a class="headerlink" href="#unity-psd-import" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Unity가 PSD를 직접 읽어서 레이어를 Sprite로 변환</li>
+<li><strong>미채택 사유:</strong></li>
+<li>Unity 내장 PSD Import는 머지 이미지만 지원</li>
+<li>써드파티 에셋(2D PSD Importer 등)은 기능 제한적</li>
+<li>Rename/POT/다중배율 등 커스텀 파이프라인 불가</li>
+</ul>
+<h3 id="psd">전체 무인 자동화 (새 PSD 포함)<a class="headerlink" href="#psd" title="Permanent link">&para;</a></h3>
+<ul>
+<li>AI가 레이어명을 분석하여 자동으로 Rename + 설정</li>
+<li><strong>미채택 사유:</strong></li>
+<li>프로젝트별 네이밍 컨벤션이 다름</li>
+<li>오류 시 수동 수정 비용이 초기 설정보다 큼</li>
+<li>세션 시스템으로 "1회 설정 → 이후 자동" 패턴이 충분</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

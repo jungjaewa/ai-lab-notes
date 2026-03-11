@@ -1,0 +1,3364 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI R&D 실험 노트">
+      
+      
+        <meta name="author" content="jungjaewa">
+      
+      
+        <link rel="canonical" href="https://jungjaewa.github.io/ai-lab-notes/psd/unity_dev_history/">
+      
+      
+        <link rel="prev" href="../psd_extractor_gui_qt/">
+      
+      
+        <link rel="next" href="../unity_technical_notes/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Unity Dev History - AI Lab Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#unity-ugui-import" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AI Lab Notes" class="md-header__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Lab Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Unity Dev History
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="다크 모드"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="라이트 모드"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../eye-pipeline/" class="md-tabs__link">
+          
+  
+  
+  Eye Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../teamplay_gantt/" class="md-tabs__link">
+          
+  
+  
+  Teamplay_Gantt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai-lab-notes-manager/" class="md-tabs__link">
+          
+  
+  
+  AI Lab Notes Manager
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  PSD
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  태그
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Lab Notes" class="md-nav__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Lab Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Eye Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Animation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teamplay_Gantt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab Notes Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/rnd-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/RND_LOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/skills-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PSD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev_journal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Journal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../human_vs_ai_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vs Ai Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer_exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer Exporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming_convention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_ctk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Ctk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 만들었나
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="왜 만들었나">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        동기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#photoshoptospinejsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고 자료: PhotoshopToSpine.jsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spine-vs-unity-ugui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spine vs Unity UGUI 좌표 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd-unity-ugui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좌표 변환 공식 (PSD → Unity UGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개발 이력
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="개발 이력">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1-editorwindow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1 — EditorWindow 방식 (초기 구현)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2-component-2025-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2 — Component 방식 (2025-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unity-v30-editorwindow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 사용 가이드 (v3.0 통합 EditorWindow)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unity 사용 가이드 (v3.0 통합 EditorWindow)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        준비
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실행
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        결과
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        재임포트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v21-2025-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.1 — 버그 수정 및 기능 보강 (2025-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v22-2025-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.2 — 성능 최적화 (2025-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v23-restore-2026-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.3 — 세션 수동 로드 + Restore 완전 복원 (2026-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v24-2026-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.4 — 레이어/그룹 순서 수정 + 패딩 옵션 (2026-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v30-c-fxc_psdimporter-2026-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.0 — C# 스크립트 통합 (FXC_PSDImporter) (2026-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v31-sprite-2026-02-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.1 — 통합 순서 + Sprite 설정 강화 (2026-02-26)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v32-pivot-c-ngui-2026-02-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.2 — Pivot 시스템 + C# 고유 클래스명 + NGUI 지원 (2026-02-26)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v33-recttransform-pivotsizedelta-2026-02-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.3 — 루트 RectTransform pivot/sizeDelta 수정 + 피봇 프리뷰 마커 (2026-02-26)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v34-ngui-2026-02-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.4 — NGUI 워크플로우 완성 (2026-02-28)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v3.4 — NGUI 워크플로우 완성 (2026-02-28)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngui-c-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NGUI C# Editor 주요 기능
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export 변경사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        발생한 이슈 및 해결
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NGUI 워크플로우 (최종)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v35-uishaderwidget-phase-28-2026-03-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.5 — UIShaderWidget 독립화 (Phase 28, 2026-03-01)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v3.5 — UIShaderWidget 독립화 (Phase 28, 2026-03-01)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        상속 구조 변경
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uicustomrendererwidget-40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UICustomRendererWidget에서 복사한 핵심 기능 (~40줄)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#150" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        복사하지 않은 기능 (~150줄)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspector 표준화
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hierarchy-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchy Depth 표시
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sendmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SendMessage 에러 수정
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        복사 필요 파일 (4개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material 네이밍 수정
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSD Exporter 템플릿
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배포용 스크립트 백업
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        향후 계획
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고 링크
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_technical_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Technical Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    태그
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 만들었나
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="왜 만들었나">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        동기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#photoshoptospinejsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고 자료: PhotoshopToSpine.jsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spine-vs-unity-ugui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spine vs Unity UGUI 좌표 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd-unity-ugui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좌표 변환 공식 (PSD → Unity UGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개발 이력
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="개발 이력">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1-editorwindow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1 — EditorWindow 방식 (초기 구현)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2-component-2025-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2 — Component 방식 (2025-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unity-v30-editorwindow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 사용 가이드 (v3.0 통합 EditorWindow)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unity 사용 가이드 (v3.0 통합 EditorWindow)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        준비
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실행
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        결과
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        재임포트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v21-2025-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.1 — 버그 수정 및 기능 보강 (2025-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v22-2025-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.2 — 성능 최적화 (2025-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v23-restore-2026-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.3 — 세션 수동 로드 + Restore 완전 복원 (2026-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v24-2026-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.4 — 레이어/그룹 순서 수정 + 패딩 옵션 (2026-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v30-c-fxc_psdimporter-2026-02-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.0 — C# 스크립트 통합 (FXC_PSDImporter) (2026-02-25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v31-sprite-2026-02-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.1 — 통합 순서 + Sprite 설정 강화 (2026-02-26)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v32-pivot-c-ngui-2026-02-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.2 — Pivot 시스템 + C# 고유 클래스명 + NGUI 지원 (2026-02-26)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v33-recttransform-pivotsizedelta-2026-02-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.3 — 루트 RectTransform pivot/sizeDelta 수정 + 피봇 프리뷰 마커 (2026-02-26)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v34-ngui-2026-02-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.4 — NGUI 워크플로우 완성 (2026-02-28)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v3.4 — NGUI 워크플로우 완성 (2026-02-28)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngui-c-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NGUI C# Editor 주요 기능
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export 변경사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        발생한 이슈 및 해결
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NGUI 워크플로우 (최종)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v35-uishaderwidget-phase-28-2026-03-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3.5 — UIShaderWidget 독립화 (Phase 28, 2026-03-01)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v3.5 — UIShaderWidget 독립화 (Phase 28, 2026-03-01)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        상속 구조 변경
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uicustomrendererwidget-40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UICustomRendererWidget에서 복사한 핵심 기능 (~40줄)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#150" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        복사하지 않은 기능 (~150줄)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspector 표준화
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hierarchy-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchy Depth 표시
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sendmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SendMessage 에러 수정
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        복사 필요 파일 (4개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material 네이밍 수정
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSD Exporter 템플릿
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배포용 스크립트 백업
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        향후 계획
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고 링크
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="unity-ugui-import">Unity UGUI Import — 개발 히스토리<a class="headerlink" href="#unity-ugui-import" title="Permanent link">&para;</a></h1>
+<p>이 문서는 PSD Layer Extractor의 Unity UGUI 내보내기/가져오기 기능의 개발 동기, 설계 결정, 변경 이력을 기록합니다.</p>
+<hr />
+<h2 id="_1">왜 만들었나<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">동기<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>2D 게임 캐릭터 작업에서 PSD 레이어를 Unity UI(UGUI)로 옮기는 과정은 반복적이고 오류가 발생하기 쉽습니다:
+- 포토샵에서 레이어를 개별 PNG로 추출
+- Unity에 이미지 임포트 후 Sprite 설정
+- 하나씩 Image 컴포넌트를 만들고 위치/크기를 수동 조정
+- 그룹 계층 구조를 Unity Hierarchy에 수동 재현</p>
+<p>레이어가 20개만 넘어도 이 수작업은 상당한 시간이 소요되며, PSD가 변경될 때마다 처음부터 다시 해야 합니다.</p>
+<h3 id="photoshoptospinejsx">참고 자료: PhotoshopToSpine.jsx<a class="headerlink" href="#photoshoptospinejsx" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/EsotericSoftware/spine-scripts/tree/master/photoshop">Esoteric Software의 PhotoshopToSpine 스크립트</a>에서 핵심 아이디어를 얻었습니다:
+- PSD 레이어 → JSON 메타데이터 + 개별 이미지 내보내기
+- 좌표 변환 (PSD top-left 원점 → Spine bottom-up 좌표계)
+- 그룹 폴더를 뼈대(bone) 계층으로 매핑
+- 태그 시스템 (<code>[bone]</code>, <code>[slot]</code>, <code>[skin]</code>) 으로 레이어에 역할 지정</p>
+<p>PhotoshopToSpine이 PSD → Spine 워크플로우를 자동화한 것처럼,
+이 도구는 <strong>PSD → Unity UGUI 워크플로우</strong>를 자동화합니다.</p>
+<h3 id="spine-vs-unity-ugui">Spine vs Unity UGUI 좌표 비교<a class="headerlink" href="#spine-vs-unity-ugui" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>PSD</th>
+<th>Spine</th>
+<th>Unity UGUI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>원점</td>
+<td>top-left</td>
+<td>center (bone)</td>
+<td>anchor 기반 (top-left 사용)</td>
+</tr>
+<tr>
+<td>Y축</td>
+<td>↓ 아래로 증가</td>
+<td>↑ 위로 증가</td>
+<td>↑ 위로 증가</td>
+</tr>
+<tr>
+<td>위치 기준</td>
+<td>layer.left, layer.top</td>
+<td>부모 bone 상대좌표</td>
+<td>anchoredPosition (anchor 상대)</td>
+</tr>
+<tr>
+<td>크기</td>
+<td>layer.width, height</td>
+<td>attachment width/height</td>
+<td>sizeDelta</td>
+</tr>
+</tbody>
+</table>
+<h3 id="psd-unity-ugui">좌표 변환 공식 (PSD → Unity UGUI)<a class="headerlink" href="#psd-unity-ugui" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// v3 (pivot 적용)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>anchor = (pivot_x, 1 - pivot_y)   -- 동적 (pivot 설정에 따라)
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pivot  = (0.5, 0.5)               -- center (회전/스케일 친화적)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>unity.x = layer.left + layer.width / 2 - canvas_width * pivot_x
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>unity.y = -(layer.top + layer.height / 2) + canvas_height * pivot_y
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>sizeDelta = (width, height)
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>// v2 이하 (pivot 미지원, Top-Left 기준)
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>anchor = (0, 1)   -- top-left
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>unity.x = layer.left + layer.width / 2
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>unity.y = -(layer.top + layer.height / 2)
+</code></pre></div>
+<p>Y축 반전이 핵심: PSD의 top이 작을수록 위쪽이지만, Unity에서는 Y가 클수록 위쪽이므로 부호를 반전합니다. v3부터 pivot 오프셋으로 좌표 원점을 사용자가 선택할 수 있습니다.</p>
+<hr />
+<h2 id="_3">개발 이력<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="v1-editorwindow">v1 — EditorWindow 방식 (초기 구현)<a class="headerlink" href="#v1-editorwindow" title="Permanent link">&para;</a></h3>
+<p><strong>날짜</strong>: 2025년</p>
+<p><strong>구현 내용</strong>:
+- <code>psd_extractor.py</code>에 <code>collect_layer_metadata()</code> 함수 추가
+- JSON 포맷 v1: canvas, groups, layers (위치/크기/가시성/투명도)
+- <code>PSDImporter.cs</code> EditorWindow 스크립트 자동 생성 (v3.0에서 FXC_PSDImporter.cs로 통합됨)
+- Unity 메뉴 Tools &gt; PSD Layer Importer로 접근</p>
+<p><strong>워크플로우</strong>:
+1. PSD Extractor Qt GUI에서 Unity 체크박스 ON → Export
+2. <code>_unity_layout.json</code> + <code>PSDImporter.cs</code> + 레이어 이미지 생성
+3. Unity 프로젝트에 복사
+4. Tools &gt; PSD Layer Importer 실행
+5. "Setup Sprites in Folder" → 텍스처 임포트 설정 일괄 변환
+6. "Import to Scene" → Canvas + 계층 구조 자동 생성</p>
+<p><strong>한계</strong>:
+- EditorWindow 방식이라 매번 경로를 수동 지정해야 함
+- Canvas를 자동 생성하여 사용자의 기존 UI 계층에 통합하기 어려움
+- 동일 그룹명이 다른 깊이에 존재할 때 충돌 가능</p>
+<h3 id="v2-component-2025-02-25">v2 — Component 방식 (2025-02-25)<a class="headerlink" href="#v2-component-2025-02-25" title="Permanent link">&para;</a></h3>
+<p><strong>변경 동기</strong>:
+실제 작업에서 원하는 플로우는 더 단순합니다:
+1. Hierarchy에서 빈 오브젝트 생성
+2. 컴포넌트 추가 → JSON 드래그 → Build 클릭
+3. 끝</p>
+<p>EditorWindow는 별도 창을 열고 경로를 매번 입력해야 하는 번거로움이 있었습니다.</p>
+<p><strong>구현 내용</strong>:</p>
+<ol>
+<li><strong>JSON 포맷 v2</strong> (<code>psd_extractor.py</code>):</li>
+<li><code>blend_mode</code> 필드 추가 (그룹 + 레이어)</li>
+<li>그룹에 <code>group_path</code> 배열 추가 (동일 이름 그룹 충돌 방지)</li>
+<li>
+<p><code>"version": 2</code>로 범프</p>
+</li>
+<li>
+<p><strong>PSDLayoutBuilder.cs</strong> (MonoBehaviour) — v3.0에서 제거됨:</p>
+</li>
+<li>아무 GameObject에 붙이는 컴포넌트</li>
+<li><code>TextAsset</code> 필드로 JSON 드래그 앤 드롭</li>
+<li>
+<p>Sprite 폴더 자동 감지 (JSON과 같은 폴더)</p>
+</li>
+<li>
+<p><strong>PSDLayoutBuilderEditor.cs</strong> (Custom Editor) — v3.0에서 제거됨:</p>
+</li>
+<li>Inspector에 Build Layout / Clear Children 버튼</li>
+<li>Setup Sprite Import Settings 버튼</li>
+<li>Undo 지원 (Ctrl+Z로 되돌리기)</li>
+<li>
+<p>v1/v2 JSON 하위호환</p>
+</li>
+<li>
+<p><strong>Python 템플릿 업데이트</strong> (<code>psd_extractor_gui_qt.py</code>):</p>
+</li>
+<li>Export 시 C# 파일 3개 동시 출력 (v3.0에서 1개로 통합됨)</li>
+</ol>
+<p><strong>JSON v2 예시</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;psd_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ch.psd&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">&quot;canvas&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">210</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">283</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">&quot;groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;body&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="nt">&quot;parent&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="nt">&quot;group_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">],</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="nt">&quot;blend_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PASS_THROUGH&quot;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="nt">&quot;layers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arm_R&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">      </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arm_R.png&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">      </span><span class="nt">&quot;psd_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;오른팔&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">      </span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;body&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">      </span><span class="nt">&quot;group_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">],</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">      </span><span class="nt">&quot;visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">      </span><span class="nt">&quot;opacity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">      </span><span class="nt">&quot;blend_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NORMAL&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">      </span><span class="nt">&quot;rect&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;left&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;top&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">      </span><span class="nt">&quot;unity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-130.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">      </span><span class="nt">&quot;order&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h2 id="unity-v30-editorwindow">Unity 사용 가이드 (v3.0 통합 EditorWindow)<a class="headerlink" href="#unity-v30-editorwindow" title="Permanent link">&para;</a></h2>
+<h3 id="_4">준비<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>PSD Extractor Qt GUI에서 <strong>Unity 체크박스 ON</strong> → Export</li>
+<li>출력 이미지 + <code>_unity_layout.json</code>을 Unity 프로젝트 <code>Assets/Sprites/캐릭터명/</code>에 복사</li>
+<li><code>FXC_PSDImporter.cs</code>를 <code>Assets/Editor/</code>에 복사</li>
+</ol>
+<h3 id="_5">실행<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Unity 메뉴 <strong>Tools &gt; FXC PSD Importer</strong> 실행</li>
+<li><strong>Browse</strong> → <code>_unity_layout.json</code> 선택 (Sprite Folder 자동 감지)</li>
+<li><strong>Setup Sprites</strong> 클릭 (처음 1회, 텍스처 임포트 설정)</li>
+<li><strong>Import to Scene</strong> 클릭</li>
+</ol>
+<h3 id="_6">결과<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Canvas + root GameObject 하위에 PSD 그룹 구조가 재현됨</li>
+<li>각 레이어가 Image 컴포넌트를 가진 GameObject로 생성</li>
+<li>위치/크기/투명도/가시성이 PSD 원본과 일치</li>
+<li>Ctrl+Z로 되돌리기 가능 (Undo 지원)</li>
+</ul>
+<h3 id="_7">재임포트<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>PSD가 변경되었을 때:
+1. PSD Extractor에서 다시 Export
+2. 새 파일들을 Unity에 복사 (덮어쓰기)
+3. FXC PSD Importer에서 <strong>Import to Scene</strong> 다시 클릭</p>
+<h3 id="v21-2025-02-25">v2.1 — 버그 수정 및 기능 보강 (2025-02-25)<a class="headerlink" href="#v21-2025-02-25" title="Permanent link">&para;</a></h3>
+<p><strong>발견된 문제</strong> (box.psd 테스트 중):
+- 동일 레이어명("뚜껑" × 2, "리본끝_우" × 2)이 같은 파일명으로 export → 두 번째 파일이 첫 번째를 덮어쓰기
+- 한글 그룹명("보라상자", "열린 뚜껑 복사" 등)이 Unity JSON에 그대로 출력
+- 원본 레이어명 중복 시 사전 경고가 없어 사용자가 모르고 export</p>
+<p><strong>수정 내용</strong>:</p>
+<ol>
+<li><strong>파일명 충돌 방지 — 자동 접미사 (_1, _2)</strong></li>
+<li><code>collect_layer_metadata()</code>, <code>export_command()</code>, <code>ExportWorker.run()</code> 3곳에 <code>used_names</code> dict 추가</li>
+<li>동일 파일명 감지 시 <code>_1</code>, <code>_2</code> 접미사 자동 부여</li>
+<li>
+<p>결과: <code>뚜껑.png</code>, <code>뚜껑_1.png</code> — 파일 손실 없음</p>
+</li>
+<li>
+<p><strong>원본 레이어명 중복 경고</strong></p>
+</li>
+<li><code>LayerListModel</code>에 <code>_orig_name_duplicates</code> 집합 + <code>is_orig_name_duplicate()</code> 메서드</li>
+<li><code>LayerDelegate.paint()</code>에서 중복 원본명을 주황색(<code>#e0a050</code>)으로 표시</li>
+<li>
+<p>rename 필드에 "⚠ duplicate name" 플레이스홀더</p>
+</li>
+<li>
+<p><strong>그룹 리네임 지원</strong></p>
+</li>
+<li><code>collect_layer_metadata()</code>에 <code>group_rename_map</code> 파라미터 추가</li>
+<li><code>_rename_group()</code>, <code>_rename_group_path()</code> 헬퍼로 JSON 내 그룹명 일괄 치환</li>
+<li>GUI 트리 모드에서 그룹 헤더에 rename 입력란 표시 (클릭으로 직접 편집)</li>
+<li>Auto (KR→EN) 모드에서 한글 그룹명도 Ollama로 자동 번역</li>
+<li>
+<p>세션 저장 시 <code>group_rename</code> 필드 보존</p>
+</li>
+<li>
+<p><strong>Shift+Click 동작 수정</strong></p>
+</li>
+<li>범위 선택 시 체크박스가 함께 변경되던 버그 수정</li>
+<li>이제 하이라이트(선택)만 변경, 체크 상태는 유지</li>
+</ol>
+<h3 id="v22-2025-02-25">v2.2 — 성능 최적화 (2025-02-25)<a class="headerlink" href="#v22-2025-02-25" title="Permanent link">&para;</a></h3>
+<p><strong>발견된 문제</strong>: PSD 로딩 속도가 v2.1 변경 후 눈에 띄게 느려짐</p>
+<p><strong>원인 분석</strong>:</p>
+<ol>
+<li><strong>트리 가이드라인 O(n²) 스캔</strong> — <code>paint()</code> 호출마다 현재 행에서 아래 전체 행을 순회하여 가이드라인 연속 여부 계산. 100개 레이어 × 20행 뷰포트 = 2000+ 번의 <code>model.data()</code> 호출</li>
+<li><strong>_load_session() 중복 rebuild</strong> — <code>_load_psd()</code>가 이미 <code>set_layers()</code> → <code>_rebuild_view()</code> + <code>_show_merged_preview()</code> 호출 후, <code>_load_session()</code>에서 <code>_rebuild_view()</code> + <code>_rebuild_merged()</code> + <code>_show_merged_preview()</code> 다시 호출</li>
+<li><strong>그룹 번역 시 N회 rebuild</strong> — <code>_on_translate_done()</code>에서 그룹마다 <code>set_group_rename()</code> → <code>_rebuild_view()</code> 반복 호출</li>
+</ol>
+<p><strong>수정 내용</strong>:</p>
+<ol>
+<li><strong>트리 가이드 캐시</strong>: <code>_compute_tree_guides()</code>에서 역순 1회 순회(O(n))로 모든 행의 <code>continuing_depths</code>를 <code>_tree_guide_cache</code>에 사전 계산. <code>paint()</code>에서는 캐시 조회만 수행(O(1))</li>
+<li><strong>세션 로드 최적화</strong>: <code>_rebuild_merged()</code> + <code>_show_merged_preview()</code> 제거 (이미 <code>_load_psd()</code>에서 실행됨). 세션 데이터 반영 후 <code>_rebuild_view()</code> 1회만 실행</li>
+<li><strong>그룹 번역 일괄 적용</strong>: <code>_group_rename_map</code>에 직접 할당 후 <code>_rebuild_view()</code> 1회만 호출</li>
+</ol>
+<h3 id="v23-restore-2026-02-25">v2.3 — 세션 수동 로드 + Restore 완전 복원 (2026-02-25)<a class="headerlink" href="#v23-restore-2026-02-25" title="Permanent link">&para;</a></h3>
+<p><strong>발견된 문제</strong>:
+1. v2.2 최적화 후에도 PSD 로딩이 여전히 느림. <code>_load_session()</code>에서 최대 3회 <code>_rebuild_view()</code> 호출
+2. Restore 버튼이 레이어 순서(reverse)/트리 모드를 복원하지 않아 불완전 복원</p>
+<p><strong>원인 분석</strong>:
+1. <code>_load_session()</code> 내 <code>_toggle_layer_order()</code>, <code>_tree_btn.setChecked()</code>, final rebuild가 각각 <code>_rebuild_view()</code> + UI 시그널을 발생
+2. <code>_restore_initial_state()</code>가 체크/가시성/rename만 복원, 순서/트리 상태는 무시</p>
+<p><strong>수정 내용</strong>:</p>
+<ol>
+<li><strong>세션 자동 로드 제거</strong>: <code>_load_psd()</code> 끝에서 <code>_load_session()</code> 호출 제거. 세션 파일 존재 시 로그 알림만 표시. Settings에 Load 버튼 추가하여 수동 복원</li>
+<li><strong><code>_load_session()</code> 최적화</strong>: 모든 상태를 시그널 차단 상태에서 먼저 적용한 뒤 <code>_rebuild_view()</code> 1회만 실행</li>
+<li><code>_tree_btn.blockSignals(True)</code> → <code>setChecked()</code> → <code>blockSignals(False)</code></li>
+<li>레이어 역순: 배열 직접 reverse (<code>_toggle_layer_order()</code> 호출 안 함)</li>
+<li><strong>Restore 완전 복원</strong>: <code>_restore_initial_state()</code>에서 레이어 순서 리셋 + 트리 모드 해제 + <code>_rebuild_merged()</code> + <code>_show_merged_preview()</code> 호출</li>
+</ol>
+<h3 id="v24-2026-02-25">v2.4 — 레이어/그룹 순서 수정 + 패딩 옵션 (2026-02-25)<a class="headerlink" href="#v24-2026-02-25" title="Permanent link">&para;</a></h3>
+<p><strong>발견된 문제</strong>: 포토샵에서 위(front)에 있는 레이어가 Unity UGUI에서 뒤(back)에 렌더링됨. 레이어 순서가 완전히 뒤집힘.</p>
+<p><strong>원인 분석</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>시스템</th>
+<th>"앞(front)" 위치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Photoshop</strong></td>
+<td>패널 <strong>위</strong> = 앞</td>
+</tr>
+<tr>
+<td><strong>psd-tools</strong></td>
+<td>이터레이션 순서 = PSD 패널 위→아래 (order 0 = front)</td>
+</tr>
+<tr>
+<td><strong>Unity UGUI</strong></td>
+<td>Hierarchy <strong>마지막 sibling</strong> = 앞</td>
+</tr>
+</tbody>
+</table>
+<p>기존 C# 코드에서 <code>OrderBy(l =&gt; l.order)</code> (오름차순)으로 레이어를 생성:
+- order 0 (PSD front) → 첫 번째 생성 → Unity sibling 0 → 뒤에 렌더링
+- order N (PSD back) → 마지막 생성 → Unity 최후 sibling → 앞에 렌더링</p>
+<p><strong>수정 내용</strong>:</p>
+<ol>
+<li>
+<p><strong>레이어 정렬 반전</strong> (C# 스크립트):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Before</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">layersSorted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">order</span><span class="p">).</span><span class="n">ToArray</span><span class="p">();</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">// After</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">layersSorted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="n">OrderByDescending</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">order</span><span class="p">).</span><span class="n">ToArray</span><span class="p">();</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>그룹 order 필드 추가</strong> (<code>psd_extractor.py</code>):</p>
+</li>
+<li><code>collect_layer_metadata()</code>에서 그룹 수집 시 <code>"order": grp_order</code> 필드 추가</li>
+<li>
+<p>이터레이션 순서(PSD front→back) 기반 순번</p>
+</li>
+<li>
+<p><strong>그룹 정렬 보정</strong> (C# 스크립트):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Before</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">sorted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="n">groups</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">depth</span><span class="p">).</span><span class="n">ToArray</span><span class="p">();</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1">// After</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">sorted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="n">groups</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">depth</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">.</span><span class="n">ThenByDescending</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">order</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</code></pre></div>
+   depth 오름차순 (부모 먼저) + 같은 depth 내 order 내림차순 (PSD back→front 순 생성)</p>
+</li>
+<li>
+<p><strong>GroupInfo 클래스 업데이트</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">GroupInfo</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="c1">// ... 기존 필드 ...</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">order</span><span class="p">;</span><span class="w">  </span><span class="c1">// NEW</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>패딩 force_even 옵션</strong>:</p>
+</li>
+<li><code>apply_padding()</code>에 <code>force_even=True</code> 파라미터 추가</li>
+<li><code>collect_layer_metadata()</code>에도 <code>force_even</code> 파라미터 전달</li>
+<li>UI에 Even 체크박스 추가 (체크 해제 시 홀수 크기 유지)</li>
+</ol>
+<p><strong>결과</strong>: PSD 최상단(front) 레이어가 Unity에서 마지막 sibling(front)으로, PSD 최하단(back) 레이어가 첫 sibling(back)으로 생성되어 포토샵과 동일한 시각적 순서.</p>
+<p><strong>JSON v2 그룹 구조 변경</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;body&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">&quot;parent&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">&quot;group_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">],</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nt">&quot;blend_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PASS_THROUGH&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nt">&quot;order&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="v30-c-fxc_psdimporter-2026-02-25">v3.0 — C# 스크립트 통합 (FXC_PSDImporter) (2026-02-25)<a class="headerlink" href="#v30-c-fxc_psdimporter-2026-02-25" title="Permanent link">&para;</a></h3>
+<p><strong>변경 동기</strong>:
+- 기존 3개 C# 스크립트(PSDImporter, PSDLayoutBuilder, PSDLayoutBuilderEditor)가 중복 기능
+- 팀 스크립트 네이밍 규칙 <code>FXC_</code> 접두사 적용 필요
+- 파일 1개로 단순화하여 배포/관리 용이</p>
+<p><strong>수정 내용</strong>:</p>
+<ol>
+<li><strong>C# 스크립트 3개 → 1개 통합</strong>:</li>
+<li><code>FXC_PSDImporter.cs</code> (EditorWindow) 1개로 통합</li>
+<li>PSDLayoutBuilderEditor의 group_path v2 로직을 EditorWindow에 병합</li>
+<li>
+<p>PSDLayoutBuilder(MonoBehaviour) + PSDLayoutBuilderEditor(Custom Editor) 제거</p>
+</li>
+<li>
+<p><strong>통합 기능</strong>:</p>
+</li>
+<li><code>Tools &gt; FXC PSD Importer</code> 메뉴</li>
+<li>JSON Browse + Sprite Folder 자동 감지</li>
+<li>Setup Sprites / Import to Scene 버튼</li>
+<li>group_path v2 지원 (동일 그룹명 충돌 방지)</li>
+<li>Undo 지원 (모든 생성 객체)</li>
+<li>
+<p>Scale Factor, Create Canvas 옵션</p>
+</li>
+<li>
+<p><strong>Python 템플릿 업데이트</strong>:</p>
+</li>
+<li><code>_UNITY_IMPORTER_CS</code> 1개만 유지</li>
+<li><code>_UNITY_LAYOUT_BUILDER_CS</code>, <code>_UNITY_LAYOUT_BUILDER_EDITOR_CS</code> 제거</li>
+<li>ExportWorker에서 <code>FXC_PSDImporter.cs</code> 1개만 출력</li>
+</ol>
+<p><strong>결과</strong>: Unity 프로젝트에 <code>FXC_PSDImporter.cs</code> 파일 1개만 <code>Assets/Editor/</code>에 배치하면 모든 PSD 임포트 기능 사용 가능.</p>
+<h3 id="v31-sprite-2026-02-26">v3.1 — 통합 순서 + Sprite 설정 강화 (2026-02-26)<a class="headerlink" href="#v31-sprite-2026-02-26" title="Permanent link">&para;</a></h3>
+<p><strong>발견된 문제 1</strong>: 그룹과 레이어가 같은 부모 아래 혼합되어 있을 때, C# 임포터의 sibling 정렬이 잘못됨.</p>
+<p><strong>원인 분석</strong>:</p>
+<p><code>collect_layer_metadata()</code>에서 그룹과 레이어에 <strong>별도 order 카운터</strong> 사용:
+- 그룹: <code>grp_order</code> = 0, 1, 2, ... (그룹끼리만 순번)
+- 레이어: <code>enumerate(export_layers)</code> = 0, 1, 2, ... (레이어끼리만 순번)</p>
+<p>C# 임포터에서 같은 부모의 자식들(그룹+레이어 혼합)을 order로 정렬할 때, 두 카운터의 값이 비교 불가능:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>lid_group 자식:
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  lid_ribbon_group (그룹 order=6)  ← 그룹 카운터
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  fxt_ribbon_end_R (레이어 order=7) ← 레이어 카운터
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  → 우연히 맞아 보이지만...
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>purple_box_group 자식:
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  open_lid_group (그룹 order=2)  ← 그룹 카운터
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  box_group (그룹 order=4)
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  lid_group (그룹 order=5)
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  → 레이어 order 0~19와 범위 겹침, 정렬 불안정
+</code></pre></div></p>
+<p><strong>수정 내용</strong>:</p>
+<ol>
+<li>
+<p><strong>통합 순서 맵</strong> (<code>psd_extractor.py</code>):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># psd.descendants() 1회 순회로 그룹+레이어 공통 순번 부여</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">_unified_order</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">for</span> <span class="n">uid</span><span class="p">,</span> <span class="n">desc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">psd</span><span class="o">.</span><span class="n">descendants</span><span class="p">()):</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">_unified_order</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">desc</span><span class="p">)]</span> <span class="o">=</span> <span class="n">uid</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># 그룹: _unified_order[id(desc)] 사용</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># 레이어: _unified_order.get(id(layer), fallback) 사용</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>C# 정렬 방향</strong> — 오름차순 (<code>a.ord.CompareTo(b.ord)</code>):</p>
+</li>
+<li>psd-tools <code>descendants()</code> 순서 = bottom→top (back→front)</li>
+<li>낮은 통합 번호 = back → Unity sibling 0 (뒤에 렌더링)</li>
+<li>높은 통합 번호 = front → Unity 마지막 sibling (앞에 렌더링)</li>
+</ol>
+<p><strong>발견된 문제 2</strong>: Setup Sprites에서 Sprite 타입 변환 시 Mesh Type이 기본값 Tight로 설정됨. UI/FX 용도에서는 Full Rect가 적절.</p>
+<p><strong>수정 내용</strong>:</p>
+<p>Setup Sprites 자동 설정에 추가:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">TextureImporterSettings</span><span class="w"> </span><span class="n">settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TextureImporterSettings</span><span class="p">();</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">imp</span><span class="p">.</span><span class="n">ReadTextureSettings</span><span class="p">(</span><span class="n">settings</span><span class="p">);</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">settings</span><span class="p">.</span><span class="n">spriteMeshType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpriteMeshType</span><span class="p">.</span><span class="n">FullRect</span><span class="p">;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">settings</span><span class="p">.</span><span class="n">spriteGenerateFallbackPhysicsShape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">imp</span><span class="p">.</span><span class="n">SetTextureSettings</span><span class="p">(</span><span class="n">settings</span><span class="p">);</span>
+</code></pre></div></p>
+<p><strong>Mesh Type 선택 기준</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>조건</th>
+<th>선택</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI Canvas (Image 컴포넌트)</td>
+<td>Full Rect</td>
+</tr>
+<tr>
+<td>FX / 파티클 텍스처</td>
+<td>Full Rect</td>
+</tr>
+<tr>
+<td>Sliced / Tiled / Filled</td>
+<td>Full Rect</td>
+</tr>
+<tr>
+<td>SpriteRenderer + 큰 투명 영역</td>
+<td>Tight</td>
+</tr>
+<tr>
+<td>SpriteRenderer + 작은 스프라이트</td>
+<td>Full Rect</td>
+</tr>
+</tbody>
+</table>
+<h3 id="v32-pivot-c-ngui-2026-02-26">v3.2 — Pivot 시스템 + C# 고유 클래스명 + NGUI 지원 (2026-02-26)<a class="headerlink" href="#v32-pivot-c-ngui-2026-02-26" title="Permanent link">&para;</a></h3>
+<p><strong>발견된 문제 1</strong>: Unity Import 후 루트 오브젝트의 피봇이 항상 PSD top-left 원점에 위치. 캐릭터 하단 중심 등 다른 기준점이 필요한 경우 수동 조정 필요.</p>
+<p><strong>발견된 문제 2</strong>: 여러 PSD를 Export하면 동일한 C# 클래스명(<code>FXC_PSDImporter</code>)으로 Unity에서 컴파일 에러.</p>
+<p><strong>수정 내용</strong>:</p>
+<ol>
+<li><strong>9방향 Pivot 시스템</strong>:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>피봇명</th>
+<th>(px, py)</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top-Left</td>
+<td>(0.0, 0.0)</td>
+<td>PSD 원점 (기존 v2 동작)</td>
+</tr>
+<tr>
+<td>Top-Center</td>
+<td>(0.5, 0.0)</td>
+<td>상단 중심</td>
+</tr>
+<tr>
+<td>Top-Right</td>
+<td>(1.0, 0.0)</td>
+<td>상단 우측</td>
+</tr>
+<tr>
+<td>Center-Left</td>
+<td>(0.0, 0.5)</td>
+<td>중앙 좌측</td>
+</tr>
+<tr>
+<td>Center</td>
+<td>(0.5, 0.5)</td>
+<td>이미지 중심</td>
+</tr>
+<tr>
+<td>Center-Right</td>
+<td>(1.0, 0.5)</td>
+<td>중앙 우측</td>
+</tr>
+<tr>
+<td>Bottom-Left</td>
+<td>(0.0, 1.0)</td>
+<td>하단 좌측</td>
+</tr>
+<tr>
+<td><strong>Bottom-Center</strong></td>
+<td><strong>(0.5, 1.0)</strong></td>
+<td><strong>하단 중심 (기본값)</strong></td>
+</tr>
+<tr>
+<td>Bottom-Right</td>
+<td>(1.0, 1.0)</td>
+<td>하단 우측</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Output 패널에 Pivot 콤보박스 추가 (UGUI/NGUI 세그먼트 옆)</li>
+<li>
+<p>기본값: Bottom-Center (캐릭터 발 밑 기준점, 가장 일반적)</p>
+</li>
+<li>
+<p><strong>좌표 변환 공식 업데이트</strong> (<code>psd_extractor.py</code>):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="s2">&quot;unity&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="n">psd</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">pivot_x</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">psd</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">pivot_y</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>JSON v3 포맷</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;pivot&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="err">...</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>C# UGUI 동적 anchor</strong> (<code>FXC_PSDImporter_{Stem}.cs</code>):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">PivotInfo</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1">// PSDLayout에 pivot 필드 추가</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kt">float</span><span class="w"> </span><span class="n">ax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">layout</span><span class="p">.</span><span class="n">pivot</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="n">pivot</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">0f</span><span class="p">;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kt">float</span><span class="w"> </span><span class="n">ay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">layout</span><span class="p">.</span><span class="n">pivot</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">1f</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="n">pivot</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">1f</span><span class="p">;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">rt</span><span class="p">.</span><span class="n">anchorMin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Vector2</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">ay</span><span class="p">);</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="n">rt</span><span class="p">.</span><span class="n">anchorMax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Vector2</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">ay</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>C# NGUI pivot 오프셋</strong> (<code>FXC_PSDImporterNGUI_{Stem}.cs</code>):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">offX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="n">canvas</span><span class="p">.</span><span class="n">width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">pvtX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">);</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kt">float</span><span class="w"> </span><span class="n">offY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="n">canvas</span><span class="p">.</span><span class="n">height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mf">0.5f</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pvtY</span><span class="p">);</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">posX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layer</span><span class="p">.</span><span class="n">unity</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offX</span><span class="p">;</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">posY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layer</span><span class="p">.</span><span class="n">unity</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offY</span><span class="p">;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>C# 고유 클래스명</strong>:</p>
+</li>
+<li>PSD 파일명 stem → PascalCase 변환 → 클래스 접미사</li>
+<li><code>ch_01.psd</code> → <code>FXC_PSDImporter_Ch01</code></li>
+<li><code>gift_box.psd</code> → <code>FXC_PSDImporter_GiftBox</code></li>
+<li>
+<p>UGUI/NGUI 모두 적용</p>
+</li>
+<li>
+<p><strong>UGUI/NGUI 선택 UI 변경</strong>:</p>
+</li>
+<li>QComboBox → SegmentedButton (2개 중 택1)</li>
+<li>Output 패널 2행 구조: Row 1 (경로), Row 2 (Unity+Pivot+Export)</li>
+</ul>
+<p><strong>JSON v3 예시</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">&quot;psd_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ch_01.psd&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nt">&quot;canvas&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">210</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">283</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="nt">&quot;pivot&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">  </span><span class="nt">&quot;groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">  </span><span class="nt">&quot;layers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arm_R&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">      </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arm_R.png&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">      </span><span class="nt">&quot;unity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-35.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">153.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">      </span><span class="err">...</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>결과</strong>: 사용자가 9방향 중 원하는 피봇을 선택하면 JSON 좌표가 해당 피봇 기준으로 생성되고, C# 임포터가 anchor를 자동 설정하여 Unity에서 올바른 위치에 배치.</p>
+<h3 id="v33-recttransform-pivotsizedelta-2026-02-26">v3.3 — 루트 RectTransform pivot/sizeDelta 수정 + 피봇 프리뷰 마커 (2026-02-26)<a class="headerlink" href="#v33-recttransform-pivotsizedelta-2026-02-26" title="Permanent link">&para;</a></h3>
+<p><strong>발견된 문제</strong>: UGUI C# 임포터에서 루트 오브젝트의 RectTransform에 sizeDelta와 pivot을 설정하지 않아 Unity 기본값 <code>(100, 100)</code> / <code>(0.5, 0.5)</code> 적용. 앱에서 Bottom-Left를 선택해도 Unity에서는 Center로 표시됨.</p>
+<p><strong>수정 내용</strong>:</p>
+<ol>
+<li><strong>루트 RectTransform 설정</strong> (<code>ImportPSD</code> 함수):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">RectTransform</span><span class="w"> </span><span class="n">rootRT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="n">GetComponent</span><span class="o">&lt;</span><span class="n">RectTransform</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">rootRT</span><span class="p">.</span><span class="n">pivot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Vector2</span><span class="p">(</span><span class="n">pvtX</span><span class="p">,</span><span class="w"> </span><span class="mf">1f</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pvtY</span><span class="p">);</span><span class="w">  </span><span class="c1">// PSD→Unity Y축 반전</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">rootRT</span><span class="p">.</span><span class="n">sizeDelta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Vector2</span><span class="p">(</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">canvas</span><span class="p">.</span><span class="n">width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">scaleFactor</span><span class="p">,</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="n">canvas</span><span class="p">.</span><span class="n">height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">scaleFactor</span><span class="p">);</span>
+</code></pre></div></li>
+<li>pivot: JSON의 <code>(px, py)</code> → Unity <code>(px, 1-py)</code> 변환</li>
+<li>sizeDelta: PSD 캔버스 크기 × scaleFactor</li>
+<li>
+<p>예) Bottom-Left <code>(0.0, 1.0)</code> → Unity pivot <code>(0.0, 0.0)</code> = 좌하단</p>
+</li>
+<li>
+<p><strong>피봇 프리뷰 마커</strong>:</p>
+</li>
+<li>프리뷰 상단 오버레이에 ◎ 토글 버튼 추가 (✛ 십자선 옆, 기본 ON)</li>
+<li>Pivot 콤보 선택에 따라 이미지 위에 빨간 십자+원 마커로 피봇 위치 표시</li>
+<li><code>QGraphicsLineItem</code> (arm=10px) + <code>QGraphicsEllipseItem</code> (반경 4px)</li>
+<li>OFF 시 마커 완전 숨김, ON으로 복원 시 현재 Pivot 값 즉시 반영</li>
+<li>레이어 전환/호버/줌 시 마커 위치 유지</li>
+</ol>
+<p><strong>결과</strong>: 앱 프리뷰에서 피봇 위치를 시각적으로 확인 가능. Unity Import 시 루트 오브젝트의 피봇이 앱 설정과 정확히 일치.</p>
+<hr />
+<h3 id="v34-ngui-2026-02-28">v3.4 — NGUI 워크플로우 완성 (2026-02-28)<a class="headerlink" href="#v34-ngui-2026-02-28" title="Permanent link">&para;</a></h3>
+<p>실제 Unity 프로젝트에서 NGUI Import를 반복 테스트하며 전체 파이프라인을 완성. Setup Textures → Make Atlas → Import to Scene 3단계 원클릭 워크플로우 구축.</p>
+<h4 id="ngui-c-editor">NGUI C# Editor 주요 기능<a class="headerlink" href="#ngui-c-editor" title="Permanent link">&para;</a></h4>
+<p><strong>1. Setup Textures 버튼</strong>
+- JSON에서 이미지 서브폴더를 자동 감지 (<code>FindImageFolder</code>)
+- 폴더 내 모든 텍스처를 일괄 설정:
+  - TextureType = Sprite
+  - isReadable = true
+  - textureCompression = Uncompressed
+  - spriteImportMode = Single
+  - meshType = FullRect
+  - npotScale = None</p>
+<p><strong>2. Make Atlas 버튼</strong>
+- NGUI <code>UITexturePacker.PackTextures</code> 기반 Atlas 자동 생성
+- 생성 산출물:
+  - <code>{폴더명}.png</code> — 패킹된 아틀라스 이미지 (RGBA32, 4096 제한)
+  - <code>{폴더명}.mat</code> — Material (Unlit/Transparent Colored 셰이더)
+  - <code>{폴더명}.asset</code> — NGUIAtlas ScriptableObject (sprite 목록 + material 참조)
+- 설정: padding=2 (프로덕션 NGUI Atlas Maker 일치)
+- <code>NGUIMath.ConvertToPixels</code>로 UV → 픽셀 좌표 변환 → UISpriteData 생성
+- Atlas 생성 후 컴포넌트의 atlasObject 필드에 자동 반영
+- Atlas 업데이트: 이미지 폴더 우클릭 → Open Atlas Updater → Sync</p>
+<p><strong>3. Import to Scene 개선</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>GameObject (FXC_PSDImporterNGUI 스크립트)
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>└── 260225_giftBox_v1     ← PSD 파일명 루트 (layout.psd_file)
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    └── fxRoot_anim        ← 애니메이션 타겟 컨테이너
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>        ├── Group1         ← PSD 그룹
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        │   ├── s_body_01  ← fxt_ → s_ 자동 변환
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        │   └── s_arm_R
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>        └── s_leg_01
+</code></pre></div></p>
+<p>변경사항:
+- <strong>PSD명 루트</strong>: <code>Path.GetFileNameWithoutExtension(layout.psd_file)</code>로 생성
+- <strong>fxRoot_anim</strong>: 루트 바로 아래 빈 GameObject. 애니메이션 데이터 연결 대상
+- <strong>fxt_ → s_</strong>: 텍스처 네이밍(fxt_) → 스프라이트 네이밍(s_) 자동 변환
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">string</span><span class="w"> </span><span class="n">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layer</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">displayName</span><span class="p">.</span><span class="n">StartsWith</span><span class="p">(</span><span class="s">&quot;fxt_&quot;</span><span class="p">))</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="n">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;s_&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">displayName</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</code></pre></div>
+- <strong>정수 좌표</strong>: <code>Mathf.RoundToInt()</code>로 Position 반올림 (픽셀 퍼펙트)
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">posX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mathf</span><span class="p">.</span><span class="n">RoundToInt</span><span class="p">(</span><span class="n">layer</span><span class="p">.</span><span class="n">unity</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offX</span><span class="p">);</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">posY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mathf</span><span class="p">.</span><span class="n">RoundToInt</span><span class="p">(</span><span class="n">layer</span><span class="p">.</span><span class="n">unity</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offY</span><span class="p">);</span>
+</code></pre></div>
+- <strong>PSD order 정렬</strong>: <code>layout.layers.OrderBy(l =&gt; l.order)</code>로 depth 정확 할당
+- <strong>UIPanel 경고</strong>: Import 후 UIPanel 미존재 시 경고</p>
+<h4 id="export">Export 변경사항<a class="headerlink" href="#export" title="Permanent link">&para;</a></h4>
+<ul>
+<li>NGUI 모드 시 이미지 서브폴더를 PSD 파일명과 동일하게 생성
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># 기존: img_dir = os.path.join(scale_dir, &quot;Images&quot;)</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1"># 변경: PSD 스템(확장자 제외)으로 동적 생성</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">_psd_stem</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">psd_filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">img_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">scale_dir</span><span class="p">,</span> <span class="n">_psd_stem</span><span class="p">)</span>
+</code></pre></div></li>
+<li>JSON의 <code>layer.file</code>에 서브폴더 경로 포함 (예: <code>260225_giftBox_v1/layer.png</code>)</li>
+</ul>
+<h4 id="_8">발생한 이슈 및 해결<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>이슈</th>
+<th>원인</th>
+<th>해결</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INGUIAtlas cast error</td>
+<td><code>t.atlasObject</code>가 <code>Object</code> 타입</td>
+<td>이미 검증된 <code>INGUIAtlas atlas</code> 변수 사용</td>
+</tr>
+<tr>
+<td>EncodeToPNG 실패</td>
+<td><code>PackTextures</code>가 compressed format 반환</td>
+<td><code>UITexturePacker</code> + <code>ARGB32</code></td>
+</tr>
+<tr>
+<td>Atlas Y-flip</td>
+<td><code>RenderTexture</code> → <code>ReadPixels</code> 플랫폼 차이</td>
+<td><code>GetPixels32()</code> 직접 복사</td>
+</tr>
+<tr>
+<td>Material _MainTex null</td>
+<td><code>CreateAsset</code> 후 텍스처 참조 유실</td>
+<td>delete → <code>new Material(tex)</code> → <code>CreateAsset</code></td>
+</tr>
+<tr>
+<td>보라색 아틀라스 배경</td>
+<td>textureType=Default + auto compression</td>
+<td>Advanced + RGBA32 platform override</td>
+</tr>
+<tr>
+<td>하이어라키 순서 역전</td>
+<td><code>fxRoot_anim</code>이 PSD 루트 위에 생성</td>
+<td>PSD명 루트 → fxRoot_anim → 콘텐츠 3단 구조</td>
+</tr>
+<tr>
+<td>fxRoot_anim 소수점 Position</td>
+<td><code>float offX/offY</code> (홀수 캔버스 283px → -141.5)</td>
+<td><code>Mathf.RoundToInt()</code> 정수화</td>
+</tr>
+<tr>
+<td>CS0101 중복 클래스</td>
+<td>복수 PSD Export 시 글로벌 데이터 클래스 충돌</td>
+<td>Editor 클래스 내부에 nested class로 이동</td>
+</tr>
+<tr>
+<td>그룹 피봇 오프셋 오적용</td>
+<td>offX/offY가 개별 레이어에 적용됨</td>
+<td>fxRoot_anim.localPosition에만 적용, 레이어는 pivot-relative 좌표</td>
+</tr>
+<tr>
+<td>단일 최상위 그룹 중복</td>
+<td>PSD 최상위 그룹이 1개일 때 하이어라키 중복</td>
+<td>mergedTopGroupKey로 감지 → fxRoot_anim에 병합</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ngui">NGUI 워크플로우 (최종)<a class="headerlink" href="#ngui" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>[PSD Extractor]                          [Unity]
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Export (NGUI) ─→ 폴더 복사 ─→ Tools &gt; FXC PSD Importer (NGUI)
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  ├─ JSON                        ├─ JSON Browse
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>  └─ {psd_stem}/                 ├─ Setup Textures (텍스처 설정)
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>     ├─ layer1.png               ├─ Make Atlas (아틀라스 자동 생성)
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>     ├─ layer2.png               ├─ Base Depth / Step 설정
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>     └─ ...                      └─ Import to Scene
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>                                      └─ Atlas Updater로 추후 업데이트 가능
+</code></pre></div>
+<hr />
+<h3 id="v35-uishaderwidget-phase-28-2026-03-01">v3.5 — UIShaderWidget 독립화 (Phase 28, 2026-03-01)<a class="headerlink" href="#v35-uishaderwidget-phase-28-2026-03-01" title="Permanent link">&para;</a></h3>
+<p><strong>변경 동기</strong>:
+- 기존 UIShaderWidget이 <code>UICustomRendererWidget</code> (<code>External/UIParticleWidget/</code>)에 의존
+- 다른 Unity 프로젝트에 복사 시 외부 패키지까지 함께 복사해야 하는 불편
+- UICustomRendererWidget의 클리핑 기능(SoftClip/TextureClip)은 셰이더 FX에 불필요</p>
+<h4 id="_9">상속 구조 변경<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Before: UIWidget → UICustomRendererWidget → UIShaderWidget
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>After:  UIWidget → UIShaderWidget  (독립)
+</code></pre></div>
+<h4 id="uicustomrendererwidget-40">UICustomRendererWidget에서 복사한 핵심 기능 (~40줄)<a class="headerlink" href="#uicustomrendererwidget-40" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>m_Renderer</code> / <code>m_UseSharedMaterial</code></td>
+<td>Renderer 참조 + 공유 Material 설정</td>
+</tr>
+<tr>
+<td><code>material</code> property override</td>
+<td>Renderer의 Material 반환</td>
+</tr>
+<tr>
+<td><code>Awake()</code></td>
+<td><code>boundless=true</code>, <code>fillGeometry=false</code>, <code>mWidth=mHeight=2</code></td>
+</tr>
+<tr>
+<td><code>OnInit()</code> / <code>CacheComponents()</code></td>
+<td>Renderer 자동 캐싱</td>
+</tr>
+<tr>
+<td><code>OnDrawCallCreated()</code></td>
+<td><code>dc.SetExternalRenderer(m_Renderer)</code> — DrawCall↔Renderer 연결</td>
+</tr>
+<tr>
+<td><code>Invalidate()</code> override</td>
+<td>Panel 영역 무관 가시성 (이펙트 용도)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="150">복사하지 않은 기능 (~150줄)<a class="headerlink" href="#150" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>OnWillRenderObject()</code> — SoftClip/TextureClip 클리핑</li>
+<li><code>MaterialPropertyBlock</code> — 셰이더 키워드 관리</li>
+<li>관련 static ID 캐싱 (<code>_ClipRange0</code>, <code>_ClipArgs0</code>, <code>_ClipTexID</code>)</li>
+</ul>
+<h4 id="inspector">Inspector 표준화<a class="headerlink" href="#inspector" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Before: UIShaderWidgetEditor : UICustomRendererWidgetInspector (NGUI 스타일)
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>After:  UIShaderWidgetEditor : Editor (표준 Unity UI)
+</code></pre></div>
+<p><code>UICustomRendererWidgetInspector</code>는 <code>[CustomEditor(typeof(UICustomRendererWidget), true)]</code>로 서브클래스에도 적용되어 NGUI 스타일(어두운 배경, NGUIEditorTools)이 강제됨. UIWidget 직접 상속으로 이 간섭 자동 해제.</p>
+<h4 id="hierarchy-depth">Hierarchy Depth 표시<a class="headerlink" href="#hierarchy-depth" title="Permanent link">&para;</a></h4>
+<p><code>HierarchyExtend.cs</code> 추가 — <code>EditorApplication.hierarchyWindowItemOnGUI</code>로 UIShaderWidget depth 번호를 연한 초록색으로 표시. VHierarchy의 아이콘 영역(30px)을 오프셋으로 확보하여 겹침 방지.</p>
+<h4 id="sendmessage">SendMessage 에러 수정<a class="headerlink" href="#sendmessage" title="Permanent link">&para;</a></h4>
+<p><code>MeshFilter.sharedMesh</code> setter → 내부 <code>SendMessage("OnMeshFilterChanged")</code> → OnValidate 중 호출 시 Unity 에러. 동일 Mesh 참조 체크(<code>if (mf.sharedMesh != _mesh)</code>)로 해결.</p>
+<h4 id="4">복사 필요 파일 (4개)<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>NGUIShaderWidget/
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>  UIShaderWidget.cs              ← Runtime (Quad Mesh + NGUI Depth)
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  Editor/
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    UIShaderWidgetEditor.cs      ← Inspector (표준 Unity UI)
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    HierarchyExtend.cs           ← Hierarchy depth 번호 표시
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    FXC_PlayModeSaver.cs         ← Play 전 SaveAssets
+</code></pre></div>
+<p>의존성: NGUI(UIWidget)만 있으면 동작. UICustomRendererWidget 불필요.</p>
+<h4 id="material">Material 네이밍 수정<a class="headerlink" href="#material" title="Permanent link">&para;</a></h4>
+<p>기존에 Setup 시 생성되는 Material 에셋명에 <code>mat_</code> prefix가 붙었으나 제거:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Before: POT/Materials/mat_fxt_jackpot_title.mat
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>After:  POT/Materials/fxt_jackpot_title.mat
+</code></pre></div></p>
+<p><strong>수정 위치</strong> (<code>psd_extractor_gui_qt.py</code> 템플릿 내 3곳):
+1. <code>matPath = matAssetFolder + "/" + layer.name + ".mat"</code> (기존: <code>"/mat_" + layer.name</code>)
+2. <code>mat.name = layer.name;</code> × 2곳 (기존: <code>"mat_" + layer.name</code>)</p>
+<p><strong>이유</strong>: Material 파일명이 레이어 이미지 파일명과 일치하는 것이 직관적이고 관리 용이.</p>
+<h4 id="psd-exporter">PSD Exporter 템플릿<a class="headerlink" href="#psd-exporter" title="Permanent link">&para;</a></h4>
+<p><code>_FXC_MESHQUAD_EDITOR_CS</code> 내 Setup() 코드:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">UIShaderWidget</span><span class="w"> </span><span class="n">sw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">go</span><span class="p">.</span><span class="n">AddComponent</span><span class="o">&lt;</span><span class="n">UIShaderWidget</span><span class="o">&gt;</span><span class="p">();</span><span class="w">  </span><span class="c1">// MeshFilter+MeshRenderer 자동 추가</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">sw</span><span class="p">.</span><span class="n">meshSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Vector3</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="mf">0f</span><span class="p">);</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="n">sw</span><span class="p">.</span><span class="n">Rebuild</span><span class="p">();</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="n">sw</span><span class="p">.</span><span class="n">depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currentDepth</span><span class="p">;</span><span class="w">  </span><span class="c1">// NGUI depth 직접 설정 (별도 UICustomRendererWidget 불필요)</span>
+</code></pre></div></p>
+<h4 id="_10">배포용 스크립트 백업<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>다른 프로젝트에 복사할 수 있도록 독립 스크립트 4개를 별도 보관:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>C:\Users\NHN\Desktop\NGUIShaderWidget\
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>  UIShaderWidget.cs              ← Runtime
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>  Editor/
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>    UIShaderWidgetEditor.cs      ← Inspector
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    HierarchyExtend.cs           ← Hierarchy depth 표시
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    FXC_PlayModeSaver.cs         ← Play 전 SaveAssets
+</code></pre></div></p>
+<hr />
+<h2 id="_11">향후 계획<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Blend mode 실제 렌더링 지원 (커스텀 UI 셰이더)</li>
+<li>[ ] Skin 시스템 (캐릭터 의상/색상 변형)</li>
+<li>[ ] PSD 태그 시스템 (<code>[bone]</code>, <code>[pivot]</code> 등) 도입 검토</li>
+<li>[x] ~~Sprite Atlas 자동 생성 연동~~ → NGUI Make Atlas 구현 완료 (v3.4)</li>
+<li>[ ] 애니메이션 키프레임 지원 (복수 PSD → AnimationClip)</li>
+</ul>
+<hr />
+<h2 id="_12">참고 링크<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/EsotericSoftware/spine-scripts/tree/master/photoshop">PhotoshopToSpine.jsx</a> — Esoteric Software, Spine 공식 PSD 내보내기 스크립트</li>
+<li><a href="file:///E:/PhotoshopToSpine.jsx">E:\PhotoshopToSpine.jsx</a> — 로컬 참고 사본</li>
+<li><a href="https://psd-tools.readthedocs.io/">psd-tools 라이브러리</a> — Python PSD 파싱 라이브러리</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

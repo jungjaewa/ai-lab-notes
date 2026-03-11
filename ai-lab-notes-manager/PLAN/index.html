@@ -1,0 +1,2929 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI R&D 실험 노트">
+      
+      
+        <meta name="author" content="jungjaewa">
+      
+      
+        <link rel="canonical" href="https://jungjaewa.github.io/ai-lab-notes/ai-lab-notes-manager/PLAN/">
+      
+      
+        <link rel="prev" href="../CLAUDE/">
+      
+      
+        <link rel="next" href="../rnd-log/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Plan - AI Lab Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai-lab-notes-manager-development-plan" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AI Lab Notes" class="md-header__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Lab Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="다크 모드"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="라이트 모드"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../eye-pipeline/" class="md-tabs__link">
+          
+  
+  
+  Eye Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../teamplay_gantt/" class="md-tabs__link">
+          
+  
+  
+  Teamplay_Gantt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  AI Lab Notes Manager
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../psd/" class="md-tabs__link">
+          
+  
+  
+  PSD
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  태그
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Lab Notes" class="md-nav__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Lab Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Eye Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Animation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teamplay_Gantt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab Notes Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-0-single-tab-uploader-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: Single-Tab Uploader (DONE)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-side-by-side-layout-project-management-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Side-by-Side Layout + Project Management (DONE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: Side-by-Side Layout + Project Management (DONE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1-two-panel-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-1. Two-Panel Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-projects-panel-project-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-2. Projects Panel - Project List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-3-project-delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-3. Project Delete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-4-upload-panel-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-4. Upload Panel - Improvements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-5-ui-polish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-5. UI Polish
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-15-ux-enhancements-polish-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1.5: UX Enhancements + Polish (DONE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1.5: UX Enhancements + Polish (DONE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#15-1-upload-panel-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-1. Upload Panel Additions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-2-projects-panel-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-2. Projects Panel Additions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-3-signal-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-3. Signal Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-4-app-icon-desktop-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-4. App Icon &amp; Desktop Shortcut
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-5-icon-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-5. Icon System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-dual-deploy-change-detection-ux-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Dual Deploy + Change Detection + UX (DONE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Dual Deploy + Change Detection + UX (DONE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1-gitlab-dual-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-1. GitLab Dual Deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-2. Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-change-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-3. Change Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-drag-drop-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-4. Drag &amp; Drop Upload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-5-source-path-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-5. Source Path Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-6-project-start-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-6. Project Start Date
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-7-resizable-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-7. Resizable Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-25-robustness-polish-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2.5: Robustness &amp; Polish (DONE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2.5: Robustness &amp; Polish (DONE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25-1-friendly-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-1. Friendly Error Messages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-2-atomic-json-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-2. Atomic JSON Write
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-3-git-operation-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-3. Git Operation Lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-4-async-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-4. Async Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-5-image-auto-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-5. Image Auto-Copy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-6-empty-state-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-6. Empty State UI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-document-level-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Document-Level Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Document-Level Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1-accordion-document-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-1. Accordion Document View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-markdown-preview-dialog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-2. Markdown Preview Dialog
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Advanced Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: Advanced Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1-unpublished-changes-indicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-1. Unpublished Changes Indicator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-recent-upload-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-2. Recent Upload History
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-3-deploy-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-3. Deploy Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-4-quick-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-4. Quick Edit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-5-image-auto-copy-done-moved-to-phase-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-5. Image Auto-Copy (DONE — moved to Phase 2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-6-tags-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-6. Tags Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-7-project-reorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-7. Project Reorder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-structure-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class Structure (Current)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-message-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Message Translation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rnd-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RND_LOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PSD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/automation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/dev_journal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Journal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/human_vs_ai_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vs Ai Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/layer_exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer Exporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/naming_convention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor_gui_ctk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Ctk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor_gui_qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/unity_dev_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/unity_technical_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Technical Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    태그
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-0-single-tab-uploader-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: Single-Tab Uploader (DONE)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-side-by-side-layout-project-management-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Side-by-Side Layout + Project Management (DONE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: Side-by-Side Layout + Project Management (DONE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1-two-panel-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-1. Two-Panel Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-projects-panel-project-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-2. Projects Panel - Project List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-3-project-delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-3. Project Delete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-4-upload-panel-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-4. Upload Panel - Improvements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-5-ui-polish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1-5. UI Polish
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-15-ux-enhancements-polish-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1.5: UX Enhancements + Polish (DONE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1.5: UX Enhancements + Polish (DONE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#15-1-upload-panel-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-1. Upload Panel Additions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-2-projects-panel-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-2. Projects Panel Additions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-3-signal-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-3. Signal Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-4-app-icon-desktop-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-4. App Icon &amp; Desktop Shortcut
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-5-icon-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5-5. Icon System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-dual-deploy-change-detection-ux-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Dual Deploy + Change Detection + UX (DONE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Dual Deploy + Change Detection + UX (DONE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1-gitlab-dual-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-1. GitLab Dual Deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-2. Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-change-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-3. Change Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-drag-drop-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-4. Drag &amp; Drop Upload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-5-source-path-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-5. Source Path Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-6-project-start-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-6. Project Start Date
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-7-resizable-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2-7. Resizable Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-25-robustness-polish-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2.5: Robustness &amp; Polish (DONE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2.5: Robustness &amp; Polish (DONE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25-1-friendly-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-1. Friendly Error Messages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-2-atomic-json-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-2. Atomic JSON Write
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-3-git-operation-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-3. Git Operation Lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-4-async-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-4. Async Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-5-image-auto-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-5. Image Auto-Copy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-6-empty-state-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5-6. Empty State UI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-document-level-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Document-Level Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Document-Level Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1-accordion-document-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-1. Accordion Document View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-markdown-preview-dialog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-2. Markdown Preview Dialog
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Advanced Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: Advanced Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1-unpublished-changes-indicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-1. Unpublished Changes Indicator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-recent-upload-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-2. Recent Upload History
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-3-deploy-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-3. Deploy Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-4-quick-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-4. Quick Edit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-5-image-auto-copy-done-moved-to-phase-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-5. Image Auto-Copy (DONE — moved to Phase 2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-6-tags-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-6. Tags Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-7-project-reorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3-7. Project Reorder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-structure-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class Structure (Current)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-message-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Message Translation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ai-lab-notes-manager-development-plan">AI Lab Notes Manager - Development Plan<a class="headerlink" href="#ai-lab-notes-manager-development-plan" title="Permanent link">&para;</a></h1>
+<h2 id="vision">Vision<a class="headerlink" href="#vision" title="Permanent link">&para;</a></h2>
+<p>Transform the simple uploader into a full <strong>Git-backed CMS GUI</strong> that lets non-Git users completely manage their MkDocs documentation site.</p>
+<p>App name change: <code>AI Lab Notes Uploader</code> → <code>AI Lab Notes Manager</code></p>
+<h2 id="layout">Layout<a class="headerlink" href="#layout" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌──────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  Upload (left)  │  Projects (right)  │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│                 │                    │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Side-by-side, single page           │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└──────────────────────────────────────┘
+</code></pre></div>
+<hr />
+<h2 id="phase-0-single-tab-uploader-done">Phase 0: Single-Tab Uploader (DONE)<a class="headerlink" href="#phase-0-single-tab-uploader-done" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[x] Browse/paste project path</li>
+<li>[x] Auto-detect project name from folder</li>
+<li>[x] Scan .md files (depth ≤ 1)</li>
+<li>[x] Checkbox selection for documents</li>
+<li>[x] Upload: copy files → generate index → update nav → git push</li>
+<li>[x] Progress percentage on Upload button</li>
+<li>[x] Step-by-step status log below button</li>
+<li>[x] Windows 11 Explorer styling (QSS)</li>
+<li>[x] Custom checkmark icon (QPainter)</li>
+<li>[x] Path normalization (backslash → forward slash)</li>
+<li>[x] Background thread (QThread) for non-blocking upload</li>
+</ul>
+<hr />
+<h2 id="phase-1-side-by-side-layout-project-management-done">Phase 1: Side-by-Side Layout + Project Management (DONE)<a class="headerlink" href="#phase-1-side-by-side-layout-project-management-done" title="Permanent link">&para;</a></h2>
+<h3 id="1-1-two-panel-layout">1-1. Two-Panel Layout<a class="headerlink" href="#1-1-two-panel-layout" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Rename <code>UploaderApp</code> → <code>ManagerApp</code></li>
+<li>[x] Side-by-side: <code>UploadPanel</code> (left) + <code>ProjectsPanel</code> (right)</li>
+<li>[x] Vertical 1px separator with bottom spacing</li>
+<li>[x] Window title: "AI Lab Notes Manager"</li>
+<li>[x] Window size: 920×580</li>
+</ul>
+<h3 id="1-2-projects-panel-project-list">1-2. Projects Panel - Project List<a class="headerlink" href="#1-2-projects-panel-project-list" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Parse <code>mkdocs.yml</code> nav + scan <code>docs/</code> folders</li>
+<li>[x] ProjectCard: name, doc count, last updated date</li>
+<li>[x] Copy button (project name → clipboard)</li>
+<li>[x] Copy URL button (project URL → clipboard)</li>
+<li>[x] Open button (browser)</li>
+<li>[x] Open Site button (main site URL)</li>
+<li>[x] "Copied!" feedback with 1.5s auto-reset</li>
+</ul>
+<h3 id="1-3-project-delete">1-3. Project Delete<a class="headerlink" href="#1-3-project-delete" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] 2-step confirmation (Yes/No → type project name)</li>
+<li>[x] <code>DeleteWorker(QThread)</code> background deletion</li>
+<li>[x] Remove folder + nav entry + git push</li>
+</ul>
+<h3 id="1-4-upload-panel-improvements">1-4. Upload Panel - Improvements<a class="headerlink" href="#1-4-upload-panel-improvements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Duplicate detection (warning when project exists)</li>
+<li>[x] Button text: "Upload" → "Update" when duplicate</li>
+<li>[x] Scanning feedback ("Scanning..." with processEvents)</li>
+<li>[x] Double-click paste on Project Path field</li>
+<li>[x] Double-click paste on Project Name field</li>
+<li>[x] Auto-refresh Projects panel after upload</li>
+</ul>
+<h3 id="1-5-ui-polish">1-5. UI Polish<a class="headerlink" href="#1-5-ui-polish" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Separator colors: #C5C5C5 (matches QLineEdit border)</li>
+<li>[x] Transparent scroll area backgrounds</li>
+<li>[x] Horizontal separator under title</li>
+<li>[x] Vertical separator with bottom margin</li>
+</ul>
+<hr />
+<h2 id="phase-15-ux-enhancements-polish-done">Phase 1.5: UX Enhancements + Polish (DONE)<a class="headerlink" href="#phase-15-ux-enhancements-polish-done" title="Permanent link">&para;</a></h2>
+<h3 id="15-1-upload-panel-additions">1.5-1. Upload Panel Additions<a class="headerlink" href="#15-1-upload-panel-additions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Reset button (clears path, name, file list)</li>
+<li>[x] Upload + Reset button row layout</li>
+</ul>
+<h3 id="15-2-projects-panel-additions">1.5-2. Projects Panel Additions<a class="headerlink" href="#15-2-projects-panel-additions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Refresh button (re-parse mkdocs.yml + rescan docs/)</li>
+<li>[x] Last updated time display (YYYY-MM-DD HH:MM)</li>
+<li>[x] Select button (◀ icon) → fills Upload panel Project Name field</li>
+<li>[x] Git button → opens GitHub repo page for project</li>
+<li>[x] Open button → external-link icon (QPainter)</li>
+<li>[x] Compact card layout: name + meta on same row (2-line cards)</li>
+</ul>
+<h3 id="15-3-signal-architecture">1.5-3. Signal Architecture<a class="headerlink" href="#15-3-signal-architecture" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] <code>ProjectCard.select_requested</code> → <code>ProjectsPanel.project_selected</code> → <code>UploadPanel.set_project_name</code></li>
+</ul>
+<h3 id="15-4-app-icon-desktop-shortcut">1.5-4. App Icon &amp; Desktop Shortcut<a class="headerlink" href="#15-4-app-icon-desktop-shortcut" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] App icon: purple (#7B2FBE) rounded rect + white "MD" (QPainter, 64x64)</li>
+<li>[x] <code>SetCurrentProcessExplicitAppUserModelID()</code> for Windows taskbar icon</li>
+<li>[x] <code>.ico</code> file with multiple sizes (16~256px, via Pillow)</li>
+<li>[x] Desktop shortcut: <code>pythonw.exe</code> (no console window)</li>
+</ul>
+<h3 id="15-5-icon-system">1.5-5. Icon System<a class="headerlink" href="#15-5-icon-system" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] <code>_icon_pen()</code> shared pen (#848484, 1.2px) for consistent button icons</li>
+<li>[x] <code>create_select_icon()</code> — left arrow ◀</li>
+<li>[x] <code>create_open_icon()</code> — external link ↗</li>
+<li>[x] <code>create_repo_icon()</code> — code brackets &lt;/&gt;</li>
+</ul>
+<hr />
+<h2 id="phase-2-dual-deploy-change-detection-ux-done">Phase 2: Dual Deploy + Change Detection + UX (DONE)<a class="headerlink" href="#phase-2-dual-deploy-change-detection-ux-done" title="Permanent link">&para;</a></h2>
+<h3 id="2-1-gitlab-dual-deploy">2-1. GitLab Dual Deploy<a class="headerlink" href="#2-1-gitlab-dual-deploy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Added GitLab as second remote (<code>gitlab</code> → <code>gitlab.com/jungjaehwa1/ai-lab-notes</code>)</li>
+<li>[x] <code>.gitlab-ci.yml</code> for GitLab Pages deployment</li>
+<li>[x] Separate upload buttons: GitHub / GitLab (push to selected remote only)</li>
+<li>[x] Project card: GitHub / GitLab buttons open respective repo tree pages</li>
+<li>[x] Header: GitHub / GitLab buttons open respective Pages sites</li>
+</ul>
+<h3 id="2-2-sync-status">2-2. Sync Status<a class="headerlink" href="#2-2-sync-status" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Compare <code>origin/main</code> vs <code>gitlab/main</code> commit hashes (local refs, no network)</li>
+<li>[x] Green circle+checkmark icon = synced, orange circle+exclamation = behind</li>
+<li>[x] Status updates on Refresh and after upload/delete</li>
+<li>[x] All subprocess calls use <code>CREATE_NO_WINDOW</code> (no console flash)</li>
+</ul>
+<h3 id="2-3-change-detection">2-3. Change Detection<a class="headerlink" href="#2-3-change-detection" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] <code>.project_sources.json</code> stores project → source folder mapping + created_at date</li>
+<li>[x] On Refresh: compare source .md files vs docs/ files by MD5 hash</li>
+<li>[x] Orange "N changed" badge on project card when files differ</li>
+<li>[x] Badge is clickable → auto-copies changed files + git push (single project)</li>
+<li>[x] "Update All" button in header → batch update all changed projects in one commit</li>
+</ul>
+<h3 id="2-4-drag-drop-upload">2-4. Drag &amp; Drop Upload<a class="headerlink" href="#2-4-drag-drop-upload" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Accept folder drop on Upload panel → auto-fill path + name + scan files</li>
+<li>[x] <code>dragEnterEvent</code> + <code>dropEvent</code> on UploadPanel</li>
+</ul>
+<h3 id="2-5-source-path-management">2-5. Source Path Management<a class="headerlink" href="#2-5-source-path-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Source path shown on project card (gray text, clickable to change)</li>
+<li>[x] "Set source path..." link for projects without source path</li>
+<li>[x] Folder selection dialog to set/change path</li>
+</ul>
+<h3 id="2-6-project-start-date">2-6. Project Start Date<a class="headerlink" href="#2-6-project-start-date" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] <code>created_at</code> field in project config (auto-set on first upload)</li>
+<li>[x] "Started: YYYY-MM-DD" shown on project card (clickable to change)</li>
+<li>[x] Custom calendar dialog (QPainter, not QCalendarWidget)</li>
+<li>Single-click date selection (no OK button needed)</li>
+<li>Month navigation (&lt; &gt;)</li>
+<li>"Today" button to jump to current month</li>
+<li>Current selection highlighted in blue, today in bold blue</li>
+</ul>
+<h3 id="2-7-resizable-window">2-7. Resizable Window<a class="headerlink" href="#2-7-resizable-window" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Changed from fixed 920x580 to resizable with minimum 920x580</li>
+<li>[x] Default size 920x700 for more vertical space</li>
+</ul>
+<hr />
+<h2 id="phase-25-robustness-polish-done">Phase 2.5: Robustness &amp; Polish (DONE)<a class="headerlink" href="#phase-25-robustness-polish-done" title="Permanent link">&para;</a></h2>
+<h3 id="25-1-friendly-error-messages">2.5-1. Friendly Error Messages<a class="headerlink" href="#25-1-friendly-error-messages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] <code>_friendly_error(msg)</code> translates raw git errors to user-friendly messages</li>
+<li>[x] Covers: not a git repo, auth failed, no internet, push rejected, lock exists, timeout, permission denied</li>
+<li>[x] Fallback: first line of error, truncated to 120 chars</li>
+<li>[x] Applied to all worker error outputs (UploadWorker, DeleteWorker, _BatchPushWorker)</li>
+</ul>
+<h3 id="25-2-atomic-json-write">2.5-2. Atomic JSON Write<a class="headerlink" href="#25-2-atomic-json-write" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] <code>_save_raw_config(data)</code> writes to <code>.tmp</code> file first, then <code>os.replace()</code> to final path</li>
+<li>[x] Prevents config corruption on crash or power loss during write</li>
+</ul>
+<h3 id="25-3-git-operation-lock">2.5-3. Git Operation Lock<a class="headerlink" href="#25-3-git-operation-lock" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Global <code>_git_busy</code> flag with <code>_is_git_busy()</code> / <code>_set_git_busy()</code> helpers</li>
+<li>[x] All git-triggering actions (upload, delete, update, update all) check lock before starting</li>
+<li>[x] Lock set on worker start, released on worker finish</li>
+<li>[x] Prevents concurrent git operations that could corrupt the repo</li>
+</ul>
+<h3 id="25-4-async-sync-status">2.5-4. Async Sync Status<a class="headerlink" href="#25-4-async-sync-status" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] <code>_SyncStatusWorker(QThread)</code> runs sync status check in background thread</li>
+<li>[x] <code>_update_sync_status()</code> creates worker instead of blocking subprocess calls</li>
+<li>[x] <code>_apply_sync_status(sync)</code> slot receives results and updates UI</li>
+<li>[x] Prevents UI freeze during git ref lookups on app start and refresh</li>
+</ul>
+<h3 id="25-5-image-auto-copy">2.5-5. Image Auto-Copy<a class="headerlink" href="#25-5-image-auto-copy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] <code>_find_referenced_images(md_path, source_folder)</code> parses .md files for image references</li>
+<li>[x] Detects <code>![alt](path)</code> and <code>&lt;img src="path"&gt;</code> patterns</li>
+<li>[x] Resolves paths relative to .md file directory or source folder</li>
+<li>[x] Auto-copies referenced images during file copy phase in UploadWorker</li>
+</ul>
+<h3 id="25-6-empty-state-ui">2.5-6. Empty State UI<a class="headerlink" href="#25-6-empty-state-ui" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] UploadPanel shows guided placeholder message when no project is loaded</li>
+<li>[x] ProjectsPanel shows guided placeholder message when no projects exist</li>
+<li>[x] Helps first-time users understand what to do</li>
+</ul>
+<hr />
+<h2 id="phase-3-document-level-management">Phase 3: Document-Level Management<a class="headerlink" href="#phase-3-document-level-management" title="Permanent link">&para;</a></h2>
+<h3 id="3-1-accordion-document-view">3-1. Accordion Document View<a class="headerlink" href="#3-1-accordion-document-view" title="Permanent link">&para;</a></h3>
+<p>Click project card → expand to show individual documents:
+- Filename + file size
+- Preview button (read-only markdown view)
+- Delete individual document
+- Open specific document URL in browser</p>
+<h3 id="3-2-markdown-preview-dialog">3-2. Markdown Preview Dialog<a class="headerlink" href="#3-2-markdown-preview-dialog" title="Permanent link">&para;</a></h3>
+<p><code>MarkdownPreviewDialog(QDialog)</code>:
+- Read .md file content
+- Display in <code>QTextEdit</code> (read-only, monospace)
+- Window size: 600×500
+- Basic rendering (headers, bold, code blocks) optional — plain text is acceptable</p>
+<hr />
+<h2 id="phase-4-advanced-features">Phase 4: Advanced Features<a class="headerlink" href="#phase-4-advanced-features" title="Permanent link">&para;</a></h2>
+<h3 id="3-1-unpublished-changes-indicator">3-1. Unpublished Changes Indicator<a class="headerlink" href="#3-1-unpublished-changes-indicator" title="Permanent link">&para;</a></h3>
+<p>Run <code>git status --porcelain</code> on REPO_DIR:
+- If uncommitted changes exist → show badge on Projects panel
+- Per-project: check if any files in <code>docs/{slug}/</code> are modified</p>
+<h3 id="3-2-recent-upload-history">3-2. Recent Upload History<a class="headerlink" href="#3-2-recent-upload-history" title="Permanent link">&para;</a></h3>
+<p>Parse <code>git log --oneline -10</code> for recent commits:
+- Show in Upload panel or as a dropdown
+- Format: "2026-03-08 Add/update Eye Pipeline docs"</p>
+<h3 id="3-3-deploy-status">3-3. Deploy Status<a class="headerlink" href="#3-3-deploy-status" title="Permanent link">&para;</a></h3>
+<p>GitHub API: <code>GET /repos/{owner}/{repo}/actions/runs?per_page=1</code>
+- Show deploy status: queued / in_progress / success / failure
+- Requires GitHub token (store in config or env var)
+- Optional: auto-refresh every 30 seconds after push</p>
+<h3 id="3-4-quick-edit">3-4. Quick Edit<a class="headerlink" href="#3-4-quick-edit" title="Permanent link">&para;</a></h3>
+<p>In-app markdown editing for small fixes:
+- <code>QPlainTextEdit</code> with monospace font
+- Save → overwrite file in <code>docs/{slug}/</code>
+- Separate "Publish" button to git push changes
+- Not a full editor — for typo fixes only</p>
+<h3 id="3-5-image-auto-copy-done-moved-to-phase-25">3-5. Image Auto-Copy (DONE — moved to Phase 2.5)<a class="headerlink" href="#3-5-image-auto-copy-done-moved-to-phase-25" title="Permanent link">&para;</a></h3>
+<h3 id="3-6-tags-management">3-6. Tags Management<a class="headerlink" href="#3-6-tags-management" title="Permanent link">&para;</a></h3>
+<p>Visual interface for MkDocs tags:
+- Read <code>tags:</code> metadata from each .md file frontmatter
+- Display tag cloud or list
+- Add/remove tags with UI (edit YAML frontmatter)</p>
+<h3 id="3-7-project-reorder">3-7. Project Reorder<a class="headerlink" href="#3-7-project-reorder" title="Permanent link">&para;</a></h3>
+<p>Drag to reorder projects in nav:
+- Update mkdocs.yml nav section order
+- git push to apply</p>
+<hr />
+<h2 id="class-structure-current">Class Structure (Current)<a class="headerlink" href="#class-structure-current" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uploader.py
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── Constants: REPO_DIR, DOCS_DIR, MKDOCS_YML, SITE_URL, GITLAB_SITE_URL,
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│              REPO_URL, GITLAB_REPO_URL, GIT_REMOTES, PROJECT_CONFIG, STYLE
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── Config: load_project_sources, save_project_source, save_project_created_at,
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│           remove_project_source, _load_raw_config, _save_raw_config (atomic write)
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── Utilities: find_md_files, slugify, update_mkdocs_nav, remove_project_from_nav,
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│              create_project_index, parse_projects_from_nav, get_project_info,
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│              project_exists_in_nav, check_project_changes, get_sync_status,
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│              _friendly_error, _find_referenced_images
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>├── Git Lock: _git_busy, _is_git_busy, _set_git_busy
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>├── Icons: create_app_icon, create_checkmark_icon, create_select_icon,
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│          create_open_icon, create_repo_icon, create_sync_icon,
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│          create_unsync_icon, _icon_pen
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>├── UploadWorker(QThread)       - Upload with progress (supports remote selection + source_path)
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>├── DeleteWorker(QThread)       - Delete project with git push
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>├── _BatchPushWorker(QThread)   - Git push only for Update All (files pre-copied)
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>├── _SyncStatusWorker(QThread)  - Background sync status check (async UI)
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>├── UploadPanel(QWidget)        - Left: browse, scan, upload, drag &amp; drop
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>│   ├── dragEnterEvent/dropEvent - Folder drag &amp; drop support
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>│   ├── _paste_on_double_click   - Reusable double-click paste for QLineEdit
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│   └── set_project_name         - Called when project selected from right panel
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>├── ProjectCard(QFrame)          - Project card with source path, date, change badge
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>│   ├── delete_requested         - Signal: name, slug
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>│   ├── select_requested         - Signal: name → fills Upload panel
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>│   ├── update_requested         - Signal: name, slug → auto-update changed files
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>│   ├── _change_source_path      - Folder dialog to set/change source path
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>│   └── _change_created_date     - Custom calendar dialog for start date
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>├── ProjectsPanel(QWidget)       - Right: project list + sync status + Update All
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>│   ├── _update_sync_status      - Check origin/gitlab commit refs + update icons
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>│   ├── _on_update_requested     - Single project auto-update from source
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>│   └── _on_update_all           - Batch update all changed projects
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>│
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>└── ManagerApp(QMainWindow)      - Resizable side-by-side layout container
+</code></pre></div>
+<hr />
+<h2 id="error-message-translation">Error Message Translation<a class="headerlink" href="#error-message-translation" title="Permanent link">&para;</a></h2>
+<p>Git errors → user-friendly messages:</p>
+<table>
+<thead>
+<tr>
+<th>Git Error</th>
+<th>Display</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fatal: not a git repository</code></td>
+<td>"This folder is not set up correctly. Re-clone the repository."</td>
+</tr>
+<tr>
+<td><code>Authentication failed</code></td>
+<td>"GitHub login required. Check your credentials."</td>
+</tr>
+<tr>
+<td><code>Could not resolve host</code></td>
+<td>"No internet connection."</td>
+</tr>
+<tr>
+<td><code>nothing to commit</code></td>
+<td>(Silently skip, not an error)</td>
+</tr>
+<tr>
+<td><code>rejected</code> (push)</td>
+<td>"Remote has newer changes. Pull first."</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4871 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI R&D 실험 노트">
+      
+      
+        <meta name="author" content="jungjaewa">
+      
+      
+        <link rel="canonical" href="https://jungjaewa.github.io/ai-lab-notes/psd/naming_convention/">
+      
+      
+        <link rel="prev" href="../layer_exporter/">
+      
+      
+        <link rel="next" href="../psd_extractor/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Naming Convention - AI Lab Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#psd-layer-exporter-naming-convention" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AI Lab Notes" class="md-header__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Lab Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Naming Convention
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="다크 모드"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="라이트 모드"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../eye-pipeline/" class="md-tabs__link">
+          
+  
+  
+  Eye Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../teamplay_gantt/" class="md-tabs__link">
+          
+  
+  
+  Teamplay_Gantt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai-lab-notes-manager/" class="md-tabs__link">
+          
+  
+  
+  AI Lab Notes Manager
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  PSD
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  태그
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Lab Notes" class="md-nav__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Lab Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Eye Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Animation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teamplay_Gantt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab Notes Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/rnd-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/RND_LOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/skills-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PSD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev_journal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Journal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../human_vs_ai_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vs Ai Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer_exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer Exporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. PSD 파일명
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. PSD 파일명">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        형식
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export 시 파일명 활용
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. PSD 내부 구조 (그룹/레이어 계층)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. PSD 내부 구조 (그룹/레이어 계층)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        계층 원칙
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력 언어 모드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="입력 언어 모드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드 A: 한글+숫자 (권장)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드 B: 영어+숫자
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드 C: 영어+한글+숫자 혼합 (비권장)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드 선택 가이드
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        그룹 네이밍 규칙 (한글, PSD 내)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        그룹 네이밍 규칙 (영어, PSD 내)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        레이어 네이밍 규칙 (한글, PSD 내)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        레이어 네이밍 규칙 (영어, PSD 내)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실제 PSD 구조 예시
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="실제 PSD 구조 예시">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        한글 모드 (모드 A)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        영어 모드 (모드 B)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 영문 Export 네이밍 — 핵심 규칙
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 영문 Export 네이밍 — 핵심 규칙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 전체 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-noun_modifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 단어 순서 규칙 — noun_modifier (명사 우선)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 정렬 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-variant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 변형(variant) 체인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 그룹 rename 규칙
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 접두사(Prefix) 시스템
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 접두사(Prefix) 시스템">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        파이프라인별 접두사
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        변환 흐름
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        그룹에는 접두사 미적용
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-suffix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 접미사(Suffix) 시스템
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 접미사(Suffix) 시스템">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좌우 구분
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        한글 좌우 인식 (자동 추출)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        번호 인덱스
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        그룹 접미사
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-dictionary-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 사전 분해 (Dictionary Decomposition)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 사전 분해 (Dictionary Decomposition)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        동작 원리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사전 분해 순서
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noun_modifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        noun_modifier 조합 규칙
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        명사+명사 복합어
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. LLM 번역 프롬프트 규칙
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. LLM 번역 프롬프트 규칙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        의미 있는 한글 레이어
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        의미 없는 레이어 (숫자, "레이어 N")
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 전체 변환 예시
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 전체 변환 예시">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psd_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력 (PSD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        출력 (Auto Rename)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정렬 결과 (파일 탐색기)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 캐릭터 아바타 파츠 분리 — 정면 기준
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 캐릭터 아바타 파츠 분리 — 정면 기준">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-lr-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 좌우 기준 (L/R Convention)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 캐릭터 파츠 계층 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-psd-draw-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 PSD 레이어 순서 (뎁스/Draw Order)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-frontrear-vs-lr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 앞/뒤 팔다리 — front/rear vs L/R
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4 앞/뒤 팔다리 — front/rear vs L/R">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lr-unity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 1: 고정 L/R (권장 — Unity/범용)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-frontrear-spine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 2: front/rear (Spine 전통 방식)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        선택 기준
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 남성/여성 차이
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5 남성/여성 차이">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        공통 파츠 (남녀 동일)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        여성 추가 파츠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        남성 추가 파츠
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6 PSD 구조 예시 — 정면 여성 아바타 (한글 모드)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#97-export-auto-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.7 Export 결과 예시 (Auto Rename)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#98" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.8 네이밍 형식 — 최종 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#99" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.9 사전에 추가 필요한 단어
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 판별 매트릭스 (Quick Reference)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 판별 매트릭스 (Quick Reference)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        단어 순서 판별
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        접두사 판별
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-rename_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto Rename 변환 흐름
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력 언어별 처리 상세
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        부록: 사전 등록 단어 목록
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="부록: 사전 등록 단어 목록">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        바디파츠 (55개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        의상/악세서리 (10개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        일반 오브젝트 (31개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        수식어 (21개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_ctk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Ctk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_dev_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_technical_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Technical Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    태그
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. PSD 파일명
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. PSD 파일명">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        형식
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export 시 파일명 활용
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. PSD 내부 구조 (그룹/레이어 계층)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. PSD 내부 구조 (그룹/레이어 계층)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        계층 원칙
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력 언어 모드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="입력 언어 모드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드 A: 한글+숫자 (권장)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드 B: 영어+숫자
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드 C: 영어+한글+숫자 혼합 (비권장)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드 선택 가이드
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        그룹 네이밍 규칙 (한글, PSD 내)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        그룹 네이밍 규칙 (영어, PSD 내)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        레이어 네이밍 규칙 (한글, PSD 내)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        레이어 네이밍 규칙 (영어, PSD 내)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실제 PSD 구조 예시
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="실제 PSD 구조 예시">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        한글 모드 (모드 A)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        영어 모드 (모드 B)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 영문 Export 네이밍 — 핵심 규칙
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 영문 Export 네이밍 — 핵심 규칙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 전체 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-noun_modifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 단어 순서 규칙 — noun_modifier (명사 우선)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 정렬 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-variant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 변형(variant) 체인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 그룹 rename 규칙
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 접두사(Prefix) 시스템
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 접두사(Prefix) 시스템">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        파이프라인별 접두사
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        변환 흐름
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        그룹에는 접두사 미적용
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-suffix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 접미사(Suffix) 시스템
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 접미사(Suffix) 시스템">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좌우 구분
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        한글 좌우 인식 (자동 추출)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        번호 인덱스
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        그룹 접미사
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-dictionary-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 사전 분해 (Dictionary Decomposition)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 사전 분해 (Dictionary Decomposition)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        동작 원리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사전 분해 순서
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noun_modifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        noun_modifier 조합 규칙
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        명사+명사 복합어
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. LLM 번역 프롬프트 규칙
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. LLM 번역 프롬프트 규칙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        의미 있는 한글 레이어
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        의미 없는 레이어 (숫자, "레이어 N")
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 전체 변환 예시
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 전체 변환 예시">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psd_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력 (PSD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        출력 (Auto Rename)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정렬 결과 (파일 탐색기)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 캐릭터 아바타 파츠 분리 — 정면 기준
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 캐릭터 아바타 파츠 분리 — 정면 기준">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-lr-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 좌우 기준 (L/R Convention)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 캐릭터 파츠 계층 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-psd-draw-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 PSD 레이어 순서 (뎁스/Draw Order)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-frontrear-vs-lr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 앞/뒤 팔다리 — front/rear vs L/R
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4 앞/뒤 팔다리 — front/rear vs L/R">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lr-unity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 1: 고정 L/R (권장 — Unity/범용)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-frontrear-spine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 2: front/rear (Spine 전통 방식)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        선택 기준
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 남성/여성 차이
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5 남성/여성 차이">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        공통 파츠 (남녀 동일)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        여성 추가 파츠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        남성 추가 파츠
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6 PSD 구조 예시 — 정면 여성 아바타 (한글 모드)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#97-export-auto-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.7 Export 결과 예시 (Auto Rename)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#98" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.8 네이밍 형식 — 최종 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#99" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.9 사전에 추가 필요한 단어
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 판별 매트릭스 (Quick Reference)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 판별 매트릭스 (Quick Reference)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        단어 순서 판별
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        접두사 판별
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-rename_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto Rename 변환 흐름
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력 언어별 처리 상세
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        부록: 사전 등록 단어 목록
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="부록: 사전 등록 단어 목록">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        바디파츠 (55개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        의상/악세서리 (10개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        일반 오브젝트 (31개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        수식어 (21개)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="psd-layer-exporter-naming-convention">PSD Layer Exporter — Naming Convention<a class="headerlink" href="#psd-layer-exporter-naming-convention" title="Permanent link">&para;</a></h1>
+<p>2D 게임 FX/캐릭터 리깅(Spine/Live2D) 파이프라인을 위한 네이밍 규칙 정의.
+Auto (KR→EN) Rename, Sequential, Body Part 모드 모두 이 규칙을 따른다.</p>
+<hr />
+<h2 id="1-psd">1. PSD 파일명<a class="headerlink" href="#1-psd" title="Permanent link">&para;</a></h2>
+<h3 id="_1">형식<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>YYMMDD_FX_{Type}_{Project}_{Title}_v{N}.psd
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>YYMMDD</code></td>
+<td>작업 시작일 (6자리)</td>
+<td><code>260304</code></td>
+</tr>
+<tr>
+<td><code>FX</code></td>
+<td>팀 고정 접두사</td>
+<td><code>FX</code></td>
+</tr>
+<tr>
+<td><code>{Type}</code></td>
+<td>작업 유형</td>
+<td><code>UI</code> (이펙트), <code>Ani</code> (애니메이션)</td>
+</tr>
+<tr>
+<td><code>{Project}</code></td>
+<td>프로젝트명 (PascalCase 또는 한글)</td>
+<td><code>Sahwal</code>, <code>Poker</code></td>
+</tr>
+<tr>
+<td><code>{Title}</code></td>
+<td>에셋 제목 (PascalCase)</td>
+<td><code>PresentBox</code>, <code>CharIdle</code></td>
+</tr>
+<tr>
+<td><code>v{N}</code></td>
+<td>버전 (정수, Auto Version 대상)</td>
+<td><code>v1</code>, <code>v2</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">예시<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>260304_FX_UI_Sahwal_PresentBox_v1.psd      ← UI 이펙트
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>260115_FX_Ani_Poker_ChipExplosion_v2.psd   ← 애니메이션
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>260220_FX_UI_Baduk_GiftBox_v1.psd          ← UI 이펙트
+</code></pre></div>
+<h3 id="export">Export 시 파일명 활용<a class="headerlink" href="#export" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>용도</th>
+<th>변환</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unity JSON</td>
+<td>날짜/버전 제거 → 주요 명사 추출</td>
+<td><code>fxc_psdImporter_SahwalPresentBox.json</code></td>
+</tr>
+<tr>
+<td>C# 클래스</td>
+<td>출력 폴더명 → PascalCase</td>
+<td><code>FXC_PSDImporter_260304FxUiSahwalPresentboxV1</code></td>
+</tr>
+<tr>
+<td>LLM 컨텍스트</td>
+<td>전체 stem 전달</td>
+<td><code>File: 260304_FX_UI_Sahwal_PresentBox_v1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-psd">2. PSD 내부 구조 (그룹/레이어 계층)<a class="headerlink" href="#2-psd" title="Permanent link">&para;</a></h2>
+<h3 id="_3">계층 원칙<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>PSD Root
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── {대분류 그룹}              ← depth 0: 메인 파츠 (선물상자, 리본, 배경)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│   ├── {중분류 그룹}          ← depth 1: 상태/변형 (열린상자, 닫힌뚜껑)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│   │   ├── {소분류 그룹}      ← depth 2: 위치/방향 (안쪽아이템, 바깥쪽아이템)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│   │   │   └── 레이어         ← 개별 이미지 (01, 02, 뚜껑장식)
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│   │   └── 레이어
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│   └── 레이어
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>└── 레이어                     ← depth 0: 독립 레이어
+</code></pre></div>
+<h3 id="_4">입력 언어 모드<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>PSD에서 그룹/레이어명을 작성하는 세 가지 패턴과 Auto Rename의 처리 방식:</p>
+<h4 id="a">모드 A: 한글+숫자 (권장)<a class="headerlink" href="#a" title="Permanent link">&para;</a></h4>
+<p>모든 이름을 한글로 작성. Auto Rename이 일괄 번역 + prefix 적용.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>리본/                    → ribbon_group (번역 + _group)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── 끝오른쪽             → fxt_ribbon_end_right (번역 + prefix)
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── 끝왼쪽               → fxt_ribbon_end_left
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>└── 01                   → fxt_ribbon_01 (그룹명 기반 + prefix)
+</code></pre></div>
+<p><strong>장점</strong>: Auto Rename의 모든 기능 활용 (사전/LLM/noun_modifier 정렬).
+<strong>적합</strong>: 초기 작업, 빠른 프로토타이핑, 한글 사용자.</p>
+<h4 id="b">모드 B: 영어+숫자<a class="headerlink" href="#b" title="Permanent link">&para;</a></h4>
+<p>모든 이름을 영문 snake_case로 직접 작성. Auto Rename은 prefix만 적용.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ribbon/                  → ribbon_group (이미 영문 → _group만 추가)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── ribbon_end_right     → fxt_ribbon_end_right (prefix 추가)
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├── ribbon_end_left      → fxt_ribbon_end_left
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>└── ribbon_01            → fxt_ribbon_01
+</code></pre></div>
+<p><strong>장점</strong>: 번역 불확실성 없음, 작성자가 정확한 이름 제어.
+<strong>적합</strong>: 이미 영문 네이밍에 익숙한 작업자, 정밀한 이름 제어 필요 시.
+<strong>규칙</strong>: 본 문서의 noun_modifier 어순과 snake_case 규칙을 직접 따라야 함.</p>
+<h4 id="c">모드 C: 영어+한글+숫자 혼합 (비권장)<a class="headerlink" href="#c" title="Permanent link">&para;</a></h4>
+<p>하나의 이름 안에 한글과 영어가 섞인 경우. <strong>혼합은 피하는 것을 권장.</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>❌ 비권장 패턴:
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>리본end         → 번역 불안정 (한글+영어 경계 파싱 어려움)
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>arm위           → 번역 불안정
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>BG뒤            → 번역 불안정
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>✅ 대신 이렇게:
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>리본끝          → fxt_ribbon_end (전부 한글)
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>arm_upper       → fxt_arm_upper (전부 영어)
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>배경뒤          → fxt_background_back (전부 한글)
+</code></pre></div>
+<p><strong>혼합이 불가피한 경우의 규칙</strong>:
+- 한글 부분이 있으면 전체가 번역 파이프라인으로 진입
+- 영어 부분은 LLM이 보존하려 시도하지만 보장되지 않음
+- <strong>권장</strong>: 하나의 이름 안에서 언어를 통일할 것 (한글이면 전부 한글, 영어면 전부 영어)</p>
+<h4 id="_5">모드 선택 가이드<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>권장 모드</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>첫 작업, 빠른 네이밍</td>
+<td><strong>A (한글)</strong></td>
+<td>한글이 자연스럽고 Auto Rename이 처리</td>
+</tr>
+<tr>
+<td>동일 PSD 반복 작업</td>
+<td><strong>B (영어)</strong></td>
+<td>이미 확정된 이름 재사용</td>
+</tr>
+<tr>
+<td>팀 내 표준 PSD 제작</td>
+<td><strong>A 또는 B</strong> (통일)</td>
+<td>혼합 방지</td>
+</tr>
+<tr>
+<td>기존 PSD에 레이어 추가</td>
+<td><strong>기존 모드 유지</strong></td>
+<td>일관성</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>핵심 원칙</strong>: 하나의 PSD 파일 내에서 <strong>한 가지 언어 모드</strong>를 일관되게 사용한다.
+그룹은 한글, 레이어는 영어 — 이런 혼합도 가능하지만, 같은 계층(같은 그룹 내 형제들) 안에서는 통일한다.</p>
+</blockquote>
+<hr />
+<h3 id="psd">그룹 네이밍 규칙 (한글, PSD 내)<a class="headerlink" href="#psd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>패턴</th>
+<th>형식</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>단일 명사</td>
+<td><code>{명사}</code></td>
+<td>리본, 상자, 배경</td>
+</tr>
+<tr>
+<td>복합 명사</td>
+<td><code>{수식어}{명사}</code></td>
+<td>선물상자, 닫힌뚜껑</td>
+</tr>
+<tr>
+<td>방향+명사</td>
+<td><code>{방향}{명사}</code></td>
+<td>안쪽아이템, 바깥쪽리본</td>
+</tr>
+</tbody>
+</table>
+<p><strong>권장</strong>: 그룹명에 공백 사용 가능 (<code>안쪽 아이템</code>) — 사전 분해(compound split)가 더 정확히 동작.</p>
+<h3 id="psd_1">그룹 네이밍 규칙 (영어, PSD 내)<a class="headerlink" href="#psd_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>패턴</th>
+<th>형식</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>단일 명사</td>
+<td><code>{noun}</code></td>
+<td>ribbon, box, background</td>
+</tr>
+<tr>
+<td>복합 명사</td>
+<td><code>{noun}_{modifier}</code></td>
+<td>gift_box, lid_closed</td>
+</tr>
+<tr>
+<td>방향+명사</td>
+<td><code>{noun}_{direction}</code></td>
+<td>item_inner, item_outer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>규칙</strong>: noun_modifier 순서. <code>_group</code> 접미사는 Auto Rename이 자동 추가하므로 PSD에서는 쓰지 않는다.</p>
+<h3 id="psd_2">레이어 네이밍 규칙 (한글, PSD 내)<a class="headerlink" href="#psd_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>패턴</th>
+<th>형식</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>숫자만</td>
+<td><code>{NN}</code></td>
+<td>01, 02, 03</td>
+</tr>
+<tr>
+<td>단일 명사</td>
+<td><code>{명사}</code></td>
+<td>그림자, 뚜껑, 리본</td>
+</tr>
+<tr>
+<td>방향+명사</td>
+<td><code>{방향}{명사}</code></td>
+<td>끝오른쪽, 왼쪽날개</td>
+</tr>
+<tr>
+<td>명사+번호</td>
+<td><code>{명사}{NN}</code></td>
+<td>손가락01, 리본끝02</td>
+</tr>
+<tr>
+<td>명사+좌우</td>
+<td><code>{명사}_{좌/우}</code></td>
+<td>리본끝_우, 팔_좌</td>
+</tr>
+</tbody>
+</table>
+<p><strong>권장</strong>: 레이어명이 숫자만일 경우 부모 그룹명이 base name으로 사용됨. 의미 있는 이름을 쓰면 더 정확한 번역 가능.</p>
+<h3 id="psd_3">레이어 네이밍 규칙 (영어, PSD 내)<a class="headerlink" href="#psd_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>패턴</th>
+<th>형식</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>숫자만</td>
+<td><code>{NN}</code></td>
+<td>01, 02, 03</td>
+</tr>
+<tr>
+<td>완전한 이름</td>
+<td><code>{noun}_{variant}_{index}</code></td>
+<td>ribbon_end_right, arm_upper_01</td>
+</tr>
+<tr>
+<td>이름+좌우</td>
+<td><code>{name}_{Side}</code></td>
+<td>arm_01_R, leg_L</td>
+</tr>
+</tbody>
+</table>
+<p><strong>규칙</strong>: prefix(<code>fxt_</code> 등)는 PSD에서 쓰지 않는다 — Auto Rename이 자동 추가. noun_modifier 순서 준수.</p>
+<h3 id="psd_4">실제 PSD 구조 예시<a class="headerlink" href="#psd_4" title="Permanent link">&para;</a></h3>
+<h4 id="a_1">한글 모드 (모드 A)<a class="headerlink" href="#a_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>선물상자                         ← depth 0
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>├── 열린상자                     ← depth 1 (상태+명사)
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>│   ├── 바깥쪽아이템             ← depth 2 (방향+명사)
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│   │   ├── 09                   ← 숫자 레이어
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│   │   ├── 10
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│   │   └── 11
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│   ├── 안쪽아이템               ← depth 2
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>│   │   ├── 01
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│   │   └── 02 ... 08
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│   └── 뚜껑장식
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>├── 닫힌뚜껑                     ← depth 1
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>│   ├── 리본                     ← depth 2
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>│   │   ├── 끝오른쪽             ← 방향 레이어
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>│   │   ├── 끝왼쪽
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>│   │   └── 01 ... 05
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>│   └── 상자
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>└── 그림자
+</code></pre></div>
+<h4 id="b_1">영어 모드 (모드 B)<a class="headerlink" href="#b_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>gift_box                         ← depth 0
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>├── box_open                     ← depth 1
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>│   ├── item_outer               ← depth 2
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│   │   ├── 09
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│   │   ├── 10
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│   │   └── 11
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│   ├── item_inner               ← depth 2
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│   │   ├── 01
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>│   │   └── 02 ... 08
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>│   └── lid_decoration
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>├── lid_closed                   ← depth 1
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>│   ├── ribbon                   ← depth 2
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>│   │   ├── ribbon_end_right     ← 완전한 이름
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>│   │   ├── ribbon_end_left
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>│   │   └── 01 ... 05
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>│   └── box
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>└── shadow
+</code></pre></div>
+<hr />
+<h2 id="3-export">3. 영문 Export 네이밍 — 핵심 규칙<a class="headerlink" href="#3-export" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 전체 구조<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>{prefix}_{noun}_{variant}_{index}_{Side}
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>필수</th>
+<th>설명</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{prefix}</code></td>
+<td>레이어만</td>
+<td>프로젝트 접두사</td>
+<td><code>fxt_</code>, <code>fxt_ch_</code></td>
+</tr>
+<tr>
+<td><code>{noun}</code></td>
+<td>✓</td>
+<td>핵심 명사 (카테고리)</td>
+<td><code>arm</code>, <code>item</code>, <code>ribbon</code></td>
+</tr>
+<tr>
+<td><code>{variant}</code></td>
+<td>선택</td>
+<td>위치/방향/상태 변형</td>
+<td><code>upper</code>, <code>inner</code>, <code>end_right</code></td>
+</tr>
+<tr>
+<td><code>{index}</code></td>
+<td>선택</td>
+<td>동일 파츠 번호 (2자리)</td>
+<td><code>01</code>, <code>02</code></td>
+</tr>
+<tr>
+<td><code>{Side}</code></td>
+<td>선택</td>
+<td>좌우 구분 (대문자)</td>
+<td><code>_R</code>, <code>_L</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-noun_modifier">3.2 단어 순서 규칙 — noun_modifier (명사 우선)<a class="headerlink" href="#32-noun_modifier" title="Permanent link">&para;</a></h3>
+<p><strong>원칙: 명사(카테고리)가 먼저, 변형(variant)이 뒤에.</strong></p>
+<p>이 규칙을 택하는 이유:
+1. <strong>정렬</strong>: 파일 탐색기/Unity 하이어라키에서 같은 카테고리가 모여 보임
+2. <strong>일관성</strong>: 기존 바디파츠 사전(<code>arm_upper</code>, <code>hair_front</code>)과 동일
+3. <strong>업계 표준</strong>: 게임 에셋 관리에서 noun-first가 표준 (UE5 <code>SM_Rock_Small</code>)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>arm_upper       ← &quot;어떤 arm?&quot; → upper arm
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>arm_lower       ← &quot;어떤 arm?&quot; → lower arm
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>item_inner      ← &quot;어떤 item?&quot; → inner item
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>item_outer      ← &quot;어떤 item?&quot; → outer item
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>hair_front      ← &quot;어떤 hair?&quot; → front hair
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>lid_closed      ← &quot;어떤 lid?&quot; → closed lid
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>box_open        ← &quot;어떤 box?&quot; → open box
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>ribbon_end      ← &quot;어떤 ribbon 부분?&quot; → ribbon end
+</code></pre></div>
+<h3 id="33">3.3 정렬 비교<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p><strong>noun_modifier (채택)</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>fxt_box_open_01
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>fxt_box_closed_01
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>fxt_item_inner_01
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>fxt_item_inner_02
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>fxt_item_outer_01
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>fxt_item_outer_02        ← item 계열이 모두 인접
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>fxt_lid_closed_01
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>fxt_lid_open_01          ← lid 계열이 모두 인접
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>fxt_ribbon_end_left
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>fxt_ribbon_end_right     ← ribbon 계열이 모두 인접
+</code></pre></div></p>
+<p><strong>modifier_noun (미채택)</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>fxt_closed_box_01
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>fxt_closed_lid_01        ← closed 끼리 모임 (의미 없는 그룹)
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>fxt_inner_item_01
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>fxt_inner_item_02
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>fxt_open_box_01
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>fxt_open_lid_01          ← open 끼리 모임 (의미 없는 그룹)
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>fxt_outer_item_01
+</code></pre></div></p>
+<h3 id="34-variant">3.4 변형(variant) 체인<a class="headerlink" href="#34-variant" title="Permanent link">&para;</a></h3>
+<p>변형이 2단계 이상일 때도 noun → variant1 → variant2 순서:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ribbon_end_right    ← noun(ribbon) → 위치(end) → 방향(right)
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ribbon_end_left
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>box_lid_inner       ← noun(box) → 부분(lid) → 위치(inner)
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>arm_upper_front     ← noun(arm) → 위치(upper) → 방향(front)
+</code></pre></div>
+<h3 id="35-rename">3.5 그룹 rename 규칙<a class="headerlink" href="#35-rename" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>규칙</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>접두사</td>
+<td>없음 (prefix 미적용)</td>
+<td><code>arm_group</code> (~~<code>fxt_arm_group</code>~~)</td>
+</tr>
+<tr>
+<td>접미사</td>
+<td><code>_group</code> 자동 추가</td>
+<td><code>item_inner_group</code></td>
+</tr>
+<tr>
+<td>단어 순서</td>
+<td>noun_modifier (레이어와 동일)</td>
+<td><code>item_inner_group</code></td>
+</tr>
+</tbody>
+</table>
+<p>그룹 rename은 LLM 번역 시 자동으로 <code>_group</code> 접미사가 추가된다.
+수동 편집 시에는 <code>_group</code> 없이 자유롭게 지정 가능.</p>
+<hr />
+<h2 id="4-prefix">4. 접두사(Prefix) 시스템<a class="headerlink" href="#4-prefix" title="Permanent link">&para;</a></h2>
+<h3 id="_6">파이프라인별 접두사<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>접두사</th>
+<th>의미</th>
+<th>적용 단계</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fxt_</code></td>
+<td>FX Texture</td>
+<td>PSD Export (이미지 파일)</td>
+<td><code>fxt_arm_upper_01.png</code></td>
+</tr>
+<tr>
+<td><code>fxt_ch_</code></td>
+<td>FX Texture + Character</td>
+<td>캐릭터 전용 Export</td>
+<td><code>fxt_ch_arm_upper_01_R.png</code></td>
+</tr>
+<tr>
+<td><code>fxs_</code></td>
+<td>FX Shader</td>
+<td>Unity MeshQuad 하이어라키</td>
+<td><code>fxs_arm_upper_01</code></td>
+</tr>
+<tr>
+<td><code>s_</code></td>
+<td>Sprite</td>
+<td>Unity UGUI/NGUI 하이어라키</td>
+<td><code>s_arm_upper_01</code></td>
+</tr>
+<tr>
+<td><code>fxc_</code></td>
+<td>FX Component</td>
+<td>Unity 스크립트/JSON</td>
+<td><code>fxc_psdImporter.json</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">변환 흐름<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>PSD 레이어: 윗팔 (한글)
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>     ↓ Auto Rename
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Export:     fxt_arm_upper_01.png     (fxt_ 접두사)
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>     ↓ Unity Import
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>UGUI:       s_arm_upper_01           (fxt_ → s_ 변환)
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>NGUI:       s_arm_upper_01           (fxt_ → s_ 변환)
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>MeshQuad:   fxs_arm_upper_01         (fxt_ → fxs_ 변환)
+</code></pre></div>
+<h3 id="_8">그룹에는 접두사 미적용<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>그룹 rename은 접두사 없이 순수 영문명 + <code>_group</code> 접미사만 사용:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>그룹: arm_group        (접두사 없음)
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>레이어: fxt_arm_upper_01 (접두사 있음)
+</code></pre></div>
+<hr />
+<h2 id="5-suffix">5. 접미사(Suffix) 시스템<a class="headerlink" href="#5-suffix" title="Permanent link">&para;</a></h2>
+<h3 id="_9">좌우 구분<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>접미사</th>
+<th>의미</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_R</code></td>
+<td>오른쪽 (대문자)</td>
+<td><code>fxt_ch_arm_01_R</code></td>
+</tr>
+<tr>
+<td><code>_L</code></td>
+<td>왼쪽 (대문자)</td>
+<td><code>fxt_ch_arm_01_L</code></td>
+</tr>
+</tbody>
+</table>
+<p>좌우 접미사는 항상 <strong>마지막</strong>에 위치한다: <code>{prefix}_{noun}_{variant}_{index}_{Side}</code></p>
+<h3 id="_10">한글 좌우 인식 (자동 추출)<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>한글 패턴</th>
+<th>추출 결과</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>오른쪽{명사}</code> (접두)</td>
+<td>side=R</td>
+<td>오른쪽다리 → <code>leg_R</code></td>
+</tr>
+<tr>
+<td><code>왼쪽{명사}</code> (접두)</td>
+<td>side=L</td>
+<td>왼쪽팔 → <code>arm_L</code></td>
+</tr>
+<tr>
+<td><code>{명사}_우</code> (접미)</td>
+<td>side=R</td>
+<td>리본끝_우 → <code>ribbon_end_R</code></td>
+</tr>
+<tr>
+<td><code>{명사}_좌</code> (접미)</td>
+<td>side=L</td>
+<td>리본끝_좌 → <code>ribbon_end_L</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">번호 인덱스<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>규칙</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>최소 2자리 (zero-pad)</td>
+<td><code>_01</code>, <code>_02</code>, <code>_10</code></td>
+</tr>
+<tr>
+<td>번호는 Side 앞에 위치</td>
+<td><code>fxt_arm_01_R</code></td>
+</tr>
+<tr>
+<td>같은 파츠 여럿일 때만 사용</td>
+<td>손가락 1개 → <code>finger</code> (번호 없음)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">그룹 접미사<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>접미사</th>
+<th>적용</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_group</code></td>
+<td>Auto Rename 시 자동</td>
+<td><code>ribbon_group</code>, <code>item_inner_group</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-dictionary-decomposition">6. 사전 분해 (Dictionary Decomposition)<a class="headerlink" href="#6-dictionary-decomposition" title="Permanent link">&para;</a></h2>
+<h3 id="_13">동작 원리<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>숫자만 있는 레이어(<code>01</code>, <code>02</code>, ...)의 이름은 부모 그룹명을 기반으로 생성된다.
+이때 한글 그룹명을 영어로 변환하는 과정에서 <strong>사전 분해</strong>를 먼저 시도한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>한글 그룹명: &quot;안쪽아이템&quot;
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>     ↓ 사전에서 prefix 검색
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>prefix: &quot;안쪽&quot; → inner
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>remainder: &quot;아이템&quot; → item
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>     ↓ noun_modifier 순서로 조합
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>eng_base: &quot;item_inner&quot;
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>     ↓ 번호 추가
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>결과: item_inner_01, item_inner_02, ...
+</code></pre></div>
+<h3 id="_14">사전 분해 순서<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>직접 매칭</strong>: 전체 단어가 사전에 있으면 그대로 사용 (<code>리본</code> → <code>ribbon</code>)</li>
+<li><strong>prefix+remainder 분해</strong>: 사전의 긴 단어부터 prefix 매칭 시도</li>
+<li><code>"안쪽"(inner)</code> + <code>"아이템"(item)</code> → 매칭 성공</li>
+<li><strong>LLM 폴백</strong>: 사전 분해 실패 시 LLM에게 번역 요청</li>
+</ol>
+<h3 id="noun_modifier">noun_modifier 조합 규칙<a class="headerlink" href="#noun_modifier" title="Permanent link">&para;</a></h3>
+<p>사전 분해 결과에서 <strong>어느 것이 명사이고 어느 것이 수식어인지</strong> 판별:</p>
+<table>
+<thead>
+<tr>
+<th>분류</th>
+<th>단어 목록</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>수식어</strong> (modifier)</td>
+<td>upper, lower, front, back, left, right, inner, outer, open, closed, big, small, end</td>
+</tr>
+<tr>
+<td><strong>명사</strong> (noun)</td>
+<td>그 외 모든 단어 (item, box, lid, ribbon, arm, leg, ...)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>조합 규칙</strong>: <code>{noun}_{modifier}</code> (명사가 앞)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>&quot;안쪽&quot;(inner=수식어) + &quot;아이템&quot;(item=명사) → item_inner
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>&quot;열린&quot;(open=수식어) + &quot;뚜껑&quot;(lid=명사) → lid_open
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>&quot;선물&quot;(gift=명사) + &quot;상자&quot;(box=명사) → gift_box (명사+명사는 순서 유지)
+</code></pre></div>
+<h3 id="_15">명사+명사 복합어<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>두 단어 모두 명사일 경우 <strong>한글 어순 그대로</strong> 유지:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>&quot;선물&quot;(gift) + &quot;상자&quot;(box) → gift_box (한글 순서 유지)
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>&quot;뚜껑&quot;(lid) + &quot;장식&quot;(decoration) → lid_decoration
+</code></pre></div>
+<hr />
+<h2 id="7-llm">7. LLM 번역 프롬프트 규칙<a class="headerlink" href="#7-llm" title="Permanent link">&para;</a></h2>
+<p>Auto (KR→EN) 모드에서 LLM에게 전달하는 규칙:</p>
+<h3 id="_16">의미 있는 한글 레이어<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>(in: 그룹명)</code> 앞의 한글 단어를 번역</li>
+<li>위치/방향어(위/아래/앞/뒤/끝/왼/오른)나 숫자는 <strong>그룹명을 noun으로 사용</strong></li>
+<li><code>위 (in: 팔)</code> → <code>arm_upper</code> (noun=arm, modifier=upper)</li>
+<li><code>끝오른쪽 (in: 리본)</code> → <code>ribbon_end_right</code></li>
+<li><code>3 (in: 리본)</code> → <code>ribbon_03</code></li>
+<li>자기 설명적 단어는 그룹 접두사 불필요</li>
+<li><code>그림자 (in: 상자)</code> → <code>shadow</code> (~~<code>box_shadow</code>~~)</li>
+<li><code>머리</code> → <code>head</code></li>
+</ol>
+<h3 id="n">의미 없는 레이어 (숫자, "레이어 N")<a class="headerlink" href="#n" title="Permanent link">&para;</a></h3>
+<ol>
+<li>부모 그룹명을 영어로 번역 → base name</li>
+<li>base name + 번호(zero-pad 2자리) → 최종 이름</li>
+<li>그룹 "안쪽아이템", 레이어 "01" → <code>item_inner_01</code></li>
+<li>그룹 "리본", 레이어 "3" → <code>ribbon_03</code></li>
+</ol>
+<hr />
+<h2 id="8">8. 전체 변환 예시<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<h3 id="psd_5">입력 (PSD)<a class="headerlink" href="#psd_5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>선물상자/                          (depth 0)
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>├── 열린상자/                      (depth 1)
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>│   ├── 바깥쪽아이템/              (depth 2)
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>│   │   ├── 09
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>│   │   ├── 10
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>│   │   └── 11
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>│   ├── 안쪽아이템/                (depth 2)
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>│   │   ├── 01
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>│   │   ├── 02
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>│   │   └── ... 08
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>│   └── 뚜껑장식
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>├── 닫힌뚜껑/                      (depth 1)
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>│   ├── 리본/                      (depth 2)
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>│   │   ├── 끝오른쪽
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>│   │   ├── 끝왼쪽
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>│   │   └── 01 ... 05
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>│   └── 상자
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>└── 그림자
+</code></pre></div>
+<h3 id="auto-rename">출력 (Auto Rename)<a class="headerlink" href="#auto-rename" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>그룹 rename:
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>  선물상자        → gift_box_group
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  열린상자        → box_open_group
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>  바깥쪽아이템    → item_outer_group
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>  안쪽아이템      → item_inner_group
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  닫힌뚜껑        → lid_closed_group
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>  리본            → ribbon_group
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>레이어 rename (prefix: fxt_):
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>  09              → fxt_item_outer_09
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>  10              → fxt_item_outer_10
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>  11              → fxt_item_outer_11
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>  01              → fxt_item_inner_01
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>  02              → fxt_item_inner_02
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>  ...08           → fxt_item_inner_08
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>  뚜껑장식        → fxt_lid_decoration
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>  끝오른쪽        → fxt_ribbon_end_right
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>  끝왼쪽          → fxt_ribbon_end_left
+<a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>  01...05         → fxt_ribbon_01 ... fxt_ribbon_05
+<a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>  상자            → fxt_box
+<a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>  그림자          → fxt_shadow
+</code></pre></div>
+<h3 id="_17">정렬 결과 (파일 탐색기)<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>fxt_box.png
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>fxt_item_inner_01.png
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>fxt_item_inner_02.png
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>...
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>fxt_item_inner_08.png
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>fxt_item_outer_09.png
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>fxt_item_outer_10.png
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>fxt_item_outer_11.png        ← item 계열 전부 인접
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>fxt_lid_decoration.png
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>fxt_ribbon_01.png
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>...
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>fxt_ribbon_05.png
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>fxt_ribbon_end_left.png
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>fxt_ribbon_end_right.png     ← ribbon 계열 전부 인접
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>fxt_shadow.png
+</code></pre></div>
+<hr />
+<h2 id="9">9. 캐릭터 아바타 파츠 분리 — 정면 기준<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<h3 id="91-lr-convention">9.1 좌우 기준 (L/R Convention)<a class="headerlink" href="#91-lr-convention" title="Permanent link">&para;</a></h3>
+<p><strong>캐릭터 자신의 왼쪽/오른쪽</strong> (해부학적 관점, Anatomical Convention)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>        [화면]
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>   (뷰어 왼쪽)    (뷰어 오른쪽)
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>         ↓              ↓
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>       ┌──────────────────┐
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>       │     ┌────┐       │
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>       │     │얼굴│       │
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>       │     └────┘       │
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>       │   ┌──┐  ┌──┐    │
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>       │   │R │  │L │    │  ← 캐릭터의 오른팔(R) = 화면 왼쪽
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>       │   │팔│  │팔│    │  ← 캐릭터의 왼팔(L) = 화면 오른쪽
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>       │   └──┘  └──┘    │
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>       │   ┌──┐  ┌──┐    │
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>       │   │R │  │L │    │
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>       │   │다│  │다│    │
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>       │   │리│  │리│    │
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>       │   └──┘  └──┘    │
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>       └──────────────────┘
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>용어</th>
+<th>의미</th>
+<th>화면 위치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_R</code> (Right)</td>
+<td>캐릭터의 <strong>오른쪽</strong></td>
+<td>화면 <strong>왼쪽</strong></td>
+</tr>
+<tr>
+<td><code>_L</code> (Left)</td>
+<td>캐릭터의 <strong>왼쪽</strong></td>
+<td>화면 <strong>오른쪽</strong></td>
+</tr>
+</tbody>
+</table>
+<p>이 규칙은 <strong>모든 플랫폼에서 동일</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>플랫폼</th>
+<th>형식</th>
+<th>기준</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spine 2D</td>
+<td><code>_R</code> / <code>_L</code> (정면)</td>
+<td>캐릭터 기준</td>
+</tr>
+<tr>
+<td>Unity 2D</td>
+<td><code>_L</code> / <code>_R</code></td>
+<td>캐릭터 기준</td>
+</tr>
+<tr>
+<td>Live2D</td>
+<td><code>_R</code> / <code>_L</code></td>
+<td>캐릭터 기준</td>
+</tr>
+<tr>
+<td>Blender</td>
+<td><code>.L</code> / <code>.R</code></td>
+<td>캐릭터 기준</td>
+</tr>
+<tr>
+<td>Maya</td>
+<td><code>L_</code> / <code>R_</code> prefix</td>
+<td>캐릭터 기준</td>
+</tr>
+<tr>
+<td>UE5</td>
+<td><code>_l</code> / <code>_r</code> (소문자)</td>
+<td>캐릭터 기준</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>본 프로젝트</strong>: <code>_R</code> / <code>_L</code> suffix, 대문자 (Spine/Unity 호환)</p>
+</blockquote>
+<h3 id="92">9.2 캐릭터 파츠 계층 구조<a class="headerlink" href="#92" title="Permanent link">&para;</a></h3>
+<p>정면(front-facing) 아바타의 전체 파츠 트리:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>캐릭터 (Root)
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>├── 머리 (head)
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>│   ├── 머리카락 (hair)
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>│   │   ├── 앞머리 (hair_front)
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>│   │   ├── 옆머리 (hair_side) ─── _R / _L
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>│   │   └── 뒷머리 (hair_back)
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>│   ├── 얼굴 (face)
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>│   │   ├── 눈썹 (eyebrow) ─────── _R / _L
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>│   │   ├── 눈 (eye) ───────────── _R / _L
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>│   │   │   ├── 속눈썹 (eyelash)
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>│   │   │   ├── 눈동자 (pupil)
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>│   │   │   └── 흰자 (sclera)
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>│   │   ├── 코 (nose)
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>│   │   ├── 입 (mouth)
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>│   │   │   └── 입술 (lip)
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>│   │   ├── 볼 (cheek) ─────────── _R / _L
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>│   │   └── 귀 (ear) ──────────── _R / _L
+<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a>│   └── 목 (neck)
+<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>├── 몸통 (body/torso)
+<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a>│   ├── 어깨 (shoulder) ────────── _R / _L
+<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a>│   ├── 가슴 (chest)
+<a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>│   └── 허리 (waist)
+<a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a>├── 팔 (arm) ───────────────────── _R / _L
+<a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a>│   ├── 윗팔 (arm_upper)
+<a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a>│   ├── 아랫팔 (arm_lower)
+<a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a>│   ├── 팔꿈치 (elbow)
+<a id="__codelineno-22-27" name="__codelineno-22-27" href="#__codelineno-22-27"></a>│   ├── 손목 (wrist)
+<a id="__codelineno-22-28" name="__codelineno-22-28" href="#__codelineno-22-28"></a>│   └── 손 (hand)
+<a id="__codelineno-22-29" name="__codelineno-22-29" href="#__codelineno-22-29"></a>│       ├── 엄지 (thumb)
+<a id="__codelineno-22-30" name="__codelineno-22-30" href="#__codelineno-22-30"></a>│       ├── 검지 (index_finger)
+<a id="__codelineno-22-31" name="__codelineno-22-31" href="#__codelineno-22-31"></a>│       ├── 중지 (middle_finger)
+<a id="__codelineno-22-32" name="__codelineno-22-32" href="#__codelineno-22-32"></a>│       ├── 약지 (ring_finger)
+<a id="__codelineno-22-33" name="__codelineno-22-33" href="#__codelineno-22-33"></a>│       └── 소지 (pinky)
+<a id="__codelineno-22-34" name="__codelineno-22-34" href="#__codelineno-22-34"></a>├── 다리 (leg) ─────────────────── _R / _L
+<a id="__codelineno-22-35" name="__codelineno-22-35" href="#__codelineno-22-35"></a>│   ├── 윗다리 (leg_upper/thigh)
+<a id="__codelineno-22-36" name="__codelineno-22-36" href="#__codelineno-22-36"></a>│   ├── 무릎 (knee)
+<a id="__codelineno-22-37" name="__codelineno-22-37" href="#__codelineno-22-37"></a>│   ├── 아랫다리 (leg_lower/shin)
+<a id="__codelineno-22-38" name="__codelineno-22-38" href="#__codelineno-22-38"></a>│   ├── 발목 (ankle)
+<a id="__codelineno-22-39" name="__codelineno-22-39" href="#__codelineno-22-39"></a>│   └── 발 (foot)
+<a id="__codelineno-22-40" name="__codelineno-22-40" href="#__codelineno-22-40"></a>│       └── 발가락 (toe)
+<a id="__codelineno-22-41" name="__codelineno-22-41" href="#__codelineno-22-41"></a>└── 악세서리 (accessories)
+<a id="__codelineno-22-42" name="__codelineno-22-42" href="#__codelineno-22-42"></a>    ├── 모자 (hat)
+<a id="__codelineno-22-43" name="__codelineno-22-43" href="#__codelineno-22-43"></a>    ├── 안경 (glasses)
+<a id="__codelineno-22-44" name="__codelineno-22-44" href="#__codelineno-22-44"></a>    ├── 장갑 (glove) ───────────── _R / _L
+<a id="__codelineno-22-45" name="__codelineno-22-45" href="#__codelineno-22-45"></a>    └── 신발 (shoe) ────────────── _R / _L
+</code></pre></div>
+<h3 id="93-psd-draw-order">9.3 PSD 레이어 순서 (뎁스/Draw Order)<a class="headerlink" href="#93-psd-draw-order" title="Permanent link">&para;</a></h3>
+<p>PSD 레이어 스택에서 <strong>위 = 앞에 그려짐 (카메라에 가까움)</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>[PSD 레이어 패널 — 위에서 아래로]
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>=== 가장 앞 (카메라 가까움) ===
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>앞머리                           ← 얼굴 위를 덮는 머리카락
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>  눈썹_R / 눈썹_L
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>  속눈썹_R / 속눈썹_L
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>  눈동자_R / 눈동자_L
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>  흰자_R / 흰자_L
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>  코
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>  입
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>  얼굴                           ← 얼굴 베이스
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>  귀_R / 귀_L
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>목
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>앞쪽팔 (화면 앞)                 ← ★ 몸통 앞의 팔
+<a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>  손
+<a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>  아랫팔
+<a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>  윗팔
+<a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>몸통                             ← 중앙
+<a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>앞쪽다리 (화면 앞)               ← ★ 몸통 앞의 다리
+<a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a>  발
+<a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a>  아랫다리
+<a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a>  윗다리
+<a id="__codelineno-23-23" name="__codelineno-23-23" href="#__codelineno-23-23"></a>뒤쪽다리 (화면 뒤)               ← ★ 몸통 뒤의 다리
+<a id="__codelineno-23-24" name="__codelineno-23-24" href="#__codelineno-23-24"></a>  발
+<a id="__codelineno-23-25" name="__codelineno-23-25" href="#__codelineno-23-25"></a>  아랫다리
+<a id="__codelineno-23-26" name="__codelineno-23-26" href="#__codelineno-23-26"></a>  윗다리
+<a id="__codelineno-23-27" name="__codelineno-23-27" href="#__codelineno-23-27"></a>뒤쪽팔 (화면 뒤)                 ← ★ 몸통 뒤의 팔
+<a id="__codelineno-23-28" name="__codelineno-23-28" href="#__codelineno-23-28"></a>  손
+<a id="__codelineno-23-29" name="__codelineno-23-29" href="#__codelineno-23-29"></a>  아랫팔
+<a id="__codelineno-23-30" name="__codelineno-23-30" href="#__codelineno-23-30"></a>  윗팔
+<a id="__codelineno-23-31" name="__codelineno-23-31" href="#__codelineno-23-31"></a>뒷머리                           ← 가장 뒤
+<a id="__codelineno-23-32" name="__codelineno-23-32" href="#__codelineno-23-32"></a>=== 가장 뒤 (카메라 멀리) ===
+</code></pre></div>
+<h3 id="94-frontrear-vs-lr">9.4 앞/뒤 팔다리 — front/rear vs L/R<a class="headerlink" href="#94-frontrear-vs-lr" title="Permanent link">&para;</a></h3>
+<p>정면 캐릭터에서 팔다리의 앞/뒤 배치에 두 가지 접근법이 있다:</p>
+<h4 id="1-lr-unity">방법 1: 고정 L/R (권장 — Unity/범용)<a class="headerlink" href="#1-lr-unity" title="Permanent link">&para;</a></h4>
+<p>좌우를 L/R로 고정. 어느 팔이 앞인지는 <strong>PSD 레이어 순서</strong>로 결정.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>PSD 그룹 구조:                    Export 이름:
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>팔_R/                             (그룹) arm_R_group
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>├── 손_R                          fxt_ch_hand_R
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>├── 아랫팔_R                      fxt_ch_arm_lower_R
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>└── 윗팔_R                        fxt_ch_arm_upper_R
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>...
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>팔_L/                             (그룹) arm_L_group
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>├── 손_L                          fxt_ch_hand_L
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>├── 아랫팔_L                      fxt_ch_arm_lower_L
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>└── 윗팔_L                        fxt_ch_arm_upper_L
+</code></pre></div>
+<p><strong>장점</strong>: Unity에서 L/R 팔을 독립적으로 애니메이션 가능. 좌우 대칭 본 매핑 용이.
+<strong>적합</strong>: Unity 2D Animation, 정면 UI 아바타, L/R 팔이 교차하지 않는 캐릭터.</p>
+<h4 id="2-frontrear-spine">방법 2: front/rear (Spine 전통 방식)<a class="headerlink" href="#2-frontrear-spine" title="Permanent link">&para;</a></h4>
+<p>앞/뒤 기준으로 네이밍. 3/4 뷰나 측면 뷰에서 유용.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>PSD 그룹 구조:                    Export 이름:
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>앞쪽팔/                           (그룹) arm_front_group
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>├── 손_앞                         fxt_ch_hand_front
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>├── 아랫팔_앞                     fxt_ch_arm_lower_front
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>└── 윗팔_앞                       fxt_ch_arm_upper_front
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>...
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>뒤쪽팔/                           (그룹) arm_rear_group
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>├── 손_뒤                         fxt_ch_hand_rear
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>├── 아랫팔_뒤                     fxt_ch_arm_lower_rear
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>└── 윗팔_뒤                       fxt_ch_arm_upper_rear
+</code></pre></div>
+<p><strong>장점</strong>: Spine 공식 예제(Spineboy)와 동일. 캐릭터 방향 전환 시 front/rear 유지.
+<strong>적합</strong>: Spine 리깅, 측면/3-4뷰 캐릭터, 팔다리가 앞뒤로 교차하는 액션.</p>
+<h4 id="_18">선택 기준<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>권장</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unity 정면 아바타</td>
+<td><strong>L/R</strong></td>
+<td>좌우 대칭, 본 미러링</td>
+</tr>
+<tr>
+<td>Spine 정면 아바타</td>
+<td><strong>L/R</strong></td>
+<td>Spine도 정면에서는 L/R 사용</td>
+</tr>
+<tr>
+<td>Spine 측면 캐릭터</td>
+<td><strong>front/rear</strong></td>
+<td>공식 Spineboy 예제 패턴</td>
+</tr>
+<tr>
+<td>방향 전환 있는 캐릭터</td>
+<td><strong>front/rear</strong></td>
+<td>방향 바뀌어도 앞/뒤 의미 유지</td>
+</tr>
+</tbody>
+</table>
+<h3 id="95">9.5 남성/여성 차이<a class="headerlink" href="#95" title="Permanent link">&para;</a></h3>
+<h4 id="_19">공통 파츠 (남녀 동일)<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
+<p>머리, 눈, 코, 입, 귀, 목, 어깨, 팔, 손, 다리, 발 — 계층 구조 동일.</p>
+<h4 id="_20">여성 추가 파츠<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>파츠</th>
+<th>한글</th>
+<th>영문</th>
+<th>L/R</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>가슴</td>
+<td>가슴</td>
+<td>breast</td>
+<td>_R / _L</td>
+<td>피직스 애니메이션용 분리</td>
+</tr>
+<tr>
+<td>치마</td>
+<td>치마</td>
+<td>skirt</td>
+<td>—</td>
+<td>앞/뒤/좌/우 4분할 가능</td>
+</tr>
+<tr>
+<td>치마 앞</td>
+<td>치마앞</td>
+<td>skirt_front</td>
+<td>—</td>
+<td>스프링 본/피직스용</td>
+</tr>
+<tr>
+<td>치마 뒤</td>
+<td>치마뒤</td>
+<td>skirt_back</td>
+<td>—</td>
+<td></td>
+</tr>
+<tr>
+<td>치마 좌</td>
+<td>치마좌</td>
+<td>skirt_L</td>
+<td>_L</td>
+<td></td>
+</tr>
+<tr>
+<td>치마 우</td>
+<td>치마우</td>
+<td>skirt_R</td>
+<td>_R</td>
+<td></td>
+</tr>
+<tr>
+<td>리본/장식</td>
+<td>리본</td>
+<td>ribbon</td>
+<td>—</td>
+<td>머리/의상 장식</td>
+</tr>
+<tr>
+<td>긴 머리카락</td>
+<td>긴머리</td>
+<td>hair_long</td>
+<td>—</td>
+<td>피직스 다수 레이어 필요</td>
+</tr>
+<tr>
+<td>포니테일</td>
+<td>포니테일</td>
+<td>ponytail</td>
+<td>—</td>
+<td>별도 스프링 본</td>
+</tr>
+<tr>
+<td>카라</td>
+<td>카라</td>
+<td>collar</td>
+<td>—</td>
+<td>의상 목 장식</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_21">남성 추가 파츠<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>파츠</th>
+<th>한글</th>
+<th>영문</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>수염</td>
+<td>수염</td>
+<td>beard</td>
+<td>얼굴 그룹 내</td>
+</tr>
+<tr>
+<td>콧수염</td>
+<td>콧수염</td>
+<td>mustache</td>
+<td>얼굴 그룹 내</td>
+</tr>
+<tr>
+<td>넥타이</td>
+<td>넥타이</td>
+<td>necktie</td>
+<td>몸통 앞</td>
+</tr>
+</tbody>
+</table>
+<h3 id="96-psd">9.6 PSD 구조 예시 — 정면 여성 아바타 (한글 모드)<a class="headerlink" href="#96-psd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>260305_FX_Ani_Baduk_GirlAvatar_v1.psd
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>[PSD 레이어 순서: 위→앞, 아래→뒤]
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>앞머리
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>  앞머리01
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>  앞머리02
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>옆머리_R                         ← 캐릭터 오른쪽 (화면 왼쪽)
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>옆머리_L                         ← 캐릭터 왼쪽 (화면 오른쪽)
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>눈_R/
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>  속눈썹_R
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>  눈동자_R
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>  흰자_R
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>눈_L/
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>  속눈썹_L
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>  눈동자_L
+<a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>  흰자_L
+<a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>눈썹_R
+<a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>눈썹_L
+<a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a>코
+<a id="__codelineno-26-21" name="__codelineno-26-21" href="#__codelineno-26-21"></a>입/
+<a id="__codelineno-26-22" name="__codelineno-26-22" href="#__codelineno-26-22"></a>  윗입술
+<a id="__codelineno-26-23" name="__codelineno-26-23" href="#__codelineno-26-23"></a>  아랫입술
+<a id="__codelineno-26-24" name="__codelineno-26-24" href="#__codelineno-26-24"></a>  이
+<a id="__codelineno-26-25" name="__codelineno-26-25" href="#__codelineno-26-25"></a>얼굴
+<a id="__codelineno-26-26" name="__codelineno-26-26" href="#__codelineno-26-26"></a>귀_R
+<a id="__codelineno-26-27" name="__codelineno-26-27" href="#__codelineno-26-27"></a>귀_L
+<a id="__codelineno-26-28" name="__codelineno-26-28" href="#__codelineno-26-28"></a>목
+<a id="__codelineno-26-29" name="__codelineno-26-29" href="#__codelineno-26-29"></a>팔_R/                            ← 화면 앞 팔 (레이어 순서로 앞)
+<a id="__codelineno-26-30" name="__codelineno-26-30" href="#__codelineno-26-30"></a>  손_R
+<a id="__codelineno-26-31" name="__codelineno-26-31" href="#__codelineno-26-31"></a>  아랫팔_R
+<a id="__codelineno-26-32" name="__codelineno-26-32" href="#__codelineno-26-32"></a>  윗팔_R
+<a id="__codelineno-26-33" name="__codelineno-26-33" href="#__codelineno-26-33"></a>  어깨_R
+<a id="__codelineno-26-34" name="__codelineno-26-34" href="#__codelineno-26-34"></a>가슴                             ← 또는 가슴_R / 가슴_L (피직스 시)
+<a id="__codelineno-26-35" name="__codelineno-26-35" href="#__codelineno-26-35"></a>몸통
+<a id="__codelineno-26-36" name="__codelineno-26-36" href="#__codelineno-26-36"></a>팔_L/                            ← 화면 뒤 팔 (레이어 순서로 뒤)
+<a id="__codelineno-26-37" name="__codelineno-26-37" href="#__codelineno-26-37"></a>  손_L
+<a id="__codelineno-26-38" name="__codelineno-26-38" href="#__codelineno-26-38"></a>  아랫팔_L
+<a id="__codelineno-26-39" name="__codelineno-26-39" href="#__codelineno-26-39"></a>  윗팔_L
+<a id="__codelineno-26-40" name="__codelineno-26-40" href="#__codelineno-26-40"></a>  어깨_L
+<a id="__codelineno-26-41" name="__codelineno-26-41" href="#__codelineno-26-41"></a>치마/
+<a id="__codelineno-26-42" name="__codelineno-26-42" href="#__codelineno-26-42"></a>  치마앞
+<a id="__codelineno-26-43" name="__codelineno-26-43" href="#__codelineno-26-43"></a>  치마_R
+<a id="__codelineno-26-44" name="__codelineno-26-44" href="#__codelineno-26-44"></a>  치마_L
+<a id="__codelineno-26-45" name="__codelineno-26-45" href="#__codelineno-26-45"></a>  치마뒤
+<a id="__codelineno-26-46" name="__codelineno-26-46" href="#__codelineno-26-46"></a>다리_R/
+<a id="__codelineno-26-47" name="__codelineno-26-47" href="#__codelineno-26-47"></a>  발_R
+<a id="__codelineno-26-48" name="__codelineno-26-48" href="#__codelineno-26-48"></a>  아랫다리_R
+<a id="__codelineno-26-49" name="__codelineno-26-49" href="#__codelineno-26-49"></a>  윗다리_R
+<a id="__codelineno-26-50" name="__codelineno-26-50" href="#__codelineno-26-50"></a>다리_L/
+<a id="__codelineno-26-51" name="__codelineno-26-51" href="#__codelineno-26-51"></a>  발_L
+<a id="__codelineno-26-52" name="__codelineno-26-52" href="#__codelineno-26-52"></a>  아랫다리_L
+<a id="__codelineno-26-53" name="__codelineno-26-53" href="#__codelineno-26-53"></a>  윗다리_L
+<a id="__codelineno-26-54" name="__codelineno-26-54" href="#__codelineno-26-54"></a>뒷머리
+<a id="__codelineno-26-55" name="__codelineno-26-55" href="#__codelineno-26-55"></a>  뒷머리01
+<a id="__codelineno-26-56" name="__codelineno-26-56" href="#__codelineno-26-56"></a>  포니테일
+</code></pre></div>
+<h3 id="97-export-auto-rename">9.7 Export 결과 예시 (Auto Rename)<a class="headerlink" href="#97-export-auto-rename" title="Permanent link">&para;</a></h3>
+<p>위 PSD에 Auto Rename (prefix: <code>fxt_ch_</code>) 적용 시:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>그룹 rename:
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>  눈_R            → eye_R_group
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>  눈_L            → eye_L_group
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>  입              → mouth_group
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>  팔_R            → arm_R_group
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>  팔_L            → arm_L_group
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>  치마            → skirt_group
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>  다리_R          → leg_R_group
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>  다리_L          → leg_L_group
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>레이어 rename:
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>  앞머리01        → fxt_ch_hair_front_01
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>  앞머리02        → fxt_ch_hair_front_02
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>  옆머리_R        → fxt_ch_hair_side_R
+<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>  옆머리_L        → fxt_ch_hair_side_L
+<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>  속눈썹_R        → fxt_ch_eyelash_R
+<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>  눈동자_R        → fxt_ch_pupil_R
+<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>  흰자_R          → fxt_ch_sclera_R
+<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>  속눈썹_L        → fxt_ch_eyelash_L
+<a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a>  눈동자_L        → fxt_ch_pupil_L
+<a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>  흰자_L          → fxt_ch_sclera_L
+<a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>  눈썹_R          → fxt_ch_eyebrow_R
+<a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>  눈썹_L          → fxt_ch_eyebrow_L
+<a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a>  코              → fxt_ch_nose
+<a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a>  윗입술          → fxt_ch_lip_upper
+<a id="__codelineno-27-26" name="__codelineno-27-26" href="#__codelineno-27-26"></a>  아랫입술        → fxt_ch_lip_lower
+<a id="__codelineno-27-27" name="__codelineno-27-27" href="#__codelineno-27-27"></a>  이              → fxt_ch_teeth
+<a id="__codelineno-27-28" name="__codelineno-27-28" href="#__codelineno-27-28"></a>  얼굴            → fxt_ch_face
+<a id="__codelineno-27-29" name="__codelineno-27-29" href="#__codelineno-27-29"></a>  귀_R            → fxt_ch_ear_R
+<a id="__codelineno-27-30" name="__codelineno-27-30" href="#__codelineno-27-30"></a>  귀_L            → fxt_ch_ear_L
+<a id="__codelineno-27-31" name="__codelineno-27-31" href="#__codelineno-27-31"></a>  목              → fxt_ch_neck
+<a id="__codelineno-27-32" name="__codelineno-27-32" href="#__codelineno-27-32"></a>  손_R            → fxt_ch_hand_R
+<a id="__codelineno-27-33" name="__codelineno-27-33" href="#__codelineno-27-33"></a>  아랫팔_R        → fxt_ch_arm_lower_R
+<a id="__codelineno-27-34" name="__codelineno-27-34" href="#__codelineno-27-34"></a>  윗팔_R          → fxt_ch_arm_upper_R
+<a id="__codelineno-27-35" name="__codelineno-27-35" href="#__codelineno-27-35"></a>  어깨_R          → fxt_ch_shoulder_R
+<a id="__codelineno-27-36" name="__codelineno-27-36" href="#__codelineno-27-36"></a>  가슴            → fxt_ch_chest
+<a id="__codelineno-27-37" name="__codelineno-27-37" href="#__codelineno-27-37"></a>  몸통            → fxt_ch_body
+<a id="__codelineno-27-38" name="__codelineno-27-38" href="#__codelineno-27-38"></a>  손_L            → fxt_ch_hand_L
+<a id="__codelineno-27-39" name="__codelineno-27-39" href="#__codelineno-27-39"></a>  아랫팔_L        → fxt_ch_arm_lower_L
+<a id="__codelineno-27-40" name="__codelineno-27-40" href="#__codelineno-27-40"></a>  윗팔_L          → fxt_ch_arm_upper_L
+<a id="__codelineno-27-41" name="__codelineno-27-41" href="#__codelineno-27-41"></a>  어깨_L          → fxt_ch_shoulder_L
+<a id="__codelineno-27-42" name="__codelineno-27-42" href="#__codelineno-27-42"></a>  치마앞          → fxt_ch_skirt_front
+<a id="__codelineno-27-43" name="__codelineno-27-43" href="#__codelineno-27-43"></a>  치마_R          → fxt_ch_skirt_R
+<a id="__codelineno-27-44" name="__codelineno-27-44" href="#__codelineno-27-44"></a>  치마_L          → fxt_ch_skirt_L
+<a id="__codelineno-27-45" name="__codelineno-27-45" href="#__codelineno-27-45"></a>  치마뒤          → fxt_ch_skirt_back
+<a id="__codelineno-27-46" name="__codelineno-27-46" href="#__codelineno-27-46"></a>  발_R            → fxt_ch_foot_R
+<a id="__codelineno-27-47" name="__codelineno-27-47" href="#__codelineno-27-47"></a>  아랫다리_R      → fxt_ch_leg_lower_R
+<a id="__codelineno-27-48" name="__codelineno-27-48" href="#__codelineno-27-48"></a>  윗다리_R        → fxt_ch_leg_upper_R
+<a id="__codelineno-27-49" name="__codelineno-27-49" href="#__codelineno-27-49"></a>  발_L            → fxt_ch_foot_L
+<a id="__codelineno-27-50" name="__codelineno-27-50" href="#__codelineno-27-50"></a>  아랫다리_L      → fxt_ch_leg_lower_L
+<a id="__codelineno-27-51" name="__codelineno-27-51" href="#__codelineno-27-51"></a>  윗다리_L        → fxt_ch_leg_upper_L
+<a id="__codelineno-27-52" name="__codelineno-27-52" href="#__codelineno-27-52"></a>  뒷머리01        → fxt_ch_hair_back_01
+<a id="__codelineno-27-53" name="__codelineno-27-53" href="#__codelineno-27-53"></a>  포니테일        → fxt_ch_ponytail
+<a id="__codelineno-27-54" name="__codelineno-27-54" href="#__codelineno-27-54"></a>
+<a id="__codelineno-27-55" name="__codelineno-27-55" href="#__codelineno-27-55"></a>파일 정렬 (탐색기):
+<a id="__codelineno-27-56" name="__codelineno-27-56" href="#__codelineno-27-56"></a>  fxt_ch_arm_lower_L.png
+<a id="__codelineno-27-57" name="__codelineno-27-57" href="#__codelineno-27-57"></a>  fxt_ch_arm_lower_R.png
+<a id="__codelineno-27-58" name="__codelineno-27-58" href="#__codelineno-27-58"></a>  fxt_ch_arm_upper_L.png
+<a id="__codelineno-27-59" name="__codelineno-27-59" href="#__codelineno-27-59"></a>  fxt_ch_arm_upper_R.png     ← arm 계열 인접
+<a id="__codelineno-27-60" name="__codelineno-27-60" href="#__codelineno-27-60"></a>  fxt_ch_body.png
+<a id="__codelineno-27-61" name="__codelineno-27-61" href="#__codelineno-27-61"></a>  fxt_ch_chest.png
+<a id="__codelineno-27-62" name="__codelineno-27-62" href="#__codelineno-27-62"></a>  fxt_ch_ear_L.png
+<a id="__codelineno-27-63" name="__codelineno-27-63" href="#__codelineno-27-63"></a>  fxt_ch_ear_R.png           ← ear 계열 인접
+<a id="__codelineno-27-64" name="__codelineno-27-64" href="#__codelineno-27-64"></a>  fxt_ch_eyelash_L.png
+<a id="__codelineno-27-65" name="__codelineno-27-65" href="#__codelineno-27-65"></a>  fxt_ch_eyelash_R.png       ← eye 계열 인접
+<a id="__codelineno-27-66" name="__codelineno-27-66" href="#__codelineno-27-66"></a>  fxt_ch_eyebrow_L.png
+<a id="__codelineno-27-67" name="__codelineno-27-67" href="#__codelineno-27-67"></a>  fxt_ch_eyebrow_R.png
+<a id="__codelineno-27-68" name="__codelineno-27-68" href="#__codelineno-27-68"></a>  ...
+<a id="__codelineno-27-69" name="__codelineno-27-69" href="#__codelineno-27-69"></a>  fxt_ch_hair_back_01.png
+<a id="__codelineno-27-70" name="__codelineno-27-70" href="#__codelineno-27-70"></a>  fxt_ch_hair_front_01.png
+<a id="__codelineno-27-71" name="__codelineno-27-71" href="#__codelineno-27-71"></a>  fxt_ch_hair_front_02.png
+<a id="__codelineno-27-72" name="__codelineno-27-72" href="#__codelineno-27-72"></a>  fxt_ch_hair_side_L.png
+<a id="__codelineno-27-73" name="__codelineno-27-73" href="#__codelineno-27-73"></a>  fxt_ch_hair_side_R.png     ← hair 계열 인접
+<a id="__codelineno-27-74" name="__codelineno-27-74" href="#__codelineno-27-74"></a>  ...
+</code></pre></div>
+<h3 id="98">9.8 네이밍 형식 — 최종 구조<a class="headerlink" href="#98" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>{prefix}_{noun}_{segment}_{index}_{Side}
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>필수</th>
+<th>설명</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{prefix}</code></td>
+<td>✓</td>
+<td>프로젝트 접두사</td>
+<td><code>fxt_ch_</code></td>
+</tr>
+<tr>
+<td><code>{noun}</code></td>
+<td>✓</td>
+<td>파츠 명사</td>
+<td><code>arm</code>, <code>leg</code>, <code>hair</code>, <code>eye</code></td>
+</tr>
+<tr>
+<td><code>{segment}</code></td>
+<td>선택</td>
+<td>부위/상태</td>
+<td><code>upper</code>, <code>lower</code>, <code>front</code>, <code>side</code></td>
+</tr>
+<tr>
+<td><code>{index}</code></td>
+<td>선택</td>
+<td>번호 (2자리)</td>
+<td><code>_01</code>, <code>_02</code></td>
+</tr>
+<tr>
+<td><code>{Side}</code></td>
+<td>선택</td>
+<td>좌우 (대문자)</td>
+<td><code>_R</code>, <code>_L</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>순서 규칙</strong>: noun → segment → index → Side (항상 Side가 마지막)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>fxt_ch_arm_upper_01_R
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>       │    │      │  │
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>       │    │      │  └── Side (캐릭터 오른쪽)
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>       │    │      └───── Index (번호)
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>       │    └──────────── Segment (윗팔)
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>       └───────────────── Noun (팔)
+</code></pre></div>
+<h3 id="99">9.9 사전에 추가 필요한 단어<a class="headerlink" href="#99" title="Permanent link">&para;</a></h3>
+<p>Auto Rename이 정확히 동작하려면 아래 한글이 사전에 등록되어야 한다:</p>
+<table>
+<thead>
+<tr>
+<th>한글</th>
+<th>영문</th>
+<th>분류</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>이</td>
+<td>teeth</td>
+<td>명사</td>
+</tr>
+<tr>
+<td>윗입술</td>
+<td>lip_upper</td>
+<td>복합명사</td>
+</tr>
+<tr>
+<td>아랫입술</td>
+<td>lip_lower</td>
+<td>복합명사</td>
+</tr>
+<tr>
+<td>포니테일</td>
+<td>ponytail</td>
+<td>명사</td>
+</tr>
+<tr>
+<td>치마</td>
+<td>skirt</td>
+<td>명사</td>
+</tr>
+<tr>
+<td>수염</td>
+<td>beard</td>
+<td>명사</td>
+</tr>
+<tr>
+<td>콧수염</td>
+<td>mustache</td>
+<td>명사</td>
+</tr>
+<tr>
+<td>넥타이</td>
+<td>necktie</td>
+<td>명사</td>
+</tr>
+<tr>
+<td>카라</td>
+<td>collar</td>
+<td>명사</td>
+</tr>
+<tr>
+<td>가슴 (여성)</td>
+<td>breast</td>
+<td>명사</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-quick-reference">10. 판별 매트릭스 (Quick Reference)<a class="headerlink" href="#10-quick-reference" title="Permanent link">&para;</a></h2>
+<h3 id="_22">단어 순서 판별<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>질문</th>
+<th>답변</th>
+<th>순서</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>명사 + 위치/방향?</td>
+<td>"어떤 것의 어디?"</td>
+<td><code>noun_modifier</code></td>
+<td><code>arm_upper</code>, <code>ribbon_end</code></td>
+</tr>
+<tr>
+<td>명사 + 상태?</td>
+<td>"어떤 상태의 것?"</td>
+<td><code>noun_modifier</code></td>
+<td><code>lid_closed</code>, <code>box_open</code></td>
+</tr>
+<tr>
+<td>명사 + 크기/속성?</td>
+<td>"어떤 종류의 것?"</td>
+<td><code>noun_modifier</code></td>
+<td><code>stone_big</code>, <code>box_small</code></td>
+</tr>
+<tr>
+<td>명사 + 명사?</td>
+<td>복합 명사</td>
+<td>한글 순서 유지</td>
+<td><code>gift_box</code>, <code>lid_decoration</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_23">접두사 판별<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>대상</th>
+<th>접두사</th>
+<th>접미사</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>아트 레이어</td>
+<td><code>fxt_</code> (사용자 설정)</td>
+<td><code>_01</code>, <code>_R</code></td>
+</tr>
+<tr>
+<td>그룹 헤더</td>
+<td>없음</td>
+<td><code>_group</code></td>
+</tr>
+<tr>
+<td>Unity UGUI/NGUI</td>
+<td><code>s_</code> (자동 변환)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Unity MeshQuad</td>
+<td><code>fxs_</code> (자동 변환)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="auto-rename_1">Auto Rename 변환 흐름<a class="headerlink" href="#auto-rename_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>레이어명 입력
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>  ↓
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>0. 의미 없는 이름? (&quot;01&quot;, &quot;레이어 1&quot;) → 그룹 컨텍스트 기반 추론
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>  ↓
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>1. 한글 포함? → NO → 영어 이름 → prefix 추가 후 반환
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>  ↓ YES
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>2. 사전 직접 매칭? → 영문 반환
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>3. 복합어 분리 (공백)? → 사전 개별 매칭 → noun_modifier 조합
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>4. 사전 분해 (prefix+remainder)? → noun_modifier 조합
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>5. LLM 번역 (그룹 컨텍스트 포함) → noun_modifier 반환
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>  ↓
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>prefix + eng + index + Side
+</code></pre></div>
+<h3 id="_24">입력 언어별 처리 상세<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>입력</th>
+<th>한글 감지</th>
+<th>처리 경로</th>
+<th>prefix 적용</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>머리</code></td>
+<td>✓</td>
+<td>사전 → "head"</td>
+<td>✓</td>
+<td><code>fxt_head</code></td>
+</tr>
+<tr>
+<td><code>끝오른쪽</code></td>
+<td>✓</td>
+<td>파싱 → LLM → "ribbon_end" + side=R</td>
+<td>✓</td>
+<td><code>fxt_ribbon_end_R</code></td>
+</tr>
+<tr>
+<td><code>열린 뚜껑</code></td>
+<td>✓</td>
+<td>복합어 분리 → "lid_open"</td>
+<td>✓</td>
+<td><code>fxt_lid_open</code></td>
+</tr>
+<tr>
+<td><code>ribbon_01</code></td>
+<td>✗</td>
+<td>영어 → 원본 유지</td>
+<td>✓</td>
+<td><code>fxt_ribbon_01</code></td>
+</tr>
+<tr>
+<td><code>shadow</code></td>
+<td>✗</td>
+<td>영어 → 원본 유지</td>
+<td>✓</td>
+<td><code>fxt_shadow</code></td>
+</tr>
+<tr>
+<td><code>01</code> (in 리본)</td>
+<td>-</td>
+<td>의미없음 → 그룹 추론</td>
+<td>✓</td>
+<td><code>fxt_ribbon_01</code></td>
+</tr>
+<tr>
+<td><code>리본end</code></td>
+<td>✓</td>
+<td>LLM 번역 (불안정)</td>
+<td>✓</td>
+<td><code>fxt_ribbon_end</code> (불보장)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_25">부록: 사전 등록 단어 목록<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h2>
+<h3 id="55">바디파츠 (55개)<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>머리=head, 머리카락=hair, 앞머리=hair_front, 옆머리=hair_side, 뒷머리=hair_back,
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>얼굴=face, 눈=eye, 눈썹=eyebrow, 속눈썹=eyelash, 눈동자=pupil, 흰자=sclera,
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>코=nose, 입=mouth, 입술=lip, 이=teeth, 윗입술=lip_upper, 아랫입술=lip_lower,
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>턱=jaw, 귀=ear, 볼=cheek, 이마=forehead, 다크써클=eye_shadow, 귀그림자=ear_shadow,
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>몸통=torso, 몸=body, 상체=torso_upper, 하체=torso_lower, 가슴=chest, 배=belly,
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>등=back, 어깨=shoulder, 목=neck, 엉덩이=hip, 허리=waist,
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>팔=arm, 윗팔=arm_upper, 아랫팔=arm_lower, 팔꿈치=elbow,
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>손=hand, 손가락=finger, 손목=wrist, 엄지=thumb, 검지=index, 중지=middle,
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>약지=ring, 소지=pinky, 주먹=fist, 손그림자=hand_shadow,
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>다리=leg, 윗다리=leg_upper, 허벅지=thigh, 아랫다리=leg_lower, 종아리=shin, 무릎=knee,
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>발=foot, 발가락=toe, 발목=ankle, 꼬리=tail, 날개=wing, 뿔=horn
+</code></pre></div>
+<h3 id="10">의상/악세서리 (10개)<a class="headerlink" href="#10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>치마=skirt, 포니테일=ponytail, 수염=beard, 콧수염=mustache,
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>넥타이=necktie, 카라=collar,
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>앞쪽팔=arm_front, 뒤쪽팔=arm_rear, 앞쪽다리=leg_front, 뒤쪽다리=leg_rear
+</code></pre></div>
+<h3 id="31_1">일반 오브젝트 (31개)<a class="headerlink" href="#31_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>그림자=shadow, 스크린=screen, 이펙트=effect, 무기=weapon, 방패=shield,
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>망토=cape, 모자=hat, 안경=glasses, 장갑=glove, 신발=shoe, 벨트=belt, 갑옷=armor,
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>뚜껑=lid, 상자=box, 리본=ribbon, 열쇠=key, 자물쇠=lock, 문=door,
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>창문=window, 기둥=pillar, 바닥=floor, 천장=ceiling, 지붕=roof, 벽=wall,
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>배경=background, 구름=cloud, 나무=tree, 꽃=flower, 풀=grass, 돌=stone,
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>물=water, 불=fire, 빛=light, 연기=smoke, 먼지=dust, 폭발=explosion,
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>별=star, 달=moon, 해=sun,
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>아이템=item, 선물=gift, 포장=wrapping, 장식=decoration, 보석=gem, 조각=piece
+</code></pre></div>
+<h3 id="21">수식어 (21개)<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>열린=open, 닫힌=closed, 큰=big, 작은=small,
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>위=upper, 아래=lower, 앞=front, 뒤=back, 왼=left, 오른=right, 안=inner, 밖=outer,
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>안쪽=inner, 바깥쪽=outer, 위쪽=upper, 아래쪽=lower,
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>왼쪽=left, 오른쪽=right, 앞쪽=front, 뒤쪽=back,
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>끝=end
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

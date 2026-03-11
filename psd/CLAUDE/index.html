@@ -1,0 +1,3201 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI R&D 실험 노트">
+      
+      
+        <meta name="author" content="jungjaewa">
+      
+      
+        <link rel="canonical" href="https://jungjaewa.github.io/ai-lab-notes/psd/CLAUDE/">
+      
+      
+        <link rel="prev" href="../automation_plan/">
+      
+      
+        <link rel="next" href="../dev_journal/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Claude - AI Lab Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#psd-layer-exporter-project-overview" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AI Lab Notes" class="md-header__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Lab Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Claude
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="다크 모드"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="라이트 모드"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../eye-pipeline/" class="md-tabs__link">
+          
+  
+  
+  Eye Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../teamplay_gantt/" class="md-tabs__link">
+          
+  
+  
+  Teamplay_Gantt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai-lab-notes-manager/" class="md-tabs__link">
+          
+  
+  
+  AI Lab Notes Manager
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  PSD
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  태그
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Lab Notes" class="md-nav__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Lab Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Eye Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Animation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teamplay_Gantt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab Notes Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/rnd-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/RND_LOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/skills-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PSD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        도구 구성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="도구 구성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-psd_extractor_gui_qtpy-qt-gui-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. psd_extractor_gui_qt.py (Qt GUI - 권장)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. psd_extractor_gui_qt.py (Qt GUI - 권장)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        주요 특징
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GUI 레이아웃 (타이틀 없는 패널 구조)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프리뷰 동작
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        키보드/마우스 동작
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export 동작
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다크 테마 컬러
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-psd_extractor_guipy-gui-customtkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. psd_extractor_gui.py (GUI - 레거시 CustomTkinter)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-psd_extractorpy-cli-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. psd_extractor.py (CLI - 개발자/자동화 권장)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-psd_ai_interfacepy-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. psd_ai_interface.py (AI Agent 인터페이스)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-layer_exporterpy-photoshop-com" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. layer_exporter.py (Photoshop COM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-layerexporterjsx-photoshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. LayerExporter.jsx (Photoshop 내장 스크립트)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프로젝트 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심 기능
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qt-gui-psd_extractor_gui_qtpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qt GUI 아키텍처 (psd_extractor_gui_qt.py)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Qt GUI 아키텍처 (psd_extractor_gui_qt.py)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        호버/Dim 프리뷰 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다중 선택 프리뷰 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        세션 자동 저장/복원 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-kren" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto (KR→EN) 번역 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        네이밍 컨벤션
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unity-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity Export 기능
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unity Export 기능">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개요
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ugui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UGUI 워크플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NGUI 워크플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좌표 변환
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-_unity_layoutjson-v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON 구조 (_unity_layout.json, v3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ugui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UGUI 임포터 생성 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NGUI 임포터 생성 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fxc_meshquad-shader-fx-quad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FXC_MeshQuad (Shader FX Quad 워크플로우)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FXC_MeshQuad (Shader FX Quad 워크플로우)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        출력 파일 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C# 클래스 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 계층 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        워크플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설계 결정 사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_extractorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        백엔드 함수 (psd_extractor.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개발 환경
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev_journal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Journal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../human_vs_ai_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vs Ai Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer_exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer Exporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming_convention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_ctk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Ctk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_dev_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_technical_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Technical Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    태그
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        도구 구성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="도구 구성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-psd_extractor_gui_qtpy-qt-gui-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. psd_extractor_gui_qt.py (Qt GUI - 권장)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. psd_extractor_gui_qt.py (Qt GUI - 권장)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        주요 특징
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GUI 레이아웃 (타이틀 없는 패널 구조)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프리뷰 동작
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        키보드/마우스 동작
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export 동작
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다크 테마 컬러
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-psd_extractor_guipy-gui-customtkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. psd_extractor_gui.py (GUI - 레거시 CustomTkinter)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-psd_extractorpy-cli-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. psd_extractor.py (CLI - 개발자/자동화 권장)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-psd_ai_interfacepy-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. psd_ai_interface.py (AI Agent 인터페이스)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-layer_exporterpy-photoshop-com" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. layer_exporter.py (Photoshop COM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-layerexporterjsx-photoshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. LayerExporter.jsx (Photoshop 내장 스크립트)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프로젝트 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심 기능
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qt-gui-psd_extractor_gui_qtpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qt GUI 아키텍처 (psd_extractor_gui_qt.py)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Qt GUI 아키텍처 (psd_extractor_gui_qt.py)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        호버/Dim 프리뷰 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다중 선택 프리뷰 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        세션 자동 저장/복원 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-kren" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto (KR→EN) 번역 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        네이밍 컨벤션
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unity-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity Export 기능
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unity Export 기능">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개요
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ugui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UGUI 워크플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NGUI 워크플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        좌표 변환
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-_unity_layoutjson-v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON 구조 (_unity_layout.json, v3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ugui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UGUI 임포터 생성 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NGUI 임포터 생성 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fxc_meshquad-shader-fx-quad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FXC_MeshQuad (Shader FX Quad 워크플로우)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FXC_MeshQuad (Shader FX Quad 워크플로우)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        출력 파일 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C# 클래스 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 계층 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        워크플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설계 결정 사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_extractorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        백엔드 함수 (psd_extractor.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개발 환경
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="psd-layer-exporter-project-overview">PSD Layer Exporter - Project Overview<a class="headerlink" href="#psd-layer-exporter-project-overview" title="Permanent link">&para;</a></h1>
+<p>이 프로젝트는 Photoshop PSD 파일의 레이어를 개별 이미지로 추출하고 이름을 변경하는 도구 모음입니다.
+2D 게임 캐릭터 리깅/애니메이션(Spine 등) 워크플로우에 최적화되어 있습니다.</p>
+<h2 id="_1">도구 구성<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1-psd_extractor_gui_qtpy-qt-gui-">1. psd_extractor_gui_qt.py (Qt GUI - 권장)<a class="headerlink" href="#1-psd_extractor_gui_qtpy-qt-gui-" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PySide6 기반 고성능 GUI</strong> (CustomTkinter 대비 대폭 성능 개선)</li>
+<li>Photoshop 스타일 다크 테마 (Fusion + QPalette + QSS)</li>
+<li>psd_extractor.py의 핵심 로직을 import하여 사용</li>
+<li>실행: <code>python psd_extractor_gui_qt.py</code></li>
+</ul>
+<h4 id="_2">주요 특징<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>가상화 레이어 리스트</strong>: QListView + QAbstractListModel + QStyledItemDelegate (paint 기반, 수백 행도 동일 속도)</li>
+<li><strong>트리 뷰 모드</strong>: Group 버튼으로 플랫/트리 토글. 그룹 폴더 헤더(20px) + 들여쓰기로 계층 구조 표시. 그룹 헤더 폰트는 레이어명과 동일 (Segoe UI 9pt, 색상 #b0964a). 플랫 모드에서는 그룹 경로 숨김 (1줄 표시)</li>
+<li><strong>레이어 표시 토글</strong>: Layer 버튼으로 아트 레이어 표시/숨김. 트리 모드에서는 그룹 헤더만 남고, 플랫 모드에서는 빈 목록. 기본값 ON. 세션 저장에 포함</li>
+<li><strong>그룹 접기/펼치기</strong>: 트리 모드에서 그룹 헤더 클릭 시 하위 레이어 접기/펼치기 토글. 접힌 그룹은 ▶ 아이콘, 펼친 그룹은 ▼ 아이콘. 세션 저장 시 접힌 상태 보존</li>
+<li><strong>PSD 실시간 감시</strong>: QFileSystemWatcher로 PSD 파일 변경 자동 감지 → 300ms 딜레이 후 자동 reload. Refresh 버튼으로 수동 reload 가능</li>
+<li><strong>프로젝트 프리셋</strong>: 프로젝트별 Export 경로 + Unity 타입(UGUI/NGUI) 저장/전환 (콤보+✎ 매니저). QSettings 영속화. 4개 기본 프로젝트 (포커 PC/모바일=NGUI, 바둑 PC/모바일=UGUI). 프로젝트 선택 시 Unity 타입 자동 전환. 프로젝트 경로 + PSD명 조합으로 output 경로 자동 결정. 세션에 project_name 저장. Project Manager 다이얼로그에서 UGUI/NGUI 드롭다운 색상 구분 (UGUI=#4FC1E9, NGUI=#8CC152). <strong>unity_type 데이터 격리</strong>: Output 패널의 UGUI/NGUI 세그먼트 변경은 프로젝트 데이터에 반영하지 않음 — Project Manager 다이얼로그만이 프로젝트의 unity_type 변경 가능 (의도치 않은 데이터 변경 방지)</li>
+<li><strong>Auto Export</strong>: PSD 변경 감지 시 자동 Export (세션 복원 후 500ms 딜레이). Export 패널 체크박스로 ON/OFF. 세션에 auto_export 상태 저장</li>
+<li><strong>가시성 연동</strong>: 눈 아이콘 OFF 레이어는 이름이 dim 처리 (#666666), 머지 프리뷰에서 즉시 제외</li>
+<li><strong>프리뷰</strong>: QGraphicsView + QGraphicsScene (1:1 기본 표시, 휠 줌 10%~1600%, 더블클릭 100% 리셋, Fit 버튼)</li>
+<li><strong>다중 선택 프리뷰</strong>: Ctrl+Click / Shift+Click으로 여러 레이어 선택 시 PSD 좌표 기준으로 합성하여 프리뷰 표시 (레이어 뎁스 순서 유지)</li>
+<li><strong>머지 프리뷰</strong>: PSD 로드 시 <code>psd.topil()</code> (내장 플래트 이미지)로 즉시 표시 → <code>composite()</code> 대비 ~90배 빠름</li>
+<li><strong>호버 프리뷰</strong>: 레이어 위에 마우스 호버 → 머지 이미지를 Dim 처리 + 호버 레이어만 100% 표시. 클릭 시 solo 프리뷰. 호버 감지 범위는 레이어명 영역까지만 (rename 입력란 제외)</li>
+<li><strong>줌 유지</strong>: 레이어 전환/호버 시 현재 줌 레벨 유지 (QGraphicsPixmapItem.setPixmap으로 in-place 교체)</li>
+<li><strong>프리뷰 오버레이 UI</strong>: 프리뷰 영역 내부에 떠있는 반투명 오버레이로 컨트롤 배치. 모든 토글 버튼은 OFF 시 아이콘이 dim 처리 (색상 유지, alpha 80)</li>
+<li><strong>하단 가운데</strong>: Tint | BG | Dim (배경색, 투명도 조절)</li>
+<li><strong>상단 오른쪽</strong>: 줌% | ▢(아웃라인) | □(POT) | ┌┘(크롭) | ✛(십자선) | ◎(피봇-빨강) | ◎(레이어피봇-시안) | Info | Fit</li>
+<li><strong>배경색 선택</strong>: 6종 프리셋 (투명/흰/검/빨/초/파) + 커스텀 컬러 피커. 투명 배경은 체커보드 표시</li>
+<li><strong>Dim 설정</strong>: 호버 시 비활성 레이어의 투명도(0~100%) 슬라이더 + Tint 단색 모드 (색상 선택 가능). Dim 라벨 더블클릭 시 기본값 30% 복원</li>
+<li><strong>PSD 정보 오버레이</strong>: 프리뷰에서 Tab 키 → 파일명, 크기, 레이어 정보를 좌상단에 토글 표시</li>
+<li><strong>레이어 정보 오버레이</strong>: 프리뷰 이미지 아웃라인 하단 가운데에 레이어명/사이즈 표시 (drawForeground). Info 버튼으로 토글</li>
+<li><strong>십자선 오버레이</strong>: 프리뷰 이미지 중심에 십자선 표시. ✛ 버튼으로 토글</li>
+<li><strong>피봇 마커 오버레이</strong>: Pivot 콤보 선택 시 프리뷰 이미지 위에 피봇 위치를 빨간 십자+원 마커로 표시. QGraphicsLineItem + QGraphicsEllipseItem (cosmetic pen). PSD 로드/레이어 전환/줌 시 유지. Pivot 변경 시 즉시 갱신. 상단 오버레이의 피봇 토글 버튼(기본 ON)으로 표시/숨김</li>
+<li><strong>아웃라인 토글</strong>: 프리뷰 이미지 경계선 표시/숨김 (기본 ON, #515151, cosmetic pen)</li>
+<li><strong>다크 컬러 다이얼로그</strong>: Tint/BG 커스텀 색상 선택 시 QColorDialog에 다크 테마 적용</li>
+<li><strong>로그 패널 접기</strong>: 기본 숨김, Row3 오른쪽 Log 체크박스로 토글 + × 버튼으로 로그 내용 삭제</li>
+<li><strong>스레딩</strong>: QThread + Worker (export), QRunnable + QThreadPool (썸네일/프리로드/머지 생성/Ollama 번역)</li>
+<li><strong>PSD 파일 히스토리</strong>: 편집 가능 QComboBox + QSettings 영속 저장</li>
+<li><strong>세션 자동 저장/복원</strong>: PSD 파일 옆에 <code>.session.json</code> 저장. PSD 로드 시 세션 자동 복원. PSD 전환/앱 종료 시 자동 저장. 체크/가시성/rename/트리모드/접힌그룹/Rename설정/Format/Merge/Quality/Padding/Unity/UGUI·NGUI/Pivot/Auto Ver/Output경로/프리뷰BG/Dim/Tint/Log/Layer표시 보존. Restore 버튼으로 세션 적용 전 원본 PSD 상태 복원</li>
+<li><strong>Rename Prefix/Find/Replace 더블클릭</strong>: 빈 필드 더블클릭 시 기본값 "fxt_" 자동 입력 (Prefix, Find, Replace 공통)</li>
+<li><strong>Rename 중복 감지</strong>: 동일한 rename 이름이 2개 이상이면 빨간색(#e05050)으로 표시. 실시간 갱신</li>
+<li><strong>원본 레이어명 중복 경고</strong>: PSD에서 동일한 레이어명이 2개 이상이면 주황색(#e0a050)으로 표시 + rename 필드에 "⚠ duplicate name" 플레이스홀더</li>
+<li><strong>Auto (KR→EN) Rename</strong>: Ollama/Groq LLM으로 한글 레이어명을 영문 snake_case로 자동 번역. 딕셔너리 우선 + 복합어 분리 + 혼합 이름 분해 + 캐시 + LLM 폴백. 그룹명 컨텍스트(즉시 부모만) 전달로 동음이의어 구분 (예: 팔/위→arm_upper). 그룹명=레이어명일 때 컨텍스트 생략 (중복 방지). 그룹명에는 prefix 미적용 (fxt_ 제외). noun_modifier 어순 (명사 우선: arm_upper, item_inner). 영어 이름은 prefix만 적용 (ribbon_01→fxt_ribbon_01). 혼합 이름(리본end)은 세그먼트 분리 후 사전 변환. 네이밍 규칙: <a href="docs/naming_convention.md">docs/naming_convention.md</a></li>
+<li><strong>Ollama/Groq Provider 선택</strong>: Ollama(로컬) 또는 Groq(클라우드) 선택 가능. Groq는 무료 tier로 32B 모델 사용, 동적 모델 목록 API 조회, 추천 모델 초록색 표시, 토큰 사용량 실시간 표시</li>
+<li><strong>Ollama 모델 프리로드</strong>: 앱 UI 표시 3초 후 백그라운드에서 모델을 GPU에 미리 로드 (콜드 스타트 방지). 앱 부하 없음, Ollama 서버 측에서만 메모리 사용</li>
+<li><strong>Ollama 상태 애니메이션</strong>: 모델 로딩/번역 중 <code>·</code> → <code>··</code> → <code>···</code> 순환 애니메이션 표시 (400ms 간격). 상태 라벨에 모델명 항상 표시 ("Ready (qwen2.5:3b)")</li>
+<li><strong>그룹 리네임</strong>: 트리 모드에서 그룹 헤더에 rename 입력란 표시. 클릭으로 직접 편집 가능. Auto (KR→EN) 모드에서 한글 그룹명도 자동 번역 + <code>_group</code> 서픽스 자동 추가 (AI 구분용). 세션 저장 시 보존. 동일 이름 그룹도 경로(path-tuple) 기반으로 독립 rename 가능</li>
+<li><strong>그룹 rename 중복 감지</strong>: 동일 rename 이름의 그룹이 2개 이상이면 빨간색(#e05050)으로 표시 + Export 시 경고. 경로 기반 카운팅으로 정확한 중복 판정</li>
+<li><strong>그룹 접기 하위 그룹 숨김</strong>: 상위 그룹이 접힌 상태에서 하위 그룹 헤더도 완전히 숨김 (선조 접힘 검사 우선 적용)</li>
+<li><strong>Rename Post-Edit</strong>: 1차 Rename 후 후처리 도구 행. Find/Replace(전체 또는 선택), +Prefix, +Suffix, +# 넘버링(01/001), 넘버링 방향(↓/↑), Reset, Apply Edit. Rename 패널 내 항상 표시</li>
+<li><strong>Rename 패널 분리</strong>: Rename 도구 전체(Rename 행 + Edit 행)를 레이어 패널과 설정 패널 사이에 독립 QGroupBox로 분리</li>
+<li><strong>Undo/Redo</strong>: Rename + Check + Visible + POT + Lock + Pivot + Crop 상태를 최대 30단계 스냅샷 저장 (9-tuple). Ctrl+Z/Ctrl+Shift+Z 또는 Edit 행 ←/→ 버튼. 모든 배치 작업(Auto/Sequential/Body Part/Find&amp;Replace/Post-Edit/Clear) + 개별 체크/가시성/잠금 변경 + Restore/Deselect/Visible 버튼 모두 Undo 가능. PSD 전환 시 스택 초기화</li>
+<li><strong>Alt+더블클릭 단어 선택</strong>: Rename/Find/Replace 편집 필드에서 Alt+더블클릭 시 <code>_</code> 구분자 기준 개별 단어만 선택 (_RenameLineEdit 서브클래스)</li>
+<li><strong>선택 기반 Rename</strong>: 하이라이트된 레이어가 있으면 그것만 rename 적용, 없으면 전체 (Sequential/Body Part/Auto 모두)</li>
+<li><strong>Sequential Rename 그룹 헤더 제외</strong>: 트리 모드에서 그룹 헤더가 시퀀스 번호를 소비하지 않음 (01부터 정상 시작)</li>
+<li><strong>선택 슬롯 (S1~S5)</strong>: 레이어 선택 조합을 5개 슬롯에 저장/불러오기. QSettings 영속화. 빈 슬롯 Click=저장, 채워진 슬롯 Click=로드, Ctrl+Click=삭제</li>
+<li><strong>레이어 검색</strong>: 프리뷰 하단 검색란으로 레이어명 실시간 필터링 (대소문자 무시, X 버튼으로 초기화). 플랫/트리 모드 모두 지원</li>
+<li><strong>Restore 버튼</strong>: PSD 경로 행의 Refresh 왼쪽에 배치. PSD 로드 시점의 체크/가시성/rename 상태를 스냅샷으로 저장, 클릭 시 초기 상태 완전 복원 (레이어 순서/트리 모드/그룹 rename도 리셋)</li>
+<li><strong>QPainter 커스텀 아이콘</strong>: 툴바 버튼(Order/Visible/Deselect/Group/Restore)에 QPainter로 직접 그린 14x14 벡터 아이콘 적용</li>
+<li><strong>선택 하이라이트 강화</strong>: 선택된 레이어의 No 번호를 악센트 컬러(#2680EB)로 표시</li>
+<li><strong>단축키 도움말 팝업</strong>: PSD 경로 행의 ? 버튼 호버 시 테두리 없는 단축키 설명 팝업 표시</li>
+<li><strong>Space 포커스 모드</strong>: 프리뷰 영역에서 Space 키 → PSD 경로/Rename/Settings/Export 패널 모두 숨김 (레이어 리스트+프리뷰만 표시). 다시 Space 누르면 복원</li>
+<li><strong>Ctrl+Enter Edit 단축키</strong>: Edit 행의 Find/Replace/Prefix/Suffix 필드에서 Ctrl+Enter → Apply Edit 실행</li>
+<li><strong>선택 하이라이트 색상</strong>: 선택된 레이어 배경을 다크 네이비(#2d3748)로 표시하여 비선택과 확실히 구분</li>
+<li><strong>POT (Power of Two) Export</strong>: 이미지 캔버스를 2의 거듭제곱 크기로 확장. Auto(자동 계산)/Manual(수동 지정) 모드. 배경색 4종(T/B/W/C, 16x16 색상 사각형 버튼). Nuke Reformat Resize Type 6종 (None/Fit/Fill/Width/Height/Distort) 지원. POT 계산: Ceil(항상 올림) / Nearest(가장 가까운 POT) 선택 가능. Settings POT는 프리뷰 설정, Export POT 체크박스로 실제 내보내기 제어. POT 이미지는 별도 <code>POT/</code> 서브폴더에 생성</li>
+<li><strong>레이어별 POT 토글</strong>: Settings POT ON 시 레이어 목록에 POT 아이콘 열 표시. 개별 레이어 클릭으로 POT ON/OFF 토글. POT ON 레이어만 <code>POT/</code> 서브폴더에 Export. All/None 버튼으로 전체 일괄 설정. P키로 선택 레이어 일괄 토글. 세션 저장/Undo/Redo에 포함</li>
+<li><strong>POT 프리뷰 오버레이</strong>: 프리뷰 이미지 위에 POT 크기 점선 사각형 + 크기 정보 표시. 레이어 선택/전환 시 자동 갱신. 상단 오버레이의 POT 토글 버튼으로 표시/숨김</li>
+<li><strong>POT Resize Type</strong>: Nuke Reformat 노드 기준 — None(스케일 없이 중앙 배치), Fit(전체 보이도록 균일 축소), Fill(캔버스 완전 채우기), Width/Height(축 맞춤), Distort(비균일 스케일로 정확히 채움, 비율 무시)</li>
+<li><strong>다중 배율 동시 Export</strong>: 1x, 0.75x, 0.5x 배율 체크박스. 다중 배율 시 배율별 서브폴더 (<code>1_00x/</code>, <code>0_75x/</code>, <code>0_50x/</code>) 생성</li>
+<li><strong>PNG 압축 레벨</strong>: Fast(1) / Bal(6) / Best(9) 세그먼트 선택</li>
+<li><strong>OxiPNG 무손실 최적화</strong>: pyoxipng 라이브러리로 Pillow 대비 15~40% 파일 크기 축소. 미설치 시 자동 비활성화 + Pillow 폴백. 설치 시 기본 ON</li>
+<li><strong>색상 모드 선택</strong>: RGBA / RGB / Gray 콤보. JPEG 시 RGBA 비활성화</li>
+<li><strong>Rename 중복 정보 표시</strong>: PSD 정보 바에 hidden/duplicate 개수를 색상별로 표시 (HTML 리치 텍스트, 구분선 #555555)</li>
+<li><strong>LLM 번역 안정성 강화</strong>: Qwen3 <code>/no_think</code> 프롬프트, 코드 블록 제거, 추론 텍스트 필터링, <code>&lt;|think|&gt;</code> 태그 지원</li>
+<li><strong>Rename 열 너비 드래그</strong>: 레이어명과 rename 입력란 경계를 마우스로 드래그하여 rename 열 너비 조절. 세션 저장에 포함</li>
+<li><strong>Unity Export 폴더 자동 접미사</strong>: Unity ON 시 출력 폴더명에 <code>_UGUI</code> 또는 <code>_NGUI</code> 접미사 자동 삽입 (버전 앞에 위치). 예: <code>260225_giftBox_UGUI_v1</code>. Output 경로가 Unity 모드에 따라 실시간 갱신</li>
+<li><strong>Auto Version</strong>: 출력 폴더가 이미 존재하면 버전을 자동 증가하여 새 폴더 생성 (<code>_v1</code> → <code>_v2</code>). Export 행의 Auto Ver 체크박스로 제어. QSettings 전역 저장</li>
+<li><strong>Output 경로 Unity 연동</strong>: Unity ON → 프로젝트 경로 적용 (<code>_apply_project_path()</code>), Unity OFF → PSD 파일 경로로 복원 (<code>_psd_default_dir</code>). <code>_on_unity_toggled()</code> 메서드로 전환. <code>_output_base_dir</code>에 원본 경로 보존, <code>_compute_export_dir()</code>로 변환 표시</li>
+<li><strong>Output 폴더 존재 인디케이터</strong>: Browse 왼쪽 QCheckBox(disabled)로 출력 폴더 존재 여부 실시간 표시. QFileSystemWatcher로 부모 디렉토리 감시하여 외부 생성/삭제 즉시 반영</li>
+<li><strong>Output 폴더 삭제</strong>: Delete 버튼으로 출력 폴더 삭제 (다크 스킨 확인 팝업). 폴더 존재 시만 표시</li>
+<li><strong>Open Folder</strong>: PSD 파일이 있는 위치의 폴더 열기</li>
+<li><strong>UGUI/NGUI 색상 구분</strong>: UGUI 활성 시 스카이 블루(#4FC1E9), NGUI 활성 시 그린(#8CC152)으로 텍스트 색상 분리</li>
+<li><strong>다크 스킨 다이얼로그</strong>: 삭제 확인 팝업에 다크 테마 적용 (#2b2b2b 배경, #e0e0e0 텍스트)</li>
+<li><strong>Rename Lock (잠금)</strong>: 레이어/그룹별 rename 잠금. 잠금된 항목은 모든 배치 rename 작업(Auto/Sequential/Body Part/Find&amp;Replace/Post-Edit/Clear)에서 제외. 개별 수동 편집도 차단. L 키로 선택 레이어/그룹 일괄 토글 (하나라도 미잠금→전부 잠금, 전부 잠금→전부 해제). rename 필드에 자물쇠 아이콘(#2680EB) + dim 텍스트(#909090). 레이어: <code>_art_locked</code> 배열, 그룹: <code>_group_locked</code> dict(경로tuple→bool). Undo/Redo(7-tuple)/세션 저장에 포함. Restore 시 초기화</li>
+<li><strong>Per-Layer Pivot (레이어별 피봇)</strong>: 각 레이어마다 독립적인 피봇 포인트(정수 좌표) 설정. 프리뷰에서 드래그/Alt+Click으로 위치 지정, 9-point 스냅(3×3 그리드), 더블클릭으로 리셋. <code>_art_pivot</code> 배열 (POT/Lock과 동일한 듀얼 배열 패턴). Unity RectTransform.pivot에 per-layer 값 반영. JSON에 <code>pivot_local</code> 필드 추가. Undo/Redo(9-tuple)/세션 저장에 포함. Restore 시 초기화. <strong>Reset Pivot 버튼</strong> (Settings Row1, Crop 옆)으로 전체 레이어 피봇 center 초기화 (Undo 가능). <strong>레이어 피봇 버튼 OFF → Export 시 per-layer pivot 무시</strong> (center 사용, 데이터는 보존). 커스텀 피봇 미설정 시 "Pivot (x, y)" 텍스트 숨김. 우클릭 컨텍스트 메뉴로도 Reset All 가능</li>
+<li><strong>Per-Layer Crop (레이어별 자동 크롭)</strong>: 레이어별 투명 영역 자동 크롭 ON/OFF. Settings Row1 <code>Crop</code> 체크박스(전체 ON/OFF) + Threshold 스핀박스(0~254, 기본 10). <code>_art_crop</code> 배열 (듀얼 배열 패턴). C 키로 선택 레이어 개별 토글. 프리뷰에 크롭 오버레이 표시 (dim 영역 + 주황색 점선 경계 + 크기 정보). <strong>프리뷰 상단 Crop 오버레이 토글 버튼</strong> (┌┘ 아이콘, 주황 #e0a050)으로 오버레이 표시/숨김 제어. Settings Crop ON/OFF와 자동 연동. Export 시 <code>crop_transparent()</code> 함수로 실제 크롭 적용, Unity 좌표 보정 (<code>crop_offsets</code>). Undo/Redo(9-tuple)/세션 저장에 포함. Restore 시 초기화</li>
+<li><strong>PSD Export (바이너리)</strong>: rename된 레이어명으로 PSD 파일 직접 저장. psd-tools <code>psd.save()</code> 대신 바이너리 레벨 수정 (Pascal string + luni Unicode 블록만 변경, 나머지 원본 바이트 보존) — Photoshop 호환성 보장</li>
+</ul>
+<h4 id="gui">GUI 레이아웃 (타이틀 없는 패널 구조)<a class="headerlink" href="#gui" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>+------------------------------------------------------------------+
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>| PSD Layer Extractor (Qt)                               [_][O][X]  |
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>+------------------------------------------------------------------+
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>| [경로 QComboBox(히스토리)] [Browse] │ [Restore] [Refresh] [?]       |
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>| 정보: ch.psd | 210x283 px | 23 layers                            |
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>+------------------------------------------------------------------+
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>| +-- QSplitter(H) -----------------------------------------------+|
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>| | QListView (가상화)          |                                  ||
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>| | [01][✓][eye][thumb] name    | QGraphicsView 프리뷰             ||
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>| | [02][✓][eye][thumb] name    |  ┌── 100%|▢|□|┌┘|✛|◎|◎|Info|Fit ─┐    ||
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>| | [03][ ][eye][thumb] name    |  │                          │    ||
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>| |  (dim name if eye off)      |  │    [Tab: PSD 정보]       │    ||
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>| |  ▼ Group Header (접기 가능) |  │                          │    ||
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>| |  │ [01] layer (들여쓰기)    |  │     layer info text      │    ||
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>| |                             |  └── Tint|BG|Dim ───────────┘    ||
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>| |                             | [Group][Layer]│[Order][Visible][Deselect]||
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>| |                             | [S1][S2][S3][S4][S5][검색란    ] ||
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>| +----------------------------+----------------------------------+|
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>+------------------------------------------------------------------+
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>| Rename [mode▼] [옵션 인라인] ... [Rename] [Clear]                 |
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>| [Ollama|Groq] [model▼] [Key][→][tokens] (Auto 모드)              |
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>| Edit [←][→]│[Find___]→[Replace___][All]│[+Prefix][+Suffix][+# ↓][Apply Edit][Reset]|
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>+------------------------------------------------------------------+
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>| Row1: Format [PNG▼] [✓Merge] | Quality | Padding | Color [RGBA▼] | [☐Crop][threshold] | [Reset Pivot] |
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>| ──────────────────────────── (구분선) ────────────────────────────── |
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>| Row2: [☐POT] [All][None] [Auto|Manual] [W▼ H▼] | BG [T][B][W][C] | [Reset All] |
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>| Row3: Resize Type [None▼] | Scale [✓1x][☐.75x][☐.5x] | [Ceil|Nearest] | PNG [Fast|Bal|Best] [☐OxiPNG] ── [☐Log][×] |
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>+------------------------------------------------------------------+
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>| [출력 경로] [●] [Delete] [Output Browse]                           |
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>| Project [포커 모바일▼][✎] │ [D:\02_GIT\...\Assets\_FX]              |
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>| [☐ Unity] [UGUI|NGUI] │ Pivot [Bottom-Center▼]  진행률 [☐Auto Export] [☐Auto Ver] [☐POT] [EXPORT] [PSD Export] | [Open Folder] |
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>| [QPlainTextEdit 로그] (기본 숨김, Log 체크 시 표시)               |
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>+------------------------------------------------------------------+
+</code></pre></div>
+<h4 id="_3">프리뷰 동작<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>PSD 로드</strong>: <code>psd.topil()</code>로 머지 이미지 즉시 표시 (딜레이 없음)</li>
+<li><strong>레이어 호버</strong>: Dim 처리된 머지 배경 + 호버 레이어 100% 합성 (QPainter compositing)</li>
+<li><strong>단일 레이어 클릭</strong>: 해당 레이어만 solo 프리뷰</li>
+<li><strong>다중 레이어 선택</strong>: 선택된 레이어들을 PSD 좌표 기준으로 합성 프리뷰 (bottom→top 뎁스 순서 유지)</li>
+<li><strong>같은 레이어 재클릭</strong>: 선택 해제 → 머지 프리뷰로 복귀</li>
+<li><strong>선택 없음</strong>: 전체 머지 이미지 표시</li>
+<li><strong>줌 유지</strong>: 레이어 전환/호버 시 현재 줌/스크롤 위치 완전 유지 (setPixmap in-place 교체)</li>
+<li><strong>Dim 슬라이더</strong>: 호버 시 비활성 레이어 투명도 조절 (0~100%, 기본 30%, 라벨 더블클릭으로 리셋)</li>
+<li><strong>Tint 모드</strong>: 비활성 레이어를 단색 실루엣으로 표시 (색상 선택 가능, QPainter CompositionMode_SourceIn)</li>
+<li><strong>BG 색상</strong>: 프리뷰 배경을 투명(체커보드)/흰/검/빨/초/파/커스텀으로 변경</li>
+</ul>
+<h4 id="_4">키보드/마우스 동작<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Ctrl+Z</strong>: Undo (Rename/Check/Visible 상태 되돌리기)</li>
+<li><strong>Ctrl+Shift+Z</strong>: Redo (Undo 되돌리기)</li>
+<li><strong>Ctrl+A</strong>: 전체 레이어 선택 (하이라이트)</li>
+<li><strong>Ctrl+Click</strong>: 다중 선택 추가/해제</li>
+<li><strong>Shift+Click</strong>: 범위 선택 (하이라이트만, 체크 변경 없음)</li>
+<li><strong>Space</strong>: 선택된 레이어 체크 토글 (다중 선택 시 일괄 처리)</li>
+<li><strong>E</strong>: 선택된 레이어 가시성(눈) 토글 (다중 선택 시 일괄 처리)</li>
+<li><strong>P</strong>: 선택된 레이어 POT 토글 (다중 선택 시 일괄 처리, Settings POT ON 시)</li>
+<li><strong>L</strong>: 선택된 레이어 rename 잠금/해제 토글 (다중 선택 시 일괄 처리)</li>
+<li><strong>C</strong>: 선택된 레이어 Crop 토글 (다중 선택 시 일괄 처리, Settings Crop ON 시)</li>
+<li><strong>A</strong>: 레이어 선택 해제 (하이라이트만 해제, 체크 유지). 프리뷰 패널에서도 동일 동작</li>
+<li><strong>Tab (프리뷰 포커스)</strong>: PSD 파일 정보 오버레이 토글 (파일명, 크기, 레이어 수)</li>
+<li><strong>Space (프리뷰 포커스)</strong>: 포커스 모드 토글 (패널 숨김/표시)</li>
+<li><strong>Ctrl+Enter (Edit 필드)</strong>: Apply Edit 실행</li>
+<li><strong>Alt+더블클릭 (Rename/Find/Replace 필드)</strong>: <code>_</code> 구분자 기준 개별 단어 선택</li>
+<li><strong>체크박스 클릭</strong>: 개별 체크 토글</li>
+<li><strong>휠 (프리뷰)</strong>: 줌 (10%~1600%, 단계별)</li>
+<li><strong>더블클릭 (프리뷰)</strong>: 100% 리셋</li>
+<li><strong>더블클릭 (레이어 빈 영역)</strong>: PSD 파일 열기 다이얼로그</li>
+<li><strong>더블클릭 (PSD 경로란)</strong>: 마지막 열었던 파일 자동 로드</li>
+<li><strong>더블클릭 (Rename Prefix/Find/Replace)</strong>: 빈 필드에 기본값 "fxt_" 자동 입력</li>
+<li><strong>더블클릭 (Dim 라벨)</strong>: Dim 값을 기본 30%로 복원</li>
+</ul>
+<h4 id="export">Export 동작<a class="headerlink" href="#export" title="Permanent link">&para;</a></h4>
+<ul>
+<li>EXPORT 클릭 → "Exporting..." (비활성) → 진행률 표시 → "Complete ✓" (초록, 2초) → "EXPORT" 복귀</li>
+<li>Merge 체크박스 ON 시 <code>_merged.png/jpg</code> 함께 내보내기</li>
+<li>Unity 체크박스 ON + UGUI/NGUI 모드 선택 + Pivot(9방향) 설정:</li>
+<li><strong>UGUI</strong>: <code>fxc_psdImporter_{name}.json</code> + <code>Editor/FXC_PSDImporter_{Stem}.cs</code> (Canvas+Image, PSD별 고유 클래스명)</li>
+<li><strong>NGUI</strong>: <code>fxc_psdImporter_{name}.json</code> + <code>Editor/FXC_PSDImporterNGUI_{Stem}.cs</code> (UISprite+Atlas+depth)</li>
+<li><strong>C# 고유 클래스명</strong>: 출력 폴더명에서 PascalCase 접미사 생성 (예: <code>260225_giftBox_UGUI_v1</code> → <code>FXC_PSDImporter_260225GiftboxUguiV1</code>). 여러 PSD Export 시 네임스페이스 충돌 방지. 데이터 클래스(PSDLayout 등)는 Editor 클래스 내부에 중첩하여 전역 네임스페이스 충돌 방지</li>
+<li><strong>Pivot 시스템</strong>: 9방향 피봇 콤보 (Top-Left ~ Bottom-Right, 기본 Bottom-Center). JSON v3에 pivot 좌표 포함, C# 임포터에서 동적 anchor 적용</li>
+<li><strong>파일명 충돌 방지</strong>: 동일 레이어명이 있을 때 자동 접미사(_1, _2) 추가하여 파일 덮어쓰기 방지</li>
+<li><strong>Export 파이프라인</strong>: Extract(RGBA) → Crop → Scale → Pad → POT → ColorMode → Save/OxiPNG</li>
+<li><strong>Export POT 분리</strong>: Settings POT는 프리뷰 설정용, Export 버튼 왼쪽 POT 체크박스로 실제 내보내기 제어. POT 이미지는 <code>POT/</code> 서브폴더에 별도 생성 (기본 이미지는 항상 Pad만 적용)</li>
+<li><strong>다중 배율</strong>: 배율별 서브폴더 구조, Unity JSON도 배율별 생성 (좌표 스케일 적용). C# 임포터는 1x에서만 1회 생성</li>
+<li><strong>Unity 폴더 접미사</strong>: Unity ON 시 출력 폴더명에 <code>_UGUI</code>/<code>_NGUI</code> 자동 삽입 (기존 접미사 중복 방지, 버전 앞 위치). regex로 <code>_v\d+</code> 분리 후 삽입</li>
+<li><strong>Auto Version</strong>: Export 시 폴더 존재하면 자동으로 <code>_v2</code>, <code>_v3</code> 등 증가. 버전 없는 PSD 파일에 Auto Ver ON 시 <code>_v1</code> 자동 추가. <code>_compute_export_dir()</code> 메서드로 경로 변환. 출력 경로에 실시간 반영</li>
+<li><strong>POT Info JSON</strong>: POT Export 시 <code>POT/_pot_info.json</code> 자동 생성 (psd_file, pot_calc, resize_type, layers[{name,file,original{w,h},pot{w,h}}]). original = Pad 후 POT 전 크기 (Unity Quad 메쉬 크기)</li>
+<li><strong>FXC_MeshQuad C# 자동 생성</strong>: POT Export + 1x 배율 시 <code>FXC_MeshQuad.cs</code> + <code>Editor/FXC_MeshQuadEditor.cs</code> 자동 출력 (미존재 시만). PSD별 고유 클래스명 (<code>.replace("FXC_MeshQuad", unique_cls)</code> 패턴)</li>
+<li>QThread Worker로 백그라운드 실행, UI 블로킹 없음</li>
+</ul>
+<h4 id="_5">다크 테마 컬러<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>#1e1e1e  → 윈도우/캔버스 배경
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>#2b2b2b  → 패널 배경
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>#323232  → 레이어 리스트 배경
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>#535353  → 입력 필드
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>#3c3c3c  → 테두리, 버튼 배경
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>#e0e0e0  → 기본 텍스트
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>#666666  → 비활성 텍스트 (눈 OFF 레이어명)
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>#b0964a  → 그룹 헤더 (트리 모드 폴더 아이콘/텍스트)
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>#e0a050  → 경고-약 (원본 레이어명 중복)
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>#e05050  → 경고-강 (Rename 중복 이름, 오류)
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>#6a8a3a  → 그룹 rename 텍스트
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>#2d3748  → 선택된 레이어 배경 (다크 네이비)
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>#2680EB  → 악센트 (Export 버튼, 체크박스)
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>#4FC1E9  → UGUI 활성 텍스트 (Unity 스카이 블루)
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>#8CC152  → NGUI 활성 텍스트 (소프트 그린)
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>#4ec94e  → 추천 모델 텍스트 (Groq 모델 드롭다운)
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>rgba(30,30,30,200) → 프리뷰 오버레이 배경
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>alpha 80 → 토글 버튼 OFF dim 처리 (각 색상 유지, 불투명도만 감소)
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>Segoe UI 9pt (시스템 폰트 통일)
+</code></pre></div>
+<h3 id="2-psd_extractor_guipy-gui-customtkinter">2. psd_extractor_gui.py (GUI - 레거시 CustomTkinter)<a class="headerlink" href="#2-psd_extractor_guipy-gui-customtkinter" title="Permanent link">&para;</a></h3>
+<ul>
+<li>CustomTkinter 기반 GUI (기존 버전, 유지만 함)</li>
+<li>위젯 생성 성능 이슈 있음 (Qt 버전 권장)</li>
+<li>실행: <code>python psd_extractor_gui.py</code></li>
+</ul>
+<h3 id="3-psd_extractorpy-cli-">3. psd_extractor.py (CLI - 개발자/자동화 권장)<a class="headerlink" href="#3-psd_extractorpy-cli-" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Photoshop 불필요</strong>. psd-tools + Pillow로 PSD를 직접 파싱</li>
+<li>20개 레이어 기준 <strong>~3.6초</strong> (Photoshop 방식 대비 41배 빠름)</li>
+<li>Qt GUI와 CLI 모두 이 파일의 핵심 함수를 공유: <code>collect_layers</code>, <code>extract_layer_image</code>, <code>apply_padding</code>, <code>apply_pot</code>, <code>next_pot</code>, <code>nearest_pot</code>, <code>convert_color_mode</code>, <code>save_png_oxipng</code>, <code>sanitize_filename</code>, <code>_get_group_path</code>, <code>collect_layer_metadata</code>, <code>crop_transparent</code></li>
+<li>자세한 내용: <a href="docs/psd_extractor.md">docs/psd_extractor.md</a></li>
+</ul>
+<h3 id="4-psd_ai_interfacepy-ai-agent">4. psd_ai_interface.py (AI Agent 인터페이스)<a class="headerlink" href="#4-psd_ai_interfacepy-ai-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>psd_extractor.py 백엔드를 그대로 import하여 AI가 호출하기 최적화된 구조화된 입출력 제공</li>
+<li><strong>ExportTask</strong> (dataclass) — 인간 GUI의 42개 위젯을 1개 구조체로 통합</li>
+<li><strong>PSDAgent.run()</strong> — 태스크 실행 → ExportResult(dataclass) 반환 (JSON 직렬화 가능)</li>
+<li><strong>inspect_psd()</strong> — PSD 구조 분석 → PSDInfo(dataclass) 반환 (레이어명/크기/위치/그룹/이펙트)</li>
+<li><strong>프리셋</strong>: spine_character, unity_ngui_fx, unity_ugui, web_assets, quick_check</li>
+<li><strong>CLI</strong>: <code>python psd_ai_interface.py inspect ch.psd</code>, <code>run ch.psd --preset unity_ngui_fx</code>, <code>--dry-run</code></li>
+<li><strong>YAML/JSON 설정 파일</strong> 지원: <code>run ch.psd --config task.yaml</code></li>
+<li><strong>수치 기반 검증</strong>: ExportResult.validation (파일 존재, 빈 파일, 이름 충돌, 크기 이상 자동 검사)</li>
+<li>프리뷰/Undo/세션/슬라이더 없음 — AI에게 불필요한 시각적 요소 제거</li>
+<li>실행: <code>python psd_ai_interface.py run ch.psd --preset quick_check</code></li>
+<li>상세 비교: <a href="docs/human_vs_ai_workflow.md">docs/human_vs_ai_workflow.md</a></li>
+</ul>
+<h3 id="5-layer_exporterpy-photoshop-com">5. layer_exporter.py (Photoshop COM)<a class="headerlink" href="#5-layer_exporterpy-photoshop-com" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Photoshop이 실행 중이어야 함 (COM 연결)</li>
+<li>Python에서 eval_javascript()로 JSX 실행</li>
+<li>20개 레이어 기준 ~148초</li>
+<li>자세한 내용: <a href="docs/layer_exporter.md">docs/layer_exporter.md</a></li>
+</ul>
+<h3 id="5-layerexporterjsx-photoshop">5. LayerExporter.jsx (Photoshop 내장 스크립트)<a class="headerlink" href="#5-layerexporterjsx-photoshop" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Photoshop File &gt; Scripts &gt; Browse로 실행</li>
+<li>ScriptUI 다이얼로그 제공</li>
+<li>자세한 내용: <a href="docs/layer_exporter.md">docs/layer_exporter.md</a></li>
+</ul>
+<h2 id="_6">프로젝트 구조<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>d:\_AI Tool\PSD\
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  psd_extractor_gui_qt.py # GUI (PySide6, 권장)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  psd_extractor_gui.py    # GUI (CustomTkinter, 레거시)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  psd_extractor.py        # Standalone CLI (psd-tools, 백엔드 공유)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  psd_ai_interface.py     # AI Agent용 인터페이스 (구조화된 입출력)
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  photoshop_theme.json    # CTk GUI 테마 (Photoshop 컬러 팔레트)
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  layer_exporter.py       # Photoshop COM 기반 CLI
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  LayerExporter.jsx       # Photoshop 내장 스크립트 (ScriptUI)
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  rename_config.json      # 레이어 이름 변경 설정 (배열 형식)
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  requirements.txt        # Python 의존성
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  CLAUDE.md               # 프로젝트 개요 (AI 컨텍스트)
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  docs/
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    README.md             # 도구 가이드 총 목차
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    psd_extractor_gui_qt.md  # Qt GUI 상세 사용법
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    psd_extractor_gui_ctk.md # CTk GUI 상세 사용법
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    psd_extractor.md      # Standalone CLI 상세 문서
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    layer_exporter.md     # Photoshop 기반 도구 상세 문서
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    dev_journal.md        # 개발 일지 (Phase별 의사결정 기록)
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    unity_dev_history.md  # Unity UGUI Import 개발 히스토리
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    human_vs_ai_workflow.md # 인간 vs AI 워크플로우 비교 토론 기록
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>  _sample/
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    ch.psd                # 테스트용 캐릭터 PSD (23레이어)
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    ch_01.psd             # 테스트용 PSD 변형본
+</code></pre></div>
+<h2 id="_7">핵심 기능<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>레이어 목록 조회</strong>: PSD 내 모든 레이어의 이름, 가시성, 계층 구조 출력</li>
+<li><strong>트리 뷰</strong>: 그룹 폴더 헤더 + 들여쓰기로 계층 표시, 플랫 모드에서는 그룹 경로 2줄 표시</li>
+<li><strong>가시성 연동</strong>: 눈 OFF → 레이어명 dim 처리 + 머지 프리뷰에서 즉시 제외</li>
+<li><strong>레이어 이름 변경</strong>: 4가지 모드 (Manual/Sequential/Body Part/Auto KR→EN), 한글 바디파트 자동 매핑 + Ollama LLM 번역</li>
+<li><strong>Rename 중복 감지</strong>: 동일 export name이 2개 이상이면 빨간색으로 실시간 표시</li>
+<li><strong>개별 레이어 PNG/JPEG 내보내기</strong>: 체크 선택, Visible 필터, 다중 선택 지원</li>
+<li><strong>다중 선택 합성 프리뷰</strong>: Ctrl/Shift 클릭으로 여러 레이어 선택 시 PSD 원본 뎁스 순서로 합성 프리뷰</li>
+<li><strong>Merge 이미지</strong>: 전체 레이어 합성 이미지 내보내기 (옵션)</li>
+<li><strong>Unity UGUI Export</strong>: 레이어 위치/크기/계층 메타데이터 JSON + Unity C# 임포터 스크립트 내보내기</li>
+<li><strong>Pad 패딩</strong>: 각 축 +N px 추가. Even 체크 ON(기본) 시 홀수면 +1로 짝수 맞춤, OFF 시 홀수 유지</li>
+<li><strong>고정 패딩</strong>: Width/Height 별도 지정</li>
+<li><strong>레이어별 자동 크롭</strong>: 투명 영역 자동 제거 (threshold 조절 가능). 프리뷰 오버레이로 크롭 결과 확인. Unity 좌표 자동 보정</li>
+<li><strong>POT 캔버스 확장</strong>: Power of Two 크기로 확장 + Nuke Reformat Resize Type 6종</li>
+<li><strong>다중 배율 Export</strong>: 1x/0.75x/0.5x 동시 내보내기</li>
+<li><strong>OxiPNG 최적화</strong>: 무손실 PNG 압축 (pyoxipng)</li>
+<li><strong>색상 모드</strong>: RGBA/RGB/Grayscale 선택</li>
+<li><strong>프리뷰</strong>: 머지 즉시 표시 (topil), 호버 Dim 프리뷰, solo/다중 합성 프리뷰, 줌/패닝, 체커보드/단색 배경, 아웃라인 토글</li>
+<li><strong>프리뷰 오버레이</strong>: 하단(Tint|BG|Dim), 상단(줌%|영역|Fit), Tab(PSD 정보)이 프리뷰 내부에 떠있는 형태</li>
+<li><strong>Dim 프리뷰</strong>: 호버 시 비활성 레이어 투명도 슬라이더 (0~100%) + Tint 단색 모드 (QColorDialog)</li>
+<li><strong>배경색 프리셋</strong>: 투명(체커보드)/흰/검/빨/초/파 + 커스텀 컬러 피커</li>
+<li><strong>로그 패널 접기</strong>: 기본 숨김, Row3 오른쪽 Log 체크로 토글 + × 버튼으로 로그 클리어</li>
+<li><strong>PSD 실시간 감시</strong>: Photoshop에서 저장 시 자동 reload (QFileSystemWatcher)</li>
+<li><strong>세션 자동 저장/복원</strong>: PSD 옆에 <code>.session.json</code> 자동 저장/복원 (체크, 가시성, rename, 트리 상태, Rename 설정, Format/Padding/Unity/Pivot/프리뷰BG/Dim/Tint 등 전체 설정). PSD 로드 시 자동 복원, PSD 전환/앱 종료 시 자동 저장</li>
+<li><strong>Refresh 버튼</strong>: PSD 경로 행의 Browse 오른쪽, 수동 PSD reload</li>
+<li><strong>경로 정규화</strong>: QFileDialog 경로를 Windows 표준 백슬래시()로 변환</li>
+</ul>
+<h2 id="qt-gui-psd_extractor_gui_qtpy">Qt GUI 아키텍처 (psd_extractor_gui_qt.py)<a class="headerlink" href="#qt-gui-psd_extractor_gui_qtpy" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>PSDExtractorQt (QMainWindow)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── LayerListModel (QAbstractListModel)
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│   ├── _art_layers / _art_checked / _art_thumbnails / _art_rename (소스 배열)
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│   ├── _layers / _checked / _thumbnails / _rename (뷰 배열, 트리 모드 시 그룹 헤더 포함)
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│   ├── _initial_checked / _initial_visible — PSD 로드 시점 스냅샷 (Restore용)
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│   ├── _search_text — 검색 필터 문자열 (빈 문자열이면 전체 표시)
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   ├── _collapsed_groups — 접힌 그룹 경로 집합 (set of tuple)
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   ├── _rename_duplicates — 중복된 rename 이름 집합 (실시간 갱신)
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   ├── _orig_name_duplicates — 원본 레이어명 중복 집합 (주황색 경고용)
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│   ├── _group_rename_map — 그룹경로tuple→변경명 매핑 (dict, 동일명 그룹 독립 rename)
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│   ├── _tree_guide_cache — 트리 가이드라인 사전 계산 캐시 (frozenset per row)
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>│   ├── set_tree_mode() → _rebuild_view() → _build_tree_view() (그룹 헤더 삽입)
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>│   ├── set_search_text() → _rebuild_view() (검색 필터 적용)
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>│   ├── toggle_group_collapsed(row) — 그룹 헤더 접기/펼치기 토글
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>│   ├── duplicates_changed (Signal) — 중복 개수 변경 시 발신 → info bar 갱신
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>│   ├── _refresh_rename_duplicates() — _art_rename 중복 검사 + _rename_duplicates 갱신
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>│   ├── _refresh_orig_name_duplicates() — 원본 레이어명 중복 검사
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>│   ├── is_rename_duplicate(name) / is_orig_name_duplicate(name) — 중복 확인
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>│   ├── set_group_rename() / get_group_rename() / get_group_rename_map() — 그룹 rename 관리
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>│   ├── set_show_art_layers() — 아트 레이어 표시/숨김 토글 (Layer 버튼)
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>│   ├── restore_initial_state() — 초기 체크/가시성/rename 복원
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>│   ├── is_group(row) — 해당 행이 그룹 헤더인지 확인
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>│   ├── set_thumbnail_by_art_idx() — 아트 인덱스 기준 썸네일 설정 (트리 모드 안전)
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>│   ├── _art_pot / _pot — 레이어별 POT 토글 상태 (소스/뷰 배열)
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>│   ├── _initial_pot — PSD 로드 시점 POT 스냅샷 (Restore용)
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>│   ├── _art_locked / _locked — 레이어별 rename 잠금 상태 (소스/뷰 배열)
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>│   ├── _initial_locked — PSD 로드 시점 잠금 스냅샷 (Restore용)
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>│   ├── _art_pivot / _pivot — 레이어별 피봇 좌표 ((int,int) or None) (소스/뷰 배열)
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>│   ├── _initial_pivot — PSD 로드 시점 피봇 스냅샷 (Restore용)
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>│   ├── _art_crop / _crop — 레이어별 자동 크롭 ON/OFF (소스/뷰 배열)
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>│   ├── _initial_crop — PSD 로드 시점 크롭 스냅샷 (Restore용)
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>│   └── Roles: Checked, Visible, Thumbnail, Rename, LayerInfo, OrigNo, IsGroup, TreeDepth, Pot, Lock, Pivot, Crop
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>├── LayerDelegate (QStyledItemDelegate)
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>│   ├── 그룹 헤더 행: ▼/▶ 아이콘 (#b0964a) + 원본 그룹명 + rename 입력란 (클릭 편집)
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>│   ├── 아트 레이어 행: No + 체크박스 + 눈 + [POT] + 썸네일 + 이름 (1줄 표시, 그룹 경로 숨김)
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>│   ├── _pot_column_visible — POT 아이콘 열 표시 플래그 (Settings POT 연동)
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>│   ├── _crop_column_visible — Crop 인디케이터 표시 플래그 (Settings Crop 연동)
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>│   ├── _rename_col_w — rename 열 너비 (드래그 조절 가능, 세션 저장)
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>│   ├── 선택 하이라이트: No 번호를 악센트 컬러(#2680EB)로 표시
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>│   ├── Rename 중복: rename 텍스트가 중복이면 빨간색(#e05050) 표시
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>│   ├── 원본명 중복: 원본 레이어명이 중복이면 주황색(#e0a050) 표시
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>│   └── 가시성 OFF → 이름 색상 dim (#666666)
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>├── _RenameLineEdit (QLineEdit) — Alt+더블클릭 시 _ 구분자 기준 단어 선택
+<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>├── LayerListView (QListView) — ExtendedSelection, 키보드/마우스/호버 핸들링
+<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>│   ├── preview_requested (Signal(list)) — 선택 변경 시 행 리스트 전달
+<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>│   ├── hover_changed (Signal(int)) — 마우스 호버/떠남 → Dim 프리뷰
+<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>│   ├── state_will_change (Signal()) — Check/Visible/Rename 변경 직전 → Undo 스냅샷
+<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>│   ├── selectionChanged() — 단일/다중 선택 감지 → preview_requested 발신
+<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>│   └── setMouseTracking(True) — mouseMoveEvent/leaveEvent로 호버 감지
+<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>├── PreviewView (QGraphicsView) — 체커보드/단색 배경, 줌, 아웃라인, 오버레이
+<a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>│   ├── _info_overlay (QLabel) — Tab 토글 PSD 정보 (좌상단)
+<a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>│   ├── _bottom_bar (QWidget) — Tint | BG | Dim 오버레이 (하단 가운데)
+<a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>│   ├── _top_bar (QWidget) — 줌% | ▢ | □ | ┌┘ | ✛ | ◎ | ◎ | Info | Fit 오버레이 (상단 오른쪽)
+<a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>│   ├── _layer_info_text / _layer_info_visible — 레이어 정보 오버레이 (이미지 하단)
+<a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>│   ├── _crosshair_visible — 십자선 토글 상태
+<a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>│   ├── _pivot_items / _pivot_pos — 글로벌 피봇 마커 아이템 + 위치 비율 (px, py)
+<a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>│   ├── _layer_pivot_items / _layer_snap_items — 레이어별 피봇 마커 + 9-point 스냅 인디케이터
+<a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a>│   ├── _dragging_pivot — 레이어 피봇 드래그 중 플래그
+<a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a>│   ├── layer_pivot_changed (Signal(object)) — 레이어 피봇 변경 시그널 ((lpx, lpy) or None)
+<a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a>│   ├── set_layer_pivot() — 레이어별 피봇 마커 설정 (9-point 스냅 + 좌표 텍스트)
+<a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a>│   ├── _crop_bbox / _crop_overlay_visible — 크롭 영역 바운딩박스 + 오버레이 표시 플래그
+<a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a>│   ├── set_crop_bbox() — 크롭 오버레이 설정 (dim 영역 + 주황 점선 경계 + 크기 텍스트)
+<a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a>│   ├── drawForeground() — 레이어 정보 + 십자선 + 크롭 오버레이를 뷰포트/씬 좌표로 그림
+<a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a>│   ├── set_bg_color() — 투명(None)/단색(QColor) 배경 전환
+<a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a>│   ├── set_psd_info() — Tab 오버레이 텍스트 설정
+<a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a>│   ├── set_layer_info() — 레이어 정보 텍스트 설정 (이미지 하단 가운데)
+<a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a>│   ├── set_pivot() / _update_pivot_marker() — 피봇 마커 위치 설정/갱신
+<a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a>│   ├── set_pot_rect() / set_pot_info() — POT 크기 점선 사각형 + 정보 텍스트
+<a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a>│   ├── _pot_item (QGraphicsRectItem) — POT 프리뷰 오버레이 (점선, cosmetic pen)
+<a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a>│   ├── toggle_layer_info() / toggle_crosshair() — Info/십자선 토글
+<a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a>│   ├── deselect_requested (Signal()) — ` 키 → 레이어 선택 해제
+<a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a>│   ├── event() 오버라이드 — Tab 키 가로채기 (Qt 포커스 전환 방지)
+<a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a>│   └── _reposition_overlays() — resizeEvent 시 오버레이 위치 재계산
+<a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a>├── SegmentedButton (QWidget) — QButtonGroup + checkable QPushButton
+<a id="__codelineno-3-75" name="__codelineno-3-75" href="#__codelineno-3-75"></a>├── PreloadTask (QRunnable) — 백그라운드 레이어 이미지 캐시 (_cached_img)
+<a id="__codelineno-3-76" name="__codelineno-3-76" href="#__codelineno-3-76"></a>├── ThumbnailTask (QRunnable) — 썸네일 생성 (art index 기준)
+<a id="__codelineno-3-77" name="__codelineno-3-77" href="#__codelineno-3-77"></a>├── MergedTask (QRunnable) — 백그라운드 머지 이미지 생성 (폴백)
+<a id="__codelineno-3-78" name="__codelineno-3-78" href="#__codelineno-3-78"></a>├── ExportWorker (QObject) — QThread에서 export 실행
+<a id="__codelineno-3-79" name="__codelineno-3-79" href="#__codelineno-3-79"></a>├── QFileSystemWatcher — PSD 파일 변경 감시, 자동 reload
+<a id="__codelineno-3-80" name="__codelineno-3-80" href="#__codelineno-3-80"></a>├── _sel_slots [None]*5 — 선택 슬롯 (레이어 이름 리스트, QSettings 영속화)
+<a id="__codelineno-3-81" name="__codelineno-3-81" href="#__codelineno-3-81"></a>├── _translation_cache — Ollama 번역 캐시 (그룹 컨텍스트 포함 키)
+<a id="__codelineno-3-82" name="__codelineno-3-82" href="#__codelineno-3-82"></a>├── _undo_stack / _redo_stack — Undo/Redo 스냅샷 스택 (rename+checked+visible+pot+locked+group_locked+pivot+crop, 9-tuple, 최대 30단계)
+<a id="__codelineno-3-83" name="__codelineno-3-83" href="#__codelineno-3-83"></a>├── _undo_batch — 배치 작업 중 개별 스냅샷 방지 플래그
+<a id="__codelineno-3-84" name="__codelineno-3-84" href="#__codelineno-3-84"></a>├── _ollama_dot_timer (QTimer) — 상태 라벨 순환 애니메이션 (400ms)
+<a id="__codelineno-3-85" name="__codelineno-3-85" href="#__codelineno-3-85"></a>├── _auto_provider (SegmentedButton) — Ollama/Groq Provider 선택
+<a id="__codelineno-3-86" name="__codelineno-3-86" href="#__codelineno-3-86"></a>├── _groq_key_btn / _groq_link_btn — Groq API 키 관리 + 콘솔 링크
+<a id="__codelineno-3-87" name="__codelineno-3-87" href="#__codelineno-3-87"></a>├── _groq_usage_label / _groq_tokens_used — Groq 토큰 사용량 표시
+<a id="__codelineno-3-88" name="__codelineno-3-88" href="#__codelineno-3-88"></a>├── _ColorItemDelegate — QComboBox 모델 항목별 색상 (추천 모델 초록색)
+<a id="__codelineno-3-89" name="__codelineno-3-89" href="#__codelineno-3-89"></a>├── _help_popup (QLabel) — ? 버튼 호버 시 단축키 설명 팝업
+<a id="__codelineno-3-90" name="__codelineno-3-90" href="#__codelineno-3-90"></a>├── _make_btn_icon() — QPainter로 커스텀 아이콘 생성 헬퍼
+<a id="__codelineno-3-91" name="__codelineno-3-91" href="#__codelineno-3-91"></a>├── _icon_order / _icon_visible / _icon_deselect / _icon_tree / _icon_restore — 아이콘 드로잉 함수
+<a id="__codelineno-3-92" name="__codelineno-3-92" href="#__codelineno-3-92"></a>├── _session_path() / _save_session() / _load_session() — 세션 JSON 저장/복원
+<a id="__codelineno-3-93" name="__codelineno-3-93" href="#__codelineno-3-93"></a>├── _translate_korean_names() / _call_ollama() — Ollama 한글→영문 번역
+<a id="__codelineno-3-94" name="__codelineno-3-94" href="#__codelineno-3-94"></a>├── _unity_type_seg (SegmentedButton) — UGUI/NGUI UI 타입 선택
+<a id="__codelineno-3-95" name="__codelineno-3-95" href="#__codelineno-3-95"></a>├── _pivot_combo (QComboBox) — 9방향 피봇 선택 (Top-Left ~ Bottom-Right, 기본 Bottom-Center)
+<a id="__codelineno-3-96" name="__codelineno-3-96" href="#__codelineno-3-96"></a>├── _on_pivot_changed() — Pivot 콤보 변경 → preview_view.set_pivot() 갱신 (버튼 ON 시만)
+<a id="__codelineno-3-97" name="__codelineno-3-97" href="#__codelineno-3-97"></a>├── _pivot_btn (QPushButton) — 피봇 마커 표시/숨김 토글 (기본 ON)
+<a id="__codelineno-3-98" name="__codelineno-3-98" href="#__codelineno-3-98"></a>├── _on_pivot_btn_toggled() — 피봇 마커 토글 → set_pivot()/set_pivot(None)
+<a id="__codelineno-3-99" name="__codelineno-3-99" href="#__codelineno-3-99"></a>├── _PIVOT_MAP (dict) — 피봇명→(px,py) 매핑
+<a id="__codelineno-3-100" name="__codelineno-3-100" href="#__codelineno-3-100"></a>├── _UNITY_IMPORTER_CS (str) — UGUI EditorWindow 스크립트 템플릿 (FXC_PSDImporter, PivotInfo 클래스 포함)
+<a id="__codelineno-3-101" name="__codelineno-3-101" href="#__codelineno-3-101"></a>├── _UNITY_IMPORTER_NGUI_CS (str) — NGUI MonoBehaviour 스크립트 템플릿 (FXC_PSDImporterNGUI)
+<a id="__codelineno-3-102" name="__codelineno-3-102" href="#__codelineno-3-102"></a>├── _UNITY_IMPORTER_NGUI_EDITOR_CS (str) — NGUI Editor 스크립트 템플릿 (Setup Textures/Make Atlas/Import to Scene/Import All, fxRoot_anim, bbox 그룹 피봇, fxt_→s_ 변환, Snap to Pixel)
+<a id="__codelineno-3-103" name="__codelineno-3-103" href="#__codelineno-3-103"></a>├── _FXC_MESHQUAD_CS (str) — FXC_MeshQuad Root 전용 Runtime 템플릿 (potInfoJson, baseDepth, depthStep)
+<a id="__codelineno-3-104" name="__codelineno-3-104" href="#__codelineno-3-104"></a>├── _FXC_MESHQUAD_EDITOR_CS (str) — FXC_MeshQuadEditor 템플릿 (Setup→UIShaderWidget, JSON auto-discovery, MeshRenderer 직접 노출, fxt_→fxs_ 변환)
+<a id="__codelineno-3-105" name="__codelineno-3-105" href="#__codelineno-3-105"></a>├── _pot_check / _pot_mode_seg / _pot_w_combo / _pot_h_combo — POT 설정 위젯
+<a id="__codelineno-3-106" name="__codelineno-3-106" href="#__codelineno-3-106"></a>├── _pot_bg_buttons / _pot_bg_custom_btn / _pot_bg_value — POT BG 색상 사각형 버튼 (T/B/W + Custom)
+<a id="__codelineno-3-107" name="__codelineno-3-107" href="#__codelineno-3-107"></a>├── _pot_calc_seg (SegmentedButton) — POT 계산 방식 (Ceil/Nearest)
+<a id="__codelineno-3-108" name="__codelineno-3-108" href="#__codelineno-3-108"></a>├── _pot_all_btn / _pot_none_btn — POT 레이어 일괄 설정 버튼
+<a id="__codelineno-3-109" name="__codelineno-3-109" href="#__codelineno-3-109"></a>├── _pot_resize_combo (QComboBox) — Nuke Reformat Resize Type (None/Fit/Fill/Width/Height/Distort)
+<a id="__codelineno-3-110" name="__codelineno-3-110" href="#__codelineno-3-110"></a>├── _pot_preview_btn (QPushButton) — 프리뷰 POT 오버레이 토글
+<a id="__codelineno-3-111" name="__codelineno-3-111" href="#__codelineno-3-111"></a>├── _export_pot_check (QCheckBox) — Export 버튼 옆 POT 내보내기 토글
+<a id="__codelineno-3-112" name="__codelineno-3-112" href="#__codelineno-3-112"></a>├── _update_pot_preview() — POT 프리뷰 오버레이 갱신 (레이어 선택/설정 변경 시)
+<a id="__codelineno-3-113" name="__codelineno-3-113" href="#__codelineno-3-113"></a>├── _scale_075_check / _scale_050_check — 다중 배율 체크박스
+<a id="__codelineno-3-114" name="__codelineno-3-114" href="#__codelineno-3-114"></a>├── _png_compress_seg (SegmentedButton) — PNG 압축 레벨 (Fast/Bal/Best)
+<a id="__codelineno-3-115" name="__codelineno-3-115" href="#__codelineno-3-115"></a>├── _oxipng_check (QCheckBox) — OxiPNG 토글
+<a id="__codelineno-3-116" name="__codelineno-3-116" href="#__codelineno-3-116"></a>├── _color_mode_combo (QComboBox) — 색상 모드 (RGBA/RGB/Gray)
+<a id="__codelineno-3-117" name="__codelineno-3-117" href="#__codelineno-3-117"></a>├── _crop_check (QCheckBox) — 레이어별 자동 크롭 ON/OFF (전체 일괄 토글)
+<a id="__codelineno-3-118" name="__codelineno-3-118" href="#__codelineno-3-118"></a>├── _crop_threshold_spin (QSpinBox) — 크롭 Alpha threshold (0~254, 기본 10)
+<a id="__codelineno-3-119" name="__codelineno-3-119" href="#__codelineno-3-119"></a>├── _crop_overlay_btn (QPushButton, checkable) — 프리뷰 Crop 오버레이 토글 (┌┘ 아이콘, 주황, Settings Crop 연동)
+<a id="__codelineno-3-120" name="__codelineno-3-120" href="#__codelineno-3-120"></a>├── _on_crop_toggled() — Crop 체크 변경 → delegate/view 동기화 + 전체 레이어 ON/OFF + _crop_overlay_btn 연동
+<a id="__codelineno-3-121" name="__codelineno-3-121" href="#__codelineno-3-121"></a>├── _on_crop_overlay_toggled() — 프리뷰 Crop 오버레이 표시/숨김 → _crop_overlay_visible 제어
+<a id="__codelineno-3-122" name="__codelineno-3-122" href="#__codelineno-3-122"></a>├── _update_crop_preview() — PIL getbbox()로 크롭 영역 계산 → preview_view.set_crop_bbox() (_crop_overlay_visible 가드)
+<a id="__codelineno-3-123" name="__codelineno-3-123" href="#__codelineno-3-123"></a>├── _refresh_crop_overlay() — CropRole dataChanged/threshold 변경 시 오버레이 갱신
+<a id="__codelineno-3-124" name="__codelineno-3-124" href="#__codelineno-3-124"></a>├── _reset_pivot_btn (QPushButton) — Settings Row1 전체 레이어 피봇 center 초기화
+<a id="__codelineno-3-125" name="__codelineno-3-125" href="#__codelineno-3-125"></a>├── _reset_all_layer_pivots() — 모든 _art_pivot/pivot을 None으로 초기화 (Undo 가능)
+<a id="__codelineno-3-126" name="__codelineno-3-126" href="#__codelineno-3-126"></a>├── _update_info_label() — PSD 정보 바 HTML 갱신 (hidden/duplicate 카운트 포함)
+<a id="__codelineno-3-127" name="__codelineno-3-127" href="#__codelineno-3-127"></a>├── _layer_btn (QPushButton, checkable) — 아트 레이어 표시/숨김 토글 (기본 ON)
+<a id="__codelineno-3-128" name="__codelineno-3-128" href="#__codelineno-3-128"></a>├── _output_exists_dot (QLabel &quot;●&quot;) — 출력 폴더 존재 dot 인디케이터 (초록#4ec94e/회색#666666)
+<a id="__codelineno-3-129" name="__codelineno-3-129" href="#__codelineno-3-129"></a>├── _output_delete_btn (QPushButton) — 출력 폴더 삭제 (항상 표시, 폴더 존재 시만 활성)
+<a id="__codelineno-3-130" name="__codelineno-3-130" href="#__codelineno-3-130"></a>├── _output_dir_watcher (QFileSystemWatcher) — 출력 폴더 부모 디렉토리 감시 (생성/삭제 실시간 감지)
+<a id="__codelineno-3-131" name="__codelineno-3-131" href="#__codelineno-3-131"></a>├── _output_base_dir (str) — 원본 출력 경로 (Unity 접미사 적용 전 기본 경로)
+<a id="__codelineno-3-132" name="__codelineno-3-132" href="#__codelineno-3-132"></a>├── _psd_default_dir (str) — PSD 파일 경로 기반 기본 출력 폴더 (Unity OFF 시 복원용)
+<a id="__codelineno-3-133" name="__codelineno-3-133" href="#__codelineno-3-133"></a>├── _updating_output_display (bool) — output_entry textChanged 무한 루프 방지 플래그
+<a id="__codelineno-3-134" name="__codelineno-3-134" href="#__codelineno-3-134"></a>├── _auto_ver_check (QCheckBox) — Auto Version 체크박스 (세션 저장, 경로 실시간 반영)
+<a id="__codelineno-3-135" name="__codelineno-3-135" href="#__codelineno-3-135"></a>├── _auto_export_check (QCheckBox) — Auto Export 체크박스 (PSD 변경 감지 시 자동 Export)
+<a id="__codelineno-3-136" name="__codelineno-3-136" href="#__codelineno-3-136"></a>├── _project_combo (QComboBox) — 프로젝트 프리셋 콤보 (포커 PC/모바일, 바둑 PC/모바일)
+<a id="__codelineno-3-137" name="__codelineno-3-137" href="#__codelineno-3-137"></a>├── _project_path_label (QLineEdit, readOnly) — 현재 프로젝트 경로 표시
+<a id="__codelineno-3-138" name="__codelineno-3-138" href="#__codelineno-3-138"></a>├── _projects (list[dict]) — 프로젝트 목록 [{&quot;name&quot;: str, &quot;path&quot;: str}], QSettings 영속화
+<a id="__codelineno-3-139" name="__codelineno-3-139" href="#__codelineno-3-139"></a>├── _DARK_DIALOG_SS (str) — 다크 테마 다이얼로그 스타일시트 (재사용)
+<a id="__codelineno-3-140" name="__codelineno-3-140" href="#__codelineno-3-140"></a>├── _open_project_manager() — 프로젝트 편집 다이얼로그 (전체 프로젝트 목록 표시/편집/추가/삭제)
+<a id="__codelineno-3-141" name="__codelineno-3-141" href="#__codelineno-3-141"></a>├── _load_projects() / _save_projects() — QSettings 프로젝트 데이터 로드/저장
+<a id="__codelineno-3-142" name="__codelineno-3-142" href="#__codelineno-3-142"></a>├── _apply_project_path() — 프로젝트 경로 + PSD명 조합으로 _output_base_dir 설정 (Unity ON 시만 호출)
+<a id="__codelineno-3-143" name="__codelineno-3-143" href="#__codelineno-3-143"></a>├── _on_unity_toggled() — Unity 체크 ON→프로젝트 경로 적용, OFF→PSD 경로 복원
+<a id="__codelineno-3-144" name="__codelineno-3-144" href="#__codelineno-3-144"></a>├── _auto_export_trigger() — Auto Export 조건 검증 후 _start_export() 호출
+<a id="__codelineno-3-145" name="__codelineno-3-145" href="#__codelineno-3-145"></a>├── _log_clear_btn (QLabel &quot;×&quot;) — 로그 클리어 버튼 (14x14 정사각형, Row3 오른쪽)
+<a id="__codelineno-3-146" name="__codelineno-3-146" href="#__codelineno-3-146"></a>├── _clear_log() — 로그 텍스트 삭제
+<a id="__codelineno-3-147" name="__codelineno-3-147" href="#__codelineno-3-147"></a>├── closeEvent() — try-except RuntimeError로 C++ 객체 삭제 시 안전 처리
+<a id="__codelineno-3-148" name="__codelineno-3-148" href="#__codelineno-3-148"></a>├── _compute_export_dir() — Unity 접미사 + Auto Version 적용한 최종 export 경로 계산
+<a id="__codelineno-3-149" name="__codelineno-3-149" href="#__codelineno-3-149"></a>├── _update_output_display() — Unity 모드 / Auto Ver 변경 시 output_entry 실시간 갱신
+<a id="__codelineno-3-150" name="__codelineno-3-150" href="#__codelineno-3-150"></a>└── WorkerSignals (QObject) — thumbnail_ready, preview_ready, merged_ready, preload_one, translate_done
+</code></pre></div>
+<h3 id="dim">호버/Dim 프리뷰 구조<a class="headerlink" href="#dim" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>PSD 로드 → psd.topil() → _merged_qimage (캐시)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>                            ↓
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Tint/설정 변경 → _rebuild_hover_bg() → _hover_bg_qimage (캐시)
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                                         ↓
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>마우스 호버 → _show_hover_preview(row):
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  QPainter(result)
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    .setOpacity(slider값) → draw _hover_bg_qimage (머지 또는 틴트)
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    .setOpacity(1.0)      → draw 호버 레이어 at (layer.left, layer.top)
+</code></pre></div>
+- <strong>캐시 전략</strong>: _hover_bg_qimage는 Tint on/off, 색상 변경 시에만 재생성. 투명도는 draw 시점에 적용 → 슬라이더 즉시 반응</p>
+<h3 id="_8">다중 선택 프리뷰 구조<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>selectionChanged → _on_preview_requested(rows: list)
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  rows 비어있음 → _show_merged_preview()
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  rows 1개     → solo 프리뷰 (기존 동작)
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  rows 2개+    → PSD 캔버스 크기로 빈 이미지 생성
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>                  reversed(rows) 순서로 (bottom→top) Image.paste 합성
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>                  → set_image(keep_zoom=True)
+</code></pre></div>
+<h3 id="_9">세션 자동 저장/복원 구조<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>PSD 로드 → set_layers() (초기 스냅샷 생성)
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>        → 썸네일/프리로드 시작
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        → _load_session() (세션 자동 복원)
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>PSD 전환 → _save_session() (이전 PSD 세션 자동 저장)
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>앱 종료  → closeEvent() → _save_session()
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>Restore  → 초기 스냅샷으로 복원 (세션 적용 전 상태)
+</code></pre></div>
+- 세션 파일 경로: <code>{psd_path}.session.json</code> (예: <code>ch.psd.session.json</code>)
+- PSD 로드 시 세션 자동 복원 (Save/Load 버튼 없음)
+- <code>_load_session()</code> 내부에서 모든 상태를 먼저 적용 후 <code>_rebuild_view()</code> 1회만 실행 (시그널 차단으로 중복 rebuild 방지)
+- 레이어 수 불일치 시 (PSD가 변경됨) 세션 무시
+- 저장 항목: checked, visible, renamed, pot, locked, pivot, crop, order_reversed, tree_mode, show_art_layers, collapsed_groups, group_rename, group_locked, rename 설정 전체, pot_calc, rename_col_w, project_name, auto_export
+- settings_v2: format, merge, quality, padding(5항목), log, unity, unity_type, pivot, auto_ver, output_base_dir, hover_opacity, hover_tint, hover_tint_color, preview_bg, crop, crop_threshold</p>
+<h3 id="auto-kren">Auto (KR→EN) 번역 구조<a class="headerlink" href="#auto-kren" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>_apply_auto_rename()
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  ├── group_path 수집 (각 레이어의 PSD 그룹 경로)
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  └── QRunnable → _translate_korean_names(names, group_paths)
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>      ├── 의미 없는 이름 (&quot;01&quot;, &quot;레이어 1&quot;) → _call_ollama_context() (그룹 기반 추론)
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>      ├── 영어 이름 (한글 미포함) → prefix만 적용 후 반환 (번역 스킵)
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>      ├── 딕셔너리 히트 (_KO_BODY_PARTS) → 즉시 반환
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>      ├── 복합어 분리 (&quot;열린 뚜껑&quot; → split → [&quot;열린&quot;,&quot;뚜껑&quot;] → &quot;lid_open&quot;)
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>      ├── 혼합 이름 분해 (&quot;리본end&quot; → [&quot;리본&quot;,&quot;end&quot;] → &quot;ribbon_end&quot;)
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>      ├── 캐시 히트 (_translation_cache, 그룹 컨텍스트 포함 키) → 즉시 반환
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>      └── _call_llm(parts, contexts) → Provider 분기 (즉시 부모 그룹만 전달)
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>          ├── Ollama: POST http://localhost:11434/api/chat
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>          └── Groq: POST https://api.groq.com/openai/v1/chat/completions
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>              └── 번역 결과 캐시 저장 + translate_done Signal + 토큰 사용량 누적
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>_on_translate_done()
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>  ├── 레이어 rename 적용 (setData RenameRole)
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>  └── 그룹 rename 적용 (_group_rename_map, _group 서픽스 추가, prefix 미적용)
+</code></pre></div>
+- noun_modifier 어순: 명사 우선 (arm_upper, item_inner, lid_open)
+- 캐시 키: <code>그룹경로/파츠명</code> (예: <code>팔/위</code> → <code>arm_upper</code>, <code>다리/위</code> → <code>leg_upper</code>)
+- 그룹명=레이어명일 때 컨텍스트 생략 (중복 단어 방지: 뚜껑&gt;뚜껑 → tougal_tougal 문제 해결)
+- 딕셔너리에 ~90개 바디파츠/오브젝트/수식어 포함 (뚜껑→lid, 상자→box, 열린→open 등)
+- 입력 언어 모드: 한글(번역+prefix), 영어(prefix만), 혼합(세그먼트 분리). 상세: <a href="docs/naming_convention.md">docs/naming_convention.md</a>
+- 앱 UI 표시 3초 후 <code>_preload_ollama()</code> 실행 (GPU에 모델 미리 로드)
+- 모드 선택 시 <code>_warmup_ollama()</code> 백그라운드 실행 (추가 콜드 스타트 방지)
+- 그룹 번역 시 prefix="" (fxt_ 접두사 제외 — 사용자가 수동 추가하지 않는 한 prefix는 이미지에만)
+- Groq Provider: 동적 모델 목록 API 조회, 추천 모델(qwen3-32b, llama-3.3-70b) 초록색 표시, 토큰 사용량 누적 표시(K/M 포맷)</p>
+<h2 id="_10">네이밍 컨벤션<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>2D 게임 리깅용 레이어 이름 규칙 (UE5/Blender 표준 기반):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>fxt_ch_{part}_{index}_{Side}
+</code></pre></div>
+- prefix: <code>fxt_ch_</code> (프로젝트별 접두사)
+- part: <code>hand</code>, <code>finger</code>, <code>arm</code>, <code>eye</code>, <code>ear</code>, <code>body</code>, <code>leg</code>, <code>screen</code> 등
+- index: <code>01</code>, <code>02</code> (같은 파츠가 여러 개일 때)
+- Side: <code>_R</code> (오른쪽), <code>_L</code> (왼쪽)</p>
+<h2 id="unity-export">Unity Export 기능<a class="headerlink" href="#unity-export" title="Permanent link">&para;</a></h2>
+<p>PSD 레이어를 Unity에서 원본 위치 그대로 재현하는 기능. UGUI/NGUI 두 가지 모드 지원.</p>
+<h3 id="_11">개요<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>Output 패널의 <strong>Unity 체크박스</strong> ON + <strong>UGUI/NGUI 세그먼트</strong> 선택 + <strong>Pivot</strong> 설정 후 Export:
+- <code>fxc_psdImporter_{name}.json</code> — 레이어 위치/크기/계층/opacity/blend_mode/pivot 메타데이터 (v3)
+- <code>Editor/FXC_PSDImporter_{Stem}.cs</code> — UGUI 모드 (Canvas + Image + RectTransform, PSD별 고유 클래스명)
+- <code>Editor/FXC_PSDImporterNGUI_{Stem}.cs</code> — NGUI 모드 (UISprite + Atlas + Widget depth, PSD별 고유 클래스명)</p>
+<p>JSON 파일명은 PSD 파일명에서 날짜(YYMMDD_)/버전(_v1, _01) 제거 후 주요 명사만 추출.</p>
+<h3 id="ugui">UGUI 워크플로우<a class="headerlink" href="#ugui" title="Permanent link">&para;</a></h3>
+<ol>
+<li>PSD Extractor에서 <strong>Unity 체크 ON, UGUI</strong> → Export</li>
+<li>출력 폴더를 Unity 프로젝트에 통째 복사</li>
+<li>Unity 메뉴 <strong>Tools &gt; FXC PSD Importer</strong> 실행</li>
+<li>JSON Browse → Setup Sprites → Import to Scene</li>
+</ol>
+<h3 id="ngui">NGUI 워크플로우<a class="headerlink" href="#ngui" title="Permanent link">&para;</a></h3>
+<ol>
+<li>PSD Extractor에서 <strong>Unity 체크 ON, NGUI</strong> → Export</li>
+<li>출력 폴더를 Unity 프로젝트에 통째 복사</li>
+<li>Unity 메뉴 <strong>Tools &gt; FXC PSD Importer (NGUI)</strong> 실행</li>
+<li>JSON Browse → <strong>Setup Textures</strong> → <strong>Make Atlas</strong> → Base Depth/Step 설정 → <strong>Import to Scene</strong></li>
+<li>또는 <strong>Import All</strong> 버튼으로 Setup → Atlas → Import 3단계를 1클릭 실행</li>
+<li><strong>Setup Textures</strong>: 이미지 폴더 내 텍스처를 Sprite/Readable/Uncompressed/FullRect/npotScale=None으로 일괄 설정</li>
+<li><strong>Make Atlas</strong>: NGUI UITexturePacker로 Atlas 자동 생성 (NGUIAtlas + Material + packed PNG, padding=2, RGBA32, 4096). 스크립트 atlasObject에 자동 반영</li>
+<li><strong>Import All</strong>: Setup Textures + Make Atlas + Import to Scene 순차 실행 (보라색 버튼)</li>
+<li><strong>Atlas 업데이트</strong>: 이미지 추가/삭제 후 이미지 폴더 우클릭 → Open Atlas Updater → Sync</li>
+<li>Depth는 PSD order 기반 back→front 자동 할당 (사용자가 나중에 수동 조정)</li>
+<li>UISprite의 spriteName = 파일명(확장자 제외)으로 Atlas에서 매칭</li>
+<li><strong>이미지 서브폴더</strong>: PSD 파일명과 동일한 서브폴더에 이미지 저장 (예: <code>260225_giftBox_v1/</code>)</li>
+</ol>
+<h3 id="_12">좌표 변환<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PSD</strong>: 원점 top-left, Y축 ↓ (<code>layer.left</code>, <code>layer.top</code>, <code>layer.width</code>, <code>layer.height</code>)</li>
+<li><strong>UGUI</strong>: anchor=(px, 1-py) 동적, pivot=(0.5,0.5) center, Y축 ↑</li>
+<li><strong>NGUI</strong>: 원점 center, Y축 ↑. pivot 오프셋 적용: <code>offX = canvas.width * (pvtX - 0.5)</code>, <code>offY = canvas.height * (0.5 - pvtY)</code></li>
+<li><strong>공통 변환 공식</strong> (pivot 적용):</li>
+<li><code>unity.x = layer.left + layer.width / 2 - canvas_width * pivot_x</code></li>
+<li><code>unity.y = -(layer.top + layer.height / 2) + canvas_height * pivot_y</code></li>
+<li><code>sizeDelta/width/height = (width, height)</code> (패딩 적용 시 padded_size 사용)</li>
+<li><strong>Pivot 값</strong>: (px, py) — px=0 left, 0.5 center, 1 right; py=0 top, 0.5 center, 1 bottom</li>
+</ul>
+<h3 id="json-_unity_layoutjson-v3">JSON 구조 (_unity_layout.json, v3)<a class="headerlink" href="#json-_unity_layoutjson-v3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;psd_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ch.psd&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;canvas&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">210</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">283</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nt">&quot;pivot&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="nt">&quot;groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Group1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;parent&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">      </span><span class="nt">&quot;group_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Group1&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;blend_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PASS_THROUGH&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;order&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">  </span><span class="nt">&quot;layers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;leg_R&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">      </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;leg_R.png&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">      </span><span class="nt">&quot;psd_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;오른쪽다리&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">      </span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Group1&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">      </span><span class="nt">&quot;group_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Group1&quot;</span><span class="p">],</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">      </span><span class="nt">&quot;visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">      </span><span class="nt">&quot;opacity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">      </span><span class="nt">&quot;blend_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NORMAL&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">      </span><span class="nt">&quot;rect&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;left&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">110</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;top&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">221</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">56</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">62</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">      </span><span class="nt">&quot;unity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">33.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">31.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">56</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">62</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="w">      </span><span class="nt">&quot;padded_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">58</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">      </span><span class="nt">&quot;order&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="ugui_1">UGUI 임포터 생성 구조<a class="headerlink" href="#ugui_1" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>GameObject (FXC_PSDImporter 컴포넌트)
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>└── 260225_giftBox_v1 (PSD 파일명 루트, pivot=(px, 1-py))
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    └── fxRoot_anim (애니메이션 타겟, bbox 기반 RectTransform)
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        ├── Group1 (bbox 기반 RectTransform, anchor=0.5/0.5)
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        │   ├── leg_R (RectTransform + Image, 그룹 중심 기준 상대좌표)
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        │   ├── leg_L (RectTransform + Image)
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        │   └── ...
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>        └── s_leg_01 (RectTransform + Image)
+</code></pre></div>
+- <strong>PSD명 루트</strong>: PSD 파일명에서 추출한 이름의 RectTransform (캔버스 크기 × scaleFactor)
+- <strong>fxRoot_anim</strong>: 단일 최상위 그룹이면 fxRoot_anim에 머지 (불필요한 중첩 방지)
+- <strong>그룹 바운딩박스 피봇</strong>: 각 그룹의 RectTransform을 하위 레이어 바운딩박스 기반으로 설정. 그룹마다 독립된 중심점 → 회전/스케일 시 콘텐츠 중심 기준 동작
+  - Phase 1: 모든 레이어 rect를 순회하여 직속/상위 그룹에 bbox 누적 (Vector4: minX, minY, maxX, maxY)
+  - Phase 2: 그룹 생성 — bbox 있으면 실제 크기/위치, 하위 그룹은 부모 중심 기준 상대좌표
+  - Phase 3: 레이어 생성 — bbox 그룹 내 레이어는 anchor(0.5,0.5)로 그룹 중심 기준 상대좌표
+- <strong>Snap to Pixel</strong>: 위치/크기를 정수로 반올림 (기본 ON). Inspector에서 토글 가능
+- <strong>fxt_ → s_ prefix 변환</strong>: 레이어명이 <code>fxt_</code>로 시작하면 하이어라키에서 <code>s_</code>로 변환 (텍스처→스프라이트 네이밍, NGUI와 동일)
+- opacity &lt; 255 → Image.color.a 반영
+- visible=false → SetActive(false)
+- Scale Factor 지원 (기본 1.0)
+- Undo 지원 (Ctrl+Z로 되돌리기)
+- group_path 기반 고유 그룹 매칭 (동일 이름 그룹 충돌 방지)
+- v1/v2/v3 JSON 하위호환
+- <strong>통합 순서 (Unified Ordering)</strong>: <code>psd.descendants()</code> 1회 순회로 그룹과 레이어에 단일 통합 순번 부여. C# 임포터에서 오름차순 정렬하여 PSD back→front = Unity sibling 0→N (UGUI 렌더 순서 일치)
+- <strong>Sprite 자동 설정</strong>: Setup Sprites 시 TextureType=Sprite + MeshType=FullRect + GeneratePhysicsShape=off + mipmapEnabled=false + Uncompressed 일괄 적용</p>
+<h3 id="ngui_1">NGUI 임포터 생성 구조<a class="headerlink" href="#ngui_1" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>GameObject (FXC_PSDImporterNGUI 컴포넌트)
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>└── 260225_giftBox_v1 (PSD 파일명 루트)
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    └── fxRoot_anim (애니메이션 타겟, bbox 기반 localPosition)
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        ├── Group1 (bbox 기반 localPosition, 부모 중심 기준 상대좌표)
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        │   ├── s_body_01 (UISprite, 그룹 중심 기준 상대좌표)
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        │   └── s_arm_R (UISprite)
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        └── s_leg_01 (UISprite)
+</code></pre></div>
+- <strong>PSD명 루트</strong>: PSD 파일명에서 추출한 이름의 빈 GameObject (스크립트 오브젝트 하위)
+- <strong>fxRoot_anim</strong>: 단일 최상위 그룹이면 fxRoot_anim에 머지 (불필요한 중첩 방지)
+- <strong>그룹 바운딩박스 피봇</strong>: UGUI와 동일한 Phase 1/2/3 bbox 로직. localPosition으로 그룹 중심 배치
+  - Phase 1: 모든 레이어 rect를 순회하여 직속/상위 그룹에 bbox 누적 (Vector4: minX, minY, maxX, maxY)
+  - Phase 2: 그룹 생성 — bbox 있으면 localPosition으로 배치. 머지 최상위 그룹은 NGUI 중심좌표 기준 (<code>bcx - canvasW*0.5</code>), 하위 그룹은 부모 중심 기준 상대좌표 (<code>bcx - pcx</code>)
+  - Phase 3: 레이어 생성 — bbox 그룹 내 레이어는 그룹 중심 기준 상대좌표 (<code>lcx - pcx</code>)
+- <strong>Snap to Pixel</strong>: 위치/크기를 정수로 반올림 (기본 ON). Inspector에서 토글 가능
+- <strong>fxt_ → s_ prefix 변환</strong>: 레이어명이 <code>fxt_</code>로 시작하면 하이어라키에서 <code>s_</code>로 변환 (텍스처→스프라이트 네이밍)
+- Depth: PSD order 기준 back→front 자동 할당 (baseDepth + depthStep × N)
+- UISprite: atlas + spriteName(파일명) + width/height(padded_size 우선)
+- opacity &lt; 255 → UISprite.color.a 반영
+- visible=false → SetActive(false)
+- UIPanel 미존재 시 경고 메시지 표시
+- Undo 지원 (Ctrl+Z로 되돌리기)</p>
+<h3 id="fxc_meshquad-shader-fx-quad">FXC_MeshQuad (Shader FX Quad 워크플로우)<a class="headerlink" href="#fxc_meshquad-shader-fx-quad" title="Permanent link">&para;</a></h3>
+<p>POT(Distort) 텍스처를 Unity Quad에 적용하는 워크플로우를 자동화. PSD Exporter에서 이미지 + JSON + C# 스크립트를 생성하고, Unity에서 1클릭으로 Quad 오브젝트를 일괄 생성.</p>
+<h4 id="_13">출력 파일 구조<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>export_dir/
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  layer1.png
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  FXC_MeshQuad_{Suffix}.cs              ← Runtime (미존재 시만 생성)
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  POT/
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    layer1.png                           ← POT 텍스처
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    _pot_info.json                       ← 원본/POT 크기 정보
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    Materials/
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>      layer1.mat                         ← 머티리얼 에셋 (레이어명과 동일)
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>  Editor/
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>    FXC_MeshQuad_{Suffix}Editor.cs       ← Editor (미존재 시만 생성)
+</code></pre></div>
+<h4 id="c">C# 클래스 구조<a class="headerlink" href="#c" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>FXC_MeshQuad</code></strong> — 루트 컴포넌트 (<code>[ExecuteAlways]</code>, <code>[AddComponentMenu("FXC/Mesh Quad")]</code>)</li>
+<li><code>TextAsset potInfoJson</code> — <code>_pot_info.json</code> 참조 (Editor OnEnable에서 자동 탐색)</li>
+<li><code>int baseDepth, depthStep</code> — NGUI depth 제어</li>
+<li><strong><code>UIShaderWidget</code></strong> — 공용 자식 Quad 컴포넌트 (별도 스크립트, <code>Script/FX/UIShaderWidget.cs</code>)</li>
+<li>UIWidget 직접 상속 (UICustomRendererWidget 의존 없음)</li>
+<li><code>Vector3 meshSize</code> — X=Width, Y=Height (픽셀 단위)</li>
+<li><code>[SerializeField] Mesh _mesh</code> — 씬에 직렬화되어 도메인 리로드 시 유지</li>
+<li><code>Rebuild()</code> — 메쉬 버텍스가 실제 픽셀 크기 정의 → <code>Transform.localScale = (1,1,1)</code> 유지</li>
+<li>MeshFilter만 <code>HideFlags.HideInInspector</code> (MeshRenderer는 숨기지 않음 — Animation 키프레임 지원)</li>
+<li>OnEnable 시 <code>_mesh == null</code>일 때만 Rebuild (컴포넌트 수정 최소화 → 머티리얼 직렬화 보호)</li>
+<li>Renderer↔DrawCall 연결, NGUI depth, Invalidate override 자체 구현</li>
+<li><strong><code>FXC_PlayModeSaver</code></strong> — 공용 <code>[InitializeOnLoad]</code> static class (<code>Script/FX/Editor/</code>). Play 전 <code>AssetDatabase.SaveAssets()</code> 자동 호출</li>
+<li><strong><code>FXC_MeshQuadEditor</code></strong> — Custom Inspector + Setup 메뉴</li>
+<li>JSON auto-discovery: <code>MonoScript.FromMonoBehaviour()</code> → 스크립트 경로 기준 <code>POT/_pot_info.json</code> 자동 할당</li>
+<li>Setup: fxRoot_Anim + 하위 Mesh 오브젝트 일괄 생성 (<code>AddComponent&lt;UIShaderWidget&gt;()</code>, <code>fxt_</code> → <code>fxs_</code> 이름 변환)</li>
+<li>MeshRenderer 경량 2D 설정 (Setup 시 1회만): Shadow Off, Probes Off, MotionVector Off, Occlusion Off</li>
+<li>Material .mat 에셋 → <code>POT/Materials/{name}.mat</code> (레이어명과 동일, 재Setup 시 기존 .mat 재사용)</li>
+<li><code>SetupTextureImport()</code>: POT 텍스처 → Default, sRGB, NPOT=None, Mipmap=OFF, Clamp, Bilinear, Uncompressed</li>
+<li>Shader fallback: <code>FX Team/fxs_shine</code> → <code>Unlit/Texture</code> → <code>Standard</code></li>
+<li><code>_RShineTex</code> 기본 텍스처 자동 할당: <code>fxt_grad_50.png</code> (미설정 시만, 재Setup 시 기존 텍스처 보존)</li>
+<li>UIShaderWidget.depth 자동 할당 (baseDepth + depthStep × N)</li>
+<li>Hierarchy 표시: 자식 오브젝트 목록 + Size + Depth 정보</li>
+</ul>
+<h4 id="unity">Unity 계층 구조<a class="headerlink" href="#unity" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Root (FXC_MeshQuad)
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  └─ fxRoot_Anim
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>       ├─ fxs_layer1 (UIShaderWidget + MeshFilter[hidden] + MeshRenderer)  ← fxt_→fxs_ 변환
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>       ├─ fxs_layer2 ...
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>       └─ ...
+</code></pre></div>
+<h4 id="_14">워크플로우<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>PS → PSD Exporter (POT+Distort Export)
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  → 이미지 + _pot_info.json + FXC_MeshQuad.cs 자동 생성
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  → Unity 프로젝트에 복사
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  → 빈 GameObject 생성 → FXC_MeshQuad 스크립트 드래그 (JSON 자동 할당)
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>  → Setup 버튼 → fxRoot_Anim + 하위 UIShaderWidget 오브젝트 일괄 생성
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  → Transform.localScale = (1,1,1) 유지, 바로 셰이더 애니메이션 작업
+</code></pre></div>
+<h4 id="_15">설계 결정 사항<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>메쉬 버텍스 기반 크기</strong> (localScale 아님): Scale (1,1,1) 필수 — 애니메이션/파티클 간섭 방지</li>
+<li><strong>공유 mesh .asset 불가</strong>: 서로 다른 크기의 Quad는 버텍스가 달라야 하므로 공유 불가. 인스턴스별 메모리 메쉬 사용 (Quad 4 vertices ≈ 100 bytes, 100개 = ~10KB — 무시 가능)</li>
+<li><strong><code>[SerializeField] Mesh _mesh</code></strong>: 씬에 직렬화하여 도메인 리로드 시 OnEnable에서 컴포넌트 수정 방지 → MeshRenderer 머티리얼 직렬화와 간섭 없음</li>
+<li><strong>MeshRenderer 숨기지 않음</strong>: <code>HideFlags.HideInInspector</code> 설정 시 Animation 창에서 머티리얼 키프레임 생성 불가</li>
+<li><strong>MeshRenderer 설정은 Setup 시 1회만</strong>: OnEnable에서 MeshRenderer 프로퍼티 수정 시 도메인 리로드 중 직렬화 간섭 → 머티리얼 텍스처 유실</li>
+<li><strong>PlayModeSaver</strong>: Setup으로 생성된 .mat 에셋을 Inspector에서 수정 후 저장 없이 Play하면 디스크 버전으로 리로드되어 텍스처 유실. <code>[InitializeOnLoad]</code>로 Play 진입 직전 <code>SaveAssets()</code> 자동 호출하여 해결</li>
+<li><strong><code>fxc_</code> prefix</strong>: FX Component 약자 (팀 네이밍 규칙). 인스턴스 메쉬명 <code>fxc_quad</code></li>
+<li><strong><code>fxt_</code> → <code>fxs_</code> prefix 변환</strong>: Setup 시 레이어명이 <code>fxt_</code>로 시작하면 하이어라키에서 <code>fxs_</code>로 변환 (texture→shader FX 네이밍). UGUI/NGUI의 <code>fxt_</code>→<code>s_</code> 변환과 유사 패턴</li>
+<li><strong>UIShaderWidget 독립성</strong>: UIWidget 직접 상속 (UICustomRendererWidget 의존 없음). 복사 시 필요 파일: UIShaderWidget.cs, UIShaderWidgetEditor.cs, HierarchyExtend.cs, FXC_PlayModeSaver.cs (+ NGUI UIWidget 필요)</li>
+<li><strong>Material 네이밍</strong>: <code>POT/Materials/{레이어명}.mat</code> (mat_ prefix 없음, 레이어 파일명과 동일)</li>
+<li><strong>R Shine 기본 텍스처</strong>: Setup 시 <code>_RShineTex</code> 슬롯에 <code>fxt_grad_50.png</code> 자동 할당 (fxs_shine 셰이더 전용). 이미 다른 텍스처가 할당된 경우 덮어쓰지 않음</li>
+</ul>
+<h3 id="psd_extractorpy">백엔드 함수 (psd_extractor.py)<a class="headerlink" href="#psd_extractorpy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>_get_group_path(layer)</code> — psd-tools Layer의 부모 그룹 경로 반환</li>
+<li><code>next_pot(value)</code> — 값 이상의 가장 가까운 2의 거듭제곱 반환 (올림)</li>
+<li><code>nearest_pot(value)</code> — 가장 가까운 2의 거듭제곱 반환 (올림/내림 중 거리가 가까운 쪽)</li>
+<li><code>apply_pot(img, pot_w, pot_h, pot_auto, bg_color, resize_type, pot_calc)</code> — POT 캔버스 확장. pot_calc="ceil"(올림)/"nearest"(근접). Nuke Reformat Resize Type 6종 (none/fit/fill/width/height/distort). 불투명 배경 시 <code>alpha_composite</code>로 완전 플래튼</li>
+<li><code>convert_color_mode(img, mode, bg_rgb)</code> — RGBA/RGB/L 색상 모드 변환</li>
+<li><code>save_png_oxipng(img, file_path, level)</code> — pyoxipng 라이브러리로 최적화된 PNG 저장</li>
+<li><code>collect_layer_metadata(psd, ..., per_layer_pivot=None, crop_offsets=None)</code> — JSON 직렬화 가능한 메타데이터 dict 반환. 파일명 충돌 자동 방지(_1, _2 접미사). 그룹 리네임 적용. 통합 순서(unified order). pivot_x/pivot_y로 글로벌 좌표 원점 오프셋 적용. per_layer_pivot으로 레이어별 피봇 반영. crop_offsets로 크롭 후 좌표 보정 (dx, dy, crop_w, crop_h)</li>
+<li><code>crop_transparent(img, threshold=0)</code> — 투명 영역 자동 크롭. Alpha threshold 기반 getbbox(). 반환: <code>(cropped_img, dx, dy)</code> — dx, dy는 왼쪽/위 잘림 오프셋 (Unity 좌표 보정용)</li>
+<li><code>save_psd_with_renames(psd, rename_pairs, output_path, psd_path)</code> — 바이너리 레벨 PSD 수정으로 레이어명 변경 후 저장. Pascal string + luni Unicode 블록만 수정, 원본 바이트 보존. PSB(대용량) 호환. Photoshop에서 정상 인식</li>
+</ul>
+<h2 id="_16">개발 환경<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Windows 11, Python 3.13+</li>
+<li>Unity 2022.3.67f2 (Unity UGUI 임포트 시)</li>
+<li>Photoshop v27.4 (COM 기반 도구 사용시만 필요)</li>
+<li>psd-tools 1.12.1, Pillow 12.1.1, PySide6, customtkinter 5.2.2</li>
+<li>pyoxipng &gt;= 9.1.0 (선택, OxiPNG 무손실 PNG 최적화)</li>
+<li>Ollama (로컬 LLM 서버, Auto KR→EN Rename 시 사용, qwen2.5:3b 모델)</li>
+<li>Groq (클라우드 LLM API, Auto KR→EN Rename 대체/보조, qwen3-32b 등)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

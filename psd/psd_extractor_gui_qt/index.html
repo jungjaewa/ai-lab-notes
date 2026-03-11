@@ -1,0 +1,4181 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI R&D 실험 노트">
+      
+      
+        <meta name="author" content="jungjaewa">
+      
+      
+        <link rel="canonical" href="https://jungjaewa.github.io/ai-lab-notes/psd/psd_extractor_gui_qt/">
+      
+      
+        <link rel="prev" href="../psd_extractor_gui_ctk/">
+      
+      
+        <link rel="next" href="../unity_dev_history/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Psd Extractor Gui Qt - AI Lab Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#psd_extractor_gui_qtpy-pyside6-gui" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AI Lab Notes" class="md-header__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Lab Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Psd Extractor Gui Qt
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="다크 모드"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="라이트 모드"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../eye-pipeline/" class="md-tabs__link">
+          
+  
+  
+  Eye Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../teamplay_gantt/" class="md-tabs__link">
+          
+  
+  
+  Teamplay_Gantt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai-lab-notes-manager/" class="md-tabs__link">
+          
+  
+  
+  AI Lab Notes Manager
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  PSD
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  태그
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Lab Notes" class="md-nav__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Lab Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Eye Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Animation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teamplay_Gantt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teamplay_gantt/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab Notes Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/rnd-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/RND_LOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/skills-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PSD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev_journal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Journal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../human_vs_ai_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vs Ai Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer_exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer Exporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming_convention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psd_extractor_gui_ctk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Ctk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        의존성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실행
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        화면 구성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. PSD 파일 열기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. PSD 파일 열기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-browse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 1: Browse 버튼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 2: 경로 직접 입력
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 3: 히스토리에서 선택
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 4: 더블클릭
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSD 실시간 감시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 레이어 선택
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 레이어 선택">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        체크박스
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        도구 버튼 (프리뷰 하단)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        선택 슬롯 (1~5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        레이어 검색
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        키보드/마우스
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 프리뷰
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 프리뷰">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프리뷰 오버레이
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경색
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dim 프리뷰
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다중 선택 프리뷰
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 레이어 이름 변경 (Rename)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 레이어 이름 변경 (Rename)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사용법
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        선택 기반 Rename
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-kren" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto (KR→EN) 모드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rename 열 너비 조절
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rename 중복 감지
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Settings (설정)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Settings (설정)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity (Output 패널)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Color Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pot-power-of-two" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POT (Power of Two)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scale (다중 배율)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#png" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PNG 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        세션 자동 저장/복원
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refresh (PSD 경로 행)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reset All
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ? (단축키 도움말, PSD 경로 행)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Export (내보내기)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Export (내보내기)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기본 내보내기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        출력 파일
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Folder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 폴더 자동 접미사
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto Version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-unity-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Unity Export
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Unity Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psd-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSD Extractor 측 (공통)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-ugui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 측 (UGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-ngui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 측 (NGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-ugui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        생성되는 Unity 계층 (UGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-ngui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        생성되는 Unity 계층 (NGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output 경로 및 폴더 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uguingui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UGUI/NGUI 모드 구분
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 키보드/마우스 단축키 종합
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 키보드/마우스 단축키 종합">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        레이어 리스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프리뷰
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        선택 슬롯 (1~5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renameedit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rename/Edit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기타
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-fxc_meshquad-shader-fx-quad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. FXC_MeshQuad (Shader FX Quad 워크플로우)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. FXC_MeshQuad (Shader FX Quad 워크플로우)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psd-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSD Exporter 측
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 측 워크플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        생성되는 Unity 계층
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        주요 특징
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_pot_infojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _pot_info.json 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 프로젝트 프리셋
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 프로젝트 프리셋">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사용법
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기본 프로젝트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto Export
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다크 테마 컬러 팔레트
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_dev_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unity_technical_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Technical Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    태그
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        의존성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실행
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        화면 구성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. PSD 파일 열기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. PSD 파일 열기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-browse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 1: Browse 버튼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 2: 경로 직접 입력
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 3: 히스토리에서 선택
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방법 4: 더블클릭
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSD 실시간 감시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 레이어 선택
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 레이어 선택">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        체크박스
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        도구 버튼 (프리뷰 하단)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        선택 슬롯 (1~5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        레이어 검색
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        키보드/마우스
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 프리뷰
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 프리뷰">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프리뷰 오버레이
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경색
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dim 프리뷰
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다중 선택 프리뷰
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 레이어 이름 변경 (Rename)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 레이어 이름 변경 (Rename)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사용법
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        선택 기반 Rename
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-kren" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto (KR→EN) 모드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rename 열 너비 조절
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rename 중복 감지
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Settings (설정)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Settings (설정)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity (Output 패널)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Color Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pot-power-of-two" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POT (Power of Two)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scale (다중 배율)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#png" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PNG 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        세션 자동 저장/복원
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-psd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refresh (PSD 경로 행)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reset All
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ? (단축키 도움말, PSD 경로 행)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Export (내보내기)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Export (내보내기)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기본 내보내기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        출력 파일
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Folder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 폴더 자동 접미사
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto Version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-unity-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Unity Export
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Unity Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psd-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSD Extractor 측 (공통)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-ugui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 측 (UGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-ngui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 측 (NGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-ugui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        생성되는 Unity 계층 (UGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity-ngui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        생성되는 Unity 계층 (NGUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output 경로 및 폴더 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uguingui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UGUI/NGUI 모드 구분
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 키보드/마우스 단축키 종합
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 키보드/마우스 단축키 종합">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        레이어 리스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프리뷰
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        선택 슬롯 (1~5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renameedit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rename/Edit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기타
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-fxc_meshquad-shader-fx-quad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. FXC_MeshQuad (Shader FX Quad 워크플로우)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. FXC_MeshQuad (Shader FX Quad 워크플로우)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psd-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSD Exporter 측
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity 측 워크플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        생성되는 Unity 계층
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        주요 특징
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_pot_infojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _pot_info.json 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 프로젝트 프리셋
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 프로젝트 프리셋">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사용법
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기본 프로젝트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto Export
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다크 테마 컬러 팔레트
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="psd_extractor_gui_qtpy-pyside6-gui">psd_extractor_gui_qt.py - PySide6 GUI 사용 가이드<a class="headerlink" href="#psd_extractor_gui_qtpy-pyside6-gui" title="Permanent link">&para;</a></h1>
+<p>PySide6 기반 고성능 PSD 레이어 추출 GUI. Photoshop 스타일 다크 테마.</p>
+<h2 id="_1">의존성<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip install PySide6 psd-tools Pillow
+</code></pre></div>
+<h2 id="_2">실행<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>psd_extractor_gui_qt.py
+</code></pre></div>
+<hr />
+<h2 id="_3">화면 구성<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>+------------------------------------------------------------------+
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>| PSD Layer Extractor (Qt)                               [_][O][X]  |
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>+------------------------------------------------------------------+
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>| [PSD 경로 QComboBox(히스토리)] [Browse] │ [Refresh] [?]            |
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>| 정보: ch.psd | 210x283 px | 23 layers (22 art, 1 groups)          |
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>+------------------------------------------------------------------+
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>| Rename [mode▼] [옵션 인라인] ... [Rename] [Clear]                 |
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>| +-- QSplitter(H) -----------------------------------------------+|
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>| | QListView (가상화)          |                                  ||
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>| | [01][✓][eye][pot][thumb] name | QGraphicsView 프리뷰            ||
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>| | [02][✓][eye][pot][thumb] name |  ┌── 100%|✛|◎|▢|POT|Info|Fit ┐||
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>| | [03][ ][eye][pot][thumb] name |  │                          │  ||
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>| |  (dim name if eye off)      |  │    [Tab: PSD 정보]       │    ||
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>| |  ▼ Group Header (접기 가능) |  │                          │    ||
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>| |  │ [01] layer (들여쓰기)    |  │     layer info text      │    ||
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>| |                             |  └── Tint|BG|Dim ───────────┘    ||
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>| |                             | [Order][Visible][Deselect]       ||
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>| |                             | [Group][Restore]                 ||
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>| |                             | [1][2][3][4][5] [🔍 검색]       ||
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>| +----------------------------+----------------------------------+|
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>+------------------------------------------------------------------+
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>| Row1: Format [PNG▼] [✓Merge] | Quality | Padding | Color [RGBA▼] | [Reset All] [☐Log] |
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>| ──────────────────────────── (구분선) ────────────────────────────── |
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>| Row2: [☐POT] [All][None] [Auto|Manual] [W▼ H▼] | BG [T][B][W][C] |
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>| Row3: Resize Type [None▼] | Scale [✓1x][☐.75x][☐.5x] | [Ceil|Nearest] | PNG [Fast|Bal|Best] [☐OxiPNG] |
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>+------------------------------------------------------------------+
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>| [출력 경로] [●] [Delete] [Output Browse]                          |
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>| Project [프로젝트▼][✎] │ [프로젝트 경로]                         |
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>| [☐ Unity] [UGUI|NGUI] │ Pivot [Bottom-Center▼]  진행률 [☐Auto Export] [☐Auto Ver] [☐POT] [EXPORT] [PSD Export] | [Open Folder] |
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>| [QPlainTextEdit 로그] (기본 숨김, Log 체크 시 표시)               |
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>+------------------------------------------------------------------+
+</code></pre></div>
+<hr />
+<h2 id="1-psd">1. PSD 파일 열기<a class="headerlink" href="#1-psd" title="Permanent link">&para;</a></h2>
+<h3 id="1-browse">방법 1: Browse 버튼<a class="headerlink" href="#1-browse" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Browse</strong> 버튼 클릭</li>
+<li>PSD 파일 선택 → 자동 로드</li>
+</ol>
+<h3 id="2">방법 2: 경로 직접 입력<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>경로란에 PSD 파일 경로 입력 후 <strong>Enter</strong></li>
+</ol>
+<h3 id="3">방법 3: 히스토리에서 선택<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>경로란 드롭다운에서 이전에 열었던 파일 선택</li>
+</ul>
+<h3 id="4">방법 4: 더블클릭<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>경로란 더블클릭</strong>: 마지막 열었던 파일 자동 로드</li>
+<li><strong>레이어 빈 영역 더블클릭</strong>: 파일 열기 다이얼로그</li>
+</ul>
+<p>로드 완료 시 정보 표시: <code>파일명 | 크기 | 레이어 수 (art, groups)</code></p>
+<h3 id="psd">PSD 실시간 감시<a class="headerlink" href="#psd" title="Permanent link">&para;</a></h3>
+<p>PSD 파일 로드 후 Photoshop에서 수정하고 저장하면:
+- 앱이 파일 변경을 자동 감지 (QFileSystemWatcher)
+- 300ms 딜레이 후 자동으로 reload
+- Export 중에는 자동 reload 비활성화
+- 자동 감지가 안 될 경우 Settings의 <strong>Refresh</strong> 버튼으로 수동 reload</p>
+<hr />
+<h2 id="2_1">2. 레이어 선택<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<h3 id="_4">체크박스<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>각 레이어의 체크박스를 클릭하여 내보낼 레이어를 선택합니다.</p>
+<h3 id="_5">도구 버튼 (프리뷰 하단)<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>상단 행:</p>
+<table>
+<thead>
+<tr>
+<th>버튼</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Group</strong></td>
+<td>플랫/트리 뷰 토글. 트리 모드에서 그룹 폴더 헤더 + 들여쓰기로 계층 표시. 그룹 헤더 클릭 시 접기/펼치기</td>
+</tr>
+<tr>
+<td><strong>Layer</strong></td>
+<td>아트 레이어 표시/숨김 토글. 트리 모드에서 그룹 헤더만 남김</td>
+</tr>
+<tr>
+<td><strong>Order</strong></td>
+<td>레이어 순서 반전 (Photoshop ↔ 역순)</td>
+</tr>
+<tr>
+<td><strong>Visible</strong></td>
+<td>Visible(●) 레이어만 체크</td>
+</tr>
+<tr>
+<td><strong>Deselect</strong></td>
+<td>모든 레이어 선택(하이라이트) 해제</td>
+</tr>
+<tr>
+<td><strong>Restore</strong></td>
+<td>PSD 로드 시점의 체크/가시성/rename 상태로 복원</td>
+</tr>
+</tbody>
+</table>
+<p>하단 행:</p>
+<table>
+<thead>
+<tr>
+<th>요소</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1~5 슬롯</strong></td>
+<td>레이어 선택(하이라이트) 조합 저장/불러오기 (아래 상세 설명)</td>
+</tr>
+<tr>
+<td><strong>검색창</strong></td>
+<td>레이어 이름 검색 필터 (X 버튼으로 초기화)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="15">선택 슬롯 (1~5)<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
+<p>자주 사용하는 레이어 선택 조합을 5개 슬롯에 저장하고 불러올 수 있습니다.</p>
+<table>
+<thead>
+<tr>
+<th>조작</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>빈 슬롯 클릭</strong></td>
+<td>현재 하이라이트된 레이어를 슬롯에 저장</td>
+</tr>
+<tr>
+<td><strong>채워진 슬롯 클릭</strong></td>
+<td>저장된 선택 불러오기 (하이라이트 복원)</td>
+</tr>
+<tr>
+<td><strong>Ctrl+클릭</strong></td>
+<td>슬롯 내용 삭제</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>저장된 슬롯은 텍스트 색상으로 구분 (활성: 밝은색, 비어있음: 어두운색)</li>
+<li>마우스 호버 시 툴팁에 저장된 레이어 이름 목록 표시</li>
+<li>레이어 이름 기준 저장 (정렬/트리 전환에 영향 없음)</li>
+<li>QSettings로 앱 재시작 후에도 유지</li>
+</ul>
+<h3 id="_6">레이어 검색<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>프리뷰 상단의 검색창에 텍스트를 입력하면 레이어 이름으로 필터링됩니다.
+- 입력 즉시 실시간 필터 적용
+- 검색창 오른쪽 X 버튼으로 검색어 초기화
+- 플랫 모드, 트리 모드 모두 동작
+- 트리 모드에서는 매칭되는 레이어가 속한 그룹 헤더도 함께 표시</p>
+<h3 id="_7">키보드/마우스<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>조작</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>클릭</strong></td>
+<td>레이어 선택 (프리뷰 표시)</td>
+</tr>
+<tr>
+<td><strong>Ctrl+클릭</strong></td>
+<td>다중 선택 추가</td>
+</tr>
+<tr>
+<td><strong>Shift+클릭</strong></td>
+<td>범위 선택</td>
+</tr>
+<tr>
+<td><strong>Ctrl+A</strong></td>
+<td>전체 레이어 선택 (하이라이트)</td>
+</tr>
+<tr>
+<td><strong>Space</strong></td>
+<td>선택된 레이어 체크 토글 (다중 시 일괄 처리)</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>선택된 레이어 가시성(눈) 토글 (다중 시 일괄 처리)</td>
+</tr>
+<tr>
+<td><strong>P</strong></td>
+<td>선택된 레이어 POT 토글 (다중 시 일괄, Settings POT ON 시)</td>
+</tr>
+<tr>
+<td><strong>A</strong></td>
+<td>레이어 선택 해제 (하이라이트만 해제, 체크 유지)</td>
+</tr>
+<tr>
+<td><strong>체크박스 클릭</strong></td>
+<td>개별 체크 토글</td>
+</tr>
+</tbody>
+</table>
+<p>선택된 레이어는 No 번호가 악센트 색상(#2680EB)으로 표시되어 시각적으로 구분됩니다.</p>
+<hr />
+<h2 id="3_1">3. 프리뷰<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
+<p>레이어를 클릭하면 오른쪽 프리뷰 영역에 이미지가 표시됩니다.</p>
+<table>
+<thead>
+<tr>
+<th>조작</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>마우스 휠</strong></td>
+<td>줌 인/아웃 (10% ~ 1600%)</td>
+</tr>
+<tr>
+<td><strong>더블클릭</strong></td>
+<td>100% 리셋</td>
+</tr>
+<tr>
+<td><strong>드래그</strong></td>
+<td>패닝 (이미지 이동)</td>
+</tr>
+<tr>
+<td><strong>Fit 버튼</strong></td>
+<td>프리뷰 영역에 맞춤</td>
+</tr>
+<tr>
+<td><strong>✛ Crosshair 버튼</strong></td>
+<td>이미지 중심 십자선 표시/숨김</td>
+</tr>
+<tr>
+<td><strong>◎ Pivot 마커 버튼</strong></td>
+<td>피봇 위치를 빨간 십자+원 마커로 표시/숨김 (기본 ON). Pivot 콤보 변경 시 즉시 갱신. 레이어 전환/줌 시 유지</td>
+</tr>
+<tr>
+<td><strong>▢ Outline 버튼</strong></td>
+<td>이미지 경계선 표시/숨김 (기본 ON)</td>
+</tr>
+<tr>
+<td><strong>Info 버튼</strong></td>
+<td>이미지 하단 레이어 정보(이름/사이즈) 표시/숨김 (기본 ON)</td>
+</tr>
+<tr>
+<td><strong>Tab</strong></td>
+<td>PSD 파일 정보 오버레이 토글 (파일명, 크기, 레이어 수)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">프리뷰 오버레이<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>상단 오른쪽</strong>: 줌% | ✛(십자선) | ◎(피봇) | ▢(아웃라인) | Info | Fit</li>
+<li><strong>하단 가운데</strong>: Tint | BG | Dim (배경색, 투명도 조절)</li>
+<li><strong>이미지 하단 가운데</strong>: 선택된 레이어명 + 사이즈 정보 (drawForeground 기반, 줌 무관)</li>
+</ul>
+<h3 id="_9">배경색<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>6종 프리셋 (투명/흰/검/빨/초/파) + 커스텀 컬러 피커. 투명 배경은 체커보드 표시.</p>
+<h3 id="dim">Dim 프리뷰<a class="headerlink" href="#dim" title="Permanent link">&para;</a></h3>
+<p>호버 시 비활성 레이어의 투명도(0~100%) 슬라이더 + Tint 단색 모드 (색상 선택 가능). Dim 라벨 더블클릭 시 기본값 30% 복원.</p>
+<h3 id="_10">다중 선택 프리뷰<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>Ctrl+Click / Shift+Click으로 여러 레이어 선택 시 PSD 좌표 기준으로 합성하여 프리뷰 표시 (레이어 뎁스 순서 유지).</p>
+<hr />
+<h2 id="4-rename">4. 레이어 이름 변경 (Rename)<a class="headerlink" href="#4-rename" title="Permanent link">&para;</a></h2>
+<p>레이어 리스트 상단의 Rename 도구를 사용합니다.</p>
+<h3 id="_11">모드<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>모드</th>
+<th>설명</th>
+<th>옵션</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manual</strong></td>
+<td>각 레이어의 rename 필드를 직접 편집</td>
+<td>없음</td>
+</tr>
+<tr>
+<td><strong>Sequential</strong></td>
+<td>접두사 + 순번으로 자동 생성</td>
+<td>Prefix, Start 번호, Direction (↓/↑)</td>
+</tr>
+<tr>
+<td><strong>Body Part</strong></td>
+<td>한글 레이어명을 영문 바디파트로 자동 매핑</td>
+<td>Prefix, Spine/Live2D 프리셋</td>
+</tr>
+<tr>
+<td><strong>Auto (KR→EN)</strong></td>
+<td>Ollama(로컬)/Groq(클라우드) LLM으로 한글→영문 자동 번역</td>
+<td>Preset, Prefix, Provider(Ollama/Groq), Model</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">사용법<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>모드 선택</strong> (드롭다운)</li>
+<li>옵션 설정 (Prefix, Start 번호 등)</li>
+<li><strong>Rename</strong> 클릭 → rename 필드 자동 채움</li>
+<li><strong>Clear</strong> 클릭 → rename 필드 초기화</li>
+</ol>
+<h3 id="rename">선택 기반 Rename<a class="headerlink" href="#rename" title="Permanent link">&para;</a></h3>
+<p>레이어를 하이라이트(선택)한 상태에서 Apply를 누르면 <strong>선택된 레이어만</strong> rename이 적용됩니다.
+- 하이라이트된 레이어가 있을 때 → 해당 레이어만 대상
+- 하이라이트된 레이어가 없을 때 → 전체 아트 레이어 대상 (기존 동작)
+- Sequential 모드: 대상 레이어 수 기준으로 01부터 순차 번호 부여
+- Body Part 모드: 대상 레이어만 한글→영문 매핑 수행
+- Auto (KR→EN) 모드: 대상 레이어만 번역 적용</p>
+<p>Body Part 모드는 한글 레이어 이름(예: <code>오른손</code>, <code>왼쪽다리</code>)을 자동으로 영문 변환합니다.</p>
+<h3 id="auto-kren">Auto (KR→EN) 모드<a class="headerlink" href="#auto-kren" title="Permanent link">&para;</a></h3>
+<p>Ollama 로컬 LLM(qwen2.5:3b)을 사용하여 한글 레이어 이름을 영문 snake_case로 자동 번역합니다.</p>
+<p><strong>사전 준비:</strong>
+1. <a href="https://ollama.ai">Ollama</a> 설치
+2. 터미널에서 <code>ollama pull qwen2.5:3b</code> 실행 (모델 다운로드)
+3. Ollama 서버 실행 상태 확인 (기본 <code>localhost:11434</code>)</p>
+<p><strong>번역 우선순위:</strong> 내장 딕셔너리 → 세션 캐시 → Ollama API (배치 호출)</p>
+<p><strong>그룹 컨텍스트:</strong> 레이어가 속한 PSD 그룹명을 함께 전달하여 동음이의어를 구분합니다.
+- 예: <code>팔</code> 그룹의 <code>위</code> → <code>arm_upper</code>, <code>다리</code> 그룹의 <code>위</code> → <code>leg_upper</code></p>
+<p><strong>상태 표시:</strong> Ollama 연결 상태가 Ready(초록) / Error(빨강) / Translating...(노랑) / Done(초록)으로 표시됩니다.</p>
+<h3 id="rename_1">Rename 열 너비 조절<a class="headerlink" href="#rename_1" title="Permanent link">&para;</a></h3>
+<p>레이어명과 rename 입력란의 경계를 마우스로 드래그하여 rename 열 너비를 조절할 수 있습니다. 커서가 경계에 닿으면 좌우 리사이즈 커서로 변경됩니다. 변경된 너비는 세션에 저장됩니다.</p>
+<h3 id="rename_2">Rename 중복 감지<a class="headerlink" href="#rename_2" title="Permanent link">&para;</a></h3>
+<p>rename 필드에 동일한 이름이 2개 이상 존재하면 해당 이름이 <strong>빨간색(#e05050)</strong>으로 표시됩니다. 이름이 변경되면 실시간으로 중복 상태가 갱신됩니다.</p>
+<hr />
+<h2 id="5-settings">5. Settings (설정)<a class="headerlink" href="#5-settings" title="Permanent link">&para;</a></h2>
+<h3 id="format">Format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PNG</strong>: 투명 배경 지원 (기본값, 권장)</li>
+<li><strong>JPEG</strong>: 불투명 배경, Quality 슬라이더 활성화 (1~100)</li>
+</ul>
+<h3 id="merge">Merge<a class="headerlink" href="#merge" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ON</strong>: 전체 레이어 합성 이미지 <code>_merged.png/jpg</code> 함께 내보내기</li>
+<li><strong>OFF</strong>: 개별 레이어만 내보내기</li>
+</ul>
+<h3 id="unity-output">Unity (Output 패널)<a class="headerlink" href="#unity-output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ON</strong>: Unity 메타데이터 <code>_unity_layout.json</code> + C# 임포터 스크립트 함께 내보내기</li>
+<li><strong>OFF</strong>: 이미지만 내보내기</li>
+<li><strong>UGUI/NGUI</strong>: SegmentedButton으로 UI 타입 선택</li>
+<li>UGUI: <code>FXC_PSDImporter_{Stem}.cs</code> (Canvas + Image + RectTransform)</li>
+<li>NGUI: <code>FXC_PSDImporterNGUI_{Stem}.cs</code> (UISprite + Atlas + depth)</li>
+<li><strong>C# 고유 클래스명</strong>: PSD 파일명에서 PascalCase 접미사 생성 (멀티 PSD Export 시 충돌 방지)</li>
+<li><strong>Pivot</strong>: 9방향 피봇 선택 (Top-Left ~ Bottom-Right, 기본 Bottom-Center). 프리뷰에 빨간 십자+원 마커로 피봇 위치 실시간 표시 (◎ 버튼으로 On/Off 토글). 루트 RectTransform에 PSD 캔버스 크기 + pivot 동적 설정</li>
+<li>레이어 순서가 PSD→Unity 간 정확히 매핑됨 (통합 순서 — 그룹+레이어 단일 카운터로 정확한 sibling 정렬)</li>
+<li>Setup Sprites 시 MeshType=FullRect + GeneratePhysicsShape=off 자동 적용</li>
+</ul>
+<h3 id="padding">Padding<a class="headerlink" href="#padding" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>모드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>패딩 없음 (원본 크기)</td>
+</tr>
+<tr>
+<td><strong>Pad</strong></td>
+<td>각 축 +N px. Even 체크 ON(기본) 시 홀수→짝수 올림, OFF 시 홀수 유지. 기본값: +2px</td>
+</tr>
+<tr>
+<td><strong>Fixed</strong></td>
+<td>Width/Height 별도 고정 패딩 지정</td>
+</tr>
+</tbody>
+</table>
+<h3 id="color-mode">Color Mode<a class="headerlink" href="#color-mode" title="Permanent link">&para;</a></h3>
+<p>RGBA / RGB / Gray 선택. JPEG 포맷 시 RGBA 비활성화.</p>
+<h3 id="pot-power-of-two">POT (Power of Two)<a class="headerlink" href="#pot-power-of-two" title="Permanent link">&para;</a></h3>
+<p>이미지 캔버스를 2의 거듭제곱 크기로 확장합니다. POT 위젯은 항상 표시됩니다.</p>
+<ul>
+<li><strong>체크 ON/OFF</strong>: POT 기능 활성화/비활성화</li>
+<li><strong>All / None</strong>: 전체 레이어 POT ON/OFF 일괄 설정</li>
+<li><strong>Auto</strong>: 이미지 크기에서 자동으로 가장 가까운 POT 계산 (예: 100→128, 300→512)</li>
+<li><strong>Manual</strong>: 32/64/128/256/512/1024/2048/4096 중 W/H 수동 선택</li>
+<li><strong>BG (배경색)</strong>: 16x16 색상 사각형 버튼 — T(투명) / B(블랙) / W(화이트) + C(커스텀 컬러 피커)</li>
+<li><strong>Ceil / Nearest</strong>: POT 계산 방식 선택</li>
+<li><strong>Ceil</strong>: 항상 올림 (71→128)</li>
+<li><strong>Nearest</strong>: 가장 가까운 POT (71→64, 가까운 쪽 선택)</li>
+<li><strong>레이어별 POT 토글</strong>: Settings POT ON 시 레이어 목록에 POT 아이콘 열 표시. 개별 클릭으로 해당 레이어만 POT ON/OFF. POT ON 레이어만 <code>POT/</code> 폴더에 Export. P키로 선택 레이어 일괄 토글</li>
+<li><strong>Resize Type</strong> (Nuke Reformat 기준):</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>스케일 없이 중앙 배치 (기본)</td>
+</tr>
+<tr>
+<td><strong>Fit</strong></td>
+<td>전체가 보이도록 균일 축소 (빈 영역 발생 가능)</td>
+</tr>
+<tr>
+<td><strong>Fill</strong></td>
+<td>캔버스를 완전히 채우도록 균일 확대 (잘림 발생 가능)</td>
+</tr>
+<tr>
+<td><strong>Width</strong></td>
+<td>너비 맞춤 균일 스케일</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>높이 맞춤 균일 스케일</td>
+</tr>
+<tr>
+<td><strong>Distort</strong></td>
+<td>비균일 스케일로 정확히 채움 (비율 무시, 게임 텍스처에 중요)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>프리뷰 오버레이</strong>: 프리뷰에 POT 크기 점선 사각형 + 크기 정보 표시. 상단 POT 버튼으로 토글.</li>
+<li><strong>Export POT</strong>: EXPORT 버튼 왼쪽 POT 체크박스. 체크 시 Settings POT 자동 ON. 레이어별 POT 토글이 ON인 레이어만 <code>POT/</code> 서브폴더에 별도 생성 (기본 이미지는 항상 Pad만 적용).</li>
+</ul>
+<h3 id="scale">Scale (다중 배율)<a class="headerlink" href="#scale" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>1x</strong>: 항상 활성 (기본)</li>
+<li><strong>.75x</strong>: 0.75배 축소 동시 Export</li>
+<li><strong>.5x</strong>: 0.5배 축소 동시 Export</li>
+<li>다중 배율 시 배율별 서브폴더 생성 (<code>1_00x/</code>, <code>0_75x/</code>, <code>0_50x/</code>)</li>
+</ul>
+<h3 id="png">PNG 옵션<a class="headerlink" href="#png" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Fast/Bal/Best</strong>: PNG 압축 레벨 (1/6/9). 기본 "Bal"</li>
+<li><strong>OxiPNG</strong>: pyoxipng 라이브러리로 무손실 최적화 (Pillow 대비 15~40% 축소). 설치 시 기본 ON. 미설치 시 자동 비활성화</li>
+</ul>
+<h3 id="log">Log<a class="headerlink" href="#log" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ON</strong>: 하단 로그 패널 표시</li>
+<li><strong>OFF</strong>: 로그 패널 숨김 (기본값)</li>
+</ul>
+<h3 id="_13">세션 자동 저장/복원<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>PSD 파일 옆에 <code>.session.json</code>이 자동으로 저장/복원됩니다 (수동 Save/Load 버튼 없음).</p>
+<p><strong>저장 항목:</strong>
+- 레이어 체크 on/off, 가시성(눈) on/off, rename 이름, POT on/off
+- 레이어 순서 반전 여부, 트리 모드, 접힌 그룹 상태, 아트 레이어 표시
+- Rename 모드, Prefix, Start 번호, Direction, Preset, Provider 등 설정 값
+- POT 계산 방식 (Ceil/Nearest), Rename 열 너비
+- Format, Merge, Quality, Padding, Color Mode, Unity, UGUI/NGUI, Pivot, Auto Ver, Output 경로
+- 프리뷰 BG, Dim 투명도, Tint 설정, Log 표시, 프로젝트명, Auto Export</p>
+<p><strong>자동 저장 트리거:</strong>
+- 다른 PSD 파일로 전환할 때 (이전 PSD 세션 자동 저장)
+- 앱 종료 시 (<code>closeEvent</code>)</p>
+<p><strong>자동 복원:</strong>
+- PSD 로드 시 <code>.session.json</code> 존재하면 자동 복원 (모든 설정 즉시 적용)
+- 레이어 수가 달라진 경우 (PSD 수정됨) 세션 무시
+- <strong>Restore</strong> 버튼으로 세션 적용 전 PSD 원본 상태 복원 가능</p>
+<h3 id="refresh-psd">Refresh (PSD 경로 행)<a class="headerlink" href="#refresh-psd" title="Permanent link">&para;</a></h3>
+<p>현재 PSD 파일을 다시 로드합니다. PSD 경로 행의 Browse 오른쪽에 위치.
+- <strong>자동 감지</strong>: QFileSystemWatcher가 파일 변경을 감지하여 300ms 후 자동 reload
+- <strong>수동 reload</strong>: 자동 감지가 안 될 경우 Refresh 버튼으로 수동 reload</p>
+<h3 id="reset-all">Reset All<a class="headerlink" href="#reset-all" title="Permanent link">&para;</a></h3>
+<p>모든 설정을 기본값으로 초기화합니다. Edit 행의 Find/Replace/Prefix/Suffix/# 필드도 포함하여 초기화.</p>
+<h3 id="psd_1">? (단축키 도움말, PSD 경로 행)<a class="headerlink" href="#psd_1" title="Permanent link">&para;</a></h3>
+<p>Refresh 버튼 오른쪽의 <strong>?</strong> 버튼에 마우스를 올리면 키보드/마우스 단축키 목록이 팝업으로 표시됩니다.</p>
+<hr />
+<h2 id="6-export">6. Export (내보내기)<a class="headerlink" href="#6-export" title="Permanent link">&para;</a></h2>
+<h3 id="_14">기본 내보내기<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ol>
+<li>출력 폴더 설정 (Browse 또는 직접 입력)</li>
+<li><strong>EXPORT</strong> 버튼 클릭</li>
+<li>진행 상황: <code>3/22</code> 형태로 표시</li>
+<li>완료 시: 버튼이 "Complete ✓" (초록)으로 2초간 표시 → "EXPORT" 복귀</li>
+<li>로그에 각 레이어 결과 출력</li>
+</ol>
+<h3 id="_15">출력 파일<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>조건</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>레이어명.png/jpg</code></td>
+<td>항상 (체크된 레이어)</td>
+</tr>
+<tr>
+<td><code>_merged.png/jpg</code></td>
+<td>Merge ON</td>
+</tr>
+<tr>
+<td><code>POT/레이어명.png/jpg</code></td>
+<td>Export POT ON</td>
+</tr>
+<tr>
+<td><code>POT/_merged.png/jpg</code></td>
+<td>Export POT ON + Merge ON</td>
+</tr>
+<tr>
+<td><code>POT/_pot_info.json</code></td>
+<td>Export POT ON (원본/POT 크기 정보)</td>
+</tr>
+<tr>
+<td><code>POT/Materials/mat_*.mat</code></td>
+<td>FXC_MeshQuad Setup 시 생성</td>
+</tr>
+<tr>
+<td><code>_unity_layout.json</code></td>
+<td>Unity ON</td>
+</tr>
+<tr>
+<td><code>FXC_PSDImporter_{Stem}.cs</code></td>
+<td>Unity ON + UGUI</td>
+</tr>
+<tr>
+<td><code>FXC_PSDImporterNGUI_{Stem}.cs</code></td>
+<td>Unity ON + NGUI</td>
+</tr>
+<tr>
+<td><code>FXC_MeshQuad_{Suffix}.cs</code></td>
+<td>Export POT ON + 1x (미존재 시만)</td>
+</tr>
+<tr>
+<td><code>Editor/FXC_MeshQuad_{Suffix}Editor.cs</code></td>
+<td>Export POT ON + 1x (미존재 시만)</td>
+</tr>
+<tr>
+<td><code>{배율}x/</code> 서브폴더</td>
+<td>다중 배율 선택 시</td>
+</tr>
+</tbody>
+</table>
+<h3 id="open-folder">Open Folder<a class="headerlink" href="#open-folder" title="Permanent link">&para;</a></h3>
+<p>Browse 오른쪽의 <strong>Open Folder</strong> 버튼으로 PSD 파일이 있는 폴더를 탐색기에서 열 수 있습니다.</p>
+<h3 id="unity">Unity 폴더 자동 접미사<a class="headerlink" href="#unity" title="Permanent link">&para;</a></h3>
+<p>Unity ON 시 출력 폴더명에 <code>_UGUI</code> 또는 <code>_NGUI</code> 접미사가 자동 삽입됩니다.
+- 접미사는 버전 앞에 위치: <code>260225_giftBox_UGUI_v1</code>
+- 이미 접미사가 있으면 중복 삽입 없음
+- Unity OFF 시 폴더명 변경 없음 (기존 동작 유지)
+- UGUI ↔ NGUI 전환 시 Output 경로가 실시간으로 갱신됨</p>
+<h3 id="auto-version">Auto Version<a class="headerlink" href="#auto-version" title="Permanent link">&para;</a></h3>
+<p>Export 행의 <strong>Auto Ver</strong> 체크박스로 제어. 출력 폴더가 이미 존재하면 버전을 자동 증가합니다.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>260225_giftBox_UGUI_v1  (존재) → 260225_giftBox_UGUI_v2
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>260225_giftBox_UGUI_v2  (존재) → 260225_giftBox_UGUI_v3
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>260225_giftBox_UGUI     (존재) → 260225_giftBox_UGUI_v2
+</code></pre></div>
+- Auto Ver OFF 시 기존 폴더에 덮어쓰기 (기존 동작)
+- 설정은 QSettings로 앱 전역 저장 (PSD별이 아닌 전역)</p>
+<hr />
+<h2 id="7-unity-export">7. Unity Export<a class="headerlink" href="#7-unity-export" title="Permanent link">&para;</a></h2>
+<p>PSD 레이어를 Unity에서 원본 위치 그대로 UGUI/NGUI로 재현하는 기능.</p>
+<h3 id="psd-extractor">PSD Extractor 측 (공통)<a class="headerlink" href="#psd-extractor" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Output 패널에서 <strong>Unity 체크 ON</strong></li>
+<li><strong>UGUI</strong> 또는 <strong>NGUI</strong> 선택 (SegmentedButton)</li>
+<li><strong>Pivot</strong> 선택 (9방향, 기본 Bottom-Center)</li>
+<li>Export → 이미지 + <code>_unity_layout.json</code> + C# 임포터 스크립트 생성</li>
+<li>UGUI: <code>FXC_PSDImporter_{Stem}.cs</code> (PSD별 고유 클래스명)</li>
+<li>NGUI: <code>FXC_PSDImporterNGUI_{Stem}.cs</code> + <code>FXC_PSDImporterNGUI_{Stem}Editor.cs</code></li>
+<li>NGUI 모드: 이미지가 PSD 파일명과 동일한 서브폴더에 저장됨</li>
+<li>출력 폴더명에 <code>_UGUI</code>/<code>_NGUI</code> 접미사 자동 삽입 (버전 앞 위치)</li>
+</ol>
+<h3 id="unity-ugui">Unity 측 (UGUI)<a class="headerlink" href="#unity-ugui" title="Permanent link">&para;</a></h3>
+<ol>
+<li>출력 폴더를 Unity 프로젝트에 통째 복사</li>
+<li>Unity 메뉴 <strong>Tools &gt; FXC PSD Importer</strong> 실행</li>
+<li>Browse로 <code>_unity_layout.json</code> 선택</li>
+<li><strong>Setup Sprites</strong> → 텍스처를 Sprite 타입으로 일괄 변환</li>
+<li><strong>Import to Scene</strong> → Canvas + UGUI 계층 자동 생성</li>
+</ol>
+<h3 id="unity-ngui">Unity 측 (NGUI)<a class="headerlink" href="#unity-ngui" title="Permanent link">&para;</a></h3>
+<ol>
+<li>출력 폴더를 Unity 프로젝트에 통째 복사</li>
+<li>Unity 메뉴 <strong>Tools &gt; FXC PSD Importer (NGUI)</strong> 실행</li>
+<li>Browse로 <code>_unity_layout.json</code> 선택</li>
+<li><strong>Setup Textures</strong> → 이미지 폴더 텍스처 일괄 설정 (Sprite/Readable/Uncompressed)</li>
+<li><strong>Make Atlas</strong> → NGUI Atlas 자동 생성 (NGUIAtlas + Material + packed PNG)</li>
+<li>Base Depth / Depth Step 설정</li>
+<li><strong>Import to Scene</strong> → NGUI 하이어라키 자동 생성</li>
+<li>Atlas 업데이트: 이미지 추가/삭제 후 이미지 폴더 우클릭 → Open Atlas Updater → Sync</li>
+</ol>
+<h3 id="unity-ugui_1">생성되는 Unity 계층 (UGUI)<a class="headerlink" href="#unity-ugui_1" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Canvas (ScreenSpaceOverlay)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>└── ch (root, PSD 캔버스 크기, pivot 적용)
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    └── fxRoot_anim (애니메이션 타겟 컨테이너)
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        ├── Group1 (빈 GameObject)
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        │   ├── s_body_01 (RectTransform + Image, fxt_→s_ 자동 변환)
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        │   └── s_arm_R (RectTransform + Image)
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        └── s_leg_01 (RectTransform + Image)
+</code></pre></div>
+- <code>fxt_</code> prefix → <code>s_</code> 자동 변환 (NGUI와 동일한 텍스처→스프라이트 네이밍 컨벤션)</p>
+<h3 id="unity-ngui_1">생성되는 Unity 계층 (NGUI)<a class="headerlink" href="#unity-ngui_1" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>GameObject (FXC_PSDImporterNGUI 스크립트)
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>└── 260225_giftBox_v1 (PSD 파일명 루트)
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    └── fxRoot_anim (애니메이션 타겟 컨테이너)
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        ├── Group1 (빈 GameObject)
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        │   ├── s_body_01 (UISprite, fxt_→s_ 자동 변환)
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        │   └── s_arm_R (UISprite)
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        └── s_leg_01 (UISprite)
+</code></pre></div>
+- <code>fxRoot_anim</code>: 애니메이션 데이터를 연결하는 빈 오브젝트 (루트 바로 아래)
+- <code>fxt_</code> prefix → <code>s_</code> 자동 변환 (텍스처→스프라이트 네이밍 컨벤션)
+- Position은 <code>Mathf.RoundToInt()</code>로 정수 반올림 (픽셀 퍼펙트)</p>
+<p>각 레이어는 PSD 원본 위치에 정확히 배치되며, opacity/visibility도 반영됩니다.</p>
+<h3 id="output">Output 경로 및 폴더 관리<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Unity 연동 경로 전환</strong>: Unity ON → 프로젝트 경로 적용, Unity OFF → PSD 파일 경로로 복원</li>
+<li>Browse 왼쪽 <strong>●</strong> dot 인디케이터로 출력 폴더 존재 여부를 실시간 표시 (초록=존재, 회색=미존재)</li>
+<li>폴더를 외부에서 삭제/생성해도 자동 갱신 (QFileSystemWatcher)</li>
+<li><strong>Delete 버튼</strong>: 출력 폴더 삭제 (다크 스킨 확인 팝업). 항상 표시, 폴더 존재 시만 활성화</li>
+<li><strong>Open Folder</strong>: PSD 파일이 있는 위치의 폴더 열기</li>
+</ul>
+<h3 id="uguingui">UGUI/NGUI 모드 구분<a class="headerlink" href="#uguingui" title="Permanent link">&para;</a></h3>
+<ul>
+<li>세그먼트 버튼의 활성 텍스트 색상으로 시각 구분</li>
+<li><strong>UGUI</strong>: 스카이 블루 (#4FC1E9) — Unity 공식 UI 시스템</li>
+<li><strong>NGUI</strong>: 소프트 그린 (#8CC152) — 서드파티 커뮤니티 플러그인</li>
+</ul>
+<hr />
+<h2 id="8">8. 키보드/마우스 단축키 종합<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<h3 id="_16">레이어 리스트<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>조작</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>클릭</strong></td>
+<td>레이어 선택 (프리뷰 표시)</td>
+</tr>
+<tr>
+<td><strong>그룹 헤더 클릭</strong></td>
+<td>그룹 접기/펼치기 토글 (트리 모드)</td>
+</tr>
+<tr>
+<td><strong>Ctrl+클릭</strong></td>
+<td>다중 선택 추가/해제</td>
+</tr>
+<tr>
+<td><strong>Shift+클릭</strong></td>
+<td>범위 선택</td>
+</tr>
+<tr>
+<td><strong>Ctrl+A</strong></td>
+<td>전체 레이어 선택 (하이라이트)</td>
+</tr>
+<tr>
+<td><strong>Space</strong></td>
+<td>선택된 레이어 체크 토글 (다중 시 일괄)</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>선택된 레이어 가시성(눈) 토글 (다중 시 일괄)</td>
+</tr>
+<tr>
+<td><strong>P</strong></td>
+<td>선택된 레이어 POT 토글 (다중 시 일괄, Settings POT ON 시)</td>
+</tr>
+<tr>
+<td><strong>A</strong></td>
+<td>레이어 선택 해제 (하이라이트만 해제)</td>
+</tr>
+<tr>
+<td><strong>더블클릭 (빈 영역)</strong></td>
+<td>PSD 파일 열기 다이얼로그</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_17">프리뷰<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>조작</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>마우스 휠</strong></td>
+<td>줌 인/아웃 (10% ~ 1600%)</td>
+</tr>
+<tr>
+<td><strong>더블클릭</strong></td>
+<td>줌 100% 리셋</td>
+</tr>
+<tr>
+<td><strong>드래그</strong></td>
+<td>패닝</td>
+</tr>
+<tr>
+<td><strong>Tab</strong></td>
+<td>PSD 정보 오버레이 토글</td>
+</tr>
+<tr>
+<td><strong>Space</strong></td>
+<td>포커스 모드 토글 (패널 숨기고 리스트+프리뷰만)</td>
+</tr>
+<tr>
+<td><strong>A</strong></td>
+<td>레이어 선택 해제 (하이라이트만 해제, 체크 유지)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="15_1">선택 슬롯 (1~5)<a class="headerlink" href="#15_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>조작</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>빈 슬롯 클릭</strong></td>
+<td>현재 선택 저장</td>
+</tr>
+<tr>
+<td><strong>채워진 슬롯 클릭</strong></td>
+<td>저장된 선택 불러오기</td>
+</tr>
+<tr>
+<td><strong>Ctrl+클릭</strong></td>
+<td>슬롯 내용 삭제</td>
+</tr>
+</tbody>
+</table>
+<h3 id="renameedit">Rename/Edit<a class="headerlink" href="#renameedit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>조작</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ctrl+Z</strong></td>
+<td>Undo (Rename/Check/Visible 되돌리기)</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+Z</strong></td>
+<td>Redo</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Enter</strong></td>
+<td>Edit 행의 입력 필드에서 Apply Edit 실행</td>
+</tr>
+<tr>
+<td><strong>Alt+더블클릭</strong></td>
+<td>Rename/Find/Replace 필드에서 <code>_</code> 구분자 단어 선택</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_18">기타<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>조작</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>경로란 더블클릭</strong></td>
+<td>마지막 파일 자동 로드</td>
+</tr>
+<tr>
+<td><strong>Prefix/Find/Replace 더블클릭</strong></td>
+<td>빈 필드에 기본값 "fxt_" 입력</td>
+</tr>
+<tr>
+<td><strong>Dim 라벨 더블클릭</strong></td>
+<td>Dim 값 기본 30% 복원</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-fxc_meshquad-shader-fx-quad">9. FXC_MeshQuad (Shader FX Quad 워크플로우)<a class="headerlink" href="#9-fxc_meshquad-shader-fx-quad" title="Permanent link">&para;</a></h2>
+<p>POT(Distort) 텍스처를 Unity Quad에 적용하는 워크플로우를 자동화합니다.</p>
+<h3 id="psd-exporter">PSD Exporter 측<a class="headerlink" href="#psd-exporter" title="Permanent link">&para;</a></h3>
+<p>POT Export 시 자동으로 생성되는 파일:
+- <code>POT/_pot_info.json</code> — 원본/POT 크기 정보 (각 레이어별)
+- <code>FXC_MeshQuad_{Suffix}.cs</code> — Runtime 스크립트 (미존재 시만 생성)
+- <code>Editor/FXC_MeshQuad_{Suffix}Editor.cs</code> — Editor 스크립트 (미존재 시만 생성)</p>
+<h3 id="unity_1">Unity 측 워크플로우<a class="headerlink" href="#unity_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>PSD Exporter에서 <strong>POT + Distort</strong> Export</li>
+<li>출력 폴더를 Unity 프로젝트에 복사</li>
+<li>빈 GameObject 생성 → <code>FXC_MeshQuad</code> 스크립트 드래그</li>
+<li><strong>Inspector에서 POT Info JSON 자동 할당</strong> (스크립트 경로 기준 탐색)</li>
+<li><strong>Setup</strong> 버튼 → <code>fxRoot_Anim</code> + 하위 Mesh 오브젝트 일괄 생성</li>
+<li>각 Quad는 <strong>Transform.localScale = (1,1,1)</strong> 유지 (메쉬 버텍스가 실제 픽셀 크기 정의)</li>
+<li>MeshRenderer의 Material에 텍스처 할당 → 셰이더 애니메이션 작업</li>
+</ol>
+<h3 id="unity_2">생성되는 Unity 계층<a class="headerlink" href="#unity_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Root (FXC_MeshQuad)
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  └─ fxRoot_Anim
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>       ├─ layer1 (FXC_MeshQuadChild + MeshFilter[hidden] + MeshRenderer)
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>       ├─ layer2 ...
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>       └─ ...
+</code></pre></div>
+<h3 id="_19">주요 특징<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Mesh Size</strong>: Inspector에서 Vector3 (X Y Z) 필드로 크기 조절 (Transform Scale 스타일)</li>
+<li><strong>Material</strong>: MeshRenderer가 Inspector에서 직접 노출 → Animation 키프레임 생성 가능</li>
+<li><strong>Play 모드 보호</strong>: Inspector에서 수정한 Material 프로퍼티(텍스처 등)가 Play 전 자동 저장 (<code>FXC_PlayModeSaver</code>)</li>
+<li><strong>Shader fallback</strong>: <code>FX Team/fxs_shine</code> → <code>Unlit/Texture</code> → <code>Standard</code></li>
+<li><strong>NGUI depth</strong>: <code>UICustomRendererWidget</code> 자동 추가 + baseDepth/depthStep으로 depth 제어</li>
+</ul>
+<h3 id="_pot_infojson">_pot_info.json 구조<a class="headerlink" href="#_pot_infojson" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;psd_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;260224_luckyJacpot_text_v2.psd&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;pot_calc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">&quot;resize_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;distort&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">&quot;layers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;luckyJacpot_text&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">      </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;luckyJacpot_text.png&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">      </span><span class="nt">&quot;original&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">187</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">      </span><span class="nt">&quot;pot&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="10">10. 프로젝트 프리셋<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<p>프로젝트별 Export 경로와 Unity 타입을 빠르게 전환합니다.</p>
+<h3 id="_20">사용법<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Output 패널의 <strong>프로젝트 콤보</strong> 에서 프로젝트 선택</li>
+<li>Unity 타입(UGUI/NGUI) + Export 경로가 자동 설정됨 (Unity ON 시)</li>
+<li><code>✎</code> 버튼으로 프로젝트 목록 편집 (추가/삭제/경로 변경)</li>
+<li><strong>참고:</strong> Output 패널의 UGUI/NGUI 세그먼트를 변경해도 프로젝트 설정에는 반영되지 않습니다. 프로젝트의 UGUI/NGUI 타입은 <code>✎</code> Project Manager에서만 변경 가능합니다.</li>
+</ol>
+<h3 id="_21">기본 프로젝트<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>포커 PC (NGUI), 포커 모바일 (NGUI)</li>
+<li>바둑 PC (UGUI), 바둑 모바일 (UGUI)</li>
+</ul>
+<h3 id="auto-export">Auto Export<a class="headerlink" href="#auto-export" title="Permanent link">&para;</a></h3>
+<p>PSD 파일 변경 감지 시 자동으로 Export 실행 (Export 패널의 <strong>Auto Export</strong> 체크박스).
+- Photoshop에서 저장 → 앱이 PSD 변경 감지 → 자동 reload → 자동 Export
+- 세션에 상태 저장</p>
+<hr />
+<h2 id="_22">다크 테마 컬러 팔레트<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>#1e1e1e  → 윈도우/캔버스 배경
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>#2b2b2b  → 패널 배경
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>#323232  → 레이어 리스트 배경
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>#535353  → 입력 필드
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>#3c3c3c  → 테두리, 버튼 배경
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>#e0e0e0  → 기본 텍스트
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>#666666  → 비활성 텍스트 (눈 OFF 레이어명)
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>#b0964a  → 그룹 헤더 (트리 모드 폴더 아이콘/텍스트)
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>#2680EB  → 악센트 (Export 버튼, 체크박스, 선택된 레이어 No)
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>#4FC1E9  → UGUI 활성 텍스트 (Unity 스카이 블루)
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>#8CC152  → NGUI 활성 텍스트 (소프트 그린)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
