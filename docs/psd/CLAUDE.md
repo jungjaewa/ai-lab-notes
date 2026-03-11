@@ -25,9 +25,9 @@
 - **머지 프리뷰**: PSD 로드 시 `psd.topil()` (내장 플래트 이미지)로 즉시 표시 → `composite()` 대비 ~90배 빠름
 - **호버 프리뷰**: 레이어 위에 마우스 호버 → 머지 이미지를 Dim 처리 + 호버 레이어만 100% 표시. 클릭 시 solo 프리뷰. 호버 감지 범위는 레이어명 영역까지만 (rename 입력란 제외)
 - **줌 유지**: 레이어 전환/호버 시 현재 줌 레벨 유지 (QGraphicsPixmapItem.setPixmap으로 in-place 교체)
-- **프리뷰 오버레이 UI**: 프리뷰 영역 내부에 떠있는 반투명 오버레이로 컨트롤 배치
+- **프리뷰 오버레이 UI**: 프리뷰 영역 내부에 떠있는 반투명 오버레이로 컨트롤 배치. 모든 토글 버튼은 OFF 시 아이콘이 dim 처리 (색상 유지, alpha 80)
   - **하단 가운데**: Tint | BG | Dim (배경색, 투명도 조절)
-  - **상단 오른쪽**: 줌% | ✛(십자선) | ◎(피봇) | ▢(아웃라인) | Info | Fit
+  - **상단 오른쪽**: 줌% | ▢(아웃라인) | □(POT) | ┌┘(크롭) | ✛(십자선) | ◎(피봇-빨강) | ◎(레이어피봇-시안) | Info | Fit
 - **배경색 선택**: 6종 프리셋 (투명/흰/검/빨/초/파) + 커스텀 컬러 피커. 투명 배경은 체커보드 표시
 - **Dim 설정**: 호버 시 비활성 레이어의 투명도(0~100%) 슬라이더 + Tint 단색 모드 (색상 선택 가능). Dim 라벨 더블클릭 시 기본값 30% 복원
 - **PSD 정보 오버레이**: 프리뷰에서 Tab 키 → 파일명, 크기, 레이어 정보를 좌상단에 토글 표시
@@ -85,8 +85,8 @@
 - **UGUI/NGUI 색상 구분**: UGUI 활성 시 스카이 블루(#4FC1E9), NGUI 활성 시 그린(#8CC152)으로 텍스트 색상 분리
 - **다크 스킨 다이얼로그**: 삭제 확인 팝업에 다크 테마 적용 (#2b2b2b 배경, #e0e0e0 텍스트)
 - **Rename Lock (잠금)**: 레이어/그룹별 rename 잠금. 잠금된 항목은 모든 배치 rename 작업(Auto/Sequential/Body Part/Find&Replace/Post-Edit/Clear)에서 제외. 개별 수동 편집도 차단. L 키로 선택 레이어/그룹 일괄 토글 (하나라도 미잠금→전부 잠금, 전부 잠금→전부 해제). rename 필드에 자물쇠 아이콘(#2680EB) + dim 텍스트(#909090). 레이어: `_art_locked` 배열, 그룹: `_group_locked` dict(경로tuple→bool). Undo/Redo(7-tuple)/세션 저장에 포함. Restore 시 초기화
-- **Per-Layer Pivot (레이어별 피봇)**: 각 레이어마다 독립적인 피봇 포인트(정수 좌표) 설정. 프리뷰에서 드래그/Alt+Click으로 위치 지정, 9-point 스냅(3×3 그리드), 더블클릭으로 리셋. `_art_pivot` 배열 (POT/Lock과 동일한 듀얼 배열 패턴). Unity RectTransform.pivot에 per-layer 값 반영. JSON에 `pivot_local` 필드 추가. Undo/Redo(9-tuple)/세션 저장에 포함. Restore 시 초기화
-- **Per-Layer Crop (레이어별 자동 크롭)**: 레이어별 투명 영역 자동 크롭 ON/OFF. Settings Row1 `Crop` 체크박스(전체 ON/OFF) + Threshold 스핀박스(0~254, 기본 10). `_art_crop` 배열 (듀얼 배열 패턴). C 키로 선택 레이어 개별 토글. 프리뷰에 크롭 오버레이 표시 (dim 영역 + 주황색 점선 경계 + 크기 정보). Export 시 `crop_transparent()` 함수로 실제 크롭 적용, Unity 좌표 보정 (`crop_offsets`). Undo/Redo(9-tuple)/세션 저장에 포함. Restore 시 초기화
+- **Per-Layer Pivot (레이어별 피봇)**: 각 레이어마다 독립적인 피봇 포인트(정수 좌표) 설정. 프리뷰에서 드래그/Alt+Click으로 위치 지정, 9-point 스냅(3×3 그리드), 더블클릭으로 리셋. `_art_pivot` 배열 (POT/Lock과 동일한 듀얼 배열 패턴). Unity RectTransform.pivot에 per-layer 값 반영. JSON에 `pivot_local` 필드 추가. Undo/Redo(9-tuple)/세션 저장에 포함. Restore 시 초기화. **Reset Pivot 버튼** (Settings Row1, Crop 옆)으로 전체 레이어 피봇 center 초기화 (Undo 가능). **레이어 피봇 버튼 OFF → Export 시 per-layer pivot 무시** (center 사용, 데이터는 보존). 커스텀 피봇 미설정 시 "Pivot (x, y)" 텍스트 숨김. 우클릭 컨텍스트 메뉴로도 Reset All 가능
+- **Per-Layer Crop (레이어별 자동 크롭)**: 레이어별 투명 영역 자동 크롭 ON/OFF. Settings Row1 `Crop` 체크박스(전체 ON/OFF) + Threshold 스핀박스(0~254, 기본 10). `_art_crop` 배열 (듀얼 배열 패턴). C 키로 선택 레이어 개별 토글. 프리뷰에 크롭 오버레이 표시 (dim 영역 + 주황색 점선 경계 + 크기 정보). **프리뷰 상단 Crop 오버레이 토글 버튼** (┌┘ 아이콘, 주황 #e0a050)으로 오버레이 표시/숨김 제어. Settings Crop ON/OFF와 자동 연동. Export 시 `crop_transparent()` 함수로 실제 크롭 적용, Unity 좌표 보정 (`crop_offsets`). Undo/Redo(9-tuple)/세션 저장에 포함. Restore 시 초기화
 - **PSD Export (바이너리)**: rename된 레이어명으로 PSD 파일 직접 저장. psd-tools `psd.save()` 대신 바이너리 레벨 수정 (Pascal string + luni Unicode 블록만 변경, 나머지 원본 바이트 보존) — Photoshop 호환성 보장
 
 #### GUI 레이아웃 (타이틀 없는 패널 구조)
@@ -100,7 +100,7 @@
 | +-- QSplitter(H) -----------------------------------------------+|
 | | QListView (가상화)          |                                  ||
 | | [01][✓][eye][thumb] name    | QGraphicsView 프리뷰             ||
-| | [02][✓][eye][thumb] name    |  ┌── 100%|✛|◎|▢|Info|Fit ─┐    ||
+| | [02][✓][eye][thumb] name    |  ┌── 100%|▢|□|┌┘|✛|◎|◎|Info|Fit ─┐    ||
 | | [03][ ][eye][thumb] name    |  │                          │    ||
 | |  (dim name if eye off)      |  │    [Tab: PSD 정보]       │    ||
 | |  ▼ Group Header (접기 가능) |  │                          │    ||
@@ -114,7 +114,7 @@
 | [Ollama|Groq] [model▼] [Key][→][tokens] (Auto 모드)              |
 | Edit [←][→]│[Find___]→[Replace___][All]│[+Prefix][+Suffix][+# ↓][Apply Edit][Reset]|
 +------------------------------------------------------------------+
-| Row1: Format [PNG▼] [✓Merge] | Quality | Padding | Color [RGBA▼] | [☐Crop][threshold] |
+| Row1: Format [PNG▼] [✓Merge] | Quality | Padding | Color [RGBA▼] | [☐Crop][threshold] | [Reset Pivot] |
 | ──────────────────────────── (구분선) ────────────────────────────── |
 | Row2: [☐POT] [All][None] [Auto|Manual] [W▼ H▼] | BG [T][B][W][C] | [Reset All] |
 | Row3: Resize Type [None▼] | Scale [✓1x][☐.75x][☐.5x] | [Ceil|Nearest] | PNG [Fast|Bal|Best] [☐OxiPNG] ── [☐Log][×] |
@@ -199,6 +199,7 @@
 #8CC152  → NGUI 활성 텍스트 (소프트 그린)
 #4ec94e  → 추천 모델 텍스트 (Groq 모델 드롭다운)
 rgba(30,30,30,200) → 프리뷰 오버레이 배경
+alpha 80 → 토글 버튼 OFF dim 처리 (각 색상 유지, 불투명도만 감소)
 Segoe UI 9pt (시스템 폰트 통일)
 ```
 
@@ -348,7 +349,7 @@ PSDExtractorQt (QMainWindow)
 ├── PreviewView (QGraphicsView) — 체커보드/단색 배경, 줌, 아웃라인, 오버레이
 │   ├── _info_overlay (QLabel) — Tab 토글 PSD 정보 (좌상단)
 │   ├── _bottom_bar (QWidget) — Tint | BG | Dim 오버레이 (하단 가운데)
-│   ├── _top_bar (QWidget) — 줌% | ✛ | ◎ | ▢ | Info | Fit 오버레이 (상단 오른쪽)
+│   ├── _top_bar (QWidget) — 줌% | ▢ | □ | ┌┘ | ✛ | ◎ | ◎ | Info | Fit 오버레이 (상단 오른쪽)
 │   ├── _layer_info_text / _layer_info_visible — 레이어 정보 오버레이 (이미지 하단)
 │   ├── _crosshair_visible — 십자선 토글 상태
 │   ├── _pivot_items / _pivot_pos — 글로벌 피봇 마커 아이템 + 위치 비율 (px, py)
@@ -414,9 +415,13 @@ PSDExtractorQt (QMainWindow)
 ├── _color_mode_combo (QComboBox) — 색상 모드 (RGBA/RGB/Gray)
 ├── _crop_check (QCheckBox) — 레이어별 자동 크롭 ON/OFF (전체 일괄 토글)
 ├── _crop_threshold_spin (QSpinBox) — 크롭 Alpha threshold (0~254, 기본 10)
-├── _on_crop_toggled() — Crop 체크 변경 → delegate/view 동기화 + 전체 레이어 ON/OFF
-├── _update_crop_preview() — PIL getbbox()로 크롭 영역 계산 → preview_view.set_crop_bbox()
+├── _crop_overlay_btn (QPushButton, checkable) — 프리뷰 Crop 오버레이 토글 (┌┘ 아이콘, 주황, Settings Crop 연동)
+├── _on_crop_toggled() — Crop 체크 변경 → delegate/view 동기화 + 전체 레이어 ON/OFF + _crop_overlay_btn 연동
+├── _on_crop_overlay_toggled() — 프리뷰 Crop 오버레이 표시/숨김 → _crop_overlay_visible 제어
+├── _update_crop_preview() — PIL getbbox()로 크롭 영역 계산 → preview_view.set_crop_bbox() (_crop_overlay_visible 가드)
 ├── _refresh_crop_overlay() — CropRole dataChanged/threshold 변경 시 오버레이 갱신
+├── _reset_pivot_btn (QPushButton) — Settings Row1 전체 레이어 피봇 center 초기화
+├── _reset_all_layer_pivots() — 모든 _art_pivot/pivot을 None으로 초기화 (Undo 가능)
 ├── _update_info_label() — PSD 정보 바 HTML 갱신 (hidden/duplicate 카운트 포함)
 ├── _layer_btn (QPushButton, checkable) — 아트 레이어 표시/숨김 토글 (기본 ON)
 ├── _output_exists_dot (QLabel "●") — 출력 폴더 존재 dot 인디케이터 (초록#4ec94e/회색#666666)
