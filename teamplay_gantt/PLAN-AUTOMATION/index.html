@@ -1,0 +1,3444 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI R&D 실험 노트">
+      
+      
+        <meta name="author" content="jungjaewa">
+      
+      
+        <link rel="canonical" href="https://jungjaewa.github.io/ai-lab-notes/teamplay_gantt/PLAN-AUTOMATION/">
+      
+      
+        <link rel="prev" href="../DESIGN/">
+      
+      
+        <link rel="next" href="../PLAN/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Plan Automation - AI Lab Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#teamplay" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AI Lab Notes" class="md-header__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Lab Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Plan Automation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="다크 모드"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="라이트 모드"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../eye-pipeline/" class="md-tabs__link">
+          
+  
+  
+  Eye Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Teamplay_Gantt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai-lab-notes-manager/" class="md-tabs__link">
+          
+  
+  
+  AI Lab Notes Manager
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../psd/" class="md-tabs__link">
+          
+  
+  
+  PSD
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../fxteamshader/" class="md-tabs__link">
+          
+  
+  
+  FXTeamShader
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  태그
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Lab Notes" class="md-nav__button md-logo" aria-label="AI Lab Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Lab Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jungjaewa/ai-lab-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jungjaewa/ai-lab-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Eye Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eye Animation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eye-pipeline/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teamplay_Gantt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teamplay_Gantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan Automation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        문서 정보
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-as-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 현재 상태 (As-Is)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 현재 상태 (As-Is)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 주간 업무 사이클
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 데이터 흐름과 입력 지점
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 사용자 액션 횟수 (주간 기준)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-to-be" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 자동화 목표 (To-Be)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 자동화 목표 (To-Be)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 목표 상태
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 자동화 수준 목표
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 자동화 단계
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 자동화 단계">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase A: 자동 감지 + 알림 (기반)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase A: 자동 감지 + 알림 (기반)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-1-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-1. 앱 시작 시 자동 Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-2-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-2. 백그라운드 자동 Sync (폴링)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-3. 목요일 자동 알림 + 팀플레이 자동 생성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-4-planning-vs-gantt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-4. Planning vs Gantt 괴리 감지
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-5-plan-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-5. Plan Import 자동 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase B: 입력 자동화 (핵심)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase B: 입력 자동화 (핵심)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#b-1-work-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-1. Work 마크 → 팀플레이 댓글 자동 생성 (역방향 Sync)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-2-gantt-dooray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-2. Gantt → Dooray 업무 자동 등록
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-3. 본문 양식 자동 생성 강화
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase C: 워크플로우 통합 (최종)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase C: 워크플로우 통합 (최종)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C-1. 주간보고 작성 (원클릭 자동화)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C-2. 변경 감지 통합 대시보드
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 기반 정리 작업
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 기반 정리 작업">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 바둑 프로젝트 지원
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 API 호출 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 데이터 표준화
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 우선순위 및 의존성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 기대 효과
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 기대 효과">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 시간 절약 (주간 기준)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 품질 향상
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 위험 요소
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        변경 이력
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TEAM-WORKFLOW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TITLE-RULES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Title Rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WEEKLY-AUTOMATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weekly Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab Notes Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab Notes Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/rnd-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/RND_LOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rnd Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/skills-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-lab-notes-manager/SKILLS_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PSD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/automation_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/dev_journal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Journal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/human_vs_ai_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vs Ai Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/layer_exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer Exporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/naming_convention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor_gui_ctk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Ctk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/psd_extractor_gui_qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Psd Extractor Gui Qt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/unity_dev_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Dev History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../psd/unity_technical_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unity Technical Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FXTeamShader
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    FXTeamShader
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fxteamshader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FXTeamShader
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fxteamshader/_INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fxteamshader/_project_rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fxteamshader/fxs_shine_rect_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fxs Shine Rect Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fxteamshader/fxs_shine_rect_technical/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fxs Shine Rect Technical
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    태그
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        문서 정보
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-as-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 현재 상태 (As-Is)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 현재 상태 (As-Is)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 주간 업무 사이클
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 데이터 흐름과 입력 지점
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 사용자 액션 횟수 (주간 기준)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-to-be" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 자동화 목표 (To-Be)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 자동화 목표 (To-Be)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 목표 상태
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 자동화 수준 목표
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 자동화 단계
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 자동화 단계">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase A: 자동 감지 + 알림 (기반)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase A: 자동 감지 + 알림 (기반)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-1-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-1. 앱 시작 시 자동 Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-2-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-2. 백그라운드 자동 Sync (폴링)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-3. 목요일 자동 알림 + 팀플레이 자동 생성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-4-planning-vs-gantt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-4. Planning vs Gantt 괴리 감지
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-5-plan-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A-5. Plan Import 자동 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase B: 입력 자동화 (핵심)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase B: 입력 자동화 (핵심)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#b-1-work-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-1. Work 마크 → 팀플레이 댓글 자동 생성 (역방향 Sync)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-2-gantt-dooray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-2. Gantt → Dooray 업무 자동 등록
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-3. 본문 양식 자동 생성 강화
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase C: 워크플로우 통합 (최종)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase C: 워크플로우 통합 (최종)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C-1. 주간보고 작성 (원클릭 자동화)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C-2. 변경 감지 통합 대시보드
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 기반 정리 작업
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 기반 정리 작업">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 바둑 프로젝트 지원
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 API 호출 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 데이터 표준화
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 우선순위 및 의존성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 기대 효과
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 기대 효과">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 시간 절약 (주간 기준)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 품질 향상
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 위험 요소
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        변경 이력
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="teamplay">Teamplay 업무 자동화 계획서<a class="headerlink" href="#teamplay" title="Permanent link">&para;</a></h1>
+<h2 id="_1">문서 정보<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>작성일: 2026-03-21</li>
+<li>상태: 기획 중</li>
+<li>기반: PLAN.md (초기 개발 완료) 이후 자동화 확장</li>
+</ul>
+<hr />
+<h2 id="1-as-is">1. 현재 상태 (As-Is)<a class="headerlink" href="#1-as-is" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 주간 업무 사이클<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>월~수                목요일 오전              목요일 오후
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>┌──────────┐      ┌──────────────┐      ┌──────────────┐
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│ 업무 수행 │      │ 팀플레이 작성 │      │ 주간보고     │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│ Work 마크 │ ──→  │ 댓글 양식 작성│ ──→  │ 아트실 주간보고 │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│ dailyNote │      │ (Dooray)     │      │ Wiki 업데이트 │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>└──────────┘      └──────────────┘      └──────────────┘
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    수동               수동                 반자동(클릭)
+</code></pre></div>
+<h3 id="12">1.2 데이터 흐름과 입력 지점<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[Dooray 업무 등록] ──→ [팀플레이 댓글] ──→ [Sync] ──→ [Gantt/Planning]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>      수동                  수동            버튼         자동 반영
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[Plan Excel/Sheets] ──→ [Plan Import] ──→ [Planning 차트]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>      외부 작성           버튼+선택          자동 반영
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>[Gantt 데이터] ──→ [Weekly] ──→ [Dooray 본문 업데이트]
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>     자동 수집       버튼            버튼
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>[Gantt 데이터] ──→ [Wiki Panel] ──→ [Dooray Wiki 페이지]
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>     자동 수집       버튼+선택            버튼
+</code></pre></div>
+<h3 id="13">1.3 사용자 액션 횟수 (주간 기준)<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>작업</th>
+<th>현재 방식</th>
+<th>빈도</th>
+<th>소요 시간</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dooray 업무 등록</td>
+<td>수동 (양식 직접 작성)</td>
+<td>수시</td>
+<td>5~10분/건</td>
+</tr>
+<tr>
+<td>팀플레이 댓글 작성</td>
+<td>수동 (Dooray에서 직접)</td>
+<td>주 1회/인</td>
+<td>15~30분</td>
+</tr>
+<tr>
+<td>Sync 실행</td>
+<td>버튼 클릭 → 적용</td>
+<td>주 1~2회</td>
+<td>2~3분</td>
+</tr>
+<tr>
+<td>Work 마크 찍기</td>
+<td>Alt+Click</td>
+<td>매일</td>
+<td>1~2분</td>
+</tr>
+<tr>
+<td>주간보고 업로드</td>
+<td>여러 버튼 순차 클릭</td>
+<td>주 1회</td>
+<td>5~10분</td>
+</tr>
+<tr>
+<td>Wiki 업데이트</td>
+<td>스캔 → 선택 → 푸시</td>
+<td>월 1~2회</td>
+<td>5분</td>
+</tr>
+<tr>
+<td>Plan Import 동기화</td>
+<td>모달 → 파일/URL → 동기화</td>
+<td>월 1회</td>
+<td>3분</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-to-be">2. 자동화 목표 (To-Be)<a class="headerlink" href="#2-to-be" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 목표 상태<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>월~수                   목요일
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>┌──────────────┐      ┌──────────────────────────┐
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│ 업무 수행     │      │ 앱 시작 → 자동 알림       │
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│ Work 마크     │ ──→  │ &quot;목요일 루틴&quot; 원클릭 실행  │
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│ dailyNote     │      │ → 모든 보고서 자동 완성   │
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>└──────────────┘      └──────────────────────────┘
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    수동(유지)              자동/원클릭
+</code></pre></div>
+<h3 id="22">2.2 자동화 수준 목표<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>작업</th>
+<th>현재</th>
+<th>목표</th>
+<th>방식</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dooray 업무 등록</td>
+<td>수동</td>
+<td><strong>반자동</strong></td>
+<td>Gantt에서 Task 추가 → Dooray 자동 등록</td>
+</tr>
+<tr>
+<td>팀플레이 댓글 작성</td>
+<td>수동</td>
+<td><strong>자동 생성</strong></td>
+<td>Work 마크 + dailyNote → 댓글 초안 자동 생성</td>
+</tr>
+<tr>
+<td>Sync 실행</td>
+<td>버튼</td>
+<td><strong>자동</strong></td>
+<td>백그라운드 폴링 또는 앱 시작 시 자동</td>
+</tr>
+<tr>
+<td>Work 마크</td>
+<td>Alt+Click</td>
+<td>유지 (수동)</td>
+<td>이것이 핵심 입력 — 자동화 불필요</td>
+</tr>
+<tr>
+<td>주간보고</td>
+<td>다단계 클릭</td>
+<td><strong>원클릭</strong></td>
+<td>목요일 루틴 자동 실행</td>
+</tr>
+<tr>
+<td>Wiki 업데이트</td>
+<td>다단계 클릭</td>
+<td><strong>자동 감지</strong></td>
+<td>변경 감지 → 알림 → 원클릭 적용</td>
+</tr>
+<tr>
+<td>Plan Import</td>
+<td>다단계 클릭</td>
+<td><strong>자동 비교</strong></td>
+<td>앱 시작 시 자동 비교 → 변경 알림</td>
+</tr>
+<tr>
+<td>데이터 불일치 감지</td>
+<td>수동 확인(U키)</td>
+<td><strong>자동 알림</strong></td>
+<td>Sync 후 자동 검증 → 토스트 알림</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 자동화 단계<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="phase-a">Phase A: 자동 감지 + 알림 (기반)<a class="headerlink" href="#phase-a" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>사람의 클릭을 기다리지 않고, 앱이 먼저 상황을 파악하여 알려준다.</p>
+</blockquote>
+<h4 id="a-1-sync">A-1. 앱 시작 시 자동 Sync<a class="headerlink" href="#a-1-sync" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 구현 완료</li>
+<li><strong>동작</strong>: <code>init()</code> 완료 3초 후 이번 주 팀플레이 자동 검색 → 댓글 조회 → 결과 자동 적용</li>
+<li><strong>설정</strong>: Automation 패널에서 <code>autoSyncOnStart</code> on/off</li>
+<li><strong>표시</strong>: Automation 패널 "마지막 Sync: YYYY.MM.DD HH:MM"</li>
+<li><strong>적용 항목</strong>: 새 업무(+배지), 완료 처리(+배지), Work 마크(+배지), 제목/프로젝트 변경</li>
+<li><strong>안전성</strong>: 추가 전용(additive) — 기존 데이터 삭제/덮어쓰기 없음</li>
+<li><strong>수정 파일</strong>: <code>automationPanel.js</code> (_runAutoSync)</li>
+</ul>
+<h4 id="a-2-sync">A-2. 백그라운드 자동 Sync (폴링)<a class="headerlink" href="#a-2-sync" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 구현 완료</li>
+<li><strong>동작</strong>: 설정된 간격(10~120분)으로 A-1과 동일한 자동 Sync 반복 실행</li>
+<li><strong>설정</strong>: Automation 패널에서 <code>backgroundPolling</code> on/off + <code>pollingInterval</code> 간격 선택</li>
+<li><strong>변경 감지</strong>: 변경사항 있으면 토스트 알림 ("자동 Sync: 신규 N건, Work N건")</li>
+<li><strong>상태 표시</strong>:</li>
+<li>독립 플로팅 뱃지 (<code>#autoSyncFloat</code>): Hook Polling 왼쪽, 초록색 테두리/배경, <code>Sync MM:SS</code> 카운트다운 / <code>Sync 중</code> 스피너</li>
+<li>Automation 패널: "다음 Sync: N분 N초 후" 초록색 배경(<code>#E6F4EA</code>) + 펄스 점(<code>.atp-sync-pulse</code>)</li>
+<li><strong>수정 파일</strong>: <code>automationPanel.js</code> (_startPolling, _startStatusRefresh, _updateSyncIndicator, _updateSyncCountdown), <code>index.html</code> (#autoSyncFloat), <code>styles.css</code> (.auto-sync-float)</li>
+</ul>
+<h4 id="a-3">A-3. 목요일 자동 알림 + 팀플레이 자동 생성<a class="headerlink" href="#a-3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 구현 완료</li>
+<li><strong>동작</strong>: 앱 시작 시 오늘이 목요일이면</li>
+<li>"주간보고 준비" 토스트 알림 표시 (팀플레이 생성 + Weekly 열기 버튼)</li>
+<li>Automation Panel의 목요일 루틴 섹션에 "🔥𝗙𝗫 [팀플레이] 생성" 버튼</li>
+<li><strong>목요일 카운트다운</strong>: 다음 목요일 09:00까지 남은 시간 표시 (초록색 배경 + 펄스 점)</li>
+<li><code>_calcThursdayCountdown()</code> — 남은 일/시간/분 계산</li>
+<li>매분 자동 갱신 (<code>_startStatusRefresh</code> 타이머)</li>
+<li><strong>팀플레이 자동 생성 흐름</strong>:</li>
+<li>다음 주 팀플레이가 이미 있는지 확인 (중복 방지)</li>
+<li>이번주 팀플레이 검색 → dooray:// 링크 생성</li>
+<li>새 업무 생성 (제목 + 본문 + 담당자)</li>
+<li>이번주 정재화 댓글을 새 업무에 자동 복사</li>
+<li><strong>댓글 정리 옵션</strong> (<code>cleanPrevComment</code>):</li>
+<li>팀 공유사항에 "완료" 텍스트 → 해당 프로젝트 블록 제외</li>
+<li>Dooray API <code>workflowClass === 'closed'</code> → 해당 프로젝트 블록 제외</li>
+<li>나머지 블록: 금주 진행내용/다음주 액션/이슈/팀 공유사항 초기화</li>
+<li><code>"closed"</code> 링크 힌트로 빠른 판별 + API fallback</li>
+<li><strong>예약 자동 생성</strong>:</li>
+<li><code>scheduledCreateEnabled/Day/Hour/Minute</code> 4개 플래그</li>
+<li><code>_scheduleTimer</code> 매분 체크, 하루 1회 제한 (localStorage)</li>
+<li>놓친 예약 보완: 앱 시작 시 예약 시간 지났으면 confirm 알림</li>
+<li><strong>제목 형식</strong>: <code>🔥𝗙𝗫 [팀플레이] {year}.{month}월 {week}주차 ({monday}~{friday})</code></li>
+<li><strong>주차 계산</strong>: <code>Utils.getWeekInfo()</code> 공통 함수 사용 (금요일 기준 월 판정)</li>
+<li><strong>선행 조건</strong>: 없음</li>
+<li><strong>수정 파일</strong>: <code>automationPanel.js</code> (createTeamplayPost, _processCommentForNewWeek, _checkScheduledCreation), <code>state.js</code>, <code>styles.css</code></li>
+</ul>
+<h4 id="a-4-planning-vs-gantt">A-4. Planning vs Gantt 괴리 감지<a class="headerlink" href="#a-4-planning-vs-gantt" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 미착수</li>
+<li><strong>동작</strong>: Planning Planned가 있는데 Gantt에 실제 Task가 없는 프로젝트 / 그 반대 자동 감지</li>
+<li><strong>표시</strong>: Planning 차트에 "미매칭" 뱃지 또는 Analytics에 괴리 리포트</li>
+<li><strong>주기</strong>: <code>App.render()</code> 시 자동 계산</li>
+<li><strong>선행 조건</strong>: 없음</li>
+<li><strong>수정 파일</strong>: <code>planningOverview.js</code> 또는 <code>analytics.js</code>, 새 감지 함수</li>
+</ul>
+<h4 id="a-5-plan-import">A-5. Plan Import 자동 비교<a class="headerlink" href="#a-5-plan-import" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 구현 완료</li>
+<li><strong>동작</strong>: Google Sheets URL이 설정되어 있으면 앱 시작 5초 후 자동 비교 (데이터 변경만 확인, 적용 안 함)</li>
+<li><strong>설정</strong>: Automation 패널에서 <code>planImportAutoCompare</code> on/off</li>
+<li><strong>비교 결과 표시</strong>:</li>
+<li>Automation 패널: 추가(+N)/변경(~N)/삭제(-N) 카운트 + 시각 + "열기" 버튼</li>
+<li>사이드 패널: Plan Import 버튼에 빨간 뱃지 (변경 총 건수)</li>
+<li>변경 있을 때 토스트 알림</li>
+<li><strong>구현</strong>: <code>PlannedImport.autoCompare()</code> (headless), <code>AutomationPanel._runPlanAutoCompare()</code>, <code>_updatePlanImportBadge()</code></li>
+<li><strong>선행 조건</strong>: 없음 (기존 PlannedImport 모듈 활용)</li>
+<li><strong>수정 파일</strong>: <code>plannedImport.js</code> (autoCompare), <code>automationPanel.js</code> (_runPlanAutoCompare, UI), <code>styles.css</code></li>
+</ul>
+<hr />
+<h3 id="phase-b">Phase B: 입력 자동화 (핵심)<a class="headerlink" href="#phase-b" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>사람이 직접 타이핑/작성하는 부분을 줄인다. 가장 큰 시간 절약.</p>
+</blockquote>
+<h4 id="b-1-work-sync">B-1. Work 마크 → 팀플레이 댓글 자동 생성 (역방향 Sync)<a class="headerlink" href="#b-1-work-sync" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 미착수</li>
+<li><strong>현재 흐름</strong>: 팀원이 Dooray 댓글 작성 → Sync로 가져옴</li>
+<li><strong>목표 흐름</strong>: Work 마크 + dailyNote → 댓글 양식 자동 생성 → Dooray POST</li>
+<li><strong>데이터 소스</strong>:</li>
+<li><code>AppState.workLogs[taskId][dateStr]</code> — 어떤 날에 작업했는지</li>
+<li><code>AppState.dailyNotes["taskId_YYYY-MM-DD"]</code> — 작업 내용 메모</li>
+<li><code>task.platform</code>, <code>task.project</code>, <code>task.name</code> — 업무 식별</li>
+<li><code>task.url</code> — Dooray 링크</li>
+<li><strong>생성 양식</strong>:
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[프로젝트코드/번호 𝗙𝗫 [플랫폼] 프로젝트 [작업] Task명](dooray://...)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>| No | 금주 진행내용 | 다음주 주요 액션 | 이슈 | 팀 공유사항 |
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>| --- | --- | --- | --- | --- |
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>| 1 | MM.DD 작업내용 | | | |
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>| 2 | MM.DD 작업내용 | | | |
+</code></pre></div></li>
+<li><strong>미리보기</strong>: 생성된 댓글 미리보기 → 수정 가능 → "다음주 액션", "이슈" 직접 입력 → POST</li>
+<li><strong>장점</strong>: 팀원이 15~30분 걸리는 댓글 작성이 2~3분으로 단축</li>
+<li><strong>주의</strong>: dailyNote 미입력 시 날짜만 표시 (내용 빈칸)</li>
+<li><strong>선행 조건</strong>: 없음 (기존 데이터 활용)</li>
+<li><strong>수정 파일</strong>: 새 모듈 <code>js/commentGenerator.js</code>, UI 모달, <code>syncManager.js</code> (POST)</li>
+</ul>
+<h4 id="b-2-gantt-dooray">B-2. Gantt → Dooray 업무 자동 등록<a class="headerlink" href="#b-2-gantt-dooray" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 미착수</li>
+<li><strong>현재</strong>: Dooray에서 수동으로 업무 생성 → 양식 본문 작성 → Teamplay에서 Sync</li>
+<li><strong>목표</strong>: Gantt에서 Task 추가(isLocal) → "Dooray 등록" 버튼 → 자동 업무 생성</li>
+<li><strong>자동 채움 필드</strong>:</li>
+<li>제목: <code>𝗙𝗫 [platform] project [작업] task</code></li>
+<li>본문: 카테고리/조직/일정/점검월 양식 자동 생성</li>
+<li>담당자: <code>task.assignee</code> → Dooray memberId 매칭</li>
+<li><strong>결과</strong>: Dooray 업무 URL 자동 반영 → <code>isLocal</code> 해제</li>
+<li><strong>선행 조건</strong>: 업무 등록 양식(본문 템플릿) 표준화</li>
+<li><strong>수정 파일</strong>: <code>syncManager.js</code> (POST), <code>main.js</code> (UI), Task 편집 모달</li>
+<li><strong>참고</strong>: QA 등록(<code>qaRegister.js</code>)이 유사 패턴의 프로토타입</li>
+</ul>
+<h4 id="b-3">B-3. 본문 양식 자동 생성 강화<a class="headerlink" href="#b-3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 미착수</li>
+<li><strong>현재</strong>: Dooray 업로드(Upload) 시 조직/일정/점검월만 치환</li>
+<li><strong>목표</strong>: 업무 등록 시 전체 본문 양식을 자동 생성
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>* 카테고리: {category}
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>* 조직: {planning}
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>* 일정: {startDate}~{endDate} ({md}MD)
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>* 점검월: {releaseMonth}
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>* 위키: [위키 링크](...)
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>* 기획: [기획 링크](...)
+</code></pre></div></li>
+<li><strong>선행 조건</strong>: B-2와 함께 진행</li>
+<li><strong>수정 파일</strong>: <code>syncManager.js</code> (buildNewBody 함수)</li>
+</ul>
+<hr />
+<h3 id="phase-c">Phase C: 워크플로우 통합 (최종)<a class="headerlink" href="#phase-c" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>여러 단계를 하나의 흐름으로 묶어 원클릭으로 실행한다.</p>
+</blockquote>
+<h4 id="c-1">C-1. 주간보고 작성 (원클릭 자동화)<a class="headerlink" href="#c-1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: ~~미착수~~ <strong>구현 완료</strong> (2026-03-22)</li>
+<li><strong>동작</strong>: "주간보고 작성" 버튼 하나로 아래 단계를 순차 자동 실행</li>
+<li><strong>루틴 대상 선택</strong>: <code>routineTarget</code> ('teamplay' | 'artteam') 라디오로 선택</li>
+<li><strong>팀플레이 (FX팀)</strong>: Step 4 = <code>WeeklyReportGenerator.updatePost()</code> — 기존 업무 본문 PUT</li>
+<li><strong>아트실 주간보고</strong>: Step 4 = <code>_routineStepArtTeam()</code> — Dooray 새 업무 POST (주간 요약 + 표)
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Step 1. Sync (팀플레이 동기화)     — 팀플레이 검색 → syncComments → 변경 적용
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>     ↓
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Step 2. 댓글 조회 + 파싱          — headless fetchWeeklyReportComments
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>     ↓
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Step 3. 표 생성 (Weekly)          — WeeklyReportGenerator.updateTable()
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>     ↓
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Step 4a. 본문 업데이트 (Dooray)    — [팀플레이] WeeklyReportGenerator.updatePost()
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Step 4b. 아트실 주간보고 생성      — [아트실] Dooray POST (주간 요약 + 표)
+</code></pre></div></li>
+<li><strong>대상 선택 UI</strong>: <code>.atp-routine-target-row</code> 라디오 버튼 (배경 제거, 목요일 아닌 날 딤 처리)</li>
+<li><strong>파이프라인 UI</strong>: 각 단계별 프로그레스바 + 상태 아이콘(대기/진행/완료/오류) + 결과 텍스트</li>
+<li><strong>진입점</strong>: Automation 패널 "주간보고 작성" 버튼(보라색) + 목요일 토스트 "주간보고 작성" 버튼</li>
+<li><strong>딤 처리</strong>: 목요일 아닌 날 <code>.atp-routine-dimmed</code> (opacity 0.45, hover 시 0.8)</li>
+<li><strong>상태 힌트</strong>: <code>_getRoutineStatusHint()</code> — 목요일 미작성/작성완료(시각)/수동실행 표시</li>
+<li><strong>headless Weekly</strong>: localStorage('weeklyReportSettings')에서 설정 로드 — UI 조작 불필요</li>
+<li><strong>오류 처리</strong>: 해당 단계에서 멈춤 + 오류 메시지 표시 (이전 단계 결과 보존)</li>
+<li><strong>완료 시</strong>: "Dooray 열기" 버튼으로 업데이트된 업무 확인</li>
+<li><strong>수정 파일</strong>: <code>js/automationPanel.js</code> (<code>runThursdayRoutine()</code>, <code>_routineStep*()</code>, <code>_routineStepArtTeam()</code>, <code>_calcThursdayCountdown()</code>, <code>_getRoutineStatusHint()</code>)</li>
+<li><strong>CSS</strong>: <code>styles.css</code> <code>.atp-rt-*</code>, <code>.atp-btn-routine</code>, <code>.atp-routine-target-row</code>, <code>.atp-routine-radio</code>, <code>.atp-routine-dimmed</code>, <code>.atp-routine-status</code>, <code>.atp-thursday-countdown</code>, <code>.atp-divider</code></li>
+</ul>
+<h4 id="c-2">C-2. 변경 감지 통합 대시보드<a class="headerlink" href="#c-2" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>기획 상태</strong>: 미착수</li>
+<li><strong>동작</strong>: 앱 시작 시 한 화면에 모든 변경사항/해야 할 일을 표시</li>
+<li>Sync 후 변경사항 (새 업무, 완료, Work 마크)</li>
+<li>Planning vs Gantt 괴리</li>
+<li>지연/오늘/금주 Task 요약</li>
+<li>Plan Import 변경사항</li>
+<li>주간보고 상태 (미작성/작성완료)</li>
+<li><strong>기존 연동</strong>: Smart Filter + Member Dashboard + Analytics 데이터 통합</li>
+<li><strong>선행 조건</strong>: Phase A 전체 완료</li>
+<li><strong>수정 파일</strong>: 새 모듈 또는 기존 Analytics 확장</li>
+</ul>
+<hr />
+<h2 id="4">4. 기반 정리 작업<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>자동화 개발 전에 정리해야 하는 사항들</p>
+</blockquote>
+<h3 id="41">4.1 바둑 프로젝트 지원<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>현재 상태</th>
+<th>필요 작업</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>플랫폼 등록</td>
+<td>미등록</td>
+<td>Settings &gt; 플랫폼 관리에 바둑 플랫폼 6종 추가</td>
+</tr>
+<tr>
+<td>조직 매핑</td>
+<td>미등록</td>
+<td>바둑 조직 → 보고서 그룹 매핑 추가</td>
+</tr>
+<tr>
+<td>제목 파싱</td>
+<td>포커 패턴 중심</td>
+<td><code>[게임명] N월 &gt; 제목</code> 패턴 파싱 검증</td>
+</tr>
+<tr>
+<td>planningTitle</td>
+<td><code>N월 업데이트 &gt;</code> 제거</td>
+<td>바둑 패턴도 동일 동작 확인</td>
+</tr>
+<tr>
+<td>Guide Panel</td>
+<td>초기 콘텐츠 작성 완료</td>
+<td>실제 사용하며 내용 보완</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-api">4.2 API 호출 관리<a class="headerlink" href="#42-api" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>현재 상태</th>
+<th>필요 작업</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API 호출</td>
+<td>개별 fetch 산재</td>
+<td>공통 API 레이어 정리 (에러 핸들링 통일)</td>
+</tr>
+<tr>
+<td>쓰로틀링</td>
+<td>없음</td>
+<td>자동 Sync 도입 시 호출 빈도 제한 필요</td>
+</tr>
+<tr>
+<td>오프라인 대응</td>
+<td>없음</td>
+<td>API 실패 시 재시도 큐 또는 오프라인 모드</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43">4.3 데이터 표준화<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>현재 상태</th>
+<th>필요 작업</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>본문 양식</td>
+<td>파싱으로 추출</td>
+<td>생성용 양식 템플릿 정의 (B-2, B-3용)</td>
+</tr>
+<tr>
+<td>댓글 양식</td>
+<td>팀원별 상이 (MD/HTML)</td>
+<td>자동 생성 시 통일된 양식 사용 (B-1용)</td>
+</tr>
+<tr>
+<td>memberId 매핑</td>
+<td>Dooray CC에서 추출</td>
+<td>Task assignee → Dooray memberId 매핑 테이블</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5">5. 우선순위 및 의존성<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[기반 정리] ─────────────────────────────────────────────
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  4.1 바둑 플랫폼/조직 등록 .............. 즉시 가능
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  4.2 API 호출 관리 ...................... Phase A 전에
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  4.3 데이터 표준화 ...................... Phase B 전에
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>[Phase A: 자동 감지] ────────────────────────────────────
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  A-1 앱 시작 시 자동 Sync ←─── 4.2 API 관리
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  A-2 백그라운드 폴링 ←────────── A-1
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  A-3 목요일 알림 ...................... 독립
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  A-4 Planning-Gantt 괴리 감지 ........ 독립
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>  A-5 Plan Import 자동 비교 ........... 독립
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>[Phase B: 입력 자동화] ──────────────────────────────────
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>  B-1 댓글 자동 생성 ←───── 4.3 데이터 표준화
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>  B-2 Dooray 업무 등록 ←──── 4.3, B-3
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>  B-3 본문 양식 자동 생성 ←── 4.3
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>[Phase C: 워크플로우 통합] ──────────────────────────────
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>  C-1 목요일 루틴 ←──── A-1, B-1 (선택)
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>  C-2 통합 대시보드 ←──── Phase A 전체
+</code></pre></div>
+<hr />
+<h2 id="6">6. 기대 효과<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 시간 절약 (주간 기준)<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>작업</th>
+<th>현재</th>
+<th>목표</th>
+<th>절약</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>팀플레이 댓글 작성 (3명)</td>
+<td>60~90분</td>
+<td>10분</td>
+<td><strong>50~80분</strong></td>
+</tr>
+<tr>
+<td>Sync + 검증</td>
+<td>5~10분</td>
+<td>0분 (자동)</td>
+<td><strong>5~10분</strong></td>
+</tr>
+<tr>
+<td>주간보고 + 아트실 + Wiki</td>
+<td>15~20분</td>
+<td>2분 (원클릭)</td>
+<td><strong>13~18분</strong></td>
+</tr>
+<tr>
+<td>Plan Import 확인</td>
+<td>5분/월</td>
+<td>0분 (자동 알림)</td>
+<td><strong>5분/월</strong></td>
+</tr>
+<tr>
+<td><strong>주간 합계</strong></td>
+<td><strong>~120분</strong></td>
+<td><strong>~12분</strong></td>
+<td><strong>~108분</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="62">6.2 품질 향상<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>개선</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>데이터 정확도</td>
+<td>Work 마크가 단일 소스 → 댓글과 Gantt 일치</td>
+</tr>
+<tr>
+<td>누락 방지</td>
+<td>자동 감지가 빠진 항목을 미리 알려줌</td>
+</tr>
+<tr>
+<td>양식 통일</td>
+<td>자동 생성으로 포맷 불일치 제거</td>
+</tr>
+<tr>
+<td>실시간성</td>
+<td>자동 Sync로 항상 최신 상태 유지</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7">7. 위험 요소<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>위험</th>
+<th>영향</th>
+<th>대응</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dooray API 호출 제한</td>
+<td>자동 Sync 차단</td>
+<td>쓰로틀링 + 최소 간격 설정</td>
+</tr>
+<tr>
+<td>자동 생성 댓글 품질</td>
+<td>팀원 신뢰 저하</td>
+<td>반드시 미리보기 + 수동 보완 단계 유지</td>
+</tr>
+<tr>
+<td>자동 등록 오류</td>
+<td>Dooray에 잘못된 데이터</td>
+<td>되돌리기(Undo) 지원 + 미리보기 필수</td>
+</tr>
+<tr>
+<td>양식 변경</td>
+<td>파싱/생성 로직 깨짐</td>
+<td>Guide Panel에 양식 문서화 + 테스트 케이스</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">변경 이력<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>날짜</th>
+<th>변경 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-03-21</td>
+<td>최초 작성 — 현재 상태 분석 + 3단계 자동화 계획</td>
+</tr>
+<tr>
+<td>2026-03-21</td>
+<td>Automation Panel 구현 — Feature Flag 시스템 + 사이드 패널 + 목요일 알림</td>
+</tr>
+<tr>
+<td>2026-03-21</td>
+<td>팀플레이 자동 생성 — 이전주 검색 + 새 업무 POST + 정재화 댓글 복사</td>
+</tr>
+<tr>
+<td>2026-03-21</td>
+<td>주차 계산 통합 — Utils.getWeekInfo() 공통 함수, report.js/main.js 2곳 통합</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>댓글 정리 옵션 — 완료 프로젝트 제외(텍스트+API), 데이터 컬럼 초기화</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>예약 팀플레이 자동 생성 — 요일/시간 설정, 놓친 예약 보완</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>A-1/A-2 구현 완료 — 자동 Sync 실제 연결, 새 업무/완료/Work 마크/변경 자동 적용</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>Sync 상태 표시 — 시계 옆 카운트다운 + Automation 패널 실시간 갱신</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>A-4 구현 완료 — Planned ↔ Gantt 프로젝트 수동 연결 (importKey 보존 + Plan Import 2단계 매칭)</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>A-5 구현 완료 — Plan Import 자동 비교 (headless Sheets 비교 + 사이드 뱃지 + Automation 패널 결과)</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>C-1 루틴 대상 선택 — 팀플레이(FX팀) vs 아트실 주간보고 라디오 선택 + <code>_routineStepArtTeam()</code></td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>"아트실 보고서" → "아트실 주간보고" 전체 rename (index.html, main.js, styles.css, CLAUDE.md 등)</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>목요일 루틴 UI 재정리 — 흐름별 그룹핑, 구분선, 카운트다운 통합</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>"루틴 실행" → "주간보고 작성" rename + 상태 힌트 + 딤 처리 (목요일 외)</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>팀플레이 생성 텍스트 → "🔥𝗙𝗫 [팀플레이] 생성"</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>목요일 카운트다운 추가 — 다음 목요일까지 남은 시간, 초록 배경 + 펄스 점</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>다음 Sync 카운트다운 초록색 + 펄스 점 + 배경 (#E6F4EA)</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>Auto Sync 플로팅 독립 배치 — <code>#autoSyncFloat</code> (hookPolling 왼쪽, 동적 위치)</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>Plan Import 삭제 감지 버그 수정 — 연결된/중복 Placeholder 오판정 (importKeyShortMap + sibling check)</td>
+</tr>
+<tr>
+<td>2026-03-22</td>
+<td>"목요일 알림" → "목요일 알림 메시지 안내" rename, 섹션 맨 아래로 이동</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
