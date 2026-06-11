@@ -92,4 +92,10 @@ nav:
     - Readme: psd/README.md
     - Unity Dev History: psd/unity_dev_history.md
     - Unity Technical Notes: psd/unity_technical_notes.md
+  - FXTeamShader:
+    - fxteamshader/index.md
+    -  Index: fxteamshader/_INDEX.md
+    -  Project Rules: fxteamshader/_project_rules.md
+    - Fxs Shine Rect Overview: fxteamshader/fxs_shine_rect_overview.md
+    - Fxs Shine Rect Technical: fxteamshader/fxs_shine_rect_technical.md
   - 태그: tags.md
