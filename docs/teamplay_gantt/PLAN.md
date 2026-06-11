@@ -582,3 +582,67 @@ interface ReportEntry {
 ### C. Dooray MCP 서버
 - JAR: `E:\_DoorayMCP\dooray-mcp-server-0.2.1-all.jar`
 - API Key: config/dooray.json 참조
+
+---
+
+## 부록 D. Git & 백업 체계
+
+### 저장소 구성
+
+| 저장소 | 용도 | 내용물 | 주소 |
+|--------|------|--------|------|
+| **teamplay** | 소스코드 버전관리 | JS, CSS, HTML 등 57개 파일 | `github.com/jungjaewa/teamplay` (Private) |
+| **teamplay-data** | 앱 데이터 백업 | `Teamplay_latest.json` (Task, workLogs 등) | `github.com/jungjaewa/teamplay-data` (Private) |
+
+### 두 저장소의 역할 차이
+
+```
+teamplay (Git)        = 앱의 "기능" (소스코드)
+teamplay-data (백업)  = 앱의 "내용" (업무 데이터)
+```
+
+- **teamplay**: 코드 변경 이력이 쌓여감. 이전 버전으로 되돌리기 가능
+- **teamplay-data**: 앱 백업 버튼(GitHub) 클릭 시 최신 JSON 1개로 덮어쓰기
+
+### Git에 포함되는 것 / 제외되는 것
+
+| 포함 (Git 관리) | 제외 (.gitignore) |
+|-----------------|-------------------|
+| `js/` 소스코드 | `node_modules/` (650MB, npm install로 복원) |
+| `styles.css` | `dist/` (450MB, 빌드 출력) |
+| `index.html` | `data/`, `backup/` (데이터, 별도 백업) |
+| `electron-main.js` | `config/` (토큰 등 비밀정보) |
+| `package.json` | `.mcp.json` (MCP 토큰) |
+| `CLAUDE.md`, `PLAN.md` | `*.bat`, `*.cmd`, `*.vbs` (로컬 스크립트) |
+
+### 다른 PC에서 앱 복원하기
+
+```
+Step 1: 소스코드 받기
+  > git clone https://github.com/jungjaewa/teamplay.git
+  > cd teamplay
+  > npm install
+
+Step 2: 앱 실행
+  > npm start   (빈 상태로 실행됨)
+
+Step 3: 데이터 복원
+  > teamplay-data 저장소에서 Teamplay_latest.json 다운로드
+  > 앱에서 Import
+
+Step 4: 설정 복원
+  > config/github.json — GitHub 토큰
+  > config/dooray.json — Dooray API 토큰
+  > .mcp.json — MCP 서버 설정
+```
+
+### 일상적인 Git 사용
+
+```
+코드 수정 후:
+  > git add -A
+  > git commit -m "변경 설명"
+  > git push
+
+* Claude Code에게 "커밋해줘" 또는 "push해줘"라고 말하면 자동 처리
+```

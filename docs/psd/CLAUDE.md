@@ -27,7 +27,7 @@
 - **줌 유지**: 레이어 전환/호버 시 현재 줌 레벨 유지 (QGraphicsPixmapItem.setPixmap으로 in-place 교체)
 - **프리뷰 오버레이 UI**: 프리뷰 영역 내부에 떠있는 반투명 오버레이로 컨트롤 배치. 모든 토글 버튼은 OFF 시 아이콘이 dim 처리 (색상 유지, alpha 80)
   - **하단 가운데**: Tint | BG | Dim (배경색, 투명도 조절)
-  - **상단 오른쪽**: 줌% | ▢(아웃라인) | □(POT) | ┌┘(크롭) | ✛(십자선) | ◎(피봇-빨강) | ◎(레이어피봇-시안) | Info | Fit
+  - **상단 오른쪽**: 줌% | ▢(아웃라인) | □(POT) | ┌┘(크롭) | ✂(매뉴얼크롭) | ✛(십자선) | ◎(피봇-빨강) | ◎(레이어피봇-시안) | Info | Fit
 - **배경색 선택**: 6종 프리셋 (투명/흰/검/빨/초/파) + 커스텀 컬러 피커. 투명 배경은 체커보드 표시
 - **Dim 설정**: 호버 시 비활성 레이어의 투명도(0~100%) 슬라이더 + Tint 단색 모드 (색상 선택 가능). Dim 라벨 더블클릭 시 기본값 30% 복원
 - **PSD 정보 오버레이**: 프리뷰에서 Tab 키 → 파일명, 크기, 레이어 정보를 좌상단에 토글 표시
@@ -44,7 +44,9 @@
 - **Rename 중복 감지**: 동일한 rename 이름이 2개 이상이면 빨간색(#e05050)으로 표시. 실시간 갱신
 - **원본 레이어명 중복 경고**: PSD에서 동일한 레이어명이 2개 이상이면 주황색(#e0a050)으로 표시 + rename 필드에 "⚠ duplicate name" 플레이스홀더
 - **Auto (KR→EN) Rename**: Ollama/Groq LLM으로 한글 레이어명을 영문 snake_case로 자동 번역. 딕셔너리 우선 + 복합어 분리 + 혼합 이름 분해 + 캐시 + LLM 폴백. 그룹명 컨텍스트(즉시 부모만) 전달로 동음이의어 구분 (예: 팔/위→arm_upper). 그룹명=레이어명일 때 컨텍스트 생략 (중복 방지). 그룹명에는 prefix 미적용 (fxt_ 제외). noun_modifier 어순 (명사 우선: arm_upper, item_inner). 영어 이름은 prefix만 적용 (ribbon_01→fxt_ribbon_01). 혼합 이름(리본end)은 세그먼트 분리 후 사전 변환. 네이밍 규칙: [docs/naming_convention.md](docs/naming_convention.md)
-- **Ollama/Groq Provider 선택**: Ollama(로컬) 또는 Groq(클라우드) 선택 가능. Groq는 무료 tier로 32B 모델 사용, 동적 모델 목록 API 조회, 추천 모델 초록색 표시, 토큰 사용량 실시간 표시
+- **Ollama/Groq Provider 선택**: Ollama(로컬) 또는 Groq(클라우드) 선택 가능. Groq는 무료 tier 다중 모델 사용, 동적 모델 목록 API 조회, 추천 모델 초록색 표시, 토큰 사용량 실시간 표시. 두 provider 모두 추천 모델 콤보 사전 등록 (Groq: llama-3.3-70b/kimi-k2/llama-3.1-8b-instant + others, Ollama: qwen2.5:3b/7b/gemma2/llama3.2/phi3.5)
+- **네이밍 가이드 다이얼로그 (? 버튼)**: Rename 모드 콤보 옆 ? 버튼(cyan #4FC1E9) 클릭 → 3탭 모달 표시. (1) 빠른 규칙: 6가지 핵심 규칙 카드. (2) 권장 PSD 구조: 한글 모드 트리 + Auto Rename 결과 미리보기 (monospace). (3) 사전 단어 검색: `_KO_BODY_PARTS_SPINE` 90+개 단어 한글/영문 검색, 클릭 시 영문 클립보드 복사. 푸터: "상세 문서 열기" 버튼으로 `docs/naming_convention.md` 실행. `_open_naming_guide_dialog()`, `_NAMING_QUICK_RULES`, `_NAMING_PSD_STRUCTURE`, `_NAMING_EXPORT_RESULT`. 모든 텍스트 Segoe UI 8~9pt 통일
+- **모델 가이드 다이얼로그 (? 버튼)**: Provider 토글 옆 ? 버튼 클릭 시 현재 provider의 모델별 카드 다이얼로그 표시. 각 카드: 모델명/추천 뱃지/크기/장점👍/단점⚠/추천 케이스✓. 모델명 클릭 → 콤보박스 자동 선택. tier별 좌측 색상 막대 (추천=초록 #4ec94e, 빠름=시안 #4FC1E9, 실험적=주황 #e0a050). `_MODEL_TIPS` dict + `_open_model_tip_dialog()` + `_select_model_from_tip()`
 - **Ollama 모델 프리로드**: 앱 UI 표시 3초 후 백그라운드에서 모델을 GPU에 미리 로드 (콜드 스타트 방지). 앱 부하 없음, Ollama 서버 측에서만 메모리 사용
 - **Ollama 상태 애니메이션**: 모델 로딩/번역 중 `·` → `··` → `···` 순환 애니메이션 표시 (400ms 간격). 상태 라벨에 모델명 항상 표시 ("Ready (qwen2.5:3b)")
 - **그룹 리네임**: 트리 모드에서 그룹 헤더에 rename 입력란 표시. 클릭으로 직접 편집 가능. Auto (KR→EN) 모드에서 한글 그룹명도 자동 번역 + `_group` 서픽스 자동 추가 (AI 구분용). 세션 저장 시 보존. 동일 이름 그룹도 경로(path-tuple) 기반으로 독립 rename 가능
@@ -86,7 +88,75 @@
 - **다크 스킨 다이얼로그**: 삭제 확인 팝업에 다크 테마 적용 (#2b2b2b 배경, #e0e0e0 텍스트)
 - **Rename Lock (잠금)**: 레이어/그룹별 rename 잠금. 잠금된 항목은 모든 배치 rename 작업(Auto/Sequential/Body Part/Find&Replace/Post-Edit/Clear)에서 제외. 개별 수동 편집도 차단. L 키로 선택 레이어/그룹 일괄 토글 (하나라도 미잠금→전부 잠금, 전부 잠금→전부 해제). rename 필드에 자물쇠 아이콘(#2680EB) + dim 텍스트(#909090). 레이어: `_art_locked` 배열, 그룹: `_group_locked` dict(경로tuple→bool). Undo/Redo(7-tuple)/세션 저장에 포함. Restore 시 초기화
 - **Per-Layer Pivot (레이어별 피봇)**: 각 레이어마다 독립적인 피봇 포인트(정수 좌표) 설정. 프리뷰에서 드래그/Alt+Click으로 위치 지정, 9-point 스냅(3×3 그리드), 더블클릭으로 리셋. `_art_pivot` 배열 (POT/Lock과 동일한 듀얼 배열 패턴). Unity RectTransform.pivot에 per-layer 값 반영. JSON에 `pivot_local` 필드 추가. Undo/Redo(9-tuple)/세션 저장에 포함. Restore 시 초기화. **Reset Pivot 버튼** (Settings Row1, Crop 옆)으로 전체 레이어 피봇 center 초기화 (Undo 가능). **레이어 피봇 버튼 OFF → Export 시 per-layer pivot 무시** (center 사용, 데이터는 보존). 커스텀 피봇 미설정 시 "Pivot (x, y)" 텍스트 숨김. 우클릭 컨텍스트 메뉴로도 Reset All 가능
-- **Per-Layer Crop (레이어별 자동 크롭)**: 레이어별 투명 영역 자동 크롭 ON/OFF. Settings Row1 `Crop` 체크박스(전체 ON/OFF) + Threshold 스핀박스(0~254, 기본 10). `_art_crop` 배열 (듀얼 배열 패턴). C 키로 선택 레이어 개별 토글. 프리뷰에 크롭 오버레이 표시 (dim 영역 + 주황색 점선 경계 + 크기 정보). **프리뷰 상단 Crop 오버레이 토글 버튼** (┌┘ 아이콘, 주황 #e0a050)으로 오버레이 표시/숨김 제어. Settings Crop ON/OFF와 자동 연동. Export 시 `crop_transparent()` 함수로 실제 크롭 적용, Unity 좌표 보정 (`crop_offsets`). Undo/Redo(9-tuple)/세션 저장에 포함. Restore 시 초기화
+- **Per-Layer Crop (레이어별 자동 크롭)**: 레이어별 투명 영역 자동 크롭 ON/OFF. Settings Row1 `Crop` 체크박스(전체 ON/OFF) + Threshold 스핀박스(0~254, 기본 10). `_art_crop` 배열 (듀얼 배열 패턴). C 키로 선택 레이어 개별 토글. 프리뷰에 크롭 오버레이 표시 (dim 영역 + 주황색 점선 경계 + 크기 정보). **프리뷰 상단 Crop 오버레이 토글 버튼** (┌┘ 아이콘, 주황 #e0a050)으로 오버레이 표시/숨김 제어. Settings Crop ON/OFF와 자동 연동. Export 시 `crop_transparent()` 함수로 실제 크롭 적용, Unity 좌표 보정 (`crop_offsets`). Undo/Redo(10-tuple)/세션 저장에 포함. Restore 시 초기화
+- **Shader Auto Setup (`fxs_*` 레이어 자동 셰이더 셋업)**: PSD 레이어 export 이름이 `fxs_{shader}_{usage}` 패턴(예: `fxs_shine_button`, `fxs_dissolve_glow`)이면 Unity NGUI 임포터가 **NGUI Sprite (UISprite) + Quad+Shader GameObject 둘 다 sibling으로 자동 생성**. 디자이너가 NGUI sprite로 위치/크기 참조하고 Shader Quad로 셰이더 결과 확인. **이름 변환**: UISprite=`s_{usage}`, Quad=`fxs_{shader}_{usage}` 원본. **Material 자동 생성**: `fxt_{ProjectKey}_{usage}.mat` (`Materials/` 폴더), `Shader.Find("FX Team/fxs_{shader}")`. `_MainTex` 자동 할당 (auto 모드는 그 레이어 PNG, fx_texture_tab 모드는 packed PNG + `_MainTexTile` 자동 계산). MeshFilter=built-in Quad, MeshRenderer 라이팅/그림자/모션벡터/오클루전 모두 OFF, UICustomRendererWidget(리플렉션으로 동적 type 탐색) 부착, `m_Renderer→MeshRenderer` 연결, `Transform.localScale = (layer.width, layer.height, 1)` (PSD 원본 픽셀). 셰이더 미발견 시 console warning + 일반 UISprite fallback. UICustomRendererWidget 미존재 시 Quad만 생성 + 경고. backend `parse_fx_shader_layer_name(name)` (`fxs_` prefix split → shader, usage 반환), JSON v6 layer entry `shader_setup: {shader_name, shader_path, usage, ui_sprite_name, quad_name, material_name, texture_name, project_key, original_w, original_h}` 필드
+
+- **FX Slot Shader Auto Setup (`fxs_*` FX Slot 자동 셰이더 셋업)**: 레이어가 아닌 **FX Slot 이름**이 `fxs_{shader}_{usage}` 패턴이면 Unity NGUI 임포터가 부모 UISprite의 *자식*으로 Quad+Material+Shader GameObject 생성 (기존 빈 placeholder 대신). `Transform.localScale = (parent UISprite width, parent UISprite height, 1)` — 부모 sprite와 같은 크기. 동일한 `SetupShaderQuad` C# 헬퍼 메서드 사용 (레이어 shader_setup과 코드 공유). `_MainTex` 자동 매칭 순서: (1) `fx_slot.texture_source=fx_texture_tab` 명시 → packed PNG + `_MainTexTile` (cols/rows/slot_idx) 자동 설정, (2) **fx_slot 이름과 동일한 PNG**(예: `fxs_shine_button.png`)가 이미지 폴더에 있으면 자동 매칭 (FX Texture Builder export 결과와 자연스럽게 연결), (3) parent 레이어 PNG fallback. position="above"/"below" 둘 다 지원. backend `collect_layer_metadata`가 fx_slot 이름 파싱하여 `fx_slot.shader_setup` 필드 자동 첨부. 일반 placeholder는 빈 UIWidget로 기존 동작 유지
+
+- **FX Slot Duplicate (우클릭 → 인접 부착)**: fx_slot placeholder 또는 그룹 헤더 우클릭 → "Duplicate to next layer/group…" 메뉴. 작업 속도 향상용. **이름 자동 변환**: `_left`→`_right` 스왑, `_right`→ `_2` 추가, `_숫자` 끝나면 +1, 그 외 `_2` 추가. **texture_source 자동 변환**: type=fx_texture_tab이면 slot_index +1. **대상 자동 선택**: 레이어 → 같은 group_path의 fx_slot 없는 인접 layer (다음 우선, 없으면 이전, 그래도 없으면 그룹 외부), 그룹 → 같은 depth의 형제 그룹 중 fx_slot 없는 첫 번째. 대상 없으면 로그 안내. Undo 가능. 새 placeholder 자동 선택 + 스크롤. 시그널 `fx_slot_duplicate_requested(int)` + 핸들러 `_on_fx_slot_duplicate_requested()`
+
+- **FX Slot Shader 콤보 + Unity Asset Path 자동 로드**: FX Slot 다이얼로그에 Shader 콤보박스 추가. 지원 셰이더 3종 고정 (`shine`, `dissolve`, `distort`). 자유 입력 비활성 (`setEditable(False)`). 셰이더 콤보 변경 시 Name 자동 갱신: parts[1]이 알려진 셰이더면 교체, 아니면 삽입 (예: `fxs_background_right` + shine → `fxs_shine_background_right`). 양방향 동기화 (`currentTextChanged` 시그널 사용). **Unity asset 경로 매핑**: `psd_extractor.SHADER_ASSET_PATHS` dict + `get_shader_asset_path(shader_full)` 헬퍼. 매핑: `fxs_shine`→`Assets/PlatformAsset/PC/Asset/VFX/Shaders/fxs_shine.shader` 등. backend `collect_layer_metadata`가 모든 shader_setup dict에 `shader_asset_path` 필드 자동 첨부 (layer/fx_slot/group fx_slot 3곳). **NGUI Editor C# SetupShaderQuad** + 모든 shader 로드 지점: `AssetDatabase.LoadAssetAtPath<Shader>(asset_path)` 우선 호출, 실패 시 `Shader.Find(shader_path)` fallback. `ShaderSetupInfoNGUI`에 `public string shader_asset_path;` 필드 추가
+
+- **다중 fx_slot per parent (multi-slot)**: 각 레이어/그룹이 **여러 개의 fx_slot**을 보유 가능. `LayerListModel._art_fx_slot[i]`와 `_group_fx_slot[path]`가 **list of slot tuples**로 변경 (기존: tuple-or-None). 모든 슬롯이 별도 placeholder 행으로 표시. **새 API**: `get_art_fx_slots`, `add_art_fx_slot`, `set_art_fx_slot_at`, `remove_art_fx_slot_at`, `clear_art_fx_slots`, 동일 그룹 버전. backward compat helpers: `get_art_fx_slot_first`, `get_group_fx_slot_map` (첫 슬롯). **Placeholder dict에 `_slot_index` 필드**: 다중 슬롯 환경에서 특정 슬롯 식별. **우클릭 메뉴**: "Add FX slot…" + "Add another FX slot to this layer…" (append), "Edit this FX slot [N/total] ('name')…", "Remove THIS FX slot [N/total]: 'name'". 그룹 placeholder도 동일 패턴. **세션 save/load**: `"fx_slot": [[slot1_as_list, slot2_as_list], ...]` array of arrays. legacy 단일 tuple 자동 변환. **Undo**: 13-tuple (group_fx_slot 추가), deep copy로 in-place 수정 후에도 복구 가능. **Backend JSON v7**: `layer.fx_slots: [{...}, {...}]` array + `layer.fx_slot: {...}` 첫 슬롯 (backward compat). Group entry도 동일. **SWAP 알고리즘**: same-owner는 단일 리스트 in-place 인덱스 교환 (`lst[a], lst[b] = lst[b], lst[a]`), different-owner는 각 리스트 독립 수정. `get_xxx_fx_slots()`가 copy 반환하므로 same-parent에서 두 copy 별도 수정 + write back 시 데이터 손실 가능 → in-place swap으로 회피
+
+- **Alt+화살표 fx_slot 제어 (다중 슬롯 환경)**:
+  - **Alt+↑/↓**: 인접 행으로 이동 (placeholder끼리는 swap, 다른 부모로 이동). **같은 owner는 자동 skip** (`_is_same_owner_target()` 헬퍼) — 의미 있는 target까지 진행 (예: bg_group의 group fx_slot에서 Alt+↑ → bg_group 헤더 skip → 위 layer로 이동)
+  - **Alt+←**: outdent (`fx_slot_outdent_requested`). Layer fx_slot → 부모 그룹의 fx_slot 리스트, Group fx_slot → 더 상위 그룹의 fx_slot 리스트
+  - **Alt+→**: indent (`fx_slot_indent_requested`). Group fx_slot → 그룹의 첫 자식 layer의 fx_slot 리스트, Layer fx_slot → no-op
+  - source dict에 `slot_index` 포함: 모든 핸들러가 특정 슬롯 식별
+  - 디버그 로그: `[Alt+←] emit outdent`, `[Outdent] source=...` 등 (Log 패널에서 확인)
+
+- **FX 텍스처 폴더 분리 ({psd_stem}_FX/)**: PSD Export 시 FX Texture Builder packed PNG를 **`{output_dir}/{psd_stem}_FX/`** 별도 폴더에 출력 (이전: `{psd_stem}/` 즉 NGUI 아틀라스 폴더). NGUI Atlas Maker가 FX 텍스처를 packing하지 않도록 분리. `_auto_export_fx_textures()` 자동 호출 (PSD Export 완료 후 lazy-init 다이얼로그 + sync_tabs_from_fx_slots). C# `SetupShaderQuad`에서 `fxFolder = imgFolder + "_FX"` 우선 lookup + imgFolder fallback (구버전 호환). Materials도 `fxFolder/Materials/`로 이동 (atlas와 분리)
+
+- **FX Slot 다이얼로그 자동 매칭 강화**: (1) **기본 이름** `fxs_{shader_keyword}_{layer_base}` (PSD의 기존 fx_slot에서 가장 흔한 셰이더 키워드 자동 추출, 없으면 "shine"). (2) **Depth slots 기본값 1** (이전 3). (3) **Texture Source 자동 매칭 3-tier**: ① art_idx 매칭 (가장 정확) ② rename 이름 매칭 ③ 원본 이름 매칭 (구버전 호환). (4) **Shader 콤보 초기값** = 현재 PSD의 가장 흔한 셰이더. (5) **FX Texture Builder add_layers**: 이전엔 `li.get("name")` (원본 이름) 저장 → 한글 이름이면 자동 매칭 실패. 수정: `_art_rename[art_idx] or li.get("name")` (rename 우선)
+
+- **fxs_ ↔ fxt_ 네이밍 규칙**: `fxs_*` = Unity GameObject 이름 (셰이더가 적용된 메쉬/Quad), `fxt_*` = 텍스처 파일 이름 (PNG, FX Texture Builder packed export). 백엔드 헬퍼 `psd_extractor.fxs_to_fxt(name)`로 변환 (`fxs_shine_button` → `fxt_shine_button`). 적용 지점: (1) FX Texture Builder `sync_tabs_from_fx_slots`에서 새 탭은 fxt_ prefix로 생성, (2) 기존 fxs_ 탭은 마이그레이션 (같은 base의 fxt_ 탭이 없을 때만 rename), (3) delegate paint 자동 매칭 fallback도 fxt_ 변환 우선 검사, (4) NGUI Editor C# `SetupShaderQuad`에서 `fxt_*.png` 우선 lookup + `fxs_*.png` 구버전 fallback
+
+- **FX Slot 텍스처 바인딩 시각 표시 + 드롭다운 선택**: fx_slot placeholder 행에 이름 다음에 `→ tab_name[slot_idx]` 또는 `→ Auto` 형식으로 표시 + 끝에 ▼ 아이콘으로 드롭다운 가능 시사. **바인딩 영역 클릭 → 텍스처 선택 팝업 (QMenu)**: Auto / FX Texture Builder 탭 목록 + 각 탭의 slot 인덱스 서브메뉴. 현재 선택된 옵션은 ✓ 표시. 클릭 영역은 paint 레이아웃과 동일 공식으로 계산 (`_is_on_fx_binding_area`). 새 시그널 `fx_slot_binding_popup_requested(int, QPoint)` + 핸들러 `_on_fx_slot_binding_popup_requested()`에서 texture_source만 갱신 (position/depth/name은 보존). 변경 시 dataChanged 발신, Undo 가능. delegate의 fx_slot paint 분기에서 `model._main_window` 참조하여 builder 또는 세션 상태에서 탭 정보 추출. 색상: 명시 binding=`#8a72b8`(보라 dim), Auto=`#6e6e7e`(회색)
+
+- **FX Slot 키보드 이동 (Alt+화살표)**: fx_slot placeholder가 currentIndex일 때 **Alt+화살표 키**로 이동 (일반 화살표는 레이어 네비게이션으로 유지). **Phase 54에서 위치 기반으로 통일**: Alt+↑/↓ = 인접 행으로 이동 (드래그-드롭 핸들러 재사용 → INSERT 시맨틱). Alt+←/→ = outdent/indent (한 단계 상위/자식 부모로 — X 좌표 ancestor 매핑과 동일 효과). 이동 후 새 placeholder 행이 자동 재선택+스크롤되어 연속 입력 지원. `fx_slot_outdent_requested`/`fx_slot_indent_requested` 시그널. `_select_fx_slot_row(source)` 헬퍼로 rebuild_view 후 행 재탐색
+
+- **FX Slot Drag-Drop (placeholder 이동, Phase 54 위치 기반 통일)**: 레이어/그룹 fx_slot placeholder를 좌클릭 → 드래그. 드래그 활성화 임계값=6px (manhattanLength), 활성 시 ClosedHandCursor. **target row의 종류 + 마우스 X 좌표**로 새 owner 결정: (a) art 레이어에 드롭 + X가 layer 들여쓰기 위치 이상 → 그 layer의 fx_slot, (b) X가 한 단계 왼쪽 → 직속 group fx_slot, 더 왼쪽 → 상위 ancestor group, (c) group 헤더 드롭도 X로 ancestor 매핑, (d) 다른 fx_slot placeholder에 드롭 → INSERT (target의 owner에 above/below로 끼워넣음, 이전 SWAP 동작 제거). drop_position(above/below)은 마우스가 row의 상/하 절반에 있는지로 결정. 드롭 indicator: 보라색(#B084EB) 굵은 선(3px) + viewport 상단 QLabel 라벨(`▲ ABOVE [name] · slot #N` 등). **자동 depth 조정**: fx_slot의 데이터(name, depth_count, texture_source)는 보존되고 새 owner의 위치 기준으로 backend가 export 시점에 NGUI depth 재할당. `LayerListView._fx_drag_source/_fx_drag_active/_fx_drag_target_row/_fx_drag_position/_fx_drop_owner_*` 상태. `_resolve_owner_from_x()` 헬퍼로 ancestor 매핑. mouseRelease 시 owner 정보를 source dict의 `_drop_owner` 키로 첨부 → `_on_fx_slot_move_requested()` 핸들러가 우선 사용. Undo 가능
+
+- **Group FX Slot opt-in 규칙 (FX Texture Builder 탭 슬롯 멤버십 + LAYER fx_slot 우선)**: GROUP fx_slot은 그룹 자식 전체에 자동 Quad를 생성하지만, **opt-in 필터** 두 가지 적용. **(1) FX Texture Builder 탭 슬롯 멤버십**: `packed_layout.slot_pairs`가 있으면 그 안에 layer.name이 있는 레이어만 Quad 생성. 슬롯에 등록 안 된 레이어(decoration 등)는 자동 skip → NGUI UISprite로만 import. `packed_layout` 자체가 없으면 구버전처럼 전체 적용 (호환). **(2) LAYER fx_slot 우선**: 레이어가 본인의 `fx_slot.shader_setup`을 가지면 GROUP의 자동 Quad 생성 skip (LAYER fx_slot이 같은 자리에 이미 Quad 생성 → 중복 방지). NGUI Editor C# `groupFxLookup` 처리 블록에서 `layerHasOwnShader || (hasPackedLayout && !inSlotPairs)` 조건으로 skipGroupQuad 결정. **워크플로우**: (a) FX Texture Builder에서 탭 만들고 효과 받을 레이어만 슬롯에 등록 → (b) bg_group에 GROUP fx_slot 추가 → (c) Export → 슬롯에 있는 레이어만 Quad. (d) 특정 레이어만 다른 셰이더 쓸 경우 그 레이어에 LAYER fx_slot 추가 → GROUP은 자동 skip
+
+- **Group FX Slot (`fxs_*` 그룹 FX Slot — 하위 레이어마다 Quad+Material 자동 생성)**: PSD 그룹 헤더 우클릭 → "Add FX slot to group…" → name=`fxs_shine_background` 입력. 그룹 fx_slot이 `fxs_*` 패턴이면 그룹 내부 모든 export 레이어마다 독립된 Quad+Material+Shader GameObject 자동 생성. **핵심 시나리오**: `background_group` 안에 `fxt_background_left`/`fxt_background_right` 2개 레이어 → 각 레이어는 (1) NGUI UISprite(`s_background_left`, `s_background_right`)로 export되고, (2) **추가로** 각 레이어 크기에 매칭된 Quad+Material(`fxt_pokerLeague_background_left.mat`, `fxt_pokerLeague_background_right.mat`) sibling이 자동 생성됨. **핵심 메커니즘**: Material마다 `_MainTex`는 동일한 packed PNG(`fxs_shine_background.png`, FX Texture Builder export)지만 `_MainTexTile`의 slot index가 차별화됨 (`(cols, rows, slot_idx+1, 0)`). FX Texture Builder의 동일 이름 탭(`fxs_shine_background`)에서 슬롯 순서를 backend가 읽어 `slot_pairs: [{layer_name, slot_index}, ...]` 메타로 직렬화 → NGUI 임포터가 layer.name 매칭. **데이터**: `LayerListModel._group_fx_slot: {group_path_tuple: (name, depth_count, position, texture_source)}`. JSON v6 group entry에 `fx_slot.shader_setup + fx_slot.packed_layout` 필드. **FX Texture Builder 자동 슬롯 추가**: 다이얼로그 오픈 시 그룹 fx_slot 이름으로 탭 생성하면서 그룹 내부 export 레이어들을 자동으로 슬롯에 추가 (사용자가 다시 드래그할 필요 없음). 세션 저장 (`group_fx_slot` 키, 경로 슬래시 join)
+
+- **FX Texture Builder ↔ FX Slot 자동 연동**: FX Texture Builder 다이얼로그 최초 오픈 시 PSD의 모든 `fxs_*` FX Slot 이름을 스캔하여 **동일 이름의 탭을 자동 생성** (`sync_tabs_from_fx_slots()`). 중복 이름 탭은 건너뜀 (idempotent). 기본 'Texture 1' 탭이 비어있고 fxs_* 탭이 새로 생기면 자동 제거. 활성 탭을 첫 fxs_* 탭으로 전환. 사용자는 PSD에서 FX Slot을 `fxs_shine_button`으로 만들면 → FX Texture Builder 열 때 자동으로 `fxs_shine_button` 탭이 생기고 → 거기에 슬롯 추가/조정 후 export → packed PNG 이름이 fx_slot 이름과 일치하므로 NGUI 임포터가 자동 매칭. 별도 texture_source 설정 없이도 동작
+
+- **FX Project Key (메인 윈도우 입력 필드)**: PSD path 행 직후에 `Project: [____]` 입력 필드. 머티리얼 이름 `fxt_{ProjectKey}_*.mat`의 `{ProjectKey}` 부분. 비어두면 PSD 파일명에서 자동 추출 (날짜/카테고리 제거 후 camelCase, 예: `260514_FX_UI_PC_PokerLeague_Join.psd` → `pokerLeague`). 세션 저장 (PSD별). `_auto_extract_project_key()`, `get_fx_project_key()` 메서드
+
+- **FX Slot Texture Source (선택적 텍스처 매핑)**: FX Slot 다이얼로그에 "Texture Source" 옵션 추가. Auto(=parent layer PNG) 또는 FX Texture Builder 탭+슬롯 선택. JSON v6 `fx_slot.texture_source: {type: "auto"|"fx_texture_tab", tab_name, slot_index, slot_layer_name}`. NGUI 임포터에서 fx_texture_tab 모드면 packed PNG를 `_MainTex`로, FX Texture Builder JSON 메타에서 `cols/rows/pad` 읽어 `_MainTexTile=(cols, rows, slot_index+1, padPx)` 자동 계산 (셰이더 sheet 모드)
+
+- **FX Texture Builder Meta JSON 자동 출력 (v2)**: Export 시 PNG 옆에 `.json` 항상 출력 (이전엔 옵션). `{version:2, name, size, slot_size, layout, cols, rows, stretch, pad, slots: [...]}` 형식. NGUI 임포터가 셰이더 `_MainTexTile` 자동 계산에 사용
+
+- **FX Texture Builder Channel Pack 모드 (외부 이미지 RGBA 머지)**: PSD 레이어가 아닌 **외부 이미지 파일**들을 RGBA 4채널로 머지하여 단일 POT 텍스처 생성. + 탭 메뉴에서 `New Channel Pack Tab` 선택. **좌측 패널**: 4 행 (각 행은 출력 채널 담당), 행마다 `[Output ▼] [path] [...] [R][G][B][A][Gr] [Inv] [Pre×A] [×]`. **Output 콤보** (R/G/B/A/RGB/RGBA): R/G/B/A=단일 출력 (다른 행과 swap), **RGB**=R+G+B 동시 담당 (identity, 다른 RGB 행 자동 숨김, A 행만 별도 표시), **RGBA**=전체 4채널 (이미지 그대로 + POT 용도, 다른 행 모두 숨김). composite 모드 진입 시 source 토글 자동 disable + identity 매핑. `t.composite_owner` + `t.composite_mode` 상태 (세션 저장). **소스 채널 토글** (R/G/B/A/Gr): 다중 선택 OK (saturating sum, ImageChops.add clamp 255), Gray는 mutually-exclusive (선택 시 RGBA 해제). spec 직렬화: `"r"`/`"rg"`/`"rgba"`/`"gray"`. **Inv**=1-x 반전, **Pre×A**=RGBA 소스에서 R/G/B 추출 시 alpha 곱셈(투명 영역 RGB halo 제거, 기본 ON). **Multi-channel copy 다이얼로그** (`+ Multi-channel copy from image…` 버튼): 1 이미지 picker + 4 출력 채널 [Apply][Output][Src ch][Inv][Pre×A] 그리드 + Quick presets (RGB→RGB / RGBA→RGBA / Gray→RGB / A→A only). Apply 시 활성 라인만 일괄 채널 dict에 반영. **소스 정보 라벨**: 각 행 아래에 `{W}×{H} {mode} | {파일명}` 작은 dim 텍스트 표시. **Fit POT 버튼** (Layout 콤보 옆, 채널 팩 모드만 표시): 모든 소스 이미지 최대 W/H → `next_pot()` → Slot W/H 자동 설정. **첫 이미지 로드 시 자동 POT fit**: slot이 기본값(1024×256) 그대로면 `_cp_maybe_auto_fit_pot()` 자동 실행 (예: 90×102 → 128×128). **자동 export 누락 버그 수정**: `_auto_export_fx_textures()`가 `tab.slots` 없으면 skip하던 것을 `mode=="channel_pack"` 분기 추가하여 채널 path 있으면 export. **Channel Pack 원본 사이즈 → Unity Quad mesh 크기**: fx_slot이 channel_pack 탭에 binding 시 NGUI Quad localScale을 parent UISprite가 아닌 **소스 이미지 원본 W/H**로 설정. backend `fx_texture_tabs[tab_name] = {mode, slot_layer_names, original_size, output_size}` dict 포맷, `_inject_texture_original_size()` 헬퍼가 `texture_source`에 `original_w/h` 주입. C# `TextureSourceInfoNGUI`에 `original_w/original_h` 필드. backend `compose_channel_pack()`이 `_extract_channel()` 다중 spec 처리
+
+- **다중 group fx_slot 처리 (NGUI 임포터)**: 한 그룹에 여러 group fx_slot이 있을 때 모두 처리하도록 수정 (이전엔 첫 슬롯만). C# `GroupInfoNGUI`에 `fx_slots` 배열 필드 추가, `groupFxSlotsLookup: Dictionary<string, FxSlotInfoNGUI[]>` 신설. layer 루프에서 `foreach (var grpFxSlot in fxSlotArr)`로 각 fx_slot 독립 처리. **Multi-slot 1:1 매칭 필터**: 다중 슬롯 환경에서 각 fx_slot이 explicit `texture_source.slot_index` 가지면 그 slot_index가 가리키는 layer에만 Quad 생성 (`isExplicitTargeted = (isMultiSlot && type=="fx_texture_tab" && hasPackedLayout)`). 예: 배경 그룹의 `fxs_dissolve_background_left`(slot=0) + `fxs_dissolve_background_right`(slot=1) → 왼쪽 layer는 left fx_slot의 Quad만, 오른쪽 layer는 right fx_slot의 Quad만 생성. **Quad/Material 이름 단순화**: multi-slot 모드에서는 1:1 매칭이라 layer suffix 불필요 → `fxs_dissolve_background_left` 그대로 사용 (이전엔 `fxs_dissolve_background_left_fxt_background_right` 같은 잘못된 결합). **texture_source 우선 검색**: C# `_MainTex` 검색이 `texture_source.tab_name` 우선 → fx_slot 이름 fallback. backend `packed_layout` 빌드도 `texture_source.tab_name`을 1순위로 lookup (`fxt_background` 같은 외부 탭과 자동 연결). C# depth_count 예약은 모든 슬롯의 depth_count 합산
+
+- **Group FX Slot position="below" (트리 끝 + NGUI deferred depth)**: 기존엔 `position` 필드가 있어도 그룹 fx_slot이 항상 그룹 헤더 바로 아래(children 위)에 배치되고 NGUI depth는 layer마다 interleaved로 할당됐음. **수정**: position="below"면 (1) 트리뷰에서 그룹 children **끝**에 placeholder 배치 (deferred flush — `pending_below_group_slots` dict, `_flush_left_groups()`로 그룹 transition 시 처리), (2) NGUI에서 Quad depth 할당을 그룹의 **모든 layer 처리 후**로 유보 (`pendingBelowGroupQuads` Dictionary, 그룹 경계 감지로 flush). 결과 depth 순서: `왼쪽 → 오른쪽 → fx_left → fx_right` (이전엔 interleaved). 다이얼로그 라벨도 명확화: `Above children (그룹 children 위 — children과 interleaved depth)` / `Below children (그룹 children 아래 — children 다음 depth)`
+
+- **Phase 56 — Export Row 정보 밀도 향상 + 보조 버튼 톤 다운 (2026-05-20)**: Output 패널 row1(EXPORT 버튼 행)의 빈 공간을 유용한 정보로 채우고, 보조 버튼(FX Texture / Sync PSD / Compare PSD) 톤을 통일. **(1) EXPORT 버튼 row1 좌측 정렬**: Phase 54.z 에서 row2 → row1 우측으로 이동했던 위치를 **row1 최좌측**으로 재배치. 사용자 의도: "EXPORT 클릭 시점에 어떤 프로젝트(포커 PC / 클래식)로 내보내는지 즉시 확인하기 어렵다" → EXPORT 바로 다음에 진행률/Idle 상태 + 프로젝트 콤보 배치. **(2) Idle 상태 진행률 라벨**: EXPORT 버튼 직후 `progress_label` 위치 변경 (row2 우측 끝 → row1 EXPORT 다음). Export 중이 아닐 때 빈 공간을 의미 있는 정보로 채움. 형식: `Ready · 16 Layers | 6 Groups · NGUI · v3`. **`_update_idle_status()`** 메서드 신설 — art/group 개수 (`len(model._art_layers)` + `len(all_layers) - art_count`) + Unity 타입 (`_unity_type_seg.value()`, Unity OFF면 생략) + 버전 (`output_entry.text()` 끝 `_vN` regex 추출). 호출 트리거: `_update_info_label` (PSD 로드/rename 변경) + `_on_unity_type_changed` + `_update_output_display` + `_reset_export_btn` (Export 완료 2초 후). **상태별 색상**: idle=`#b8b8b8` 회색 / export=`#2680EB` 액센트 블루 / complete=`#2ea043` 그린. 텍스트도 상태별 변화: `Ready · ...` → `46% · 12/26` → `Complete ✓` → `Ready · ...`. **(3) Unity 채널 dot 인디케이터**: Project 라벨 옆에 작은 `●` QLabel (`_unity_dot`) 추가. UGUI=`#4FC1E9` 스카이블루 / NGUI=`#8CC152` 그린 / Unity OFF=`#666666` 회색. `_update_idle_status()` 안에서 색상 자동 갱신. **(4) Project 콤보 텍스트 볼드**: `_project_combo.setFont()` 로 `setBold(True)` 적용. 현재 선택된 프로젝트(포커 PC, 포커 클래식 등) 식별성 강화. **(5) 약한 색상 구분자 통일**: idle 상태 텍스트 안의 `·` 와 `|` 모두 `<span style="color:#444444;">` 로 dim 처리. QLabel 의 auto-detect rich text 활용 (`textFormat=Auto`). "16 art / 6 groups" → **"16 Layers | 6 Groups"** (대문자화 + `|` 구분, art→Layers 변경). 진행률 텍스트의 `0% · 0/N` `·` 도 동일 약한 색상 적용해 일관성 유지. **(6) row1 여백 + Project 구분선**: 진행률 ↔ Project 사이 spacer 24px → **5px**, Project 라벨 직전에 dim `|` 구분선 QLabel(`#444444`) 추가. 시각적 그룹 경계 명시. **(7) 보조 버튼 (`_AUX_BTN_STYLE`) 톤 다운**: FX Texture / Sync PSD / Compare PSD 3개 버튼 공통 스타일. background `#2b2b2b` (패널과 동일) → **`#1a1a1a`** (캔버스보다 어둡게), border `#444` → **`#2e2e2e`**, hover `#3a3a3a` → **`#242424`**, pressed `#1f1f1f` → **`#0e0e0e`**, text `#e0e0e0` → **`#d0d0d0`** (가독성 유지). FX Texture 자식 QLabel (`_fx_tex_label`) 색상도 동일하게 동기화. 패널 배경 대비 명확히 함몰된 느낌 → 시각적 그룹화 강화
+
+- **Phase 55 — NGUI FX 텍스처 race condition fix + 프리뷰 중앙 정렬 UX 통일 (2026-05-19)**: 두 가지 별개 작업을 동일 세션에서 처리. **(A) NGUI 임포터 FX 머티리얼 텍스처 미할당 근본 fix** — `fxs_dissolve_background_left.mat` / `..._right.mat` 의 `_MainTex` 가 `{fileID: 0}` 으로 저장되는 간헐 버그(PC/Classic 양쪽 모두 발생). **근본 원인**: `AssetDatabase.LoadAssetAtPath<Texture2D>()` 가 외부 추가된 `_FX/` 폴더 PNG 에 대해 `AssetDatabase.Refresh()` 만으론 캐시 동기화 race condition 으로 간헐 null 반환. Setup Textures 는 `imgFolder` 만 처리해서 `_FX/` 폴더는 cold cache 상태. Atlas Maker 는 `ImportAsset(ForceSynchronousImport)` 로 이미 회피 중이었으나 FX 텍스처 로드 경로엔 누락. **fix**: (1) **`LoadTextureRobust(assetPath)`** 헬퍼 — 캐시 미스 시 `Application.dataPath` 기준으로 file system path 변환 → `File.Exists` 체크 → `AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceSynchronousImport)` 후 재시도. (2) **`PreImportFxFolder(imgFolder)`** — `ImportPSD` 진입 시 `_FX/` 폴더 모든 PNG 를 `StartAssetEditing`/`StopAssetEditing` wrap 내에서 일괄 동기 import. 기존 `AssetDatabase.Refresh()` 호출 직후. (3) **모든 FX 텍스처 로드 헬퍼화** — 그룹 fx_slot 인라인 path (multi-slot multiple LoadAssetAtPath calls in gPackedPathList loop) + LAYER fx_slot `SetupShaderQuad` (4+ paths: fxFolder/imgFolder × fxt_/fxs_) + `layer.shader_setup` fxs_* 파일명 기반 path 모두 `LoadTextureRobust` 로 교체. (4) **Material 영구화 강화** — `SetTexture("_MainTex", ...)` 직후 `EditorUtility.SetDirty(gMat)` 명시 호출 + ImportPSD 마지막에 `AssetDatabase.SaveAssets()` 를 `atlasObject != null` 조건과 무관하게 unconditional 호출. (5) **진단 로그 강화** — `Group FX _MainTex 할당 실패` 경고에 `triedPaths` 가 `path (exists=True/False)` 형식 — File.Exists 여부 명시로 캐시 미스 vs 파일 자체 부재 구분 가능. Python 템플릿 (`_UNITY_IMPORTER_NGUI_EDITOR_CS`) + 현재 Classic 프로젝트 export 폴더의 `.cs` 파일 둘 다 동일 패치 — 사용자 즉시 재시도 가능 + 차후 export 도 안전. **(B) 프리뷰 중앙 정렬 UX 통일** — 사용자 요청: F11/뷰포트 리사이즈/레이어 선택 시 이미지가 뷰포트 중앙. (1) **`PreviewView.resizeEvent`** — `_update_scene_rect_padded()` 직후 `centerOn(self._pixmap_item)` 무조건 호출. 뷰포트 크기 변경(F11/창 리사이즈/패널 토글) 시 이미지가 가장자리로 밀려나지 않음. (2) **`_toggle_focus_mode`** — 패널 visibility 토글 후 `preview_view.centerOn(preview_view._pixmap_item)` 명시 호출 (resizeEvent 가 결국 처리하지만 타이밍 보장). (3) **레이어 선택 → 항상 중앙** — `_on_preview_requested` 의 단일 선택 분기 + 다중 선택 분기 + `_on_preview_ready` (비동기 로드 완료) + `_show_merged_preview` (선택 해제) 4 군데 모두 `set_image(keep_zoom=True)` 직후 `centerOn(pixmap_item)` 명시 호출. 사용자가 위에서부터 순차적으로 레이어 클릭 시 모두 가운데에 표시. (4) **`_smart_recenter_if_offscreen(threshold=0.5)`** — set_image keep_zoom path 의 안전망. **두 차원 독립 평가**: `vp_covered = inter_area / vp_area` (viewport 가 이미지로 덮인 비율) + `pix_visible = inter_area / pix_area` (이미지가 viewport 에 보이는 비율). 둘 다 0.5 미만일 때만 재정렬. 호버 / 토글 refresh 경로에서 pan 유지 + 작은 이미지 풀뷰(`vp_covered` 낮지만 `pix_visible` 높음) / 큰 이미지 확대 뷰(`pix_visible` 낮지만 `vp_covered` 높음) 보호. 이전 `inter / min(pix_area, vp_area)` 공식은 "큰 이미지 좌상단 코너만 보이는" 케이스 (vp 가 이미지 영역 밖으로 절반 패딩) 구분 못해 재정렬 실패. **호버/토글 경로는 smart 로직 유지** — 마우스 빠른 호버에서 매번 스냅 백 방지
+
+- **Phase 54.z — 세션 데이터 손실 방지 + UX 정리 (2026-05-19)**: PC PSD 세션이 autosave race condition으로 통째 손실되는 사건 발생 → 다층 안전망 + 부수 UX 개선. **(1) Autosave race 방지**: `_load_psd` 진입 시 `_autosave_timer.stop()` (대기 중 타이머가 PSD 전환 후 발화 막음) + `_psd_loading` 플래그 (`_load_psd` 동안 True, `_auto_save_session`이 이 플래그 동안 no-op) + empty model guard (`rowCount()==0`이면 skip). **(2) No-op detection**: `_save_session` 진입 시 기존 파일 텍스트와 새 serialize 결과 문자열 비교, 동일하면 backup/write 둘 다 skip → 디스크 영향 0, 백업 무한 증가 방지. **(3) Rotating backup (`.bak1` / `.bak2` / `.bak3`)**: 실제 변경 있을 때만 회전. 최대 3개 자동 유지. 디스크 ~세션×4 고정. 사고 시 `.bak1`을 `.session.json`으로 rename → 즉시 복원. **(4) Regression detection (`_is_session_regression`)**: 기존 세션의 rename/fx_slot/group_rename/group_fx_slot 4종 합계 N≥3이고 새 데이터가 모두 0이면 **저장 거부 + 로그**. 마지막 보루. **(5) Save 버튼 dirty state**: clean=`Save` 회색(#3c3c3c), dirty=`Save ●` 주황(#5a3a1a, 텍스트 #ffd080). `_session_dirty` 플래그 + `_mark_session_dirty/_clean` + `_update_save_btn_style`. 트리거: `_schedule_auto_save` 호출 시 dirty (단 `_psd_loading` 중엔 skip), 저장 완료/no-op skip/PSD 로드 직후 clean. **(6) Sync PSD crop_rect 로직 완화**: 이전엔 두 PSD layer 크기 정확 일치 시만 transfer → **crop 좌표가 현재 layer 범위 안에 들어가면 transfer** (`0<=L<R<=c_lyr.width`, `0<=T<B<=c_lyr.height`). Template 크기 체크 제거 (template에서 이미 검증됨). FX Texture Builder slot crop도 동일. 크기 벗어나면 `_art_crop_rect[c_idx]=None` 명시 클리어 + 로그. **(7) FX Texture Builder Auto Crop 미적용**: `_collect_images`에서 main `_art_crop` 적용 제거 — Auto Crop은 export atlas 압축용이라 셰이더 텍스처 UV에 부적합. 원본 크기 그대로 packing. Manual Crop / slot crop은 유지. **(8) Manual Crop ✂ 모드 default rect**: 진입 시 기존 rect 없으면 자동 생성 — 알파 콘텐츠 bbox 우선, 없으면 전체 레이어 영역. 8개 핸들 즉시 표시. **(9) 프리뷰 더블클릭 토글**: 줌==100%면 Fit으로, 그 외면 100%로. `centerOn(self._pixmap_item)` 함께 호출. 9-slice/Manual crop/Pivot 핸들 reset 분기는 그대로 우선. **(10) 뷰포트 sceneRect 패딩**: `_update_scene_rect_padded()` 현재 줌 기준 viewport size를 씬 좌표로 환산해 사방 패딩. 줌인 후 이미지가 뷰포트 가장자리까지 닿을 때까지 자유 팬. 호출: `resizeEvent` / `set_image` (keep_zoom 포함) / `_set_zoom`. **(11) EXPORT 버튼 위치**: row2(Unity 옵션 행) → **row1(프로젝트 경로 행) 우측**. `row1.addWidget(self._project_path_label, 2)` 다음 배치 → stretch 2가 EXPORT를 우측 끝으로 자연스럽게 push. **(12) 윈도우 geometry 영속**: `QSettings.value("window_geometry")` + `saveGeometry()`/`restoreGeometry()`. 기본 `resize(1000, 1120)` 후 복원, closeEvent에서 저장. 위치+크기+maximized 모두. **(13) 포커스 모드 전역 단축키**: 기존 Space(프리뷰 포커스만) + 추가 **F11 / Ctrl+\\** (어디서든). `QShortcut(self, ..., self._toggle_focus_mode)`. **(14) Help 팝업 hover → click toggle**: ? 버튼 클릭 시 고정 표시, 재클릭 시 숨김. `eventFilter`에서 `MouseButtonRelease` 처리. **(15) FX Texture 버튼 텍스트 포맷**: `FX Texture · N tabs · M slots` → `FX Texture | N Tabs · M Slots` (Tabs/Slots 대문자, 구분자 `|` dim #555555). QPushButton이 HTML rendering 안 하므로 자식 QLabel (`_fx_tex_label`, `WA_TransparentForMouseEvents=True`) layout 삽입 → `<span style="color:#555555">|</span>`로 separator만 dim. 버튼 너비 110→170px
+
+- **Phase 54.y — 멀티 프로젝트 워크플로우 (Apply Settings + Layer Diff Viewer + Auto/Manual Session Save)**: 두 PSD(예: 포커 PC + 포커 클래식) 간 설정 transfer + 시각 diff. **(1) Apply Settings from Another PSD 버튼** (Apply Settings, teal #26A69A) — file dialog로 template PSD 선택 → `(layer.name, group_path tuple)` 정확 매칭 + name only fallback으로 rename / fx_slot(multi-slot) / 9-slice / pivot / locked / crop / crop_rect / group rename / group locked / group fx_slot / FX Texture Builder 탭 state / **FX Project Key** 모두 자동 transfer. 결과 dialog: 매칭/적용 통계 + unmatched 예시. 매칭 키 정확 매칭 우선 + name only fallback (depth 다른 동명 layer 인지). 호출 시 main `_art_layers`에 `_get_group_path` 명시 적용 (collect_layers는 group_path 자동 채우지 않음 — 회귀 fix). 그룹 데이터 경로 `data["group_rename_v2"]` / `data["group_locked"]` / `data["group_fx_slot"]` (data 최상위, layers 안 아님 — 회귀 fix). **(2) Compare with Another PSD 버튼** (Compare…, indigo #5C6BC0) → `LayerDiffDialog`. 두 PSD `psd.descendants()` 통합 (group + layer 모두) flat list + 36x36 thumbnail (layer.topil) + (type, name, group_path) 매칭. 좌우 정렬 view (QTableWidget 2 columns, monospace Consolas 9pt). 상태별 배경 색상: equal=회색(#2f2f2f) / name_only=노랑(#4a3f1f) / left_only=빨강(#4a2222) / right_only=파랑(#22264a). 들여쓰기 트리 가이드: `│  ` × depth + `📁` (group) or `🖼` (layer) + `[d=N]` 표시. 검색 + "차이만 표시" 필터. **좌측(현재 PSD) layer 더블클릭 → inline rename** (psd_extractor.save_psd_with_renames로 PSD binary 저장 + main reload). group rename은 inline 편집 불가 (Photoshop에서). **(3) Save Session 버튼** (💾 Save, 녹색 #3a7a3a) — 명시적 즉시 저장 + 완료 dialog. **(4) 자동 저장 강화** — QTimer single-shot 1.5s debounce. `_schedule_auto_save()` helper. layer rename (RenameRole) + group rename + group fx_slot add/edit/remove 변경 시 timer.start() 호출 → timeout 시 `_save_session()` 조용히 호출. 잦은 변경에도 disk write 최소화 + PSD 전환 없이 영속화 보장. `_autosave_timer` 멤버. **(5) Dark QMessageBox helper** (`_dark_msgbox(icon, title, text)` + `_MSGBOX_DARK_SS`) — Apply Settings/Compare/Save dialog 모두 다크 테마 적용 (텍스트 가시성 확보, 기본 OS 스타일은 다크 배경 위 흰 텍스트 invisible 문제). **워크플로우**: PC PSD 작업 + 자동 저장 → 클래식 PSD 열기 + Project Manager에서 "포커 클래식"(NGUI) 선택 → Apply Settings 또는 Compare로 transfer/diff → 차이 layer만 수동 정리 → Export → 동일 NGUI 결과 (path만 다름)
+
+- **Phase 54.x — NGUI 임포터 회귀 수정 + FX Texture 영속성 강화 + 9-slice 이중 영속화**: Phase 54 위치 기반 통일 후 발견된 NGUI 임포터 회귀들과 사용자 워크플로우 강화. (1) **C# psd_name fallback** — `_on_fx_slot_move_requested`의 group fx_slot 매칭에서 `pair.layer_name == layer.name || pair.layer_name == layer.psd_name`. FX Texture Builder 슬롯이 원본 한글 이름으로 저장된 경우 호환 (사용자가 export rename된 이름과 매칭 실패하는 회귀 fix). (2) **Path normalize** — `FindImageFolder` 반환값에 `Replace('\\', '/')`로 forward slash 정규화. `AssetDatabase.LoadAssetAtPath`가 backslash 섞인 path를 인식 못해 `texFound=False` 되던 회귀 fix. (3) **childOrder pre-reserve for below group fx_slot** — `position="below"` group fx_slot의 sort key를 `int.MinValue + layer.order`로 설정 → sibling 정렬(`OrderByDescending`) 후 sprite 둘 다 위, fx Quad 둘 다 아래 자동 정렬 (interleaved → grouped). (4) **Multi-slot has_fxs 호환** — `_auto_export_fx_textures()`의 builder lazy-init 분기에서 `_art_fx_slot[i]`/`_group_fx_slot[path]`가 Phase 51에서 `list of tuples`로 바뀐 걸 인식 못해 builder 생성 skip하던 회귀 fix. `_has_fxs_slot()` 헬퍼로 tuple/list 둘 다 처리. (5) **AssetDatabase.Refresh() at ImportToScene** — export 직후 import 시 새 FX PNG가 AssetDatabase에 미인식인 상태 해결. ImportToScene 시작에 명시 호출. (6) **Group fx_slot depth pre-reserve (가장 중요)** — 이전 deferred flush는 group children의 *큰* depth 영역(front)을 할당해서 PSD 트리 시각상 아래(back)에 위치한 fx_slot이 시맨틱상 front가 되는 모순. **새 알고리즘**: group 진입 시 `belowCount`만큼 currentDepth부터 미리 reserve(`belowReservedDepths` Queue per group), layer 처리는 그 다음 depth부터 시작. 결과: PSD 트리 visual = NGUI depth 일관성 (트리 아래 = back = 작은 depth). 사용자 의도 매핑(`fxs_*_right=0, fxs_*_left=1, sprite_right=2, sprite_left=3`)과 일치. (7) **Batch import (UIAtlasMaker freeze fix)** — `SetupTexturesInFolder`의 `SaveAndReimport` 루프를 `AssetDatabase.StartAssetEditing()` / `StopAssetEditing()`로 wrap. 16개 텍스처 개별 import 사이클이 NGUI Atlas Maker와 누적 충돌해 19초+ freeze 발생하던 문제. (8) **Group fx_slot dialog Shader + Texture Source UI parity** — 이전엔 Group dialog에 Shader/Texture Source UI 없어서 multi-slot 1:1 매칭 정확 설정 불가. Layer dialog와 동일 패턴: Shader 콤보(shine/dissolve/distort 고정, 이름과 양방향 동기화), Texture Source 콤보(Auto/탭 목록, name 기반 auto-match `fxs_shine_X → fxt_X` 변환), Slot 콤보. `result["texture_source"]` 출력 + 호출처가 그대로 저장. (9) **FX Texture Builder 요약 배지 (메인 UI)** — `⊞ FX Texture · 2 tabs · 4 slots` 형식. 다이얼로그 안 열어도 세션 저장 상태를 버튼 텍스트에서 즉시 확인. 빈 상태(0 tabs)면 `⊞ FX Texture`만. 갱신 트리거: `_load_session`, dialog `closeEvent`, `_auto_export_fx_textures`. (10) **9-slice 영속화 이중화** — Setup Textures가 `_slice_info.json` 파싱 후 각 PNG의 `TextureImporter.spriteBorder = Vector4(L, B, R, T)`로 함께 설정. PNG의 `.meta` 파일에 9-slice 정보 영속 → 다른 폴더로 이동해도 `.meta`가 따라가서 정보 유지. `ApplySliceInfoToAtlas`에 fallback `ApplySliceFromTextureMeta()` 추가 (JSON 없으면 `.meta` `spriteBorder` 읽어 atlas border 자동 적용). (11) **Apply 9-Slice Info 버튼 검색 범위 확장** — atlas asset 폴더(+하위) 외에 **Layout JSON 폴더(+하위)** 도 함께 검색. 사용자가 새 폴더에서 atlas 만들고 원본 export 폴더 `_slice_info.json`을 그대로 활용 가능 (파일 복사 불필요). atlas와 무관한 별도 폴더에서 새 atlas 재패킹 후 한 번 클릭으로 9-slice border 복원
+
+- **FX Slot 위치 기반 통일 (Phase 54 — ▲/▼ 제거 + X 좌표 ancestor + INSERT + 라벨 가시화)**: fx_slot placeholder의 위치/소유권 결정을 트리 위치만으로 통일. (1) **▲/▼ 화살표 UI 제거** — paint/hit-test/click/hover-cursor 모두 제거. position 변경은 drag와 Alt+화살표로만 가능 (`fx_slot_position_change_requested` 시그널은 유지하되 클릭 path 사라짐). (2) **X 좌표 ancestor 매핑** — drag 중 mouse X를 들여쓰기 그리드(`_INDENT_PX=16`)로 환산하여 target의 ancestor 자동 결정. layer 위로 끌면 그 layer의 fx_slot, 한 단계 왼쪽으로 끌면 직속 group fx_slot, 더 왼쪽이면 상위 group. base_x=62(POT off) or 76(POT on). `_resolve_owner_from_x(target_row, mouse_x, model)` 헬퍼. mouseRelease 시 owner 정보가 source dict의 `_drop_owner` 키로 첨부되어 `_on_fx_slot_move_requested`에 전달. (3) **Drop indicator 라벨 (QLabel widget)** — viewport 상단 가운데에 큰 알약 모양 라벨이 드래그 중 표시. 텍스트 `▲ ABOVE [name] layer · slot #N` / `▼ BELOW [name] layer · slot #N` / `▼ inside [name] group · slot #N` / `(no target)`. 색상: INSERT=보라(#B084EB), SWAP=주황(#E8A317, deprecated), no-action=회색. `_fx_drag_label` 멤버 위젯 + `_show_fx_drag_label()`/`_hide_fx_drag_label()` 헬퍼. paint 의존 없이 Qt가 직접 렌더 → 안정성 ↑. (4) **Placeholder 위 drop = INSERT (이전: SWAP)** — target placeholder의 owner에 source slot을 `drop_position`(above=`target_si`, below=`target_si+1`) 위치에 끼워넣음. same-owner에서는 source 제거로 밀린 인덱스 보정(`src_si < insert_at`이면 `-1`). 새 slot의 position은 target placeholder의 position을 따라 시각상 인접 유지. (5) **다이얼로그 position 콤보 제거** — Add/Edit FX slot 다이얼로그 (layer + group) 모두에서 Position combo 제거 → 안내 텍스트 "위치는 드래그/Alt+↑/↓로 조정". 신규 placeholder는 기본 `position="above"`, 편집은 기존 값 보존. (6) **Alt+↑/↓** = `fx_slot_move_requested` 시그널 → INSERT 핸들러 (자동 일관). `_is_same_owner_target` skip 로직 유지. (7) **Alt+←/→** = outdent/indent — X 좌표 한 단계 왼쪽/오른쪽 이동과 동일 시맨틱. `fx_slot_outdent_requested`/`fx_slot_indent_requested` 시그널 그대로. (8) **JSON `position` 필드 + NGUI C# 임포터 동작은 변경 없음** — 데이터 모델/Backend/Export 완전 호환. UI에서 위치로 자동 결정되어 데이터에 저장. (9) **로그**: `[FX-INSERT-ADJ] → layer(N) at #M pos=above (same_owner=...)` / `[FX-DROP] src=... → owner=... (target_row=...) x_owner=YES/NO`
+
+- **FX Slot 다이얼로그 다중 슬롯 정확 편집 + texture_source 보존 (버그 수정)**: 그룹 fx_slot placeholder 더블클릭 시 다이얼로그가 항상 첫 슬롯 데이터만 표시하던 버그 수정. 시그널 `group_fx_slot_edit_requested = Signal(tuple, int)` (slot_index 추가). 3 emitter 모두 placeholder의 `_slot_index` 전달, 신규 추가 모드는 -1. 핸들러 `_on_group_fx_slot_edit_requested(group_path, slot_index)`가 `get_group_fx_slots()[slot_index]`로 정확한 슬롯 읽음. OK 시 `set_group_fx_slot_at()` (편집) 또는 `add_group_fx_slot()` (추가). 또한 OK 시 기존 슬롯의 `texture_source` 명시적으로 보존 (이전엔 매번 `{"type":"auto"}`로 덮어쓰던 추가 버그도 수정)
+
+- **Per-Layer FX Slot (레이어에 붙는 mesh/particle placeholder)**: NGUI/UGUI 씬에서 PSD 레이어에 mesh/particle effect를 부속으로 끼워 넣을 때 depth 공간 + GameObject 자동 확보. 레이어 우클릭 → "Add FX slot…" → 다이얼로그(name + depth_count + position). 듀얼 배열 `_art_fx_slot` (원소=(name:str, depth_count:int, position:str) 3-tuple or None, position="above"/"below", PSD layer 메타). **시각 표현 (placeholder 행)**: 레이어 리스트에서 parent의 자식 들여쓰기로 별도 얇은 행(22px) 표시. 좌측 이름 + 우측 보라 알약 배지 `+N` (Phase 54에서 ▲/▼ 삼각형 paint 제거됨 — position은 트리 위치/드래그로 결정). 트리 가이드라인도 정상 표시. 들여쓰기는 일반 art 레이어의 썸네일 위치(`_INDENT_PX*depth + _COL_THUMB_X`)와 일치. 체크/눈/rename inline 편집 없음. 클릭/더블클릭/우클릭 모두 편집 다이얼로그 또는 컨텍스트 메뉴 호출, preview_requested에서 제외. JSON v5 layer entry에 `fx_slot: {name, depth_count, position}` 필드. **NGUI 임포터**: position="above"면 parent sprite *자식*으로 빈 GameObject(`{name}+{depth_count}`) + UIWidget(투명 color, 부모 sprite와 같은 크기) 자동 생성 + `currentDepth += depthStep × depth_count` 증가. position="below"면 parent 생성 *전*에 placeholder 생성 후 parent 생성 직후 reparent. 디자이너가 그 자리에 mesh/particle prefab drag&drop만 하면 됨 → trophy 등 parent와 함께 이동/회전. **UGUI 임포터**: parent sprite 자식으로 빈 GameObject + RectTransform(stretch 전체) 자동 생성. position="below"면 `SetAsFirstSibling()` (먼저 렌더 = 뒤쪽). Unity GameObject 이름에 `+N` 포함하여 depth_count 시각 식별 (`fxs_shine_bi+10`). Undo 12-tuple/세션 저장/Restore 포함. `FxSlotRole = UserRole + 15`. Model helpers: `is_fx_slot(row)`, `fx_slot_parent_art_idx(row)`, `fx_slot_position(slot)`. paint 안에서 변수명 `_fx_model`로 분리하여 일반 art 분기 `model`과 충돌 회피 + try-except 안전망
+
+- **Per-Layer 9-Slice (레이어별 9-슬라이스)**: NGUI/UGUI Sliced sprite용 border 지정 + 중앙 영역 trim으로 리소스 절약. Settings 패널 별도 행에 `9-Slice L/R/T/B` 스핀박스 (단일 레이어 선택 시만 활성, 80px 폭) + Auto/Clear 버튼 + 상태 hint 라벨(현재 선택/border 값 실시간) + 프리뷰 상단 ⫾⫾ 토글 버튼(보라 #B084EB)으로 4개 에지 드래그 핸들 편집. 듀얼 배열 `_art_slice` (원소=(L,R,T,B) tuple or None, PSD layer-local 픽셀). `Auto` 버튼으로 픽셀 분석 기반 자동 추정(좌/우/상/하 동일 픽셀 구간 탐지, numpy 사용). `Clear` 버튼으로 해제 (편집 모드 ON 중에는 가이드 (0,0,0,0)로 유지하여 재작업 가능). 모드 진입 시 default (0,0,0,0) — 사용자가 드래그한 방향만 값 증가. hit-test는 "가장 가까운 에지" + 레이어 영역 바깥 rad만큼 허용. 더블클릭은 핸들 근처일 때만 리셋, 빈 영역은 100% 줌 리셋으로 폴스루. 드래그 중 라이브 스핀박스/hint 갱신 (`slice_border_dragging` 시그널, 모델/Undo 불변), release 시 1회 모델/Undo 저장. Export 파이프라인 `ManualCrop → AutoCrop → NineSliceTrim → Scale → Pad → POT`에 backend `apply_nine_slice_trim()` 추가 — 중앙 영역을 **`center_px=4`px** sample로 압축 (예: 212x54 버튼 → 44x54, 약 80% 절약). center_px=1 → 4 변경 이유: NGUI Sliced shader의 9-segment 경계 bleed로부터 코너 라운드 분리. atlas padding도 2 → **4** 증가 (sprite간 bilinear bleed 방지). **Self-Edge Extrude (`extrude_px=2`, 기본 적용)**: NineSliceTrim 후 sprite 사방 2px에 자기 가장자리 픽셀을 복제한 buffer 자동 추가 + UISpriteData.border 좌표 +2 보정. 이로 인해 **atlas padding=2 (NGUI 팀 표준 정책)** 환경에서도 bilinear sampling이 인접 sprite를 닿아도 자기 자신 색이라 visual artifact 없음. 예: 사용자 border L/R=30 + center_px=4 → trim 결과 66x56 + extrude → **70x60, atlas borderL/R=32** (코너 30 + buffer 2가 함께 left/right edge segment에 포함되어 사용자 의도한 코너 영역 유지). `_apply_self_edge_extrude(img, border, n)` 헬퍼 (psd_extractor.py). 끄려면 `extrude_px=0`. L=R=0이면 가로 trim 스킵, T=B=0이면 세로 trim 스킵 (조기 반환 가드). JSON v4의 `slice: {border:{l,r,t,b}, original:{w,h}, type:"sliced"}` 필드. NGUI 임포터: `UISprite.type = Sliced` + atlas `UISpriteData.borderLeft/Right/Top/Bottom` 자동 기록 + width/height는 original 사용 (stretch 대상). UGUI 임포터: `TextureImporter.spriteBorder` 자동 설정 + `Image.Type = Sliced` + `RectTransform.sizeDelta = original × scaleFactor`. 레이어 리스트에 ⫾⫾ 격자 인디케이터 (보라 #B084EB, Delegate). Undo 11-tuple/세션 저장/Restore 포함
+
+- **Eyedropper (색상 스포이드)**: 프리뷰 픽셀의 RGBA 색상을 sampling하여 여러 색상을 keep하는 도구. 프리뷰 포커스에서 `I` 키 → 모드 ON (CrossCursor), `ESC` 또는 `I` → OFF. 호버 시 마우스 옆 floating tooltip에 라이브 색상 표시 (swatch + `R:255 G:128 B:64 A:255 #ff8040`). 좌클릭으로 keep, 미들 드래그/휠 줌은 모드 중에도 평소처럼 동작. Keep 패널은 프리뷰 좌측 상단 floating QFrame (fixed width 240, 보라 #B084EB 헤더). 각 칩: swatch 28×28 + RGBA 텍스트 + hex (보라) + × 삭제 버튼. swatch/text 클릭 → hex 클립보드 복사 + 로그. Clear All 버튼 (keep 있을 때만 표시). 동일 색상 keep 시 중복 없이 맨 위로 이동. 알파 0 픽셀은 "transparent" 표시 + 점선 빈 swatch + hex 복사 무시. 원본 픽셀에서 sampling (pixmap → QImage 캐시), 레이어 전환 시 자동 갱신. 단축키 도움말에 I 키 추가. PreviewView 시그널: `color_picked(int,int,int,int)`, `eyedropper_mode_changed(bool)`
+
+- **Per-Layer Manual Crop (레이어별 수동 크롭)**: 사용자가 프리뷰에서 4-edge/4-corner 드래그 핸들로 keep rect 지정. 글로벌 auto crop이 못 잡는 약한 알파(1~5) 영역도 정확히 잘라낼 수 있음. 프리뷰 상단 ✂ 토글 버튼(#4FC1E9)으로 편집 모드 진입 (단일 art 레이어 선택 시만 활성). 핸들 드래그/내부 이동/더블클릭 리셋. cyan 점선 경계 + dim 영역 + 크기 텍스트. `_art_crop_rect` 배열 (듀얼 배열 패턴, (L,T,R,B) tuple 또는 None, PSD layer-local 좌표). Settings Crop 체크와 **무관하게 항상 적용** (사용자 의도 존중). Export 파이프라인: `Extract → ManualCrop → AutoCrop → Scale → Pad → POT → ColorMode → Save`. Unity 좌표 보정은 manual+auto `dx/dy` 합산. **알파 bbox magnetic snap**: 드래그 중 핸들이 알파>0 콘텐츠 경계로부터 8뷰포트픽셀 이내일 때 자동 스냅, 노란색 굵은 실선으로 강조. 정수 픽셀 유지. **레이어 리스트에 ✂ 인디케이터** (cyan, Delegate에서 CropRectRole 기반 그리기) — 편집 모드와 무관하게 manual crop이 설정된 레이어를 시각적으로 식별. Undo/Redo(10-tuple)/세션 저장에 포함. Restore 시 초기화
 - **PSD Export (바이너리)**: rename된 레이어명으로 PSD 파일 직접 저장. psd-tools `psd.save()` 대신 바이너리 레벨 수정 (Pascal string + luni Unicode 블록만 변경, 나머지 원본 바이트 보존) — Photoshop 호환성 보장
 
 #### GUI 레이아웃 (타이틀 없는 패널 구조)
@@ -100,7 +170,7 @@
 | +-- QSplitter(H) -----------------------------------------------+|
 | | QListView (가상화)          |                                  ||
 | | [01][✓][eye][thumb] name    | QGraphicsView 프리뷰             ||
-| | [02][✓][eye][thumb] name    |  ┌── 100%|▢|□|┌┘|✛|◎|◎|Info|Fit ─┐    ||
+| | [02][✓][eye][thumb] name    |  ┌── 100%|▢|□|┌┘|✂|✛|◎|◎|Info|Fit ┐    ||
 | | [03][ ][eye][thumb] name    |  │                          │    ||
 | |  (dim name if eye off)      |  │    [Tab: PSD 정보]       │    ||
 | |  ▼ Group Header (접기 가능) |  │                          │    ||
@@ -110,7 +180,7 @@
 | |                             | [S1][S2][S3][S4][S5][검색란    ] ||
 | +----------------------------+----------------------------------+|
 +------------------------------------------------------------------+
-| Rename [mode▼] [옵션 인라인] ... [Rename] [Clear]                 |
+| Rename [mode▼][?] [옵션 인라인] ... [Rename] [Clear]              |
 | [Ollama|Groq] [model▼] [Key][→][tokens] (Auto 모드)              |
 | Edit [←][→]│[Find___]→[Replace___][All]│[+Prefix][+Suffix][+# ↓][Apply Edit][Reset]|
 +------------------------------------------------------------------+
@@ -137,6 +207,7 @@
 - **Dim 슬라이더**: 호버 시 비활성 레이어 투명도 조절 (0~100%, 기본 30%, 라벨 더블클릭으로 리셋)
 - **Tint 모드**: 비활성 레이어를 단색 실루엣으로 표시 (색상 선택 가능, QPainter CompositionMode_SourceIn)
 - **BG 색상**: 프리뷰 배경을 투명(체커보드)/흰/검/빨/초/파/커스텀으로 변경
+- **Manual Crop 편집 모드**: ✂ 토글 ON (단일 art 레이어 선택 시) → 4-edge/4-corner 드래그 핸들 + 내부 move + 더블클릭 리셋. cyan 점선 경계 + dim 영역. 핸들 드래그 중 알파>0 콘텐츠 경계로 자동 magnetic snap (8뷰포트픽셀 이내), 스냅 시 노란색 굵은 실선으로 강조. 정수 픽셀 유지
 
 #### 키보드/마우스 동작
 - **Ctrl+Z**: Undo (Rename/Check/Visible 상태 되돌리기)
@@ -155,7 +226,15 @@
 - **Ctrl+Enter (Edit 필드)**: Apply Edit 실행
 - **Alt+더블클릭 (Rename/Find/Replace 필드)**: `_` 구분자 기준 개별 단어 선택
 - **체크박스 클릭**: 개별 체크 토글
-- **휠 (프리뷰)**: 줌 (10%~1600%, 단계별)
+- **레이어 우클릭**: FX Slot 컨텍스트 메뉴 — Add/Edit FX slot / Remove FX slot
+- **FX slot placeholder 행 더블클릭/우클릭**: 편집 다이얼로그 (name + depth_count + position(above/below))
+- **휠 (프리뷰)**: 줌 (10%~1600%, 단계별) — 마우스 커서 위치를 줌 중심점으로 사용 (Qt `AnchorUnderMouse` + 상대 scale)
+- **미들 버튼 드래그 (프리뷰)**: 화면 팬 (ClosedHandCursor). 좌클릭 팬은 제거 — 편집 작업(피봇/Manual Crop/9-Slice/Eyedropper)과 충돌 방지
+- **I 키 (프리뷰 포커스)**: Eyedropper 모드 토글
+- **ESC (프리뷰)**: Eyedropper 모드 종료
+- **좌클릭 (Eyedropper 모드)**: 현재 호버 픽셀 색상을 keep 패널에 추가
+- **드래그 (프리뷰, ✂ 모드)**: Manual crop rect 핸들 드래그 (4 코너/4 에지/내부 move). 알파 콘텐츠 경계 magnetic snap
+- **더블클릭 (프리뷰, ✂ 모드)**: Manual crop rect 리셋 (해제)
 - **더블클릭 (프리뷰)**: 100% 리셋
 - **더블클릭 (레이어 빈 영역)**: PSD 파일 열기 다이얼로그
 - **더블클릭 (PSD 경로란)**: 마지막 열었던 파일 자동 로드
@@ -171,7 +250,7 @@
 - **C# 고유 클래스명**: 출력 폴더명에서 PascalCase 접미사 생성 (예: `260225_giftBox_UGUI_v1` → `FXC_PSDImporter_260225GiftboxUguiV1`). 여러 PSD Export 시 네임스페이스 충돌 방지. 데이터 클래스(PSDLayout 등)는 Editor 클래스 내부에 중첩하여 전역 네임스페이스 충돌 방지
 - **Pivot 시스템**: 9방향 피봇 콤보 (Top-Left ~ Bottom-Right, 기본 Bottom-Center). JSON v3에 pivot 좌표 포함, C# 임포터에서 동적 anchor 적용
 - **파일명 충돌 방지**: 동일 레이어명이 있을 때 자동 접미사(_1, _2) 추가하여 파일 덮어쓰기 방지
-- **Export 파이프라인**: Extract(RGBA) → Crop → Scale → Pad → POT → ColorMode → Save/OxiPNG
+- **Export 파이프라인**: Extract(RGBA) → ManualCrop → AutoCrop → Scale → Pad → POT → ColorMode → Save/OxiPNG. `crop_offsets`에 manual+auto `dx/dy` 합산 → Unity 좌표 보정
 - **Export POT 분리**: Settings POT는 프리뷰 설정용, Export 버튼 왼쪽 POT 체크박스로 실제 내보내기 제어. POT 이미지는 `POT/` 서브폴더에 별도 생성 (기본 이미지는 항상 Pad만 적용)
 - **다중 배율**: 배율별 서브폴더 구조, Unity JSON도 배율별 생성 (좌표 스케일 적용). C# 임포터는 1x에서만 1회 생성
 - **Unity 폴더 접미사**: Unity ON 시 출력 폴더명에 `_UGUI`/`_NGUI` 자동 삽입 (기존 접미사 중복 방지, 버전 앞 위치). regex로 `_v\d+` 분리 후 삽입
@@ -258,8 +337,14 @@ d:\_AI Tool\PSD\
     psd_extractor_gui_ctk.md # CTk GUI 상세 사용법
     psd_extractor.md      # Standalone CLI 상세 문서
     layer_exporter.md     # Photoshop 기반 도구 상세 문서
+    naming_convention.md  # 네이밍 가이드 (전문 1103줄)
+    naming_guide.docx     # 프린트용 Word 문서 (흑백 최적화)
+    generate_naming_guide_docx.py  # Word 문서 생성 스크립트 (python-docx)
     dev_journal.md        # 개발 일지 (Phase별 의사결정 기록)
     unity_dev_history.md  # Unity UGUI Import 개발 히스토리
+    unity_technical_notes.md # Unity 기술 노트
+    ngui_atlas_antialiasing_fix.md # NGUI atlas anti-aliasing 손상 진단/해결 (UITexturePacker 우회 기법)
+    automation_plan.md    # 자동화 계획
     human_vs_ai_workflow.md # 인간 vs AI 워크플로우 비교 토론 기록
   _sample/
     ch.psd                # 테스트용 캐릭터 PSD (23레이어)
@@ -328,12 +413,15 @@ PSDExtractorQt (QMainWindow)
 │   ├── _initial_pivot — PSD 로드 시점 피봇 스냅샷 (Restore용)
 │   ├── _art_crop / _crop — 레이어별 자동 크롭 ON/OFF (소스/뷰 배열)
 │   ├── _initial_crop — PSD 로드 시점 크롭 스냅샷 (Restore용)
-│   └── Roles: Checked, Visible, Thumbnail, Rename, LayerInfo, OrigNo, IsGroup, TreeDepth, Pot, Lock, Pivot, Crop
+│   ├── _art_crop_rect / _crop_rect — 레이어별 수동 크롭 rect ((L,T,R,B) or None, PSD layer-local 좌표) (소스/뷰 배열)
+│   ├── _initial_crop_rect — PSD 로드 시점 수동 크롭 스냅샷 (Restore용)
+│   └── Roles: Checked, Visible, Thumbnail, Rename, LayerInfo, OrigNo, IsGroup, TreeDepth, Pot, Lock, Pivot, Crop, CropRect
 ├── LayerDelegate (QStyledItemDelegate)
 │   ├── 그룹 헤더 행: ▼/▶ 아이콘 (#b0964a) + 원본 그룹명 + rename 입력란 (클릭 편집)
 │   ├── 아트 레이어 행: No + 체크박스 + 눈 + [POT] + 썸네일 + 이름 (1줄 표시, 그룹 경로 숨김)
 │   ├── _pot_column_visible — POT 아이콘 열 표시 플래그 (Settings POT 연동)
 │   ├── _crop_column_visible — Crop 인디케이터 표시 플래그 (Settings Crop 연동)
+│   ├── Manual crop 인디케이터: `CropRectRole != None`인 레이어에 cyan(#4FC1E9) ✂ 아이콘 (14px) — 편집 모드 OFF여도 항상 표시
 │   ├── _rename_col_w — rename 열 너비 (드래그 조절 가능, 세션 저장)
 │   ├── 선택 하이라이트: No 번호를 악센트 컬러(#2680EB)로 표시
 │   ├── Rename 중복: rename 텍스트가 중복이면 빨간색(#e05050) 표시
@@ -349,7 +437,7 @@ PSDExtractorQt (QMainWindow)
 ├── PreviewView (QGraphicsView) — 체커보드/단색 배경, 줌, 아웃라인, 오버레이
 │   ├── _info_overlay (QLabel) — Tab 토글 PSD 정보 (좌상단)
 │   ├── _bottom_bar (QWidget) — Tint | BG | Dim 오버레이 (하단 가운데)
-│   ├── _top_bar (QWidget) — 줌% | ▢ | □ | ┌┘ | ✛ | ◎ | ◎ | Info | Fit 오버레이 (상단 오른쪽)
+│   ├── _top_bar (QWidget) — 줌% | ▢ | □ | ┌┘ | ✂ | ✛ | ◎ | ◎ | Info | Fit 오버레이 (상단 오른쪽)
 │   ├── _layer_info_text / _layer_info_visible — 레이어 정보 오버레이 (이미지 하단)
 │   ├── _crosshair_visible — 십자선 토글 상태
 │   ├── _pivot_items / _pivot_pos — 글로벌 피봇 마커 아이템 + 위치 비율 (px, py)
@@ -359,7 +447,26 @@ PSDExtractorQt (QMainWindow)
 │   ├── set_layer_pivot() — 레이어별 피봇 마커 설정 (9-point 스냅 + 좌표 텍스트)
 │   ├── _crop_bbox / _crop_overlay_visible — 크롭 영역 바운딩박스 + 오버레이 표시 플래그
 │   ├── set_crop_bbox() — 크롭 오버레이 설정 (dim 영역 + 주황 점선 경계 + 크기 텍스트)
-│   ├── drawForeground() — 레이어 정보 + 십자선 + 크롭 오버레이를 뷰포트/씬 좌표로 그림
+│   ├── _eyedropper_mode / _eyedropper_tooltip / _eyedropper_sample_cache — 색상 스포이드 모드/툴팁/sampling QImage
+│   ├── color_picked (Signal int×4) / eyedropper_mode_changed (Signal bool) — 외부 알림
+│   ├── set_eyedropper_mode() / _sample_color_at() / _update_eyedropper_tooltip() — 모드/sampling/UI
+│   ├── _slice_edit_mode / _slice_border / _slice_layer_size / _dragging_slice_edge — 9-slice 편집 상태
+│   ├── slice_border_changed (Signal) / slice_border_dragging (Signal) — release / 드래그 라이브 분리
+│   ├── set_slice_edit_mode() / set_slice_border() / _hit_test_slice_edge() / _apply_slice_edge_drag() — 9-slice API
+│   ├── scrollContentsBy() override — 팬/스크롤 시 오버레이를 _reposition_overlays + _external_reposition_cb로 재배치
+│   ├── _external_reposition_cb — 외부 패널(eyedropper) 위치 보정 hook
+│   ├── _set_zoom(new_pct, anchor_vp_pos=None) — anchor 사용 시 `AnchorUnderMouse` + 상대 scale (Qt 권장 패턴)
+│   ├── _manual_crop_edit_mode / _manual_crop_rect / _manual_crop_layer_size — 수동 크롭 편집 상태
+│   ├── _dragging_crop_handle / _crop_drag_orig_rect / _crop_drag_start_scene — 핸들 드래그 추적
+│   ├── _manual_crop_snap_bbox / _snap_active_edges — 알파 bbox magnetic snap 데이터 + 활성 edge
+│   ├── manual_crop_changed (Signal(object)) — 수동 크롭 rect 변경 시그널 ((L,T,R,B) or None)
+│   ├── set_manual_crop_edit_mode() — ✂ 편집 모드 ON/OFF + 핸들 표시/숨김
+│   ├── set_manual_crop_rect() / set_manual_crop_snap_bbox() — 외부에서 rect/스냅 데이터 설정
+│   ├── _hit_test_crop_handle() — 'tl/tr/bl/br/t/b/l/r/move' or None 반환 (줌 무관 8px 반경)
+│   ├── _apply_crop_handle_drag() — 핸들 드래그 시 rect 갱신 + 알파 snap + 정수 픽셀
+│   ├── _snap_x() / _snap_y() — 알파 bbox 경계 magnetic snap (좌/우/상/하 핸들별 우선순위)
+│   ├── _clamp_crop_rect() — 레이어 범위 clamp + 최소 1x1px 보장
+│   ├── drawForeground() — 레이어 정보 + 십자선 + 크롭 오버레이 + 수동 크롭 (cyan 점선/dim/핸들/스냅 강조)
 │   ├── set_bg_color() — 투명(None)/단색(QColor) 배경 전환
 │   ├── set_psd_info() — Tab 오버레이 텍스트 설정
 │   ├── set_layer_info() — 레이어 정보 텍스트 설정 (이미지 하단 가운데)
@@ -386,6 +493,12 @@ PSDExtractorQt (QMainWindow)
 ├── _groq_usage_label / _groq_tokens_used — Groq 토큰 사용량 표시
 ├── _ColorItemDelegate — QComboBox 모델 항목별 색상 (추천 모델 초록색)
 ├── _help_popup (QLabel) — ? 버튼 호버 시 단축키 설명 팝업
+├── _naming_tip_btn (QPushButton) — Rename 모드 콤보 옆 ? 버튼 (네이밍 가이드 다이얼로그 진입)
+├── _open_naming_guide_dialog() — 3탭 네이밍 가이드 (빠른 규칙/권장 구조/사전 검색)
+├── _NAMING_QUICK_RULES / _NAMING_PSD_STRUCTURE / _NAMING_EXPORT_RESULT — 다이얼로그용 정적 데이터
+├── _model_tip_btn (QPushButton) — Provider 토글 옆 ? 버튼 (모델 가이드 다이얼로그 진입)
+├── _open_model_tip_dialog() / _select_model_from_tip() — 모델 가이드 다이얼로그 + 모델 선택 핸들러
+├── _MODEL_TIPS (dict) — provider별 모델 카드 정보 (tier/장점/단점/적합)
 ├── _make_btn_icon() — QPainter로 커스텀 아이콘 생성 헬퍼
 ├── _icon_order / _icon_visible / _icon_deselect / _icon_tree / _icon_restore — 아이콘 드로잉 함수
 ├── _session_path() / _save_session() / _load_session() — 세션 JSON 저장/복원
@@ -420,6 +533,18 @@ PSDExtractorQt (QMainWindow)
 ├── _on_crop_overlay_toggled() — 프리뷰 Crop 오버레이 표시/숨김 → _crop_overlay_visible 제어
 ├── _update_crop_preview() — PIL getbbox()로 크롭 영역 계산 → preview_view.set_crop_bbox() (_crop_overlay_visible 가드)
 ├── _refresh_crop_overlay() — CropRole dataChanged/threshold 변경 시 오버레이 갱신
+├── _slice_edit_btn (QPushButton, checkable) — 프리뷰 상단 ⫾⫾ 토글 (#B084EB, 단일 art 레이어 선택 시만 활성)
+├── _slice_l/r/t/b_spin (QSpinBox) — Settings 별도 행 L/R/T/B 스핀박스 (80px, prefix 포함)
+├── _slice_auto_btn / _slice_reset_btn / _slice_hint_label — Auto 추정 / Clear / 상태 표시
+├── _on_slice_border_changed() / _on_slice_border_dragging() — release/드래그 라이브 핸들러 분리
+├── _eyedropper_panel (QFrame, fixed width 240) — 프리뷰 좌측 상단 floating keep 패널
+├── _kept_colors (list of (r,g,b,a)) — 일시적 keep 색상 (세션 미저장)
+├── _build_eyedropper_panel() / _make_color_chip() / _rebuild_kept_chips() — 패널/칩 UI 빌드
+├── _on_eyedropper_pick() / _remove_kept_color() / _clear_kept_colors() — keep/삭제 핸들러
+├── _crop_edit_btn (QPushButton, checkable) — 프리뷰 상단 ✂ 토글 (#4FC1E9, 단일 art 레이어 선택 시만 활성)
+├── _active_crop_edit_art_idx (int|None) — 현재 ✂ 편집 중인 art index
+├── _on_crop_edit_toggled() — ✂ 토글 → PreviewView 편집 모드 ON/OFF + 알파 bbox 계산 + rect 동기화
+├── _on_manual_crop_changed() — PreviewView signal 수신 → _push_undo_snapshot + model._art_crop_rect 갱신 + dataChanged 발신
 ├── _reset_pivot_btn (QPushButton) — Settings Row1 전체 레이어 피봇 center 초기화
 ├── _reset_all_layer_pivots() — 모든 _art_pivot/pivot을 None으로 초기화 (Undo 가능)
 ├── _update_info_label() — PSD 정보 바 HTML 갱신 (hidden/duplicate 카운트 포함)
@@ -515,7 +640,8 @@ _on_translate_done()
 - 앱 UI 표시 3초 후 `_preload_ollama()` 실행 (GPU에 모델 미리 로드)
 - 모드 선택 시 `_warmup_ollama()` 백그라운드 실행 (추가 콜드 스타트 방지)
 - 그룹 번역 시 prefix="" (fxt_ 접두사 제외 — 사용자가 수동 추가하지 않는 한 prefix는 이미지에만)
-- Groq Provider: 동적 모델 목록 API 조회, 추천 모델(qwen3-32b, llama-3.3-70b) 초록색 표시, 토큰 사용량 누적 표시(K/M 포맷)
+- Groq Provider: 동적 모델 목록 API 조회, 추천 모델(llama-3.3-70b-versatile, moonshotai/kimi-k2-instruct, llama-3.1-8b-instant) 초록색 표시, 토큰 사용량 누적 표시(K/M 포맷)
+- Ollama Provider: 추천 모델 콤보 사전 등록 (qwen2.5:3b/7b 추천 — CJK 강함, gemma2:2b/9b/llama3.2:3b/phi3.5:3.8b 보조). 사용자가 ollama pull로 미리 받아둬야 함
 
 ## 네이밍 컨벤션
 
@@ -543,15 +669,17 @@ JSON 파일명은 PSD 파일명에서 날짜(YYMMDD_)/버전(_v1, _01) 제거 �
 ### UGUI 워크플로우
 1. PSD Extractor에서 **Unity 체크 ON, UGUI** → Export
 2. 출력 폴더를 Unity 프로젝트에 통째 복사
-3. Unity 메뉴 **Tools > FXC PSD Importer** 실행
-4. JSON Browse → Setup Sprites → Import to Scene
+3. 빈 GameObject 생성 → 같은 폴더의 `FXC_PSDImporter_<Stem>.cs` 컴포넌트를 드래그/Add
+4. Inspector에서 JSON 자동 할당 확인 → **Setup Sprites** → **Import to Scene**
+   (※ 글로벌 Unity Tools 메뉴를 추가하지 않음. 컴포넌트 단위로만 동작 — 팀 공유 프로젝트 오염 방지)
 
 ### NGUI 워크플로우
 1. PSD Extractor에서 **Unity 체크 ON, NGUI** → Export
 2. 출력 폴더를 Unity 프로젝트에 통째 복사
-3. Unity 메뉴 **Tools > FXC PSD Importer (NGUI)** 실행
-4. JSON Browse → **Setup Textures** → **Make Atlas** → Base Depth/Step 설정 → **Import to Scene**
-5. 또는 **Import All** 버튼으로 Setup → Atlas → Import 3단계를 1클릭 실행
+3. 빈 GameObject 생성 → 같은 폴더의 `FXC_PSDImporterNGUI_<Stem>.cs` 컴포넌트를 드래그/Add
+4. Inspector에서 JSON 자동 할당 확인 → **Setup Textures** → **Make Atlas** → Base Depth/Step 설정 → **Import to Scene**
+5. 또는 Inspector의 **Import All** 버튼으로 Setup → Atlas → Import 3단계를 1클릭 실행
+   (※ PSD별 유니크 클래스명 (`FXC_PSDImporterNGUI_<Stem>`)으로 Custom Inspector만 노출. 글로벌 Tools 메뉴/EditorWindow 추가 안 함 — 팀 공유 프로젝트에 흔적 남기지 않음)
 - **Setup Textures**: 이미지 폴더 내 텍스처를 Sprite/Readable/Uncompressed/FullRect/npotScale=None으로 일괄 설정
 - **Make Atlas**: NGUI UITexturePacker로 Atlas 자동 생성 (NGUIAtlas + Material + packed PNG, padding=2, RGBA32, 4096). 스크립트 atlasObject에 자동 반영
 - **Import All**: Setup Textures + Make Atlas + Import to Scene 순차 실행 (보라색 버튼)
@@ -627,7 +755,9 @@ GameObject (FXC_PSDImporter 컴포넌트)
 - Undo 지원 (Ctrl+Z로 되돌리기)
 - group_path 기반 고유 그룹 매칭 (동일 이름 그룹 충돌 방지)
 - v1/v2/v3 JSON 하위호환
-- **통합 순서 (Unified Ordering)**: `psd.descendants()` 1회 순회로 그룹과 레이어에 단일 통합 순번 부여. C# 임포터에서 오름차순 정렬하여 PSD back→front = Unity sibling 0→N (UGUI 렌더 순서 일치)
+- **통합 순서 (Unified Ordering)**: `psd.descendants()` 1회 순회로 그룹과 레이어에 단일 통합 순번 부여 (back→front, 낮은 order=back). C# 임포터의 sibling 정렬 방향은 **UGUI/NGUI 분리**:
+  - **UGUI**: sibling 순서 = 렌더 순서. 오름차순 정렬 → sibling 0 = back, sibling N = front. PSD 렌더 결과와 일치 (Unity 하이어라키 표시 순서는 PSD 앱 표시 순서와 반대)
+  - **NGUI**: 렌더는 `UISprite.depth`로 결정. sibling 순서는 시각용 → 내림차순 정렬하여 **PSD 앱 표시 순서(top→bottom = front→back)와 동일**한 하이어라키 표현. depth 할당은 back→front 그대로 유지
 - **Sprite 자동 설정**: Setup Sprites 시 TextureType=Sprite + MeshType=FullRect + GeneratePhysicsShape=off + mipmapEnabled=false + Uncompressed 일괄 적용
 
 ### NGUI 임포터 생성 구조

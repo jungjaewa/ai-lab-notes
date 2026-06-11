@@ -61,8 +61,14 @@ nav:
   - Teamplay_Gantt:
     - teamplay_gantt/index.md
     - Claude: teamplay_gantt/CLAUDE.md
+    - Design: teamplay_gantt/DESIGN.md
+    - Plan Automation: teamplay_gantt/PLAN-AUTOMATION.md
     - Plan: teamplay_gantt/PLAN.md
+    - Readme: teamplay_gantt/README.md
     - Skills Guide: teamplay_gantt/SKILLS_GUIDE.md
+    - Team Workflow: teamplay_gantt/TEAM-WORKFLOW.md
+    - Title Rules: teamplay_gantt/TITLE-RULES.md
+    - Weekly Automation: teamplay_gantt/WEEKLY-AUTOMATION.md
   - AI Lab Notes Manager:
     - ai-lab-notes-manager/index.md
     - Claude: ai-lab-notes-manager/CLAUDE.md
